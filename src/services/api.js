@@ -67,8 +67,8 @@ export async function fakeAccountLogin(params) {
   });
 }
 
-export async function fakeRegister(params) {
-  return request('/api/register', {
+export async function register(params) {
+  return request('/api/v1/user/register', {
     method: 'POST',
     body: params,
   });
