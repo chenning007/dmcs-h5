@@ -89,7 +89,7 @@ class BasicLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Ant Design Pro';
+    let title = 'DMCS Valley';
     if (routerData[pathname] && routerData[pathname].name) {
       title = `${routerData[pathname].name} - Ant Design Pro`;
     }
@@ -171,21 +171,21 @@ class BasicLayout extends React.PureComponent {
             </div>
             <GlobalFooter
               links={[{
-                title: 'Pro 首页',
-                href: 'http://pro.ant.design',
+                title: '清华大学首页',
+                href: 'http://www.tsinghua.edu.cn/',
                 blankTarget: true,
               }, {
                 title: 'GitHub',
-                href: 'https://github.com/ant-design/ant-design-pro',
+                href: 'https://github.com/chenning007/dmcs-h5',
                 blankTarget: true,
               }, {
-                title: 'Ant Design',
-                href: 'http://ant.design',
+                title: '清华大学精密仪器系',
+                href: 'http://www.tsinghua.edu.cn/publish/dpi/',
                 blankTarget: true,
               }]}
               copyright={
                 <div>
-                  Copyright <Icon type="copyright" /> 2017 蚂蚁金服体验技术部出品
+                  Copyright <Icon type="copyright" /> 2018 清华大学出品
                 </div>
               }
             />

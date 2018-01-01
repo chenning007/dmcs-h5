@@ -100,5 +100,9 @@ const proxy = {
   },
 };
 
-export default noProxy ? {} : delay(proxy, 1000);
+// export default noProxy ? {} : delay(proxy, 1000);
+
+export default {
+  'POST /api/(.*)': 'http://localhost:8080/dmcs/api/',
+};
 
