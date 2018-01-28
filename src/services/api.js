@@ -34,7 +34,7 @@ export async function addRule(params) {
 }
 
 export async function fakeSubmitForm(params) {
-  return request('/api/forms', {
+  return request('/api/device/addDevice', {
     method: 'POST',
     body: params,
   });

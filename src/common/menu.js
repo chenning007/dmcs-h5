@@ -14,17 +14,17 @@ const menuData = [{
     // hideInMenu: true,
   }],
 }, {
-  name: '表单页',
+  name: '设备管理',
   icon: 'form',
   path: 'form',
   children: [{
-    name: '基础表单',
+    name: '创建设备',
     path: 'basic-form',
   }, {
-    name: '分步表单',
+    name: '更新设备',
     path: 'step-form',
   }, {
-    name: '高级表单',
+    name: '高级设置',
     path: 'advanced-form',
   }],
 }, {
