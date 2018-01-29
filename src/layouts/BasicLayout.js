@@ -13,7 +13,7 @@ import SiderMenu from '../components/SiderMenu';
 import NotFound from '../routes/Exception/404';
 import { getRoutes } from '../utils/utils';
 import { getMenuData } from '../common/menu';
-import logo from '../assets/image.png';
+import logo from '../assets/image1.png';
 
 /**
  * 根据菜单取得重定向地址.
@@ -91,7 +91,7 @@ class BasicLayout extends React.PureComponent {
     const { pathname } = location;
     let title = 'DMCS Valley';
     if (routerData[pathname] && routerData[pathname].name) {
-      title = `${routerData[pathname].name} - Ant Design Pro`;
+      title = `${routerData[pathname].name} - DMCS Valley`;
     }
     return title;
   }
@@ -133,7 +133,7 @@ class BasicLayout extends React.PureComponent {
           location={location}
           isMobile={this.state.isMobile}
           onCollapse={this.handleMenuCollapse}
-        />
+       />
         <Layout>
           <GlobalHeader
             logo={logo}
