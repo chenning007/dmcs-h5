@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
-import logo from '../../assets/image.png';
+import logo from '../../assets/image2.png';
 import styles from './index.less';
 import { getMenuData } from '../../common/menu';
 

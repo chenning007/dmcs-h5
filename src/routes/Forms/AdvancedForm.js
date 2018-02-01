@@ -113,11 +113,12 @@ class AdvancedForm extends PureComponent {
     };
     return (
       <PageHeaderLayout
-        title="高级表单"
-        content="高级表单常见于一次性输入和提交大批量数据的场景。"
+        title="高级设置"
+        content="高级设置用于设备的查看以及删除。"
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="仓库管理" className={styles.card} bordered={false}>
+     {/*
+       <Card title="仓库管理" className={styles.card} bordered={false}>
           <Form layout="vertical" hideRequiredMark>
             <Row gutter={16}>
               <Col lg={6} md={12} sm={24}>
@@ -267,8 +268,8 @@ class AdvancedForm extends PureComponent {
               </Col>
             </Row>
           </Form>
-        </Card>
-        <Card title="成员管理" className={styles.card} bordered={false}>
+        </Card> */}
+        <Card title="设备管理" className={styles.card} bordered={false}>
           {getFieldDecorator('members', {
             initialValue: tableData,
           })(<TableForm />)}
