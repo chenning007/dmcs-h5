@@ -24,9 +24,9 @@ const fieldLabels = {
   type2: '任务类型',
 };
 
-const tableData = [{
-  key: '1',
-  workId: '00001',
+/*const tableData = [{
+ // key: '1',
+ // workId: '00001',
   name: 'John Brown',
   department: 'New York No. 1 Lake Park',
 }, {
@@ -39,7 +39,8 @@ const tableData = [{
   workId: '00003',
   name: 'Joe Black',
   department: 'Sidney No. 1 Lake Park',
-}];
+}];*/
+const tableData=null;
 
 class AdvancedForm extends PureComponent {
   state = {
