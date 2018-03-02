@@ -48,6 +48,9 @@ class AdvancedForm extends PureComponent {
   };
   componentDidMount() {
     window.addEventListener('resize', this.resizeFooterToolbar);
+    this.props.dispatch({
+      type: 'chart/fetch',
+    });
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeFooterToolbar);

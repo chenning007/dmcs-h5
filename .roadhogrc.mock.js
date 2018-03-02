@@ -68,8 +68,9 @@ const proxy = {
   'GET /api/fake_chart_data': getFakeChartData,
   'GET /api/profile/basic': getProfileBasicData,
   'GET /api/profile/advanced': getProfileAdvancedData,
-  'POST /api/v1/user/login': 'http://localhost:8080/dmcs',
-  'POST /api/v1/user/register': 'http://localhost:8080/dmcs',
+  'GET /api/device/queryDeviceInfo':'http://localhost:8080/dmcs',
+  //'POST /api/v1/user/login': 'http://localhost:8080/dmcs',
+  //'POST /api/v1/user/register': 'http://localhost:8080/dmcs',
   'GET /api/notices': getNotices,
   'GET /api/500': (req, res) => {
     res.status(500).send({
