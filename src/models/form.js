@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
-import { fakeSubmitForm } from '../services/api';
+import { fakeSubmitForm, fakeDeviceData } from '../services/api';
 
 export default {
   namespace: 'form',
@@ -15,9 +15,19 @@ export default {
     regularFormSubmitting: false,
     stepFormSubmitting: false,
     advancedFormSubmitting: false,
+    deviceinfo: [],
   },
 
   effects: {
+    *fetch(_, { call, put }) {
+      const response = yield call(fakeDeviceData);
+      yield put({
+        type: 'save',
+        payload: {
+          deviceinfo: response.deviceinfo,
+        },
+      });
+    },
     *submitRegularForm({ payload }, { call, put }) {
       yield put({
         type: 'changeRegularFormSubmitting',
@@ -61,6 +71,12 @@ export default {
   },
 
   reducers: {
+    save(state, { payload }) {
+      return {
+        ...state,
+        ...payload,
+      };
+    },
     saveStepFormData(state, { payload }) {
       return {
         ...state,
