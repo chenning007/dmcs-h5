@@ -2,6 +2,7 @@ import mockjs from 'mockjs';
 import { getRule, postRule } from './mock/rule';
 import { getActivities, getNotice, getFakeList } from './mock/api';
 import { getFakeChartData } from './mock/chart';
+import { getFakeFormData } from './mock/form';
 import { imgMap } from './mock/utils';
 import { getProfileBasicData } from './mock/profile';
 import { getProfileAdvancedData } from './mock/profile';
@@ -66,13 +67,14 @@ const proxy = {
   }),
   'GET /api/fake_list': getFakeList,
   'GET /api/fake_chart_data': getFakeChartData,
+  'GET /api/fake_form_data': getFakeFormData,
   'GET /api/profile/basic': getProfileBasicData,
   'GET /api/profile/advanced': getProfileAdvancedData,
   //'GET /api/device/queryDeviceInfo':'http://localhost:8080/dmcs',
   //'POST /api/v1/user/login': 'http://localhost:8080/dmcs',
   //'POST /api/v1/user/register': 'http://localhost:8080/dmcs',
 
-  'POST /api/login/account': (req, res) => {
+  'POST /api/v1/user/login': (req, res) => {
     const { password, userName, type } = req.body;
     if(password === '888888' && userName === 'admin'){
       res.send({
@@ -97,7 +99,7 @@ const proxy = {
     });
   },
 
-  'POST /api/register': (req, res) => {
+  'POST /api/v1/user/register': (req, res) => {
     res.send({ status: 'ok', currentAuthority: 'user' });
   },  
 
