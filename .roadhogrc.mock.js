@@ -68,9 +68,39 @@ const proxy = {
   'GET /api/fake_chart_data': getFakeChartData,
   'GET /api/profile/basic': getProfileBasicData,
   'GET /api/profile/advanced': getProfileAdvancedData,
-  'GET /api/device/queryDeviceInfo':'http://localhost:8080/dmcs',
+  //'GET /api/device/queryDeviceInfo':'http://localhost:8080/dmcs',
   //'POST /api/v1/user/login': 'http://localhost:8080/dmcs',
   //'POST /api/v1/user/register': 'http://localhost:8080/dmcs',
+
+  'POST /api/login/account': (req, res) => {
+    const { password, userName, type } = req.body;
+    if(password === '888888' && userName === 'admin'){
+      res.send({
+        status: 'ok',
+        type,
+        currentAuthority: 'admin'
+      });
+      return ;
+    }
+    if(password === '123456' && userName === 'user'){
+      res.send({
+        status: 'ok',
+        type,
+        currentAuthority: 'user'
+      });
+      return ;
+    }
+    res.send({
+      status: 'error',
+      type,
+      currentAuthority: 'guest'
+    });
+  },
+
+  'POST /api/register': (req, res) => {
+    res.send({ status: 'ok', currentAuthority: 'user' });
+  },  
+
   'GET /api/notices': getNotices,
   'GET /api/500': (req, res) => {
     res.status(500).send({
@@ -101,9 +131,9 @@ const proxy = {
   },
 };
 
-// export default noProxy ? {} : delay(proxy, 1000);
+ export default noProxy ? {} : delay(proxy, 1000);
 
-export default {
-  'POST /api/(.*)': 'http://localhost:8080/dmcs/api/',
-};
+//export default {
+//  'POST /api/(.*)': 'http://localhost:8080/dmcs/api/',
+//};
 

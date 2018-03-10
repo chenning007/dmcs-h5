@@ -41,9 +41,9 @@ export async function fakeSubmitForm(params) {
 }
 
 export async function fakeChartData() {
-  return request('/api/device/queryDeviceInfo');
+  return request('api/fake_chart_data');
 }
-///api/fake_chart_data
+
 export async function queryTags() {
   return request('/api/tags');
 }
@@ -56,7 +56,7 @@ export async function queryAdvancedProfile() {
   return request('/api/profile/advanced');
 }
 
-export async function queryDeviceInfo(){
+export async function queryDeviceInfo() {
   return request('/api/device/queryDeviceInfo');
 }
 
