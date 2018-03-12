@@ -63,11 +63,11 @@ export default class TableForm extends PureComponent {
     this.index += 1;
     this.setState({ data: newData });
   }
-  handleKeyPress(e, key) {
-    if (e.key === 'Enter') {
-      this.saveRow(e, key);
-    }
-  }
+ // handleKeyPress(e, key) {
+ //   if (e.key === 'Enter') {
+ //     this.saveRow(e, key);
+ //   }
+ // }
   handleFieldChange(e, fieldName, key) {
     const newData = [...this.state.data];
     const target = this.getRowByKey(key);
@@ -76,29 +76,29 @@ export default class TableForm extends PureComponent {
       this.setState({ data: newData });
     }
   }
-  saveRow(e, key) {
-    e.persist();
+  //saveRow(e, key) {
+  //  e.persist();
     // save field when blur input
-    setTimeout(() => {
-      if (document.activeElement.tagName === 'INPUT' &&
-          document.activeElement !== e.target) {
-        return;
-      }
-      if (this.clickedCancel) {
-        this.clickedCancel = false;
-        return;
-      }
-      const target = this.getRowByKey(key) || {};
-      if (!target.workId || !target.name || !target.department) {
-        message.error('请填写完整成员信息。');
-        e.target.focus();
-        return;
-      }
-      delete target.isNew;
-      this.toggleEditable(e, key);
-      this.props.onChange(this.state.data);
-    }, 10);
-  }
+  //  setTimeout(() => {
+  //    if (document.activeElement.tagName === 'INPUT' &&
+  //        document.activeElement !== e.target) {
+  //      return;
+  //    }
+  //    if (this.clickedCancel) {
+  //      this.clickedCancel = false;
+  //      return;
+  //    }
+    //  const target = this.getRowByKey(key) || {};
+    //  if (!target.workId || !target.name || !target.department) {
+    //    message.error('请填写完整成员信息。');
+    //    e.target.focus();
+    //    return;
+    //  }
+   //   delete target.isNew;
+  //    this.toggleEditable(e, key);
+  ///    this.props.onChange(this.state.data);
+  //  }, 10);
+  //}
   cancel(e, key) {
     this.clickedCancel = true;
     e.preventDefault();
@@ -195,7 +195,7 @@ export default class TableForm extends PureComponent {
         }
         return (
           <span>
-            <a onClick={e => this.toggleEditable(e, record.key)}>查看</a>
+            <a href="#/dashboard/monitor">查看</a>
             <Divider type="vertical" />
             <Popconfirm title="是否要删除此行？" onConfirm={() => this.remove(record.key)}>
               <a>删除</a>
@@ -229,3 +229,6 @@ export default class TableForm extends PureComponent {
     );
   }
 }
+/**<div className={styles.other}>
+          <Link className={styles.register} to="/user/register">注册账户</Link>
+        </div> */
