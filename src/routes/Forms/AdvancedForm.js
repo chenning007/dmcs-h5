@@ -40,7 +40,6 @@ const fieldLabels = {
   name: 'Joe Black',
   department: 'Sidney No. 1 Lake Park',
 }];*/
-const tableData=null;
 
 class AdvancedForm extends PureComponent {
   state = {
@@ -49,7 +48,7 @@ class AdvancedForm extends PureComponent {
   componentDidMount() {
     window.addEventListener('resize', this.resizeFooterToolbar);
     this.props.dispatch({
-      type: 'chart/fetch',
+      type: 'form/fetch',
     });
   }
   componentWillUnmount() {
@@ -63,7 +62,7 @@ class AdvancedForm extends PureComponent {
     }
   }
   render() {
-    const { form, dispatch, submitting } = this.props;
+    const { form, dispatch, submitting, tableData } = this.props;
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form;
     const validate = () => {
       validateFieldsAndScroll((error, values) => {
@@ -278,12 +277,14 @@ class AdvancedForm extends PureComponent {
             initialValue: tableData,
           })(<TableForm />)}
         </Card>
+{/*
         <FooterToolbar style={{ width: this.state.width }}>
           {getErrorInfo()}
           <Button type="primary" onClick={validate} loading={submitting}>
             提交
           </Button>
         </FooterToolbar>
+*/}
       </PageHeaderLayout>
     );
   }
@@ -291,5 +292,6 @@ class AdvancedForm extends PureComponent {
 
 export default connect(state => ({
   collapsed: state.global.collapsed,
+  tableData: state.form.deviceinfo,
   submitting: state.form.advancedFormSubmitting,
 }))(Form.create()(AdvancedForm));
