@@ -116,8 +116,8 @@ class AdvancedForm extends PureComponent {
     };
     return (
       <PageHeaderLayout
-        title="高级设置"
-        content="高级设置用于设备的查看以及删除。"
+        title="设备列表"
+        content="设备列表用于设备的查看以及删除。"
         wrapperClassName={styles.advancedForm}
       >
      {/*
