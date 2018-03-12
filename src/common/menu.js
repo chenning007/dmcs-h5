@@ -21,11 +21,11 @@ const menuData = [{
     name: '创建设备',
     path: 'basic-form',
   }, {
-    name: '更新设备',
-    path: 'step-form',
-  }, {
-    name: '高级设置',
+    name: '设备列表',
     path: 'advanced-form',
+  }, {
+    name: '系统管理',
+    path: 'step-form',
   }],
 }, {
   name: '列表页',
