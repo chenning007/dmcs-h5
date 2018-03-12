@@ -121,10 +121,10 @@ export default class TableForm extends PureComponent {
           return (
             <Input
               value={text}
-              autoFocus
-              onChange={e => this.handleFieldChange(e, 'name', record.key)}
-              onBlur={e => this.saveRow(e, record.key)}
-              onKeyPress={e => this.handleKeyPress(e, record.key)}
+            //  autoFocus
+            //  onChange={e => this.handleFieldChange(e, 'name', record.key)}
+            //  onBlur={e => this.saveRow(e, record.key)}
+            //  onKeyPress={e => this.handleKeyPress(e, record.key)}
               placeholder="设备名称"
             />
           );
@@ -141,9 +141,9 @@ export default class TableForm extends PureComponent {
           return (
             <Input
               value={text}
-              onChange={e => this.handleFieldChange(e, 'workId', record.key)}
-              onBlur={e => this.saveRow(e, record.key)}
-              onKeyPress={e => this.handleKeyPress(e, record.key)}
+             // onChange={e => this.handleFieldChange(e, 'workId', record.key)}
+             // onBlur={e => this.saveRow(e, record.key)}
+             // onKeyPress={e => this.handleKeyPress(e, record.key)}
               placeholder="设备编号"
             />
           );
@@ -160,9 +160,9 @@ export default class TableForm extends PureComponent {
           return (
             <Input
               value={text}
-              onChange={e => this.handleFieldChange(e, 'department', record.key)}
-              onBlur={e => this.saveRow(e, record.key)}
-              onKeyPress={e => this.handleKeyPress(e, record.key)}
+             // onChange={e => this.handleFieldChange(e, 'department', record.key)}
+             // onBlur={e => this.saveRow(e, record.key)}
+             // onKeyPress={e => this.handleKeyPress(e, record.key)}
               placeholder="所有者"
             />
           );
@@ -195,7 +195,7 @@ export default class TableForm extends PureComponent {
         }
         return (
           <span>
-            <a onClick={e => this.toggleEditable(e, record.key)}>编辑</a>
+            <a onClick={e => this.toggleEditable(e, record.key)}>查看</a>
             <Divider type="vertical" />
             <Popconfirm title="是否要删除此行？" onConfirm={() => this.remove(record.key)}>
               <a>删除</a>
@@ -215,6 +215,7 @@ export default class TableForm extends PureComponent {
             return record.editable ? styles.editable : '';
           }}
         />
+{/*
         <Button
           style={{ width: '100%', marginTop: 16, marginBottom: 8 }}
           type="dashed"
@@ -223,6 +224,7 @@ export default class TableForm extends PureComponent {
         >
           新增设备
         </Button>
+*/}
       </div>
     );
   }
