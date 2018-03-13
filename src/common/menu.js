@@ -55,14 +55,14 @@ const menuData = [{
     }],
   }],
 }, {
-  name: '详情页',
+  name: '个人管理',
   icon: 'profile',
   path: 'profile',
   children: [{
-    name: '基础详情页',
+    name: '基本信息',
     path: 'basic',
   }, {
-    name: '高级详情页',
+    name: '人员管理',
     path: 'advanced',
   }],
 }, {
