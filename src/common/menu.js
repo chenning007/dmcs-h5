@@ -1,18 +1,18 @@
 const menuData = [{
-  name: 'dashboard',
+  name: '设备管理',
   icon: 'dashboard',
-  path: 'dashboard',
-  children: [{
-    name: '分析页',
-    path: 'analysis',
-  }, {
-    name: '监控页',
-    path: 'monitor',
-  }, {
-    name: '工作台',
-    path: 'workplace',
+  path: 'dashboard/workplace',
+  //children: [{
+  //  name: '工作台',
+ //   path: 'workplace',
+ // }, {
+ //   name: '监控页',
+  //  path: 'monitor',
+ // }, {
+  //  name: '分析页',
+///    path: 'analysis',
     // hideInMenu: true,
-  }],
+ // }],
 }, {
   name: '设备管理',
   icon: 'form',
@@ -64,6 +64,9 @@ const menuData = [{
   }, {
     name: '人员管理',
     path: 'advanced',
+  }, {
+    name: '个人信息',
+    path: 'basic-form',
   }],
 }, {
   name: '结果页',
