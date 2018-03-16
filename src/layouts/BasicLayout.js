@@ -165,7 +165,7 @@ class BasicLayout extends React.PureComponent {
                     />
                   ))
                 }
-                <Redirect exact from="/" to="/dashboard/analysis" />
+                <Redirect exact from="/" to="/dashboard/workplace" />
                 <Route render={NotFound} />
               </Switch>
             </div>
