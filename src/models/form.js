@@ -16,6 +16,7 @@ export default {
     stepFormSubmitting: false,
     advancedFormSubmitting: false,
     deviceinfo: [],
+    data: '蔡志军',
   },
 
   effects: {
