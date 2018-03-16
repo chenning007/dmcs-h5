@@ -91,6 +91,9 @@ export const getRouterData = (app) => {
     '/profile/advanced': {
       component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/AdvancedProfile')),
     },
+    '/profile/basic-form': {
+      component: dynamicWrapper(app, ['form'], () => import('../routes/Profile/Basic_form')),
+    },
     '/result/success': {
       component: dynamicWrapper(app, [], () => import('../routes/Result/Success')),
     },
