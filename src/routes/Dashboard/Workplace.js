@@ -171,7 +171,7 @@ export default class Workplace extends PureComponent {
         extraContent={extraContent}
       >
         <Row gutter={24}>
-          <Col xl={16} lg={24} md={24} sm={24} xs={24}>
+          <Col xl={24} lg={24} md={24} sm={24} xs={24}>
             <Card
               className={styles.projectList}
               style={{ marginBottom: 24 }}
@@ -207,7 +207,7 @@ export default class Workplace extends PureComponent {
                 ))
               }
             </Card>
-            <Card
+           <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
@@ -216,12 +216,13 @@ export default class Workplace extends PureComponent {
             >
               <List loading={activitiesLoading} size="large">
                 <div className={styles.activitiesList}>
-                  {this.renderActivities()}
+                   {this.renderActivities()}
                 </div>
               </List>
             </Card>
           </Col>
-          <Col xl={8} lg={24} md={24} sm={24} xs={24}>
+          
+      {/*   <Col xl={8} lg={24} md={24} sm={24} xs={24}>
             <Card
               style={{ marginBottom: 24 }}
               title="快速开始 / 便捷导航"
@@ -264,7 +265,7 @@ export default class Workplace extends PureComponent {
                 </Row>
               </div>
             </Card>
-          </Col>
+                </Col>*/}
         </Row>
       </PageHeaderLayout>
     );
