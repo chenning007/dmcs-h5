@@ -13,60 +13,66 @@ const menuData = [{
 ///    path: 'analysis',
     // hideInMenu: true,
  // }],
-}, {
-  name: '设备管理',
-  icon: 'form',
-  path: 'form',
-  children: [{
-    name: '创建设备',
-    path: 'basic-form',
-  }, {
-    name: '设备列表',
-    path: 'advanced-form',
-  }, {
-    name: '系统管理',
-    path: 'step-form',
-  }],
-}, {
-  name: '列表页',
+},// {
+  //name: '设备管理',
+ // icon: 'form',
+ // path: 'form',
+ /// children: [{
+ //   name: '创建设备',
+ //   path: 'basic-form',
+ // }, {
+  //  name: '设备列表',
+ //   path: 'advanced-form',
+ // }, {
+ //   name: '系统管理',
+ //   path: 'step-form',
+ // }],
+//},
+ {
+  name: ' 群组管理',
   icon: 'table',
-  path: 'list',
-  children: [{
-    name: '查询表格',
-    path: 'table-list',
-  }, {
-    name: '标准列表',
-    path: 'basic-list',
-  }, {
-    name: '卡片列表',
-    path: 'card-list',
-  }, {
-    name: '搜索列表',
-    path: 'search',
-    children: [{
-      name: '搜索列表（文章）',
+  path: 'list/search',
+  //children: [{
+ //   name: '查询表格',
+ //   path: 'table-list',
+ //// }, {
+ //   name: '标准列表',
+ //   path: 'basic-list',
+ /// }, {
+ //   name: '卡片列表',
+ //   path: 'card-list',
+///  }, {
+//    name: '搜索列表',
+//    path: 'search',
+    children: [
+      {
+     name: '朋友圈（集中）',
       path: 'articles',
-    }, {
-      name: '搜索列表（项目）',
+    },
+     
+     {
+      name: '朋友群（分布）',
       path: 'projects',
-    }, {
-      name: '搜索列表（应用）',
-      path: 'applications',
-    }],
-  }],
+    }
+  //  {
+  //    name: '搜索列表（应用）',
+  //    path: 'applications',
+  //  }
+  ],
+  
 }, {
   name: '个人管理',
   icon: 'profile',
   path: 'profile',
   children: [{
-    name: '基本信息',
-    path: 'basic',
-  }, {
-    name: '人员管理',
-    path: 'advanced',
-  }, {
     name: '个人信息',
     path: 'basic-form',
+  }, {
+    name: '个人足记',
+    path: 'basic',
+  }, {
+    name: '个人财务',
+    path: 'advanced',
   }],
 }, 
 /*{
@@ -118,7 +124,8 @@ const menuData = [{
   icon: 'book',
   path: 'http://pro.ant.design/docs/getting-started',
   target: '_blank',
-}];
+}
+];
 
 function formatter(data, parentPath = '') {
   const list = [];
