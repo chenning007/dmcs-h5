@@ -2,13 +2,15 @@ import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col, Card, List, Avatar, Input } from 'antd';
+import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import EditableLinkGroup from '../../components/EditableLinkGroup';
 import { Radar } from '../../components/Charts';
 
 import styles from './Workplace.less';
+
+const FormItem = Form.Item;
 
 const links = [
   {
@@ -73,9 +75,16 @@ const members = [
 @connect(state => ({
   project: state.project,
   activities: state.activities,
-  chart: state.chart,
+  chart: state.chart, 
 }))
 export default class Workplace extends PureComponent {
+  state = {
+    addInputValue: '',
+    modalVisible: false,
+    expandForm: false,
+    selectedRows: [],
+    formValues: {},
+  };
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -95,7 +104,20 @@ export default class Workplace extends PureComponent {
       type: 'chart/clear',
     });
   }
+/**** */
 
+  handleModalVisible = (flag) => {
+    this.setState({
+      modalVisible: !!flag,
+    });
+  }
+  handleAddInput = (e) => {
+    this.setState({
+      addInputValue: e.target.value,
+    });
+  }
+
+ /**** */ 
   renderActivities() {
     const {
       activities: { list },
@@ -110,7 +132,7 @@ export default class Workplace extends PureComponent {
       return (
         <List.Item key={item.id}>
           <List.Item.Meta
-            avatar={<Link to="/dashboard/analysis">{<Avatar src={item.user.avatar} /> }</Link>}
+            avatar={<Link to="/dashboard/monitor_device">{<Avatar src={item.user.avatar} /> }</Link>}
             title={
               <span>
                 <a className={styles.username}>{item.user.name}</a>
@@ -135,7 +157,7 @@ export default class Workplace extends PureComponent {
       activities: { loading: activitiesLoading },
       chart: { radarData },
     } = this.props;
-
+    const { modalVisible, addInputValue } = this.state;
     const pageHeaderContent = (
       <div className={styles.pageHeaderContent}>
         <div className={styles.avatar}>
@@ -176,6 +198,11 @@ export default class Workplace extends PureComponent {
               loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
+              <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus"
+               onClick={() => this.handleModalVisible(true)}
+              >
+               添加
+              </Button>
               {
                 notice.map(item => (
                   <Card.Grid className={styles.projectGrid} key={item.id}
@@ -188,7 +215,7 @@ export default class Workplace extends PureComponent {
                         title={(
                           <div className={styles.cardTitle}>
                             <Avatar size="small" src={item.logo} />
-                            <Link to="/dashboard/analysis">{item.title}</Link>
+                            <Link to="/dashboard/monitor_device">{item.title}</Link>
                           </div>
                         )}
                        // description={item.description}
@@ -206,6 +233,20 @@ export default class Workplace extends PureComponent {
                 ))
               }
             </Card>
+            <Modal
+               title="添加设备"
+               visible={modalVisible}
+               onOk={this.handleAdd}
+               onCancel={() => this.handleModalVisible()}
+            >
+             <FormItem
+                 labelCol={{ span: 5 }}
+                 wrapperCol={{ span: 15 }}
+                 label="描述"
+              >
+                 <Input placeholder="请输入设备编号" onChange={this.handleAddInput} value={addInputValue} />
+              </FormItem>
+            </Modal>
            <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
