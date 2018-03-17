@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col, Card, List, Avatar } from 'antd';
+import { Row, Col, Card, List, Avatar, Input } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import EditableLinkGroup from '../../components/EditableLinkGroup';
@@ -102,15 +102,15 @@ export default class Workplace extends PureComponent {
     } = this.props;
     return list.map((item) => {
       const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
-        if (item[key]) {
-          return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;
-        }
+   //      if (item[key]) {
+   //       return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;
+  //      }
         return key;
-      });
+     });
       return (
         <List.Item key={item.id}>
           <List.Item.Meta
-            avatar={<Avatar src={item.user.avatar} />}
+            avatar={<Link to="/dashboard/analysis">{<Avatar src={item.user.avatar} /> }</Link>}
             title={
               <span>
                 <a className={styles.username}>{item.user.name}</a>
@@ -142,26 +142,21 @@ export default class Workplace extends PureComponent {
           <Avatar size="large" src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
         </div>
         <div className={styles.content}>
-          <div className={styles.contentTitle}>早安，曲丽丽，祝你开心每一天！</div>
-          <div>交互专家 | 蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED</div>
+          <div className={styles.contentTitle}>早安，蔡志军，祝你开心每一天！</div>
+          {/*<div>交互专家 | 蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED</div>*/}
         </div>
       </div>
     );
 
     const extraContent = (
-      <div className={styles.extraContent}>
-        <div className={styles.statItem}>
-          <p>项目数</p>
-          <p>56</p>
-        </div>
-        <div className={styles.statItem}>
-          <p>团队内排名</p>
-          <p>8<span> / 24</span></p>
-        </div>
-        <div className={styles.statItem}>
-          <p>项目访问</p>
-          <p>2,223</p>
-        </div>
+      <div style={{ textAlign: 'center' }}>
+        <Input.Search
+          placeholder="请输入"
+          enterButton="搜索"
+          size="large"
+          //onSearch={this.handleFormSubmit}
+          style={{ width: 522 }}
+        />
       </div>
     );
 
@@ -175,7 +170,7 @@ export default class Workplace extends PureComponent {
             <Card
               className={styles.projectList}
               style={{ marginBottom: 24 }}
-              title="进行中的项目"
+              title="我的设备"
               bordered={false}
               extra={<Link to="/">全部项目</Link>}
               loading={projectLoading}
@@ -183,16 +178,20 @@ export default class Workplace extends PureComponent {
             >
               {
                 notice.map(item => (
-                  <Card.Grid className={styles.projectGrid} key={item.id}>
-                    <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                  <Card.Grid className={styles.projectGrid} key={item.id}
+                  >
+                    <Card 
+                    bodyStyle={{ padding: 0 }} 
+                    bordered={false}
+                    >
                       <Card.Meta
                         title={(
                           <div className={styles.cardTitle}>
                             <Avatar size="small" src={item.logo} />
-                            <Link to={item.href}>{item.title}</Link>
+                            <Link to="/dashboard/analysis">{item.title}</Link>
                           </div>
                         )}
-                        description={item.description}
+                       // description={item.description}
                       />
                       <div className={styles.projectItemContent}>
                         <Link to={item.memberLink}>{item.member || ''}</Link>
@@ -211,12 +210,13 @@ export default class Workplace extends PureComponent {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title="动态"
+              title="共享设备"
               loading={activitiesLoading}
             >
               <List loading={activitiesLoading} size="large">
                 <div className={styles.activitiesList}>
-                   {this.renderActivities()}
+                 {/*<Link to="/dashboard/analysis">{this.renderActivities()} </Link>*/}
+                       {this.renderActivities()} 
                 </div>
               </List>
             </Card>
