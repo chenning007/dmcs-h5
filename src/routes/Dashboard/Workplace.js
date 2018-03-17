@@ -221,7 +221,7 @@ export default class Workplace extends PureComponent {
                        // description={item.description}
                       />
                       <div className={styles.projectItemContent}>
-                        <Link to={item.memberLink}>{item.member || ''}</Link>
+                        <Link to="/dashboard/monitor_device">{item.member || ''}</Link>
                         {item.updatedAt && (
                           <span className={styles.datetime} title={item.updatedAt}>
                             {moment(item.updatedAt).fromNow()}
