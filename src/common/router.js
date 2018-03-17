@@ -46,6 +46,11 @@ export const getRouterData = (app) => {
       // hideInBreadcrumb: true,
       // name: '工作台',
     },
+    '/dashboard/monitor_device': {
+      component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor_device')),
+      // hideInBreadcrumb: true,
+      // name: '工作台',
+    },
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
     },
