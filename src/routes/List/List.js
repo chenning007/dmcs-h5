@@ -27,13 +27,15 @@ export default class SearchList extends Component {
   render() {
     const tabList = [{
       key: 'articles',
-      tab: '文章',
-    }, {
-      key: 'applications',
-      tab: '应用',
-    }, {
+      tab: '朋友圈',
+    }, 
+    //{
+    //  key: 'applications',
+    //  tab: '应用',
+    //}, 
+    {
       key: 'projects',
-      tab: '项目',
+      tab: '朋友群',
     }];
 
     const mainSearch = (
