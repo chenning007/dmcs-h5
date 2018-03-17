@@ -68,7 +68,8 @@ const menuData = [{
     name: '个人信息',
     path: 'basic-form',
   }],
-}, {
+}, 
+/*{
   name: '结果页',
   icon: 'check-circle-o',
   path: 'result',
@@ -96,21 +97,23 @@ const menuData = [{
     name: '触发异常',
     path: 'trigger',
   }],
-}, {
-  name: '账户',
-  icon: 'user',
-  path: 'user',
-  children: [{
-    name: '登录',
-    path: 'login',
-  }, {
-    name: '注册',
-    path: 'register',
-  }, {
-    name: '注册结果',
-    path: 'register-result',
-  }],
-}, {
+}, */
+//{
+//  name: '账户',
+//  icon: 'user',
+//  path: 'user',
+//  children: [{
+//    name: '登录',
+//    path: 'login',
+//  }, {
+//    name: '注册',
+//    path: 'register',
+//  }, {
+//    name: '注册结果',
+//    path: 'register-result',
+//  }],
+//}, 
+{
   name: '使用文档',
   icon: 'book',
   path: 'http://pro.ant.design/docs/getting-started',
