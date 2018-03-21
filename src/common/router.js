@@ -69,6 +69,9 @@ export const getRouterData = (app) => {
     '/form/advanced-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/AdvancedForm')),
     },
+    '/list/friendgroup': {
+      component: dynamicWrapper(app, ['project', 'activities', 'chart'], () => import('../routes/List/Friendgroup')),
+    },
     '/list/table-list': {
       component: dynamicWrapper(app, ['rule'], () => import('../routes/List/TableList')),
     },
@@ -81,6 +84,9 @@ export const getRouterData = (app) => {
     '/list/search': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/List')),
     },
+    '/list/search/mail_list': {
+      component: dynamicWrapper(app, ['list', 'project', 'activities', 'chart'], () => import('../routes/List/Mail_list')),
+    },
     '/list/search/projects': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/Projects')),
     },
@@ -89,6 +95,9 @@ export const getRouterData = (app) => {
     },
     '/list/search/articles': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/Articles')),
+    },
+    '/profile': {
+      component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Profile')),
     },
     '/profile/basic': {
       component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/BasicProfile')),
