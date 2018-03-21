@@ -13,8 +13,8 @@ export default class SearchList extends Component {
       case 'articles':
         dispatch(routerRedux.push(`${match.url}/articles`));
         break;
-      case 'applications':
-        dispatch(routerRedux.push(`${match.url}/applications`));
+      case 'mail_list':
+        dispatch(routerRedux.push(`${match.url}/mail_list`));
         break;
       case 'projects':
         dispatch(routerRedux.push(`${match.url}/projects`));
@@ -26,6 +26,10 @@ export default class SearchList extends Component {
 
   render() {
     const tabList = [{
+      key: 'mail_list',
+      tab: '通讯录',
+    },
+    {
       key: 'articles',
       tab: '朋友圈',
     }, 
