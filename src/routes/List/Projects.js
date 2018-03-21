@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Select, List } from 'antd';
+import { Row, Col, Form, Card, Select, List, Button, Icon } from 'antd';
 
 import StandardFormRow from '../../components/StandardFormRow';
 import TagSelect from '../../components/TagSelect';
@@ -60,12 +60,14 @@ export default class CoverCardList extends PureComponent {
             <Card
               className={styles.card}
               hoverable
-              cover={<img  alt={item.title}  src={item.cover} height={154} />}
-              //cover={<a href="#">{<img  alt={item.title}  src={item.cover} height={154} />}</a>}
+              //cover={<img  alt={item.title}  src={item.cover} height={154} />}
+              cover={<a href="#/list/friendgroup">{<img  alt={item.title}  src={item.cover} height={154} />}</a>}
+             // actions={<Icon type="setting"/>}
+              //onClick
             >
               <Card.Meta
                // title={item.title}
-                title={<a href="#">{item.title}</a>}
+                title={<a href="#/list/friendgroup">{item.title}</a>}
                 description={item.subDescription}
               />
               <div className={styles.cardItemContent}>
@@ -99,7 +101,7 @@ export default class CoverCardList extends PureComponent {
 
     return (
       <div className={styles.coverCardList}>
-        <Card bordered={false}>
+        {/* <Card bordered={false}>
           <Form layout="inline">
             <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
               <FormItem>
@@ -163,6 +165,11 @@ export default class CoverCardList extends PureComponent {
               </Row>
             </StandardFormRow>
           </Form>
+                  </Card>*/}
+        <Card bordered={false}>
+          <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus">
+            添加
+          </Button>
         </Card>
         <div className={styles.cardList}>
           {cardList}
