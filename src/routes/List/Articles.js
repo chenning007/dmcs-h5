@@ -99,6 +99,7 @@ export default class SearchList extends Component {
 
     return (
       <div>
+        {/*
         <Card bordered={false}>
           <Form layout="inline">
             <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
@@ -175,11 +176,7 @@ export default class SearchList extends Component {
                     {...formItemLayout}
                     label="好评度"
                   >
-                    {getFieldDecorator('rate', {})(
-                      <FormItem
-                        label="好评度"
-                      >
-                        {getFieldDecorator('rate', {})(
+                    {getFieldDecorator('rate', {})(                        
                           <Select
                             onChange={this.handleFormSubmit}
                             placeholder="不限"
@@ -188,14 +185,16 @@ export default class SearchList extends Component {
                             <Option value="good">优秀</Option>
                           </Select>
                         )}
-                      </FormItem>
-                    )}
-                  </FormItem>
+                      </FormItem>               
                 </Col>
               </Row>
             </StandardFormRow>
-          </Form>
+          </Form> 
+        </Card>  */}
+        <Card>
+          共享文件
         </Card>
+
         <Card
           style={{ marginTop: 24 }}
           bordered={false}
