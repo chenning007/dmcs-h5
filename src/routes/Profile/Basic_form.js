@@ -56,7 +56,6 @@ export default class Basic_form extends PureComponent {
     };
 
     return (
-      <PageHeaderLayout title="个人信息" content="可查看个人信息并进行编辑">
         <Card bordered={true}>
           <Form
             onSubmit={this.handleSubmit}
@@ -167,7 +166,6 @@ export default class Basic_form extends PureComponent {
             </FormItem>
           </Form>
         </Card>
-      </PageHeaderLayout>
     );
   }
 }
