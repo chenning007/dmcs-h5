@@ -125,7 +125,6 @@ export default class BasicProfile extends Component {
       },
     }];
     return (
-      <PageHeaderLayout title="基础详情页">
         <Card bordered={false}>
           <DescriptionList size="large" title="退款申请" style={{ marginBottom: 32 }}>
             <Description term="取货单号">1000000000</Description>
@@ -160,7 +159,6 @@ export default class BasicProfile extends Component {
             columns={progressColumns}
           />
         </Card>
-      </PageHeaderLayout>
     );
   }
 }
