@@ -36,7 +36,7 @@ export default class Monitor_device extends PureComponent {
             <div className={styles.contentTitle}>早安，蔡志军，祝你开心每一天！</div>
             {/*<div>交互专家 | 蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED</div>*/}
           </div>
-          <Button type="primary">仪器授权+</Button>
+          {/*<Button type="primary">仪器授权+</Button>*/}
         </div>
     );
     
