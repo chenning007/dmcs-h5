@@ -46,14 +46,18 @@ const menuData = [{
 //    path: 'search',
     children: [
       {
-     name: '朋友圈（集中）',
+       name: '通讯录',
+       path: 'mail_list',
+      },
+      {
+     name: '朋友圈',
       path: 'articles',
-    },
+     },
      
      {
-      name: '朋友群（分布）',
+      name: '朋友群',
       path: 'projects',
-    }
+     }
   //  {
   //    name: '搜索列表（应用）',
   //    path: 'applications',
@@ -65,13 +69,19 @@ const menuData = [{
   icon: 'profile',
   path: 'profile',
   children: [{
-    name: '个人信息',
+    name: '信息',
     path: 'basic-form',
-  }, {
-    name: '个人足记',
+  }, 
+  {
+    name: '设置',
+    path: 'set_up',
+  },
+  
+  {
+    name: '踪迹',
     path: 'basic',
   }, {
-    name: '个人财务',
+    name: '财务',
     path: 'advanced',
   }],
 }, 
