@@ -46,23 +46,21 @@ const menuData = [{
 //    path: 'search',
     children: [
       {
-       name: '通讯录',
-       path: 'mail_list',
+        name: '设备',
+        path: 'device_list',
       },
       {
-     name: '朋友圈',
-      path: 'articles',
+        name: '朋友',
+        path: 'friend_list',
+      },
+      {
+        name: '数据',
+        path: 'data_list',
      },
-     
      {
-      name: '朋友群',
-      path: 'projects',
-     }
-  //  {
-  //    name: '搜索列表（应用）',
-  //    path: 'applications',
-  //  }
-  ],
+        name: '文件',
+        path: 'file_list',
+     }],
   
 }, {
   name: '个人管理',
