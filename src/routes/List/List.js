@@ -10,14 +10,17 @@ export default class SearchList extends Component {
   handleTabChange = (key) => {
     const { dispatch, match } = this.props;
     switch (key) {
-      case 'articles':
-        dispatch(routerRedux.push(`${match.url}/articles`));
+      case 'friend_list':
+        dispatch(routerRedux.push(`${match.url}/friend_list`));
         break;
-      case 'mail_list':
-        dispatch(routerRedux.push(`${match.url}/mail_list`));
+      case 'device_list':
+        dispatch(routerRedux.push(`${match.url}/device_list`));
         break;
-      case 'projects':
-        dispatch(routerRedux.push(`${match.url}/projects`));
+      case 'data_list':
+        dispatch(routerRedux.push(`${match.url}/data_list`));
+        break;
+      case 'file_list':
+        dispatch(routerRedux.push(`${match.url}/file_list`));
         break;
       default:
         break;
@@ -26,21 +29,22 @@ export default class SearchList extends Component {
 
   render() {
     const tabList = [{
-      key: 'mail_list',
-      tab: '通讯录',
+      key: 'device_list',
+      tab: '设备',
     },
     {
-      key: 'articles',
-      tab: '朋友圈',
-    }, 
-    //{
-    //  key: 'applications',
-    //  tab: '应用',
-    //}, 
+      key: 'friend_list',
+      tab: '朋友',
+    },  
     {
-      key: 'projects',
-      tab: '朋友群',
-    }];
+      key: 'data_list',
+      tab: '数据',
+    },
+    {
+      key: 'file_list',
+      tab: '文件',
+    }
+  ];
 
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
@@ -59,8 +63,8 @@ export default class SearchList extends Component {
 
     return (
       <PageHeaderLayout
-        title="搜索列表"
-        content={mainSearch}
+        title="群组管理"
+        //content={mainSearch}
         tabList={tabList}
         activeTabKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
