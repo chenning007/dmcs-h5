@@ -69,32 +69,23 @@ export const getRouterData = (app) => {
     '/form/advanced-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/AdvancedForm')),
     },
-    '/list/friendgroup': {
-      component: dynamicWrapper(app, ['project', 'activities', 'chart'], () => import('../routes/List/Friendgroup')),
-    },
-    '/list/table-list': {
-      component: dynamicWrapper(app, ['rule'], () => import('../routes/List/TableList')),
-    },
-    '/list/basic-list': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/BasicList')),
-    },
-    '/list/card-list': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/CardList')),
+    '/list/device_friend': {
+      component: dynamicWrapper(app, ['list', 'project', 'activities', 'chart'], () => import('../routes/List/Device_friend')),
     },
     '/list/search': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/List')),
     },
-    '/list/search/mail_list': {
-      component: dynamicWrapper(app, ['list', 'project', 'activities', 'chart'], () => import('../routes/List/Mail_list')),
+    '/list/search/friend_list': {
+      component: dynamicWrapper(app, ['list', 'project', 'activities', 'chart'], () => import('../routes/List/Friend_list')),
     },
-    '/list/search/projects': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Projects')),
+    '/list/search/device_list': {
+      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Device_list')),
     },
-    '/list/search/applications': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Applications')),
+    '/list/search/data_list': {
+      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Data_list')),
     },
-    '/list/search/articles': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Articles')),
+    '/list/search/file_list': {
+      component: dynamicWrapper(app, ['list'], () => import('../routes/List/File_list')),
     },
     '/profile': {
       component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Profile')),
