@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Tooltip, Input, Avatar, Button } from 'antd';
+import { Row, Col, Card, Tooltip, Input, Avatar, Button, Slider, InputNumber } from 'antd';
 import numeral from 'numeral';
 
 import { Pie, WaterWave, Gauge, TagCloud } from '../../components/Charts';
@@ -13,16 +13,41 @@ import styles from './Monitor.less';
 
 const targetTime = new Date().getTime() + 3900000;
 
+/******* */
+const marks = {
+  0: '0°C',
+  26: '26°C',
+  37: '37°C',
+  100: {
+    style: {
+      color: '#f50',
+    },
+    label: <strong>100°C</strong>,
+  },
+};
+/****** */
+
 @connect(state => ({
   monitor: state.monitor,
 }))
 export default class Monitor_device extends PureComponent {
+  state = {
+    inputValue: 37,
+  }
   componentDidMount() {
     this.props.dispatch({
       type: 'monitor/fetchTags',
     });
   }
+  /****** */
+  onChange = (value) => {
+    this.setState({
+      inputValue: value,
+    });
+  }
 
+  
+/******** */
   render() {
     const { monitor } = this.props;
     const { tags } = monitor;
@@ -61,7 +86,7 @@ export default class Monitor_device extends PureComponent {
         <Row gutter={24}>
           <Col xl={18} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
             <Card title="活动实时交易情况" bordered={false}>
-              <Row>
+              {/*<Row>
                 <Col md={6} sm={12} xs={24}>
                   <NumberInfo
                     subTitle="今日交易总额"
@@ -82,15 +107,59 @@ export default class Monitor_device extends PureComponent {
                     total={numeral(234).format('0,0')}
                   />
                 </Col>
-              </Row>
+              </Row>*/}
               <div className={styles.mapChart}>
-                <Tooltip title="等待后期实现">
+               {/* <Tooltip title="等待后期实现">
                   <img
                     src="https://gw.alipayobjects.com/zos/rmsportal/HBWnDEUXCnGnGrRfrpKa.png"
                     alt="map"
                   />
-                </Tooltip>
+                                            */}
+                <Card
+                  style={{ marginBottom: 24 }}
+                  bodyStyle={{ textAlign: 'center' }}
+              //bordered={false}
+               >
+                  <Gauge
+                    format={(val) => {
+                    switch (parseInt(val, 10)) {
+                      case 20:
+                        return '差';
+                      case 40:
+                        return '中';
+                      case 60:
+                        return '良';
+                      case 80:
+                        return '优';
+                      default:
+                        return '';
+                     }
+                    }}
+                    title="温度"
+                    height={380}
+                    percent={this.state.inputValue}
+                  />
+                </Card>
               </div>
+              <Button type="primary" icon="poweroff" 
+                //loading={this.state.iconLoading} 
+                onClick={this.enterIconLoading} >
+                开/关
+              </Button>
+              <Row>
+                <Col span={12}>
+                   <Slider marks={marks}  onChange={this.onChange} value={this.state.inputValue} />
+                </Col>
+                <Col span={4}>
+                  <InputNumber
+                    min={0}
+                    max={100}
+                    style={{ marginLeft: 16 }}
+                    value={this.state.inputValue}
+                    onChange={this.onChange}
+                   />
+               </Col>
+             </Row>
             </Card>
           </Col>
           <Col xl={6} lg={24} md={24} sm={24} xs={24}>
@@ -98,34 +167,16 @@ export default class Monitor_device extends PureComponent {
               <ActiveChart />
             </Card>
             <Card
-              //title="券核效率"
-              style={{ marginBottom: 24 }}
-              bodyStyle={{ textAlign: 'center' }}
+              title="资源剩余"
+              bodyStyle={{ textAlign: 'center', fontSize: 0 }}
               bordered={false}
             >
-              <Gauge
-                format={(val) => {
-                  switch (parseInt(val, 10)) {
-                    case 20:
-                      return '差';
-                    case 40:
-                      return '中';
-                    case 60:
-                      return '良';
-                    case 80:
-                      return '优';
-                    default:
-                      return '';
-                  }
-                }}
-                title="跳出率"
-                height={180}
-                percent={87}
-              />
+              <WaterWave height={161} title="补贴资金剩余" percent={34} />
             </Card>
           </Col>
         </Row>
-        <Row gutter={24}>
+        {/*<Row gutter={24}>*/}
+        {/*
           <Col xl={12} lg={24} sm={24} xs={24}>
             <Card
               title="各品类占比"
@@ -174,6 +225,8 @@ export default class Monitor_device extends PureComponent {
               <TagCloud data={tags} height={161} />
             </Card>
           </Col>
+        */}
+        {/*
           <Col xl={6} lg={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
             <Card
               title="资源剩余"
@@ -182,8 +235,8 @@ export default class Monitor_device extends PureComponent {
             >
               <WaterWave height={161} title="补贴资金剩余" percent={34} />
             </Card>
-          </Col>
-        </Row>
+        </Col> */}
+       {/* </Row>*/}
        </div>
       </PageHeaderLayout>
     );
