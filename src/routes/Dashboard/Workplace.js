@@ -248,7 +248,7 @@ export default class Workplace extends PureComponent {
               </FormItem>
             </Modal>
             
-          {/* <Card
+           <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
@@ -256,13 +256,12 @@ export default class Workplace extends PureComponent {
               loading={activitiesLoading}
             >
               <List loading={activitiesLoading} size="large">
-          <div className={styles.activitiesList}>  */}
-                 {/*<Link to="/dashboard/analysis">{this.renderActivities()} </Link>*/}
-{/*                       {this.renderActivities()} 
+          <div className={styles.activitiesList}>  
+                       {this.renderActivities()} 
                 </div>
               </List>
             </Card>
-  */}
+  
           </Col>
           
       {/*   <Col xl={8} lg={24} md={24} sm={24} xs={24}>
