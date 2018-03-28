@@ -184,8 +184,6 @@ export default class Workplace extends PureComponent {
 
     return (
       <PageHeaderLayout
-        content={pageHeaderContent}
-        extraContent={extraContent}
       >
         <Row gutter={24}>
           <Col xl={24} lg={24} md={24} sm={24} xs={24}>
@@ -194,15 +192,16 @@ export default class Workplace extends PureComponent {
               style={{ marginBottom: 24 }}
               title="我的设备"
               bordered={false}
-              extra={<Link to="/">全部项目</Link>}
+              //extra={<Link to="/">全部项目</Link>}
               loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
-              <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus"
+           {/*   <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus"
                onClick={() => this.handleModalVisible(true)}
               >
                添加
               </Button>
+    */}
               {
                 notice.map(item => (
                   <Card.Grid className={styles.projectGrid} key={item.id}
@@ -214,7 +213,7 @@ export default class Workplace extends PureComponent {
                       <Card.Meta
                         title={(
                           <div className={styles.cardTitle}>
-                            <Avatar size="small" src={item.logo} />
+                            <Avatar size="large" src={item.logo} />
                             <Link to="/dashboard/monitor_device">{item.title}</Link>
                           </div>
                         )}
@@ -222,11 +221,12 @@ export default class Workplace extends PureComponent {
                       />
                       <div className={styles.projectItemContent}>
                         <Link to="/dashboard/monitor_device">{item.member || ''}</Link>
-                        {item.updatedAt && (
+                       {/* {item.updatedAt && (
                           <span className={styles.datetime} title={item.updatedAt}>
                             {moment(item.updatedAt).fromNow()}
                           </span>
                         )}
+                      */}
                       </div>
                     </Card>
                   </Card.Grid>
