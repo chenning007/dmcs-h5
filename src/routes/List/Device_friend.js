@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Divider } from 'antd';
+import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Popconfirm } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import EditableLinkGroup from '../../components/EditableLinkGroup';
@@ -130,7 +130,11 @@ export default class Device_friend extends PureComponent {
         return key;
      });
       return (
-        <List.Item key={item.id} actions={[<a>设置</a>, <a>删除</a>]}>
+        <List.Item key={item.id} actions={[<a>设置</a>, 
+            <Popconfirm title="是否要删除此行？">
+               <a>删除</a>
+            </Popconfirm>]}
+        >
           <List.Item.Meta
             avatar={<Link to="/dashboard/monitor_device">{<Avatar src={item.user.avatar} /> }</Link>}
             title={

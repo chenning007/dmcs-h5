@@ -2,8 +2,11 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
   Form, Input, DatePicker, Select, Button, Card, InputNumber, Radio, Icon, Tooltip,
+  Row, Col, Avatar, Upload,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+
+import logo from '../../../public/title.png';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -38,31 +41,34 @@ export default class Basic_form extends PureComponent {
 
     const formItemLayout = {
       labelCol: {
-        xs: { span: 24 },
-        sm: { span: 7 },
+        xs: { span: 24, offset: -10 },
+        sm: { span: 7 , offset: -10 }, 
       },
       wrapperCol: {
-        xs: { span: 24 },
+        xs: { span: 24, offset: 3},
         sm: { span: 12 },
         md: { span: 10 },
       },
+     // marginBottom: 48,
     };
 
     const submitFormLayout = {
       wrapperCol: {
         xs: { span: 24, offset: 0 },
-        sm: { span: 10, offset: 7 },
+        sm: { span: 10, offset: 10 },
       },
     };
 
     return (
-        <Card bordered={true}>
+      <Card bordered={true}>
+        <Row>
+          <Col span={12}>
           <Form
             onSubmit={this.handleSubmit}
             hideRequiredMark
             style={{ marginTop: 8 }}
           >
-            <FormItem
+          {/*  <FormItem
               {...formItemLayout}
               label="头像"
             >
@@ -76,12 +82,27 @@ export default class Basic_form extends PureComponent {
                 />
               )}
             </FormItem>
+            */}  
             <FormItem
               {...formItemLayout}
               label="用户名"
             >
               {getFieldDecorator('name', {
                 initialValue: data,
+                rules: [{
+                  required: false, 
+                }],
+              })(
+                <Input  size="large" placeholder="例如: 2015000000" disabled
+                />
+              )}
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="用户ID"
+            >
+              {getFieldDecorator('id', {
+                initialValue: "123456789",
                 rules: [{
                   required: false, 
                 }],
@@ -101,20 +122,6 @@ export default class Basic_form extends PureComponent {
                 }],
               })(
                 <Input  size="large" placeholder="例如: 2015000000" disabled
-                />
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="校园id"
-            >
-              {getFieldDecorator('idcard', {
-                initialValue: [],
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder="例如: 2015000000" 
                 />
               )}
             </FormItem>
@@ -157,7 +164,19 @@ export default class Basic_form extends PureComponent {
               })(
                 <DatePicker style={{ width: '100%' }} placeholder="日期" />
               )}
-            </FormItem>            
+            </FormItem> 
+            <FormItem
+              {...formItemLayout}
+              label="个性签名"
+            >
+              {getFieldDecorator('selfsign', {
+                rules: [{
+                  required: false, 
+                }],
+              })(
+                <TextArea style={{ minHeight: 32 }} placeholder="输入你的个性签名吧！" rows={4} />
+              )}
+            </FormItem>                        
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
                 保存
@@ -165,7 +184,25 @@ export default class Basic_form extends PureComponent {
               {/*<Button style={{ marginLeft: 8 }}>保存</Button>*/}
             </FormItem>
           </Form>
-        </Card>
+          </Col>
+          <Col span={12}>
+              {/*<Avatar size="large" src="/usr/mygit/dmcs-h5/public/title.png" />*/}
+              {/*<Avatar size="large" src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />*/}
+              <div style={{height: 150, width: 150}}> 
+                
+                <img src={ logo } alt="头像" width="100%" />
+              </div>
+              <div style={{ marginTop: 16 ,marginLeft: 15 }}>
+                <Upload>
+                   <Button>
+                      <Icon type="upload"/>
+                        上传头像
+                   </Button>
+                </Upload>
+              </div>
+          </Col>
+        </Row>
+      </Card>
     );
   }
 }

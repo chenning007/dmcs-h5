@@ -14,7 +14,7 @@ export default class Profile extends Component {
         dispatch(routerRedux.push(`${match.url}/basic-form`));
         break;
       case 'set_up':
-        dispatch(routerRedux.push('${match.url}/set_up'))
+        dispatch(routerRedux.push(`${match.url}/set_up`))
         break;
       case 'basic':
         dispatch(routerRedux.push(`${match.url}/basic`));
@@ -66,8 +66,8 @@ export default class Profile extends Component {
 
     return (
       <PageHeaderLayout
-        title="搜索列表"
-        content={mainSearch}
+       // title="搜索列表"
+       // content={mainSearch}
         tabList={tabList}
         activeTabKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
