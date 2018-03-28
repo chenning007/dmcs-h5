@@ -201,20 +201,23 @@ export default class Workplace extends PureComponent {
               >
                添加
               </Button>
-    */}
+                       */}
               {
                 notice.map(item => (
                   <Card.Grid className={styles.projectGrid} key={item.id}
                   >
+                  <Row>
+                    <Col xl={4} lg={4} md={4} sm={4} xs={4}/>
+                    <Col xl={16} lg={16} md={16} sm={16} xs={16}>
                     <Card 
-                    bodyStyle={{ padding: 0 }} 
+                    bodyStyle={{ padding: 10 }} 
                     bordered={false}
                     >
                       <Card.Meta
                         title={(
                           <div className={styles.cardTitle}>
                             <Avatar size="large" src={item.logo} />
-                            <Link to="/dashboard/monitor_device">{item.title}</Link>
+                            {/*<Link to="/dashboard/monitor_device">{item.title}</Link>*/}
                           </div>
                         )}
                        // description={item.description}
@@ -229,11 +232,13 @@ export default class Workplace extends PureComponent {
                       */}
                       </div>
                     </Card>
+                    </Col>
+                  </Row>
                   </Card.Grid>
                 ))
               }
             </Card>
-            <Modal
+            {/*<Modal
                title="添加设备"
                visible={modalVisible}
                onOk={this.handleAdd}
@@ -247,7 +252,7 @@ export default class Workplace extends PureComponent {
                  <Input placeholder="请输入设备编号" onChange={this.handleAddInput} value={addInputValue} />
               </FormItem>
             </Modal>
-            
+            */}
            <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
