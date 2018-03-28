@@ -112,7 +112,7 @@ export default class TableForm extends PureComponent {
   }
   render() {
     const columns = [{
-      title: '设备名称',
+      title: '人员列表',
       dataIndex: 'name',
       key: 'name',
       width: '20%',
@@ -125,14 +125,14 @@ export default class TableForm extends PureComponent {
             //  onChange={e => this.handleFieldChange(e, 'name', record.key)}
             //  onBlur={e => this.saveRow(e, record.key)}
             //  onKeyPress={e => this.handleKeyPress(e, record.key)}
-              placeholder="设备名称"
+              placeholder="人员列表"
             />
           );
         }
         return text;
       },
     }, {
-      title: '设备编号',
+      title: '人员编号',
       dataIndex: 'workId',
       key: 'workId',
       width: '20%',
@@ -144,14 +144,14 @@ export default class TableForm extends PureComponent {
              // onChange={e => this.handleFieldChange(e, 'workId', record.key)}
              // onBlur={e => this.saveRow(e, record.key)}
              // onKeyPress={e => this.handleKeyPress(e, record.key)}
-              placeholder="设备编号"
+              placeholder="人员编号"
             />
           );
         }
         return text;
       },
     }, {
-      title: '所有者',
+      title: '所在单位',
       dataIndex: 'department',
       key: 'department',
       width: '40%',
@@ -163,7 +163,7 @@ export default class TableForm extends PureComponent {
              // onChange={e => this.handleFieldChange(e, 'department', record.key)}
              // onBlur={e => this.saveRow(e, record.key)}
              // onKeyPress={e => this.handleKeyPress(e, record.key)}
-              placeholder="所有者"
+              placeholder="所有单位"
             />
           );
         }
@@ -195,7 +195,7 @@ export default class TableForm extends PureComponent {
         }
         return (
           <span>
-            <a href="#/dashboard/monitor">查看</a>
+            　<a>查看</a>
             <Divider type="vertical" />
             <Popconfirm title="是否要删除此行？" onConfirm={() => this.remove(record.key)}>
               <a>删除</a>
