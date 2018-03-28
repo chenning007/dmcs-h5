@@ -1,5 +1,5 @@
 const menuData = [{
-  name: '设备管理',
+  name: '设备监控',
   icon: 'dashboard',
   path: 'dashboard/workplace',
   //children: [{
@@ -29,8 +29,18 @@ const menuData = [{
  // }],
 //},
  {
+   name: '数据浏览',
+   icon: 'database',
+   path: 'dashboard/analysis',
+ },
+ {
+   name: '文件查看',
+   icon: 'folder',
+   path: '/dashboard/monitor',
+ },
+ {
   name: ' 群组管理',
-  icon: 'table',
+  icon: 'team',
   path: 'list/search',
   //children: [{
  //   name: '查询表格',
@@ -64,7 +74,7 @@ const menuData = [{
   
 }, {
   name: '个人管理',
-  icon: 'profile',
+  icon: 'solution',
   path: 'profile',
   children: [{
     name: '信息',

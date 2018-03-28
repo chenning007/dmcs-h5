@@ -184,6 +184,26 @@ export const getNotice = [
     href: '',
     memberLink: '',
   },
+  {
+    id: 'xxx7',
+    title: titles[6],
+    logo: avatars[6],
+    description: '我爱科研，科研爱我',
+    updateAt: new Date('2017-08-23'),
+    member: '一起来高科研',
+    href: '',
+    memberLink: '',
+  },
+  {
+    id: 'xxx8',
+    title: titles[7],
+    logo: avatars[7],
+    description: '我爱运动，一起happy',
+    updateAt: new Date('2017-0９-23'),
+    member: '一起来跑步',
+    href: '',
+    memberLink: '',
+  }
 ];
 
 export const getActivities = [
