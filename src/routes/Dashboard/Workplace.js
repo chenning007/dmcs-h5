@@ -154,7 +154,7 @@ export default class Workplace extends PureComponent {
   render() {
     const {
       project: { loading: projectLoading, notice },
-      activities: { loading: activitiesLoading },
+      activities: { loading: activitiesLoading, list },
       chart: { radarData },
     } = this.props;
     const { modalVisible, addInputValue } = this.state;
@@ -216,7 +216,7 @@ export default class Workplace extends PureComponent {
                       <Card.Meta
                         title={(
                           <div className={styles.cardTitle}>
-                            <Avatar size="large" src={item.logo} />
+                            <Link to="/dashboard/monitor_device"><Avatar size="large" src={item.logo}/></Link>
                             {/*<Link to="/dashboard/monitor_device">{item.title}</Link>*/}
                           </div>
                         )}
@@ -256,15 +256,45 @@ export default class Workplace extends PureComponent {
            <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
-              className={styles.activeCard}
+              className={styles.projectList}
               title="共享设备"
               loading={activitiesLoading}
             >
-              <List loading={activitiesLoading} size="large">
-          <div className={styles.activitiesList}>  
-                       {this.renderActivities()} 
-                </div>
-              </List>
+            {
+                list.map(item => (
+                  <Card.Grid className={styles.projectGrid} key={item.id}
+                  >
+                  <Row>
+                    <Col xl={4} lg={4} md={4} sm={4} xs={4}/>
+                    <Col xl={16} lg={16} md={16} sm={16} xs={16}>
+                    <Card 
+                    bodyStyle={{ padding: 10 }} 
+                    bordered={false}
+                    >
+                      <Card.Meta
+                        title={(
+                          <div className={styles.cardTitle}>
+                            <Avatar size="large" src={item.logo} />
+                            {/*<Link to="/dashboard/monitor_device">{item.title}</Link>*/}
+                          </div>
+                        )}
+                       // description={item.description}
+                      />
+                      <div className={styles.projectItemContent}>
+                        <Link to="/dashboard/monitor_device">{item.member || ''}</Link>
+                       {/* {item.updatedAt && (
+                          <span className={styles.datetime} title={item.updatedAt}>
+                            {moment(item.updatedAt).fromNow()}
+                          </span>
+                        )}
+                      */}
+                      </div>
+                    </Card>
+                    </Col>
+                  </Row>
+                  </Card.Grid>
+                ))
+              }
             </Card>
   
           </Col>

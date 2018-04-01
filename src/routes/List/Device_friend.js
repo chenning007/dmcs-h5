@@ -91,7 +91,7 @@ export default class Device_friend extends PureComponent {
       type: 'project/fetchNotice',
     });
     dispatch({
-      type: 'activities/fetchList',
+      type: 'activities/fetchActivities',
     });
     dispatch({
       type: 'chart/fetch',
@@ -120,9 +120,9 @@ export default class Device_friend extends PureComponent {
  /**** */ 
   renderActivities() {
     const {
-      activities: { list },
+      activities: { list_activities },
     } = this.props;
-    return list.map((item) => {
+    return list_activities.map((item) => {
       const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
    //      if (item[key]) {
    //       return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;

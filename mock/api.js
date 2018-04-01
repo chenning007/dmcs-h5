@@ -1,5 +1,8 @@
 import { getUrlParams } from './utils';
 
+const loading = true;
+const loading1 = true;
+
 const titles = [
   'Alipay',
   'Angular',
@@ -209,6 +212,68 @@ export const getNotice = [
 export const getActivities = [
   {
     id: 'trend-1',
+    title: '曲丽丽' ,
+    logo: avatars2[0],
+    description: '高逼格设计天团',
+    updatedAt: new Date(),
+    member: '六月迭代',
+    href: '',
+    memberLink: '',
+  },
+  { 
+    id: 'trend-2',
+    title: '付小小' ,
+    logo: avatars2[1],
+    description: '高逼格设计天团',
+    updatedAt: new Date(),
+    member: '六月迭代',
+    href: '',
+    memberLink: '',
+  },
+  { 
+    id: 'trend-3',
+    title: '林东东' ,
+    logo: avatars2[2],
+    description: '中二少女团',
+    updatedAt: new Date(),
+    member: '六月迭代',
+    href: '',
+    memberLink: '',
+  },
+  { 
+    id: 'trend-4',
+    title: '周星星' ,
+    logo: avatars2[4],
+    description: '5 月日常迭代',
+    updatedAt: new Date(),
+    member: '六月迭代',
+    href: '',
+    memberLink: '',
+  },
+  {
+    id: 'trend-5',
+    title: '朱偏右' ,
+    logo: avatars2[3],
+    description: '工程效能',
+    updatedAt: new Date(),
+    member: '留言',
+    href: '',
+    memberLink: '',
+  },
+  {
+    id: 'trend-6',
+    title: '乐哥' ,
+    logo: avatars2[5],
+    description: '程序员日常',
+    updatedAt: new Date(),
+    member: '品牌迭代',
+    href: '',
+    memberLink: '',
+  },
+];
+export const get_Activities = [
+  {
+    id: 'trend-1',
     updatedAt: new Date(),
     user: {
       name: '曲丽丽',
@@ -306,10 +371,16 @@ export const getActivities = [
     template: '在 @{group} 新建项目 @{project}',
   },
 ];
-
+export const get_List = {
+  list: getActivities,
+  list_activities: get_Activities,
+  loading,
+  loading1, 
+}
 
 export default {
   getNotice,
   getActivities,
   getFakeList,
+  get_Activities,
 };

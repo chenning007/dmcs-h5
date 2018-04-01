@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Card, Button, Icon, List, Modal, Form, Input } from 'antd';
+import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import Ellipsis from '../../components/Ellipsis';
@@ -34,21 +34,24 @@ export default class Device_list extends PureComponent {
     });
   }
 /******* */
-  handleModalVisible = (flag) => {
-    this.setState({
-      modalVisible: !!flag,
-    });
-  }
-  handleAddInput = (e) => {
-    this.setState({
-      addInputValue: e.target.value,
-    });
-  }
+
 /******* */
   render() {
     const { list: { list, loading } } = this.props;
-    const { modalVisible, addInputValue } = this.state;
-    //const content = (
+    const extracontent = (
+      <div className={styles.extraContent}>
+         <div className={styles.statItem} >
+            <Icon type="close-square" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+         </div>
+         <div className={styles.statItem} >
+            <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+         </div>
+         <div className={styles.statItem}> 
+            <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
+         </div>
+      </div>
+    );
+{/*    //const content = (
      // <div className={styles.pageHeaderContent}>
     //    <p>
    //       段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，
@@ -66,32 +69,71 @@ export default class Device_list extends PureComponent {
     //      </a>
     //    </div>
     //  </div>
-   // );
-
-    const extraContent = (
-      <div className={styles.extraImg}>
-        <img alt="这是一个标题" src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png" />
+// );*/}
+    return ( 
+      <div>  
+      <Row gutter={24}>  
+      <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+        <Card
+          bordered={false}
+          title="我的设备"
+          loading={loading}
+          extra = {extracontent}
+          style={{ marginBottom: 24 }}  
+          //bodyStyle={{ padding: 0 }}
+          //extra={[<Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />,
+                  //<Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />,
+                 // <Icon type="close-square" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+          //      ]}
+        >
+        <List 
+           rowkey="id"
+           loading={loading}
+           dataSource={[...list]}
+             renderItem={item =>(
+               <List.Item key={item.id}>
+                  <List.Item.Meta
+                    avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
+                    title={item.title}
+                    description={item.subDescription}
+                  />
+                </List.Item>
+             )}
+          />
+        </Card>
+        <Card
+          bordered={false}
+          title="历史记录"
+          loading={loading}
+          //bodyStyle={{ padding: 0 }}
+        >
+          
+        </Card>
+      </Col>  
+      </Row>
       </div>
     );
+  }
+}
 
-    return (
-        <div className={styles.cardList}>
+{/*
+//        <div className={styles.cardList}>
           <List
             rowKey="id"
             loading={loading}
             grid={{ gutter: 12, lg: 4, md: 2, sm: 1, xs: 1 }}
             dataSource={['', ...list]}
-            renderItem={item => (item ? (
-              <List.Item key={item.id}>
-                <Card hoverable className={styles.card} /*actions={[<a>操作一</a>, <a>操作二</a>]}*/>
+  //          renderItem={item => (item ? (
+    //          <List.Item key={item.id}>
+      //          <Card hoverable className={styles.card} /*actions={[<a>操作一</a>, <a>操作二</a>]}>
                   <Card.Meta
                     avatar={<Link to="/list/device_friend">{<img alt="" className={styles.cardAvatar} src={item.avatar} />}</Link>}
-                    title={<Link to="/list/device_friend">{item.title}</Link>}
+  //                  title={<Link to="/list/device_friend">{item.title}</Link>}
                     description={(
                       <Ellipsis className={styles.item} lines={3}>{item.description}</Ellipsis>
                     )}
                   />
-                </Card>
+    //            </Card>
               </List.Item>
               ) : (
                 <List.Item>
@@ -102,10 +144,10 @@ export default class Device_list extends PureComponent {
                   </Button>
                 </List.Item>
               )
-            )}
+   //        )}
           />
           <Modal
-               title="添加设备"
+     //          title="添加设备"
                visible={modalVisible}
                onOk={this.handleAdd}
                onCancel={() => this.handleModalVisible()}
@@ -116,9 +158,6 @@ export default class Device_list extends PureComponent {
                  label="描述"
               >
                  <Input placeholder="请输入设备编号" onChange={this.handleAddInput} value={addInputValue} />
-              </FormItem>
-            </Modal>
-        </div>      
-    );
-  }
-}
+    //          </FormItem>
+    //        </Modal>
+            </div> */ }

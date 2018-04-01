@@ -1,6 +1,6 @@
 import mockjs from 'mockjs';
 import { getRule, postRule } from './mock/rule';
-import { getActivities, getNotice, getFakeList } from './mock/api';
+import { getActivities, getNotice, getFakeList, get_Activities, get_List } from './mock/api';
 import { getFakeChartData } from './mock/chart';
 import { getFakeFormData } from './mock/form';
 import { imgMap } from './mock/utils';
@@ -48,7 +48,8 @@ const proxy = {
     address: 'Sidney No. 1 Lake Park',
   }],
   'GET /api/project/notice': getNotice,
-  'GET /api/activities': getActivities,
+  'GET /api/activities': get_List,
+  'GET /api/query_activities': get_List,
   'GET /api/rule': getRule,
   'POST /api/rule': {
     $params: {

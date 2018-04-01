@@ -118,38 +118,38 @@ export default class Data_list extends PureComponent {
   }
 
  /**** */ 
-  renderActivities() {
-    const {
-      activities: { list },
-    } = this.props;
-    return list.map((item) => {
-      const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
-   //      if (item[key]) {
-   //       return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;
-  //      }
-        return key;
-     });
-      return (
-        <List.Item key={item.id} actions={[<a>删除</a>]}>
-          <List.Item.Meta
-            avatar={<Link to="/dashboard/monitor_device">{<Avatar src={item.user.avatar} /> }</Link>}
-            title={
-              <span>
-                <a className={styles.username}>{item.user.name}</a>
-                &nbsp;
-                <span className={styles.event}>{events}</span>
-              </span>
-            }
-            description={
-              <span className={styles.datetime} title={item.updatedAt}>
-                {moment(item.updatedAt).fromNow()}
-              </span>
-            }
-          />
-        </List.Item>
-      );
-    });
-  }
+ renderActivities() {
+  const {
+    activities: { list },
+  } = this.props;
+  return list.map((item) => {
+    const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
+ //      if (item[key]) {
+ //       return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;
+//      }
+      return key;
+   });
+    return (
+      <List.Item key={item.id}>
+        <List.Item.Meta
+          avatar={<Link to="/dashboard/monitor_device">{<Avatar src={item.user.avatar} /> }</Link>}
+          title={
+            <span>
+              <a className={styles.username}>{item.user.name}</a>
+              &nbsp;
+              <span className={styles.event}>{events}</span>
+            </span>
+          }
+          description={
+            <span className={styles.datetime} title={item.updatedAt}>
+              {moment(item.updatedAt).fromNow()}
+            </span>
+          }
+        />
+      </List.Item>
+    );
+  });
+}
 
   render() {
     const {

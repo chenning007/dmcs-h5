@@ -63,7 +63,6 @@ export default class SearchList extends Component {
 
     return (
       <PageHeaderLayout
-        title="群组管理"
         //content={mainSearch}
         tabList={tabList}
         activeTabKey={location.pathname.replace(`${match.path}/`, '')}
