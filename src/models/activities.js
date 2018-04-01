@@ -20,7 +20,8 @@ export default {
       yield put({
         type: 'save',
         payload: { 
-          list: Array.isArray(response.list) ? response.list : []
+          list: Array.isArray(response.list) ? response.list : [] ,
+          list_activities: Array.isArray(response.list_activities) ? response.list_activities : [],
         },
       });
       yield put({
@@ -29,23 +30,6 @@ export default {
       });
     },
     
-    *fetchActivities(_, { call, put }){
-      yield put({
-        type: 'changeLoading1',
-        payload: true,
-      });
-      const response = yield call(query_Activities);
-      yield put({
-        type: 'save',
-        payload: {
-          list_activities: /*Array.isArray(response.list_activities) ? */response.list_activities 
-        },
-      });
-      yield put({
-        type: 'changeLoading1',
-        payload: false,
-      });
-    }
   },
 
   reducers: {
