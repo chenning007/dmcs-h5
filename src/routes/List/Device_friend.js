@@ -130,10 +130,10 @@ export default class Device_friend extends PureComponent {
         return key;
      });
       return (
-        <List.Item key={item.id} actions={[<a>设置</a>, 
+        <List.Item key={item.id} /*actions={[<a>设置</a>, 
             <Popconfirm title="是否要删除此行？">
                <a>删除</a>
-            </Popconfirm>]}
+            </Popconfirm>]}*/
         >
           <List.Item.Meta
             avatar={<Link to="/dashboard/monitor_device">{<Avatar src={item.user.avatar} /> }</Link>}
@@ -175,14 +175,13 @@ export default class Device_friend extends PureComponent {
     );
 
     const extraContent = (
-      <div style={{ textAlign: 'center' }}>
-        <Input.Search
-          placeholder="请输入"
-          enterButton="搜索"
-          size="large"
-          //onSearch={this.handleFormSubmit}
-          style={{ width: 522 }}
-        />
+      <div className={styles.extraContent}>
+      <div className={styles.statItem} >
+         <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+      </div>
+      <div className={styles.statItem}> 
+         <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
+      </div>
       </div>
     );
 
@@ -195,22 +194,32 @@ export default class Device_friend extends PureComponent {
               className={styles.activeCard}
               title="共享成员"
               loading={activitiesLoading}
+              extra={extraContent}
+              style={{ marginBottom: 24 }} 
             >
               <List loading={activitiesLoading} size="large">
                    <div className={styles.activitiesList}>
                        {/*<Link to="/dashboard/analysis">{this.renderActivities()} </Link>*/}
                        {this.renderActivities()} 
-                       <Button
+                       {/*<Button
                             style={{ width: '100%', marginTop: 16, marginBottom: 8 }}
                                type="dashed"
                                //onClick={this.newMember}
                                icon="plus"
                         >
                             新增成员
-                        </Button>
+                       </Button>*/}
                    </div>
               </List>
             </Card>
+            <Card
+                bordered={false}
+                title="设备信息"
+                //loading={loading}
+              //bodyStyle={{ padding: 0 }}
+             >
+          
+             </Card>
           </Col>
           
       {/*   <Col xl={8} lg={24} md={24} sm={24} xs={24}>
