@@ -74,36 +74,25 @@ const members = [
 ];
 
 @connect(state => ({
-  project: state.project,
   activities: state.activities,
-  chart: state.chart, 
 }))
+
+@Form.create()
 export default class Device_friend extends PureComponent {
-  state = {
-    addInputValue: '',
-    modalVisible: false,
-    expandForm: false,
-    selectedRows: [],
-    formValues: {},
-  };
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch({
-      type: 'project/fetchNotice',
-    });
+  //  dispatch({
+  //    type: 'project/fetchNotice',
+  //  });
     dispatch({
       type: 'activities/fetchActivities',
     });
-    dispatch({
-      type: 'chart/fetch',
-    });
+   // dispatch({
+   //   type: 'chart/fetch',
+  //  });
   }
 
   componentWillUnmount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'chart/clear',
-    });
   }
 /**** */
 
@@ -174,22 +163,11 @@ export default class Device_friend extends PureComponent {
 
   render() {
     const {
-      project: { loading: projectLoading, notice },
       activities: { loading: activitiesLoading },
-      chart: { radarData },
+      form,
     } = this.props;
-    const { modalVisible, addInputValue } = this.state;
-    const pageHeaderContent = (
-      <div className={styles.pageHeaderContent}>
-        <div className={styles.avatar}>
-          <Avatar size="large" src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
-        </div>
-        <div className={styles.content}>
-          <div className={styles.contentTitle}>早安，蔡志军，祝你开心每一天！</div>
-          {/*<div>交互专家 | 蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED</div>*/}
-        </div>
-      </div>
-    );
+    
+    const { getFieldDecorator, getFieldValue } = this.props.form;
 
     const extraContent = (
       <div className={styles.extraContent}>
@@ -214,6 +192,13 @@ export default class Device_friend extends PureComponent {
       },
     };
 
+    const submitFormLayout = {
+      wrapperCol: {
+        xs: { span: 24, offset: 0 },
+        sm: { span: 10, offset: 10 },
+      },
+    };
+
     return (
         <Row gutter={24}>
           <Col xl={24} lg={24} md={24} sm={24} xs={24}>
@@ -228,22 +213,14 @@ export default class Device_friend extends PureComponent {
             >
               <List loading={activitiesLoading} size="large">
                    <div className={styles.activitiesList}>
-                       {/*<Link to="/dashboard/analysis">{this.renderActivities()} </Link>*/}
-                       {this.renderActivities()} 
-                       {/*<Button
-                            style={{ width: '100%', marginTop: 16, marginBottom: 8 }}
-                               type="dashed"
-                               //onClick={this.newMember}
-                               icon="plus"
-                        >
-                            新增成员
-                       </Button>*/}
+                      {this.renderActivities()} 
                    </div>
               </List>
             </Card>
              <Card 
                 bordered={true}
                 title="设备信息"
+                style={{ marginBottom: 36 }}
              >
                 <Row>
                 <Col span={12}>
@@ -257,12 +234,12 @@ export default class Device_friend extends PureComponent {
                   label="用户名"
                 >
                   {getFieldDecorator('name', {
-                   initialValue: data,
+                   initialValue: " ",
                    rules: [{
                       required: false, 
                     }],
                   })(
-                      <Input  size="large" placeholder="例如: 2015000000" disabled
+                      <Input  size="large" placeholder="例如: 2015000000" 
                       />
                     )}
                 </FormItem>
@@ -276,7 +253,7 @@ export default class Device_friend extends PureComponent {
                     required: false, 
                   }],
                 })(
-                    <Input  size="large" placeholder="例如: 2015000000" disabled
+                    <Input  size="large" placeholder="例如: 2015000000" 
                     />
                   )}
                 </FormItem>
@@ -290,13 +267,24 @@ export default class Device_friend extends PureComponent {
                     required: false, 
                   }],
                 })(
-                    <Input  size="large" placeholder="例如: 2015000000" disabled
+                    <Input  size="large" placeholder="例如: 2015000000" 
                     />
                   )}
-                </FormItem>             
+                </FormItem>  
+                <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
+                  <Button type="primary" htmlType="submit" /*loading={submitting}*/>
+                     保存
+                  </Button>
+                    {/*<Button style={{ marginLeft: 8 }}>保存</Button>*/}
+                </FormItem>           
                 </Form>
                 </Col>
                 </Row>
+              </Card>
+              <Card style={{ textAlign: 'center' }}>
+                 <Button type="danger" htmlType="submit" size="large"/*loading={submitting}*/>
+                    删除并退出
+                  </Button>   
               </Card>
             </Col>
           
