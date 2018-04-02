@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Popconfirm } from 'antd';
+import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Popconfirm, Select } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import EditableLinkGroup from '../../components/EditableLinkGroup';
@@ -11,6 +11,7 @@ import { Radar } from '../../components/Charts';
 import styles from './Device_friend.less';
 
 const FormItem = Form.Item;
+const Option=Select.Option;
 
 const links = [
   {
@@ -122,6 +123,21 @@ export default class Device_friend extends PureComponent {
     const {
       activities: { list_activities },
     } = this.props;
+　　 const default_action = (
+      <div>
+        <Select defaultValue="权限设置" style={{ width: 120 }} >
+          <Option value="１">权限1</Option>
+          <Option value="２">权限2</Option>
+          <Option value="３" >权限3</Option>
+          <Option value="４">权限4</Option>
+          <Option value="５">权限5</Option>
+          <Option value="６">权限6</Option>
+          <Option value="７" >权限7</Option>
+          <Option value="makebyself">自定义</Option>
+        </Select>
+      </div>
+    );
+
     return list_activities.map((item) => {
       const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
    //      if (item[key]) {
@@ -134,6 +150,7 @@ export default class Device_friend extends PureComponent {
             <Popconfirm title="是否要删除此行？">
                <a>删除</a>
             </Popconfirm>]}*/
+            actions={[default_action]}
         >
           <List.Item.Meta
             avatar={<Link to="/dashboard/monitor_device">{<Avatar src={item.user.avatar} /> }</Link>}
@@ -218,7 +235,6 @@ export default class Device_friend extends PureComponent {
                 //loading={loading}
               //bodyStyle={{ padding: 0 }}
              >
-          
              </Card>
           </Col>
           

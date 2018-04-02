@@ -10,8 +10,8 @@ export default class Profile extends Component {
   handleTabChange = (key) => {
     const { dispatch, match } = this.props;
     switch (key) {
-      case 'basic-form':
-        dispatch(routerRedux.push(`${match.url}/basic-form`));
+      case 'basic-profile':
+        dispatch(routerRedux.push(`${match.url}/basic-profile`));
         break;
       case 'set_up':
         dispatch(routerRedux.push(`${match.url}/set_up`))
@@ -29,7 +29,7 @@ export default class Profile extends Component {
 
   render() {
     const tabList = [{
-      key: 'basic-form',
+      key: 'basic-profile',
       tab: '信息',
     },
     {

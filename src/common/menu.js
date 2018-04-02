@@ -78,7 +78,7 @@ const menuData = [{
   path: 'profile',
   children: [{
     name: '信息',
-    path: 'basic-form',
+    path: 'basic-profile',
   }, 
   {
     name: '设置',
