@@ -202,6 +202,18 @@ export default class Device_friend extends PureComponent {
       </div>
     );
 
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24, offset: -10 },
+        sm: { span: 7 , offset: -10 }, 
+      },
+      wrapperCol: {
+        xs: { span: 24, offset: 3},
+        sm: { span: 12 },
+        md: { span: 10 },
+      },
+    };
+
     return (
         <Row gutter={24}>
           <Col xl={24} lg={24} md={24} sm={24} xs={24}>
@@ -229,14 +241,64 @@ export default class Device_friend extends PureComponent {
                    </div>
               </List>
             </Card>
-            <Card
-                bordered={false}
+             <Card 
+                bordered={true}
                 title="设备信息"
-                //loading={loading}
-              //bodyStyle={{ padding: 0 }}
              >
-             </Card>
-          </Col>
+                <Row>
+                <Col span={12}>
+                <Form
+                   //onSubmit={this.handleSubmit}
+                   hideRequiredMark
+                   style={{ marginTop: 8 }}
+                >  
+                <FormItem
+                  {...formItemLayout}
+                  label="用户名"
+                >
+                  {getFieldDecorator('name', {
+                   initialValue: data,
+                   rules: [{
+                      required: false, 
+                    }],
+                  })(
+                      <Input  size="large" placeholder="例如: 2015000000" disabled
+                      />
+                    )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="用户ID"
+                >
+                 {getFieldDecorator('id', {
+                  initialValue: "123456789",
+                  rules: [{
+                    required: false, 
+                  }],
+                })(
+                    <Input  size="large" placeholder="例如: 2015000000" disabled
+                    />
+                  )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="头衔"
+                >
+                 {getFieldDecorator('title', {
+                  initialValue: "侠士",
+                  rules: [{
+                    required: false, 
+                  }],
+                })(
+                    <Input  size="large" placeholder="例如: 2015000000" disabled
+                    />
+                  )}
+                </FormItem>             
+                </Form>
+                </Col>
+                </Row>
+              </Card>
+            </Col>
           
       {/*   <Col xl={8} lg={24} md={24} sm={24} xs={24}>
             <Card
