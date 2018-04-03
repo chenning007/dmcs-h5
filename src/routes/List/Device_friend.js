@@ -85,7 +85,7 @@ export default class Device_friend extends PureComponent {
   //    type: 'project/fetchNotice',
   //  });
     dispatch({
-      type: 'activities/fetchActivities',
+      type: 'activities/fetchList',
     });
    // dispatch({
    //   type: 'chart/fetch',
@@ -93,6 +93,10 @@ export default class Device_friend extends PureComponent {
   }
 
   componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'activities/clear',
+    });
   }
 /**** */
 
