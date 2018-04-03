@@ -13,123 +13,34 @@ import styles from './Device_friend.less';
 const FormItem = Form.Item;
 const Option=Select.Option;
 
-const links = [
-  {
-    title: '操作一',
-    href: '',
-  },
-  {
-    title: '操作二',
-    href: '',
-  },
-  {
-    title: '操作三',
-    href: '',
-  },
-  {
-    title: '操作四',
-    href: '',
-  },
-  {
-    title: '操作五',
-    href: '',
-  },
-  {
-    title: '操作六',
-    href: '',
-  },
-];
-
-const members = [
-  {
-    id: 'members-1',
-    title: '科学搬砖组',
-    logo: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-    link: '',
-  },
-  {
-    id: 'members-2',
-    title: '程序员日常',
-    logo: 'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png',
-    link: '',
-  },
-  {
-    id: 'members-3',
-    title: '设计天团',
-    logo: 'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png',
-    link: '',
-  },
-  {
-    id: 'members-4',
-    title: '中二少女团',
-    logo: 'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png',
-    link: '',
-  },
-  {
-    id: 'members-5',
-    title: '骗你学计算机',
-    logo: 'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png',
-    link: '',
-  },
-];
-
 @connect(state => ({
-  activities: state.activities,
+  friend: state.friend,
 }))
 
 @Form.create()
-export default class Device_friend extends PureComponent {
+export default class Friend_list extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'activities/fetchList',
+      type: 'friend/fetchList',
     });
   }
 
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'activities/clear',
+      type: 'friend/clear',
     });
   }
 /**** */
-
-  handleModalVisible = (flag) => {
-    this.setState({
-      modalVisible: !!flag,
-    });
-  }
-  handleAddInput = (e) => {
-    this.setState({
-      addInputValue: e.target.value,
-    });
-  }
-
  /**** */ 
   renderActivities() {
     const {
-      activities: { list_activities },
+      friend: { list_activities },
     } = this.props;
-　　 /*const default_action = (
-      <div>
-        <Select defaultValue="权限设置" style={{ width: 120 }} >
-          <Option value="１">权限1</Option>
-          <Option value="２">权限2</Option>
-          <Option value="３" >权限3</Option>
-          <Option value="４">权限4</Option>
-          <Option value="５">权限5</Option>
-          <Option value="６">权限6</Option>
-          <Option value="７" >权限7</Option>
-          <Option value="makebyself">自定义</Option>
-        </Select>
-      </div>
-    );*/
 
     return list_activities.map((item) => {
       const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
-   //      if (item[key]) {
-   //       return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;
-  //      }
         return key;
      });
       return (
@@ -161,7 +72,7 @@ export default class Device_friend extends PureComponent {
 
   render() {
     const {
-      activities: { loading: activitiesLoading },
+      friend: { loading: activitiesLoading },
       form,
     } = this.props;
     
