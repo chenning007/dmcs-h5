@@ -107,7 +107,7 @@ export default class Device_list extends PureComponent {
           loading={loading}
           //bodyStyle={{ padding: 0 }}
         >
-          
+          <h3>这里记录报废或删除或转让的设备的信息</h3>
         </Card>
       </Col>  
       </Row>
