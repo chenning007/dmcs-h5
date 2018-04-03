@@ -2,16 +2,84 @@ import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Popconfirm, Select } from 'antd';
+import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Popconfirm, Table, Divider } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import EditableLinkGroup from '../../components/EditableLinkGroup';
-import { Radar } from '../../components/Charts';
 
-import styles from './Device_friend.less';
+import styles from './Friend_list.less';
 
 const FormItem = Form.Item;
-const Option=Select.Option;
+
+/**** */
+const columns = [{
+  title: '头像',
+  dataIndex: 'avator',
+  key: 'avator',
+  width: '25%',
+  render: text => <Avatar src={text}/>,
+}, {
+  title: 'Id',
+  dataIndex: 'id_number',
+  key: 'id_number',
+  width: '30',
+}, {
+  title: '用户名',
+  dataIndex: 'name',
+  key: 'name',
+  width:'20%'
+}, {
+  title: '设置',
+  key: 'action',
+  width: '25%',
+  render: '',
+}];
+
+const avatar = [
+  'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/psOgztMplJMGpVEqfcgF.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/ZpBqSxLxVEXfcUNoPKrz.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/laiEnJdGHVOhJrUShBaJ.png',
+  'https://gw.alipayobjects.com/zos/rmsportal/UrQsqscbKEpNuJcvBZBu.png',
+];
+const data = [{
+  key: '1',
+  avator: avatar[1],
+  id_number: '123456',
+  name: 'John',
+}, {
+  key: '2',
+  avator: avatar[2],
+  id_number: '123457',
+  name: 'Jim',
+}, {
+  key: '3',
+  avator: avatar[3],
+  id_number: '123458',
+  name: 'Sara',
+},{
+  key: '4',
+  avator: avatar[4],
+  id_number: '123459',
+  name: '茅军', 
+},{
+  key: '5',
+  avator: avatar[5],
+  id_number: '123459',
+  name: '刘军',
+},{
+  key: '6',
+  avator: avatar[6],
+  id_number: '123451',
+  name: '胡军',
+}
+];
+/*** */
 
 @connect(state => ({
   friend: state.friend,
@@ -78,16 +146,13 @@ export default class Friend_list extends PureComponent {
     
     const { getFieldDecorator, getFieldValue } = this.props.form;
 
-   /* const extraContent = (
-      <div className={styles.extraContent}>
-      <div className={styles.statItem} >
-         <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
-      </div>
-      <div className={styles.statItem}> 
+    const extraContent = (
+      <div className=" ">
+      <div className="   "> 
          <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
       </div>
       </div>
-    ); */
+    ); 
 
     const formItemLayout = {
       labelCol: {
@@ -115,16 +180,21 @@ export default class Friend_list extends PureComponent {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title="共享成员"
+              title="朋友列表"
               loading={activitiesLoading}
-              //extra={extraContent}
-              style={{ marginBottom: 24 }} 
+              extra={extraContent}
+              //style={{ marginBottom: 24 }} 
             >
+            {/*
               <List loading={activitiesLoading} size="large">
                    <div className={styles.activitiesList}>
                       {this.renderActivities()} 
                    </div>
               </List>
+           </Card>*/}
+              <div>
+               <Table columns={columns} dataSource={data} pagination={false}/>
+              </div>
             </Card>
          </Col>
         </Row>
