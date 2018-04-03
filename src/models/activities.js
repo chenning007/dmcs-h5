@@ -31,12 +31,18 @@ export default {
     },
     
   },
-
+  
   reducers: {
     save(state, { payload }) {
       return {
         ...state,
         ...payload,
+      };
+    },
+    clear() {
+      return {
+        list: [],
+        list_activities: [],
       };
     },
     changeLoading(state, action) {
