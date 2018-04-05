@@ -235,43 +235,43 @@ export default class Device_friend extends PureComponent {
                 >  
                 <FormItem
                   {...formItemLayout}
-                  label="用户名"
+                  label="设备id"
                 >
-                  {getFieldDecorator('name', {
-                   initialValue: " ",
+                  {getFieldDecorator('id', {
+                   initialValue: "2015000000",
                    rules: [{
                       required: false, 
                     }],
                   })(
-                      <Input  size="large" placeholder="例如: 2015000000" 
+                      <Input  size="large" placeholder="例如: 2015000000" disabled
                       />
                     )}
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
-                    label="用户ID"
+                    label="名称"
                 >
-                 {getFieldDecorator('id', {
-                  initialValue: "123456789",
+                 {getFieldDecorator('number', {
+                  initialValue: "conditionar",
                   rules: [{
                     required: false, 
                   }],
                 })(
-                    <Input  size="large" placeholder="例如: 2015000000" 
+                    <Input  size="large" placeholder="例如: 2015000000" disabled
                     />
                   )}
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
-                    label="头衔"
+                    label="日期"
                 >
-                 {getFieldDecorator('title', {
-                  initialValue: "侠士",
+                 {getFieldDecorator('date', {
+                  initialValue: "2017-08-01",
                   rules: [{
                     required: false, 
                   }],
                 })(
-                    <Input  size="large" placeholder="例如: 2015000000" 
+                    <Input  size="large" placeholder="例如: 2015000000" disabled
                     />
                   )}
                 </FormItem>  
@@ -285,6 +285,13 @@ export default class Device_friend extends PureComponent {
                 </Col>
                 </Row>
               </Card>
+              <Card 
+                style={{ marginBottom: 36 , textAlign: 'center' }}
+              >
+                <Button type="danger" htmlType="submit" size="large"/*loading={submitting}*/>
+                    权限转让
+                </Button> 
+             </Card>
               <Card style={{ textAlign: 'center' }}>
                  <Button type="danger" htmlType="submit" size="large"/*loading={submitting}*/>
                     删除并退出
