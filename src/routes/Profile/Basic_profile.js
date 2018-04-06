@@ -17,9 +17,24 @@ const { TextArea } = Input;
 const email = 'caizj@123.com';
 const telephone = null;
 
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 12, offset: -10 },
+    sm: { span: 7 , offset: -10 }, 
+  },
+  wrapperCol: {
+    xs: { span: 12, offset: 3},
+    sm: { span: 12 },
+    md: { span: 10 },
+  },
+ // marginBottom: 48,
+};
+
+
 @connect(state => ({
   data: state.form.data,
   submitting: state.form.regularFormSubmitting,
+  changename: true,
 }))
 @Form.create()
 export default class Basic_profiles extends PureComponent {
@@ -38,10 +53,32 @@ export default class Basic_profiles extends PureComponent {
   onChangeUserName = (e) => {
     this.setState({ data: e.target.value });
   }
+  
+  onname = (e) => {
+    this.setState({changename: !!changename})
+  }
 
   renderInput(text)  {
     return text? <a>修改</a> : <a>绑定</a> ;
  }
+  renderName() {
+    const { changename }=this.props;
+    if( !changename ){
+      return(
+
+            <Input  size="large" placeholder="例如: 1570575354" />
+      );
+    }
+    if(changename){
+      return(
+        <div>
+          <h3>姓名:</h3>
+          <p>蔡志军</p>
+          <Button type="primary" onClick={this.onname}>修改</Button>
+        </div>
+      );
+    }
+  }
   
   render() {
     const { submitting, form, data } = this.props;
@@ -49,11 +86,11 @@ export default class Basic_profiles extends PureComponent {
 
     const formItemLayout = {
       labelCol: {
-        xs: { span: 24, offset: -10 },
+        xs: { span: 12, offset: -10 },
         sm: { span: 7 , offset: -10 }, 
       },
       wrapperCol: {
-        xs: { span: 24, offset: 3},
+        xs: { span: 12, offset: 3},
         sm: { span: 12 },
         md: { span: 10 },
       },
@@ -69,7 +106,7 @@ export default class Basic_profiles extends PureComponent {
     return (
       <div>
         <Card   
-          title='基础信息'
+          title='基本信息'
           bordered={true}
           style={{ marginBottom: 24 }}
         >
@@ -98,11 +135,25 @@ export default class Basic_profiles extends PureComponent {
                style={{ marginTop: -10 }}
                bordered={false}
               >
-                <Form
-                  onSubmit={this.handleSubmit}
-                  hideRequiredMark
-                  style={{ marginTop: 8 }}
-                > 
+                  <Form
+                    onSubmit={this.handleSubmit}
+                    hideRequiredMark
+                    style={{ marginTop: 8 }}
+                  > 
+                  <FormItem
+                    {...formItemLayout}
+                    label="用户名"
+                  >
+                    {getFieldDecorator('name1', {
+                      initialValue: "1",
+                      rules: [{
+                        required: false, 
+                      }],
+                    })(<div>
+                      {this.renderName()}
+                      </div>
+                    )}
+                  </FormItem>
                   <FormItem
                     {...formItemLayout}
                     label="用户名"
@@ -142,7 +193,7 @@ export default class Basic_profiles extends PureComponent {
                         required: false, 
                       }],
                     })(
-                      <Input size="large"/>  
+                      <h3>侠士</h3> 
                     )}
                   </FormItem>
                   {/*<FormItem
@@ -254,7 +305,8 @@ export default class Basic_profiles extends PureComponent {
         <Card 
           title='地址信息'
           bordered={true}
-        >
+        > 
+
           
         </Card>
         <FooterToolbar>
