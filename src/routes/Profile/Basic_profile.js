@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
   Form, Input, DatePicker, Select, Button, Card, InputNumber, Radio, Icon, Tooltip,
-  Row, Col, Avatar, Upload,
+  Row, Col, Avatar, Upload, Divider
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import FooterToolbar from '../../components/FooterToolbar';
@@ -14,9 +14,14 @@ const { Option } = Select;
 //const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
+const userNumber = '1234567';
+const userName = '蔡哥';
+const userTitle = '侠士';
 const email = 'caizj@123.com';
 const telephone = null;
 
+
+/**** */
 const formItemLayout = {
   labelCol: {
     xs: { span: 12, offset: -10 },
@@ -30,14 +35,23 @@ const formItemLayout = {
  // marginBottom: 48,
 };
 
+const submitFormLayout = {
+  wrapperCol: {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 10, offset: 10 },
+  },
+};
+/****** */
 
 @connect(state => ({
   data: state.form.data,
   submitting: state.form.regularFormSubmitting,
-  changename: true,
 }))
 @Form.create()
 export default class Basic_profiles extends PureComponent {
+  state = {
+    changename: false,
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -54,28 +68,87 @@ export default class Basic_profiles extends PureComponent {
     this.setState({ data: e.target.value });
   }
   
-  onname = (e) => {
-    this.setState({changename: !!changename})
+  onChangestate = () => {
+    this.setState({changename: !this.state.changename ,})
   }
 
   renderInput(text)  {
     return text? <a>修改</a> : <a>绑定</a> ;
  }
-  renderName() {
-    const { changename }=this.props;
+  renderInfo() {
+    const { form, state }=this.props;
+    const { getFieldDecorator, getFieldValue }=this.props.form;
+    const { changename }=this.state;
     if( !changename ){
       return(
-
-            <Input  size="large" placeholder="例如: 1570575354" />
+        <Form
+          hideRequiredMark
+          style={{ marginTop: 8 }}
+        >
+          <FormItem
+            colon={false}
+            labelCol={{span: 8, }}
+            wrapperCol={{span: 8, offset: 2}}
+           //{...formItemLayout}
+            label={<b>用户号:</b>}
+          >
+            <h3>{userNumber}</h3>           
+          </FormItem> 
+          <FormItem
+            colon={false}
+            labelCol={{span: 8, offset: 0}}
+            wrapperCol={{span: 8, offset: 2}}
+            label={<b>用户名:</b>}
+          > 
+            <h3>{userName? userName:'未命名'}</h3>
+          </FormItem>
+          <FormItem
+             colon={false}
+             labelCol={{span: 8, offset: 0}}
+             wrapperCol={{span: 8, offset: 2}}
+             label={<b>头衔:</b>}
+          >
+            <h3>{userTitle}</h3>
+          </FormItem>
+        </Form>
       );
     }
     if(changename){
       return(
-        <div>
-          <h3>姓名:</h3>
-          <p>蔡志军</p>
-          <Button type="primary" onClick={this.onname}>修改</Button>
-        </div>
+        <Form>
+          <FormItem
+            colon={false}
+            labelCol={{span: 8, offset: 0}}
+            wrapperCol={{span: 8, offset: 2}}
+            label={<b>"用户号"</b>}
+          >
+            <h3>{userNumber}</h3>           
+          </FormItem>
+          <FormItem
+            colon={false}
+            labelCol={{span: 8, offset: 0}}
+            wrapperCol={{span: 8, offset: 2}}
+            label={<b>用户名:</b>}
+          > 
+            {getFieldDecorator('username', {
+              initialValue: [],
+              rules: [{
+                required: false, 
+              }],
+            })(
+              <Input  size="large" placeholder="例如: 12345678@123.com" 
+              />
+            )}
+          </FormItem>
+          <FormItem
+             colon={false}
+             labelCol={{span: 8, offset: 0}}
+             wrapperCol={{span: 8, offset: 2}}
+             label={<b>头衔:</b>}
+          >
+            <h3>{userTitle}</h3>
+          </FormItem> 
+        </Form>
       );
     }
   }
@@ -84,25 +157,6 @@ export default class Basic_profiles extends PureComponent {
     const { submitting, form, data } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
 
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 12, offset: -10 },
-        sm: { span: 7 , offset: -10 }, 
-      },
-      wrapperCol: {
-        xs: { span: 12, offset: 3},
-        sm: { span: 12 },
-        md: { span: 10 },
-      },
-     // marginBottom: 48,
-    };
-
-    const submitFormLayout = {
-      wrapperCol: {
-        xs: { span: 24, offset: 0 },
-        sm: { span: 10, offset: 10 },
-      },
-    };
     return (
       <div>
         <Card   
@@ -135,130 +189,7 @@ export default class Basic_profiles extends PureComponent {
                style={{ marginTop: -10 }}
                bordered={false}
               >
-                  <Form
-                    onSubmit={this.handleSubmit}
-                    hideRequiredMark
-                    style={{ marginTop: 8 }}
-                  > 
-                  <FormItem
-                    {...formItemLayout}
-                    label="用户名"
-                  >
-                    {getFieldDecorator('name1', {
-                      initialValue: "1",
-                      rules: [{
-                        required: false, 
-                      }],
-                    })(<div>
-                      {this.renderName()}
-                      </div>
-                    )}
-                  </FormItem>
-                  <FormItem
-                    {...formItemLayout}
-                    label="用户名"
-                  >
-                    {getFieldDecorator('name', {
-                      initialValue: data,
-                      rules: [{
-                        required: false, 
-                      }],
-                    })(
-                      <h3>蔡志军</h3>
-
-                            //  {/*<Input  size="large" placeholder="例如: 2015000000" disabled
-                          // />*/}
-                    )}
-                  </FormItem>
-                  <FormItem
-                    {...formItemLayout}
-                    label="用户ID"
-                  >
-                    {getFieldDecorator('id', {
-                      initialValue: "123456789",
-                      rules: [{
-                        required: false, 
-                      }],
-                    })(
-                      <h3>123456789</h3>
-                    )}
-                  </FormItem>
-                  <FormItem
-                    {...formItemLayout}
-                    label="头衔"
-                  >
-                    {getFieldDecorator('title', {
-                      initialValue: "侠士",
-                      rules: [{
-                        required: false, 
-                      }],
-                    })(
-                      <h3>侠士</h3> 
-                    )}
-                  </FormItem>
-                  {/*<FormItem
-                    {...formItemLayout}
-                    label="邮箱"
-                  >
-                    {getFieldDecorator('idcard', {
-                      initialValue: [],
-                      rules: [{
-                        required: false, 
-                      }],
-                    })(
-                      <Input  size="large" placeholder="例如: 12345678@123.com" 
-                      />
-                    )}
-                  </FormItem>
-                  <FormItem
-                    {...formItemLayout}
-                    label="手机"
-                  >
-                    {getFieldDecorator('mobile', {
-                      initialValue: [],
-                      rules: [{
-                        required: false, 
-                      }],
-                    })(
-                      <Input  size="large" placeholder="例如: 1570575354" 
-                      />
-                    )}
-                  </FormItem> */} 
-                          {/*        
-                          <FormItem
-                            {...formItemLayout}
-                            label="生日"
-                          >
-                            {getFieldDecorator('birthday', {
-                              rules: [{
-                                required: false, message: '请选择起始日期',
-                              }],
-                            })(
-                              <DatePicker style={{ width: '100%' }} placeholder="日期" />
-                            )}
-                          </FormItem> 
-                          */}
-                          {/*
-                          <FormItem
-                            {...formItemLayout}
-                            label="个性签名"
-                          >
-                            {getFieldDecorator('selfsign', {
-                              rules: [{
-                                required: false, 
-                              }],
-                            })(
-                              <TextArea style={{ minHeight: 32 }} placeholder="输入你的个性签名吧！" rows={4} />
-                            )}
-                          </FormItem> 
-                          */}                       
-                          {/*<FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-                            <Button type="primary" htmlType="submit" loading={submitting}>
-                              保存
-                            </Button>
-                            {/*<Button style={{ marginLeft: 8 }}>保存</Button>*/}
-                          {/*</FormItem>*/}
-                </Form>
+                {this.renderInfo()}
               </Card>
             </Col>
           </Row>
@@ -305,12 +236,18 @@ export default class Basic_profiles extends PureComponent {
         <Card 
           title='地址信息'
           bordered={true}
-        > 
-
-          
+        >   
         </Card>
         <FooterToolbar>
-          <Button type="primary" htmlType="submit" loading={submitting}>
+          <Button type="primary" htmlType="submit" loading={submitting}
+          onClick={this.onChangestate}
+          >
+            编辑
+          </Button>
+          <Divider type= 'vertical'/>
+          <Button type="primary" htmlType="submit" loading={submitting}
+          onClick={this.onChangestate}
+          >
             保存
           </Button>
         </FooterToolbar>
