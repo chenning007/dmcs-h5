@@ -195,6 +195,13 @@ export default class Basic_profiles extends PureComponent {
           </Row>
         </Card>
         <Card 
+          title={<div><b>地址信息</b></div>}
+          bordered={true}
+          style={{marginBottom: 24}}
+        >   
+          
+        </Card>
+        <Card 
           title= '绑定信息'
           bordered={true}
           style={{marginBottom: 24 }}
@@ -232,11 +239,6 @@ export default class Basic_profiles extends PureComponent {
             </Col>
             <Col span={4} />
           </Row> 
-        </Card>
-        <Card 
-          title='地址信息'
-          bordered={true}
-        >   
         </Card>
         <FooterToolbar>
           <Button type="primary" htmlType="submit" loading={submitting}
