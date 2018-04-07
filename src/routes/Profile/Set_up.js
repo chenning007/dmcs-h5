@@ -164,46 +164,7 @@ export default class Basic_form extends PureComponent {
               )}
             </FormItem>
             {/*
-            <FormItem
-              {...formItemLayout}
-              label="邮箱"
-            >
-              {getFieldDecorator('idcard', {
-                initialValue: [],
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder="例如: 12345678@123.com" 
-                />
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="手机"
-            >
-              {getFieldDecorator('mobile', {
-                initialValue: [],
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder="例如: 1570575354" 
-                />
-              )}
-            </FormItem>           
-            <FormItem
-              {...formItemLayout}
-              label="生日"
-            >
-              {getFieldDecorator('birthday', {
-                rules: [{
-                  required: false, message: '请选择起始日期',
-                }],
-              })(
-                <DatePicker style={{ width: '100%' }} placeholder="日期" />
-              )}
-            </FormItem>   */}         
+             */}         
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
                 保存
