@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Form, Input, DatePicker, Select, Button, Card, InputNumber, Radio, Icon, Tooltip,
+  Form, Input, DatePicker, Select, Button, Card, InputNumber, Radio, Icon, Tooltip, Cascader,
   Row, Col, Avatar, Upload, Divider
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
@@ -19,6 +19,37 @@ const userName = '蔡哥';
 const userTitle = '侠士';
 const email = 'caizj@123.com';
 const telephone = null;
+const identify = ['undergraduate'];
+const identification = [{
+  label: '请选择',
+  value: 'choice',
+}
+,{
+   label: '初中',
+   value: 'middle',
+},{
+   label: '高中',
+   value: 'high' ,
+},{
+  label: '中专',
+  value: 'middle1',
+},{
+  label: '大专',
+  value: 'high1',
+},{
+  label: '本科',
+  value: 'undergraduate',
+},{
+  label: '硕士',
+  value: 'postgraduate',
+},{
+  label: '博士',
+  value: 'doctor',
+},{
+  label: '其它',
+  value: 'other',
+}
+];
 
 
 /**** */
@@ -110,6 +141,14 @@ export default class Basic_profiles extends PureComponent {
           >
             <h3>{userTitle}</h3>
           </FormItem>
+          <FormItem
+             colon={false}
+             labelCol={{span: 8, offset: 0}}
+             wrapperCol={{span: 8, offset: 2}}
+             label={<b>受教育程度:</b>}
+          >
+            <h3>本科</h3>
+          </FormItem>
         </Form>
       );
     }
@@ -131,7 +170,7 @@ export default class Basic_profiles extends PureComponent {
             label={<b>用户名:</b>}
           > 
             {getFieldDecorator('username', {
-              initialValue: [],
+              initialValue: userName,
               rules: [{
                 required: false, 
               }],
@@ -148,6 +187,22 @@ export default class Basic_profiles extends PureComponent {
           >
             <h3>{userTitle}</h3>
           </FormItem> 
+          <FormItem
+             colon={false}
+             labelCol={{span: 8, offset: 0}}
+             wrapperCol={{span: 8, offset: 2}}
+             label={<b>受教育程度:</b>}
+          >
+            {getFieldDecorator('identification', {
+              initialValue: /*['undergraduate'] ,*/identify,
+              rules: [{ 
+                      //type :'array',
+                      required: false, 
+              }],
+          })(
+            <Cascader options={identification} placeholder='请选择' />
+          )}
+          </FormItem>
         </Form>
       );
     }
