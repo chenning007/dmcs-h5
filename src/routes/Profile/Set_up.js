@@ -1,25 +1,24 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Form, Input, DatePicker, Select, Button, Card, InputNumber, Radio, Icon, Tooltip,
-  Row, Col, Avatar, Upload,
-} from 'antd';
+  Input, Select, Button, Card, InputNumber, Icon, Row, Col, Avatar,  List, Divider } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import logo from '../../../public/title.png';
 
-const FormItem = Form.Item;
-const { Option } = Select;
+//const FormItem = Form.Item;
+//const { Option } = Select;
 //const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+//const { TextArea } = Input;
+
 
 @connect(state => ({
-  data: state.form.data,
-  submitting: state.form.regularFormSubmitting,
+  //data: state.form.data,
+  //submitting: state.form.regularFormSubmitting,
 }))
-@Form.create()
+//@Form.create()
 export default class Basic_form extends PureComponent {
-  handleSubmit = (e) => {
+/*  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -29,15 +28,15 @@ export default class Basic_form extends PureComponent {
         });
       }
     });
-  }
+  }*/
 
   onChangeUserName = (e) => {
     this.setState({ data: e.target.value });
   }
   
   render() {
-    const { submitting, form, data } = this.props;
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+   // const { submitting, form, data } = this.props;
+   // const { getFieldDecorator, getFieldValue } = this.props.form;
 
     const formItemLayout = {
       labelCol: {
@@ -60,121 +59,36 @@ export default class Basic_form extends PureComponent {
     };
 
     return (
-      <Card bordered={true}>
-        <Row>
-          <Col span={12}>
-          <Form
-            onSubmit={this.handleSubmit}
-            hideRequiredMark
-            style={{ marginTop: 8 }}
-          >
-          {/*  <FormItem
-              {...formItemLayout}
-              label="头像"
-            >
-              {getFieldDecorator('image', {
-                initialValue: [],
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder="例如:你最帅的一张图片" 
-                />
-              )}
-            </FormItem>
-            */} 
-            <FormItem/> 
-            <div style={{marginLeft: 120}}>
-              <h3>修改密码</h3>
-            </div>
-            <FormItem
-              {...formItemLayout}
-              label="新密码"
-            >
-              {getFieldDecorator('new_secret', {
-                initialValue: '',
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder='' 
-                />
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="确认密码"
-            >
-              {getFieldDecorator('new_secret_s', {
-                initialValue: '',
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder='' 
-                />
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="原密码"
-            >
-              {getFieldDecorator('old_secret', {
-                initialValue: '',
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder='' 
-                />
-              )}
-            </FormItem>
-            <div style={{marginLeft: 120}}>
-              <h3>详细住址</h3>
-            </div>
-            <FormItem
-              {...formItemLayout}
-              label="地址"
-            >
-              {getFieldDecorator('address', {
-                initialValue: "123456789",
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder="" 
-                />
-              )}
-            </FormItem>
-            <div style={{marginLeft: 120}}>
-              <h3>身份认证</h3>
-            </div>
-            <FormItem
-              {...formItemLayout}
-              label="身份证号"
-            >
-              {getFieldDecorator('id_number', {
-                initialValue: "",
-                rules: [{
-                  required: false, 
-                }],
-              })(
-                <Input  size="large" placeholder=""
-                />
-              )}
-            </FormItem>
-            {/*
-             */}         
-            <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-              <Button type="primary" htmlType="submit" loading={submitting}>
-                保存
-              </Button>
-              {/*<Button style={{ marginLeft: 8 }}>保存</Button>*/}
-            </FormItem>
-          </Form>
-          </Col>
-        </Row>
-      </Card>
+      <Row>
+        <Col span={2}/>
+        <Col span={20} >
+          <Card  /*loading={loading}*/>
+            <List bordered={false}>
+              <List.Item actions={[<Button type='primary' size='large'>修改</Button>]} >
+                <Icon type="check-square" style={{fontSize: 48, color:'#7CFC00'}}/>
+                <span style={{fontSize: 32, paddingLeft: 32}}>登录密码</span>  
+                <span style={{fontSize: 32}}><Divider type='vertical'/></span>
+                <span style={{paddingTop: 16, color:'#FF0000'}}>
+                      互联网账号存在被盗风险，建议您定期更改密码以保护账户安全
+                </span> 
+              </List.Item>
+            </List>
+            <Divider type='horizontal'/>
+            <List bordered={false}>
+              <List.Item actions={[<Button type='primary' size='large'>修改</Button>]} >
+                <Icon type="check-square" style={{fontSize: 48, color:'#7CFC00'}}/>
+                <span style={{fontSize: 32, paddingLeft: 32}}>手机验证</span>  
+                <span style={{fontSize: 32}}><Divider type='vertical'/></span>
+                <span style={{paddingTop: 16}}>
+                      你验证的手机:15701585453,若已丢失或停用，<span style={{color:'#FF0000'}}>请立即更换</span>
+                </span> 
+              </List.Item>
+            </List>
+            
+          </Card>
+        </Col>
+        <Col span={2}/>
+      </Row>
     );
   }
 }
