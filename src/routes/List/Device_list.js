@@ -19,14 +19,10 @@ const { Step }=Steps;
 export default class Device_list extends PureComponent {
 /***** */
   state = {
-    addInputValue: '',
-    modalVisible: false,
-    expandForm: false,
-    selectedRows: [],
-    formValues: {},
     condition: 0,
     current: 0,
     change_remove: 0,
+    modalVisible: false,
   };
 /******** */
 
@@ -38,9 +34,23 @@ export default class Device_list extends PureComponent {
       },
     });
   }
+  setModalvisible (setvisible) { 
+    this.setState({modalVisible: setvisible,});
+  };
   onchangeCondition() {
     this.setState({condition: 1,});
   }
+  onchange_remove1() {
+    if(this.state.change_remove===0){
+    this.setState({change_remove: 1,});
+    }
+  }
+  onchange_remove2() {
+    if(this.state.change_remove===0){
+    this.setState({change_remove: 2,})
+    }
+  }
+
   next() {
     const temcurrent = this.state.current + 1;
     this.setState({current: temcurrent });
@@ -50,68 +60,182 @@ export default class Device_list extends PureComponent {
     this.setState({ current: temcurrent });
   }
   componentWillUnmount() {
-    this.setState({current: 0,
+    this.setState({
+       current: 0,
        condition: 0,
        change_remove: 0,
+       modalVisible: false,
     });
   }
+  resetchange_remove(){
+    this.setState({change_remove: 0,})
+  }
   reset() {
-    this.setState({current: 0,
+    this.setState({
+      current: 0,
       condition: 0,
       change_remove: 0,
+      modalVisible: false,
    });
    message.success('修改成功');
   }
 
   extracontent() {
-    return(
-    <div className={styles.extraContent}>
-       <div className={styles.statItem} >
-         <a><Icon type="close-square" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/></a>
-       </div>
-       <div className={styles.statItem} >
-         <a><Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/></a>
-       </div>
-       <div className={styles.statItem}> 
-         <a onClick={()=>this.onchangeCondition()}> <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} /> </a>
-       </div>
-    </div>
-  )
+    if(this.state.change_remove===0){
+      return(
+      <div className={styles.extraContent}>
+        <div className={styles.statItem}> 
+          <a onClick={()=>this.onchangeCondition()}> <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} /> </a>
+        </div>
+        <div className={styles.statItem} >
+          <a onClick={()=>this.onchange_remove1()}><Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/></a>
+        </div>
+        <div className={styles.statItem} >
+          <a onClick={() =>this.onchange_remove2()}><Icon type="retweet" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/></a>
+        </div>
+      </div>
+    )}
+    if(this.state.change_remove!==0){
+      return(
+          <Button type='primary' size='large' onClick={()=> this.resetchange_remove()}>
+            <Icon type="rollback" />
+          </Button>
+      )
+    }
   };
 /******* */
 
 /******* */
   renderDevice(){
     const { list: { list, loading } } = this.props;
-    const {condition, current, change_remove}=this.state;
+    const {condition, current, change_remove, modalVisible}=this.state;
     if(condition===0){
       return (
             <Row gutter={24}>  
               <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                <Card
-                  bordered={false}
-                  title="我的设备"
-                  loading={loading}
-                  extra={this.extracontent()}
-                  style={{ marginBottom: 24 }} 
-                >
-                {
-                  <List 
-                    rowkey="id"
-                    loading={loading}
-                    dataSource={[...list]}
-                      renderItem={item =>(
-                        <List.Item key={item.id}>
-                            <List.Item.Meta
-                              avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
-                              title={item.title}
-                              description={item.subDescription}
-                            />
-                          </List.Item>
-                      )}
-                    />
+                { change_remove===0
+                  &&
+                    <Card
+                      bordered={false}
+                      title="我的设备"
+                      loading={loading}
+                      extra={this.extracontent()}
+                      style={{ marginBottom: 24 }} 
+                    >
+                      <List 
+                        rowkey="id"
+                        loading={loading}
+                        dataSource={[...list]}
+                          renderItem={item =>(
+                            <List.Item key={item.id}>
+                                <List.Item.Meta
+                                  avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
+                                  title={item.title}
+                                  description={item.subDescription}
+                                />
+                              </List.Item>
+                          )}
+                        />  
+                    </Card>
                   }
-                </Card>
+                  { change_remove===1
+                    &&
+                      <Card 
+                      bordered={false}
+                      title="我的设备"
+                      loading={loading}
+                      extra={this.extracontent()}
+                      style={{ marginBottom: 24 }} 
+                      >
+                        <List 
+                          rowkey="id"
+                          loading={loading}
+                          dataSource={[...list]}
+                            renderItem={item =>(
+                              <List.Item key={item.id} 
+                                actions={[<Button type='danger' 
+                                    onClick={() =>this.setModalvisible(true)}>
+                                    删除</Button>]}>
+                                  <List.Item.Meta
+                                    avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
+                                    title={item.title}
+                                    description={item.subDescription}
+                                  />
+                                </List.Item>
+                            )}
+                          />
+                      </Card>
+                  }
+                  { change_remove===2
+                    &&
+                      <Card
+                        bordered={false}
+                        title="我的设备"
+                        loading={loading}
+                        extra={this.extracontent()}
+                        style={{ marginBottom: 24 }}
+                      >
+                        <List 
+                          rowkey="id"
+                          loading={loading}
+                          dataSource={[...list]}
+                            renderItem={item =>(
+                              <List.Item key={item.id} 
+                                actions={[
+                                    <Button 
+                                      type='primary'
+                                      onClick={() =>this.setModalvisible(true)}>
+                                      转让
+                                    </Button>
+                                  ]}>
+                                  <List.Item.Meta
+                                    avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
+                                    title={item.title}
+                                    description={item.subDescription}
+                                  />
+                                </List.Item>
+                            )}
+                        />
+                    </Card>
+                  }
+                { change_remove===1
+                  &&
+                  <Modal
+                  title='删除设备'
+                  visible={modalVisible}
+                  onOk={()=>this.setModalvisible(false)}
+                  onCancel={()=>this.setModalvisible(false)}
+                  okText='确认'
+                  cancelText='取消'
+                  >
+                    <FormItem
+                      labelCol={{ span: 5 }}
+                      wrapperCol={{ span: 15 }}
+                      label="登录密码"
+                    >
+                      <Input placeholder="请输入登录密码" /*onChange={this.handleAddInput} value={addInputValue}*/ />
+                    </FormItem> 
+                  </Modal>
+                }
+                { change_remove===2
+                  &&
+                  <Modal
+                  title='转让设备'
+                  visible={modalVisible}
+                  onOk={()=>this.setModalvisible(false)}
+                  onCancel={()=>this.setModalvisible(false)}
+                  okText='确认'
+                  cancelText='取消'
+                  >
+                    <FormItem
+                      labelCol={{ span: 5 }}
+                      wrapperCol={{ span: 15 }}
+                      label=""
+                    >
+                      <Input placeholder="请输入登录密码" /*onChange={this.handleAddInput} value={addInputValue}*/ />
+                    </FormItem>  
+                  </Modal>
+                }
                 <Card
                   bordered={false}
                   title="历史记录"
