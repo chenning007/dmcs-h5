@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col } from 'antd';
+import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col, Steps, message } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import Ellipsis from '../../components/Ellipsis';
@@ -10,6 +10,8 @@ import styles from './Device_list.less';
 import { Link } from 'dva/router';
 
 const FormItem = Form.Item;
+const { Step }=Steps;
+
 
 @connect(state => ({
   list: state.list,
@@ -22,6 +24,9 @@ export default class Device_list extends PureComponent {
     expandForm: false,
     selectedRows: [],
     formValues: {},
+    condition: 0,
+    current: 0,
+    change_remove: 0,
   };
 /******** */
 
@@ -33,84 +38,142 @@ export default class Device_list extends PureComponent {
       },
     });
   }
+  onchangeCondition() {
+    this.setState({condition: 1,});
+  }
+  next() {
+    const temcurrent = this.state.current + 1;
+    this.setState({current: temcurrent });
+  }
+  pre() {
+    const temcurrent=this.state.current - 1;
+    this.setState({ current: temcurrent });
+  }
+  componentWillUnmount() {
+    this.setState({current: 0,
+       condition: 0,
+       change_remove: 0,
+    });
+  }
+  reset() {
+    this.setState({current: 0,
+      condition: 0,
+      change_remove: 0,
+   });
+   message.success('修改成功');
+  }
+
+  extracontent() {
+    return(
+    <div className={styles.extraContent}>
+       <div className={styles.statItem} >
+         <a><Icon type="close-square" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/></a>
+       </div>
+       <div className={styles.statItem} >
+         <a><Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/></a>
+       </div>
+       <div className={styles.statItem}> 
+         <a onClick={()=>this.onchangeCondition()}> <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} /> </a>
+       </div>
+    </div>
+  )
+  };
 /******* */
 
 /******* */
-  render() {
+  renderDevice(){
     const { list: { list, loading } } = this.props;
-    const extracontent = (
-      <div className={styles.extraContent}>
-         <div className={styles.statItem} >
-            <Icon type="close-square" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
-         </div>
-         <div className={styles.statItem} >
-            <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
-         </div>
-         <div className={styles.statItem}> 
-            <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
-         </div>
-      </div>
-    );
-{/*    //const content = (
-     // <div className={styles.pageHeaderContent}>
-    //    <p>
-   //       段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，
-   //       提供跨越设计与开发的体验解决方案。
-   //     </p>
-   //     <div className={styles.contentLink}>
-   //       <a>
-   //         <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg" /> 快速开始
-    //      </a>
-    //      <a>
-    //        <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg" /> 产品简介
-    //      </a>
-    //      <a>
-    //        <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg" /> 产品文档
-    //      </a>
-    //    </div>
-    //  </div>
-// );*/}
+    const {condition, current, change_remove}=this.state;
+    if(condition===0){
+      return (
+            <Row gutter={24}>  
+              <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                <Card
+                  bordered={false}
+                  title="我的设备"
+                  loading={loading}
+                  extra={this.extracontent()}
+                  style={{ marginBottom: 24 }} 
+                >
+                {
+                  <List 
+                    rowkey="id"
+                    loading={loading}
+                    dataSource={[...list]}
+                      renderItem={item =>(
+                        <List.Item key={item.id}>
+                            <List.Item.Meta
+                              avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
+                              title={item.title}
+                              description={item.subDescription}
+                            />
+                          </List.Item>
+                      )}
+                    />
+                  }
+                </Card>
+                <Card
+                  bordered={false}
+                  title="历史记录"
+                  loading={loading}
+                  //bodyStyle={{ padding: 0 }}
+                >
+                  <h3>这里记录报废或删除或转让的设备的信息</h3>
+                </Card>
+              </Col>  
+            </Row>
+      );
+    }
+    if(condition===1){
+      return(
+        <Card bordered={false}>
+          <Steps current={current} /*className={styles.steps}*/>
+            <Step title="选择设备" />
+            <Step title="设备验证" />
+            <Step title="完成" />
+          </Steps>
+          <div style={{ marginTop:20}}>
+            { current===0
+              &&
+              <div>
+                <Card> 
+
+                </Card>
+                <Button type='primary' onClick={() =>this.next()}>下一步</Button>
+              </div>
+            }
+            { current===1
+              &&
+              <div>
+                <Card>
+                   
+                </Card>
+                <span>
+                  <Button type='primary' onClick={() =>this.next()}>下一步</Button>
+                  <Button type='primary' style={{marginLeft: 8}} onClick={()=>this.pre()}>上一步</Button>
+                </span>  
+              </div>
+            }
+            { current===2
+              &&
+              <div>
+                <Card>
+                </Card>
+                <span> 
+                    <Button type='primary' onClick={()=>this.reset()}>完成</Button>
+                </span>
+              </div>
+            }   
+          </div>
+        </Card>
+      );
+    }
+  }
+
+  render() {
     return ( 
       <div>  
-      <Row gutter={24}>  
-      <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-        <Card
-          bordered={false}
-          title="我的设备"
-          loading={loading}
-          extra = {extracontent}
-          style={{ marginBottom: 24 }}  
-          //bodyStyle={{ padding: 0 }}
-          //extra={[<Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />,
-                  //<Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />,
-                 // <Icon type="close-square" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
-          //      ]}
-        >
-        <List 
-           rowkey="id"
-           loading={loading}
-           dataSource={[...list]}
-             renderItem={item =>(
-               <List.Item key={item.id}>
-                  <List.Item.Meta
-                    avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
-                    title={item.title}
-                    description={item.subDescription}
-                  />
-                </List.Item>
-             )}
-          />
-        </Card>
-        <Card
-          bordered={false}
-          title="历史记录"
-          loading={loading}
-          //bodyStyle={{ padding: 0 }}
-        >
-          <h3>这里记录报废或删除或转让的设备的信息</h3>
-        </Card>
-      </Col>  
-      </Row>
+        {this.renderDevice()}
       </div>
     );
   }
