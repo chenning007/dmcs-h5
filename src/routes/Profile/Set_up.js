@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Input, Select, Button, Card, InputNumber, Icon, Row, Col, Avatar,  List, Divider } from 'antd';
+  Input, Select, Button, Card, InputNumber, Icon, Row, Col, Avatar,  List, Divider, Steps } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import logo from '../../../public/title.png';
@@ -10,11 +10,13 @@ import logo from '../../../public/title.png';
 //const { Option } = Select;
 //const { RangePicker } = DatePicker;
 //const { TextArea } = Input;
-
+const { Step }=Steps;
 
 @connect(state => ({
   //data: state.form.data,
   //submitting: state.form.regularFormSubmitting,
+  condition: 0,
+  current: 0,
 }))
 //@Form.create()
 export default class Basic_form extends PureComponent {
@@ -32,6 +34,157 @@ export default class Basic_form extends PureComponent {
 
   onChangeUserName = (e) => {
     this.setState({ data: e.target.value });
+  }
+  onChangeState1 = () => {
+    this.setState({condition: 1});
+  }
+  onChangeState2 = () => {
+    this.setState({condition: 2});
+  }
+  onChangeState3 = () => {
+    this.setState({condition: 3});
+  }
+  onChangeState4 = () => {
+    this.setState({condition: 4});
+  }
+  next() {
+    const temcurrent=this.state.current+1;
+    this.setState({current: temcurrent});
+  }
+  pre() {
+    const temcurrent=this.state.current-1;
+    this.setState({current: temcurrent});
+  }
+
+  renderSet_up() {
+    const { state }=this.props;
+    const { condition,current }=this.state;
+    switch( condition ){
+       case 1 : return(
+                       <Card bordered={false}>
+                         <Steps current={current} /*className={styles.steps}*/>
+                            <Step title="验证身份" />
+                            <Step title="修改登录密码" />
+                            <Step title="完成" />
+                         </Steps>
+                         <div className='step-aciton'>
+                           { current<2
+                             &&
+                             <Button type='primary' onClick={this.next}>下一步</Button>
+                           }
+                           { current==2
+                             &&
+                             <Button type='primary'onClick={()=>message.success('完成修改')}>完成</Button>
+                           }
+                           { current>0
+                             &&
+                             <Button type='primary' style={{marginLeft: 8}} onClick={this.pre}>上一步</Button>
+                            }   
+                         </div>
+                       </Card>
+                      ) ;
+       case 2 : return(
+                        <Card bordered={false}>
+                          <Steps current={current} /*className={styles.steps}*/>
+                            <Step title="验证身份" />
+                            <Step title="修改已验证手机" />
+                            <Step title="完成" />
+                          </Steps>
+                          <div className='step-aciton'>
+                            { current<2
+                              &&
+                              <Button type='primary' onClick={this.next}>下一步</Button>
+                            }
+                            { current==2
+                              &&
+                              <Button type='primary'onClick={()=>message.success('完成修改')}>完成</Button>
+                            }
+                            { current>0
+                              &&
+                              <Button type='primary' style={{marginLeft: 8}} onClick={this.pre}>上一步</Button>
+                            }   
+                          </div>
+                        </Card>
+                      )  ;
+       case 3 : return (
+                        <Card bordered={false}>
+                          <Steps current={current} /*className={styles.steps}*/>
+                            <Step title="验证身份" />
+                            <Step title="验证邮箱" />
+                            <Step title="完成" />
+                          </Steps>
+                          <div className='step-aciton'>
+                            { current<2
+                              &&
+                              <Button type='primary' onClick={this.next}>下一步</Button>
+                            }
+                            { current==2
+                              &&
+                              <Button type='primary'onClick={()=>message.success('完成修改')}>完成</Button>
+                            }
+                            { current>0
+                              &&
+                              <Button type='primary' style={{marginLeft: 8}} onClick={this.pre}>上一步</Button>
+                            }   
+                          </div>
+                        </Card>
+                        );
+       case 4 : return ;
+
+       default : return (
+                      <Row>
+                        <Col span={2}/>
+                        <Col span={20} >
+                          <Card  /*loading={loading}*/>
+                            <List bordered={false}>
+                              <List.Item actions={[<Button type='dashed' size='large' onClick={this.onChangeState1}>修改</Button>]} >
+                                <Icon type="check-square" style={{fontSize: 48, color:'#7CFC00'}}/>
+                                <span style={{fontSize: 32, paddingLeft: 32}}>登录密码</span>  
+                                <span style={{fontSize: 32}}><Divider type='vertical'/></span>
+                                <span style={{paddingTop: 16, color:'#FF0000'}}>
+                                      互联网账号存在被盗风险，建议您定期更改密码以保护账户安全
+                                </span> 
+                              </List.Item>
+                            </List>
+                            <Divider type='horizontal'/>
+                            <List bordered={false}>
+                              <List.Item actions={[<Button type='dashed' size='large'>修改</Button>]} >
+                                <Icon type="check-square" style={{fontSize: 48, color:'#7CFC00'}}/>
+                                <span style={{fontSize: 32, paddingLeft: 32}}>手机验证</span>  
+                                <span style={{fontSize: 32}}><Divider type='vertical'/></span>
+                                <span style={{paddingTop: 16}}>
+                                      你验证的手机:15701585453,若已丢失或停用，<span style={{color:'#FF0000'}}>请立即更换</span>
+                                </span> 
+                              </List.Item>
+                            </List>
+                            <Divider type='horizontal'/>
+                            <List bordered={false}>
+                              <List.Item actions={[<Button type='primary' size='large'>立即绑定</Button>]} >
+                              <Icon type="exclamation-circle-o"  style={{fontSize: 48, color:'#FFFF00'}}/>
+                                <span style={{fontSize: 32, paddingLeft: 32}}>邮箱验证</span>  
+                                <span style={{fontSize: 32}}><Divider type='vertical'/></span>
+                                <span style={{paddingTop: 16}}>
+                                      验证后，可用于快速找回登录密码,提高账号的稳定性
+                                </span> 
+                              </List.Item>
+                            </List> 
+                            <Divider type='horizontal'/>
+                            <List bordered={false}>
+                              <List.Item actions={[<Button type='primary' size='large'>立即认证</Button>]} >
+                              <Icon type="exclamation-circle-o"  style={{fontSize: 48, color:'#FFFF00'}}/>
+                                <span style={{fontSize: 32, paddingLeft: 32}}>实名认证</span>  
+                                <span style={{fontSize: 32}}><Divider type='vertical'/></span>
+                                <span style={{paddingTop: 16}}>
+                                      实名认证后，可通过实名信息修改手机号等，提高账户安全性
+                                </span> 
+                              </List.Item>
+                            </List> 
+                          </Card>
+                        </Col>
+                        <Col span={2}/>
+                      </Row>
+                      ) ;
+    }
   }
   
   render() {
@@ -64,7 +217,7 @@ export default class Basic_form extends PureComponent {
         <Col span={20} >
           <Card  /*loading={loading}*/>
             <List bordered={false}>
-              <List.Item actions={[<Button type='primary' size='large'>修改</Button>]} >
+              <List.Item actions={[<Button type='dashed' size='large'>修改</Button>]} >
                 <Icon type="check-square" style={{fontSize: 48, color:'#7CFC00'}}/>
                 <span style={{fontSize: 32, paddingLeft: 32}}>登录密码</span>  
                 <span style={{fontSize: 32}}><Divider type='vertical'/></span>
@@ -75,7 +228,7 @@ export default class Basic_form extends PureComponent {
             </List>
             <Divider type='horizontal'/>
             <List bordered={false}>
-              <List.Item actions={[<Button type='primary' size='large'>修改</Button>]} >
+              <List.Item actions={[<Button type='dashed' size='large'>修改</Button>]} >
                 <Icon type="check-square" style={{fontSize: 48, color:'#7CFC00'}}/>
                 <span style={{fontSize: 32, paddingLeft: 32}}>手机验证</span>  
                 <span style={{fontSize: 32}}><Divider type='vertical'/></span>
@@ -84,7 +237,28 @@ export default class Basic_form extends PureComponent {
                 </span> 
               </List.Item>
             </List>
-            
+            <Divider type='horizontal'/>
+            <List bordered={false}>
+              <List.Item actions={[<Button type='primary' size='large'>立即绑定</Button>]} >
+              <Icon type="exclamation-circle-o"  style={{fontSize: 48, color:'#FFFF00'}}/>
+                <span style={{fontSize: 32, paddingLeft: 32}}>邮箱验证</span>  
+                <span style={{fontSize: 32}}><Divider type='vertical'/></span>
+                <span style={{paddingTop: 16}}>
+                     验证后，可用于快速找回登录密码,提高账号的稳定性
+                </span> 
+              </List.Item>
+            </List> 
+            <Divider type='horizontal'/>
+            <List bordered={false}>
+              <List.Item actions={[<Button type='primary' size='large'>立即认证</Button>]} >
+              <Icon type="exclamation-circle-o"  style={{fontSize: 48, color:'#FFFF00'}}/>
+                <span style={{fontSize: 32, paddingLeft: 32}}>实名认证</span>  
+                <span style={{fontSize: 32}}><Divider type='vertical'/></span>
+                <span style={{paddingTop: 16}}>
+                     实名认证后，可通过实名信息修改手机号等，提高账户安全性
+                </span> 
+              </List.Item>
+            </List> 
           </Card>
         </Col>
         <Col span={2}/>
