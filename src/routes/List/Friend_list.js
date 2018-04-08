@@ -13,21 +13,21 @@ const FormItem = Form.Item;
 
 /**** */
 const columns = [{
-  title: '头像',
+  title: '用户',
   dataIndex: 'avator',
   key: 'avator',
   width: '25%',
   render: text => <Avatar src={text}/>,
+},{
+  title: '用户名',
+  dataIndex: 'name',
+  key: 'name',
+  width:'20%'
 }, {
   title: 'Id',
   dataIndex: 'id_number',
   key: 'id_number',
   width: '30',
-}, {
-  title: '用户名',
-  dataIndex: 'name',
-  key: 'name',
-  width:'20%'
 }, {
   title: '设置',
   key: 'action',
@@ -116,7 +116,6 @@ export default class Friend_list extends PureComponent {
             <Popconfirm title="是否要删除此行？">
                <a>删除</a>
             </Popconfirm>]}*/
-            //actions={[default_action]}
         >
           <List.Item.Meta
             avatar={<Link to="/dashboard/monitor_device">{<Avatar src={item.user.avatar} /> }</Link>}
