@@ -38,15 +38,15 @@ export default class Device_list extends PureComponent {
     this.setState({modalVisible: setvisible,});
   };
   onchangeCondition() {
-    this.setState({condition: 1,});
+    this.setState({condition: 1,}); //１进入到设备添加状态
   }
   onchange_remove1() {
-    if(this.state.change_remove===0){
+    if(this.state.change_remove===0){ //change_remove进入到删除操作
     this.setState({change_remove: 1,});
     }
   }
   onchange_remove2() {
-    if(this.state.change_remove===0){
+    if(this.state.change_remove===0){ //进入到转让操作当中
     this.setState({change_remove: 2,})
     }
   }
