@@ -6,6 +6,7 @@ export default {
   state: {
     list: [],
     list_activities: [],
+    list_people: [],
     loading: true,
     loading1: true,
   },
@@ -22,6 +23,7 @@ export default {
         payload: { 
           list: Array.isArray(response.list) ? response.list : [] ,
           list_activities: Array.isArray(response.list_activities) ? response.list_activities : [],
+          list_people: Array.isArray(response.list_people) ? response.list_people : [],
         },
       });
       yield put({
@@ -43,6 +45,7 @@ export default {
       return {
         list: [],
         list_activities: [],
+        list_people: [],
       };
     },
     changeLoading(state, action) {
