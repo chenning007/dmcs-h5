@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Popconfirm, Select } from 'antd';
+import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Popconfirm, Select, Tooltip } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import EditableLinkGroup from '../../components/EditableLinkGroup';
@@ -79,6 +79,10 @@ const members = [
 
 @Form.create()
 export default class Device_friend extends PureComponent {
+  state={
+    title_condition: 1,
+    content_condition: 0,
+  }
   componentDidMount() {
     const { dispatch } = this.props;
   //  dispatch({
@@ -94,6 +98,10 @@ export default class Device_friend extends PureComponent {
 
   componentWillUnmount() {
     const { dispatch } = this.props;
+    this.setState({
+      title_condition: 1,
+      content_condition: 0,
+    })
     dispatch({
       type: 'activities/clear',
     });
@@ -110,59 +118,116 @@ export default class Device_friend extends PureComponent {
       addInputValue: e.target.value,
     });
   }
+  onchangeCondition = () => {
+    this.setState({
+      title_condition: 2,
+    });
+  }
+  resetCondition = () => {
+    this.setState({
+      title_condition: 1,
+      content_condition: 0,
+    });
+  }
+  contentCondition = (content_condition) =>{
+    this.setState({content_condition: content_condition});
+    this.onchangeCondition();
+  }
+
+  
+  extraContent(titlecondition) {
+     //const titlecondition = titlecondition;
+     if(titlecondition===1){
+        return (
+                <div className={styles.extraContent}>  
+                  <div className={styles.statItem}> 
+                    <Tooltip title='权限管理'>
+                      <a onClick={() => this.contentCondition(1)}>
+                        <Icon type="setting" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
+                      </a>
+                    </Tooltip>
+                  </div>
+                  <div className={styles.statItem} >
+                    <Tooltip title='删除人员'>
+                      <a onClick={() => this.contentCondition(2)}>
+                        <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+                      </a>
+                    </Tooltip>
+                  </div>
+                  <div className={styles.statItem} > 
+                    <Tooltip title='添加人员'>
+                      <a onClick={()=> this.contentCondition(3)}>
+                        <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
+                      </a>
+                    </Tooltip>
+                  </div>
+                </div>
+            );
+    }
+    if(titlecondition===2){
+      return (
+        <div className={styles.extraContent}>  
+          <div className={styles.statItem}> 
+            <Tooltip title='权限管理'>
+              <Button type='primary' 
+                 size='large' onClick={()=>this.resetCondition()}
+              >
+                <Icon type="rollback" />
+              </Button>
+            </Tooltip>
+          </div>
+        </div>
+    );
+    }
+    return ;
+}
+
 
  /**** */ 
   renderActivities() {
     const {
-      activities: { list_activities },
+      activities: { list_people },
     } = this.props;
-　　 const default_action = (
-      <div>
-        <Select defaultValue="权限设置" style={{ width: 120 }} >
-          <Option value="１">权限1</Option>
-          <Option value="２">权限2</Option>
-          <Option value="３" >权限3</Option>
-          <Option value="４">权限4</Option>
-          <Option value="５">权限5</Option>
-          <Option value="６">权限6</Option>
-          <Option value="７" >权限7</Option>
-          <Option value="makebyself">自定义</Option>
-        </Select>
-      </div>
-    );
+    const {content_condition} =　this.state;
+      switch(content_condition){
+        case 0 :{
+          return list_people.map((item) => {
+            return (
+              <List.Item key={item.key}>
+                <span>
+                  <Avatar src={item.avatar}/>
+                </span>
+                <span style={{paddingLeft: 12, paddingTop: 6}}>{item.name}</span>  
+              </List.Item>
+            );
+          });
+        }
+        case 1 :{
+          return list_activities.map((item) => {
+            return (
+              <List.Item key={item.key} actions={[<Button type='primary'>保存</Button>]}>
+                <span>
+                <Avatar
+                  src={item.avator} 
+                  /*title={
+                      <a className={styles.username}>{item.user.name}</a>*/
+                /* }*/
+                />
+                </span>
+                <span style={{paddingLeft: 12, paddingTop: 6}}>{item.name}</span>
+                  
+              </List.Item>
+            );
+          });
+        }
+        case 2 :{
 
-    return list_activities.map((item) => {
-      const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
-   //      if (item[key]) {
-   //       return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;
-  //      }
-        return key;
-     });
-      return (
-        <List.Item key={item.id} /*actions={[<a>设置</a>, 
-            <Popconfirm title="是否要删除此行？">
-               <a>删除</a>
-            </Popconfirm>]}*/
-            actions={[default_action]}
-        >
-          <List.Item.Meta
-            avatar={<Link to="/dashboard/monitor_device">{<Avatar src={item.user.avatar} /> }</Link>}
-            title={
-              <span>
-                <a className={styles.username}>{item.user.name}</a>
-                &nbsp;
-                <span className={styles.event}>{events}</span>
-              </span>
-            }
-            description={
-              <span className={styles.datetime} title={item.updatedAt}>
-                {moment(item.updatedAt).fromNow()}
-              </span>
-            }
-          />
-        </List.Item>
-      );
-    });
+        }
+        case 3 :{
+
+        }
+        default: return;
+    }
   }
 
   render() {
@@ -173,16 +238,26 @@ export default class Device_friend extends PureComponent {
     
     const { getFieldDecorator, getFieldValue } = this.props.form;
 
-    const extraContent = (
-      <div className={styles.extraContent}>
-      <div className={styles.statItem} >
-         <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+    /*const extraContent = (
+      <div className={styles.extraContent}>  
+        <div className={styles.statItem}> 
+          <Tooltip title='权限管理'>
+            <Icon type="setting" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
+          </Tooltip>
+        </div>
+        <div className={styles.statItem} >
+          <Tooltip title='删除人员'>
+            <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+          </Tooltip>
+        </div>
+        
+        <div className={styles.statItem} > 
+          <Tooltip title='添加人员'>
+            <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
+          </Tooltip>
+        </div>
       </div>
-      <div className={styles.statItem}> 
-         <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
-      </div>
-      </div>
-    );
+    );*/
 
     const formItemLayout = {
       labelCol: {
@@ -212,10 +287,12 @@ export default class Device_friend extends PureComponent {
               className={styles.activeCard}
               title="共享成员"
               loading={activitiesLoading}
-              extra={extraContent}
+              extra={this.extraContent(this.state.title_condition)}
               style={{ marginBottom: 24 }} 
             >
-              <List loading={activitiesLoading} size="large">
+              <List loading={activitiesLoading} size="large" 
+                //itemLayout='vertical'
+              >
                    <div className={styles.activitiesList}>
                       {this.renderActivities()} 
                    </div>
@@ -297,52 +374,8 @@ export default class Device_friend extends PureComponent {
                     删除并退出
                   </Button>   
               </Card>
-            </Col>
-          
-      {/*   <Col xl={8} lg={24} md={24} sm={24} xs={24}>
-            <Card
-              style={{ marginBottom: 24 }}
-              title="快速开始 / 便捷导航"
-              bordered={false}
-              bodyStyle={{ padding: 0 }}
-            >
-              <EditableLinkGroup
-                onAdd={() => {}}
-                links={links}
-                linkElement={Link}
-              />
-            </Card>
-            <Card
-              style={{ marginBottom: 24 }}
-              bordered={false}
-              title="XX 指数"
-              loading={radarData.length === 0}
-            >
-              <div className={styles.chart}>
-                <Radar hasLegend height={343} data={radarData} />
-              </div>
-            </Card>
-            <Card
-              bodyStyle={{ paddingTop: 12, paddingBottom: 12 }}
-              bordered={false}
-              title="团队"
-            >
-              <div className={styles.members}>
-                <Row gutter={48}>
-                  {
-                    members.map(item => (
-                      <Col span={12} key={`members-item-${item.id}`}>
-                        <Link to={item.link}>
-                          <Avatar src={item.logo} size="small" />
-                          <span className={styles.member}>{item.title}</span>
-                        </Link>
-                      </Col>
-                    ))
-                  }
-                </Row>
-              </div>
-            </Card>
-                </Col>*/}
+            </Col>    
+                 {/*       */}
         </Row>
     );
   }
