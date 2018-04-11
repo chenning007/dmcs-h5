@@ -13,26 +13,33 @@ const FormItem = Form.Item;
 
 /**** */
 const columns = [{
-  title: '用户',
+  title: '朋友',
   dataIndex: 'avator',
   key: 'avator',
-  width: '25%',
+  width: '4%',
   render: text => <Avatar src={text}/>,
 },{
-  title: '用户名',
+  title: '',
   dataIndex: 'name',
   key: 'name',
-  width:'20%'
+  width:'16%'
 }, {
-  title: 'Id',
+  title: '用户号',
   dataIndex: 'id_number',
   key: 'id_number',
   width: '30',
 }, {
-  title: '设置',
-  key: 'action',
-  width: '25%',
-  render: '',
+  title: '联系方式',
+  dataIndex: 'phone_number',
+  key: 'phone_number',
+  width: '20',
+},
+{
+  title: '单位',
+  key: 'work_place',
+  width: '30%',
+  dataIndex: 'work_place',
+  //render: '',
 }];
 
 const avatar = [
@@ -52,31 +59,43 @@ const data = [{
   avator: avatar[1],
   id_number: '123456',
   name: 'John',
+  phone_number: '15701575451',
+  work_place: '清华大学',
 }, {
   key: '2',
   avator: avatar[2],
   id_number: '123457',
   name: 'Jim',
+  phone_number: '15701575452',
+  work_place: '清华大学',
 }, {
   key: '3',
   avator: avatar[3],
   id_number: '123458',
   name: 'Sara',
+  phone_number: '15701575453',
+  work_place: '清华大学',
 },{
   key: '4',
   avator: avatar[4],
   id_number: '123459',
   name: '茅军', 
+  phone_number: '15701575454',
+  work_place: '清华大学',
 },{
   key: '5',
   avator: avatar[5],
   id_number: '123459',
   name: '刘军',
+  phone_number: '15701575455',
+  work_place: '清华大学',
 },{
   key: '6',
   avator: avatar[6],
   id_number: '123451',
   name: '胡军',
+  phone_number: '15701575456',
+  work_place: '清华大学',
 }
 ];
 /*** */
@@ -87,6 +106,12 @@ const data = [{
 
 @Form.create()
 export default class Friend_list extends PureComponent {
+  state = {
+    selectedRowkeys: [],
+  }
+  onSelectedChange = (selectedRowkeys) => {
+    this.setState({selectedRowkeys: selectedRowkeys});
+  }
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -142,14 +167,26 @@ export default class Friend_list extends PureComponent {
       friend: { loading: activitiesLoading },
       form,
     } = this.props;
+    const { selectedRowkeys } = this.state;
     
     const { getFieldDecorator, getFieldValue } = this.props.form;
 
+    const rowSelection = {
+      selectedRowkeys,
+      onChange: this.onSelectedChange,
+      hideDefaultSelections: true,
+    };
+
     const extraContent = (
-      <div className=" ">
-      <div className="   "> 
-         <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
-      </div>
+      <div > 
+        { selectedRowkeys.length>0 
+              &&
+              <span >
+                <Button type='primary'>删除</Button>
+                <Divider  type='vertical'/>
+              </span>
+        }
+         <Button type='primary'>添加</Button>
       </div>
     ); 
 
@@ -175,6 +212,7 @@ export default class Friend_list extends PureComponent {
     return (
         <Row gutter={24}>
           <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+
            <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
@@ -182,7 +220,7 @@ export default class Friend_list extends PureComponent {
               title="朋友列表"
               loading={activitiesLoading}
               extra={extraContent}
-              //style={{ marginBottom: 24 }} 
+              style={{ marginBottom: 24 }} 
             >
             {/*
               <List loading={activitiesLoading} size="large">
@@ -191,8 +229,9 @@ export default class Friend_list extends PureComponent {
                    </div>
               </List>
            </Card>*/}
-              <div>
-               <Table columns={columns} dataSource={data} pagination={false}/>
+              <div style={{padding: 10}}>
+                <Table columns={columns} dataSource={data} 
+                  pagination={false} rowSelection={rowSelection}/>
               </div>
             </Card>
          </Col>
