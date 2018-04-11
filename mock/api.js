@@ -371,9 +371,55 @@ export const get_Activities = [
     template: '在 @{group} 新建项目 @{project}',
   },
 ];
+export const list_people = [
+  {
+    key: '1',
+    avatar: avatars2[1],
+    id_number: '123456',
+    name: 'John',
+    phone_number: '15701575451',
+    work_place: '清华大学',
+  }, {
+    key: '2',
+    avatar: avatars2[2],
+    id_number: '123457',
+    name: 'Jim',
+    phone_number: '15701575452',
+    work_place: '清华大学',
+  }, {
+    key: '3',
+    avatar: avatars2[3],
+    id_number: '123458',
+    name: 'Sara',
+    phone_number: '15701575453',
+    work_place: '清华大学',
+  },{
+    key: '4',
+    avatar: avatars2[4],
+    id_number: '123459',
+    name: '茅军', 
+    phone_number: '15701575454',
+    work_place: '清华大学',
+  },{
+    key: '5',
+    avatar: avatars2[5],
+    id_number: '123459',
+    name: '刘军',
+    phone_number: '15701575455',
+    work_place: '清华大学',
+  },{
+    key: '6',
+    avatar: avatars2[6],
+    id_number: '123451',
+    name: '胡军',
+    phone_number: '15701575456',
+    work_place: '清华大学',
+  },
+];
 export const get_List = {
   list: getActivities,
   list_activities: get_Activities,
+  list_people: list_people,
   loading,
   loading1, 
 }
