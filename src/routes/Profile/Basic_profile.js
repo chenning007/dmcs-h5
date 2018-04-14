@@ -16,10 +16,15 @@ const { TextArea } = Input;
 
 const userNumber = '1234567';
 const userName = '蔡哥';
-const userTitle = '侠士';
-const email = 'caizj@123.com';
-const telephone = null;
-const identify = ['undergraduate'];
+const userTitle = '蔡志军';
+const userSex = '男' ;
+const useridNumber = '362330199819959003';
+const userEmail = 'caizj@123.com';
+const userworkPlace = '清华大学';
+const userTeleplone = '15701585253';
+const userWeixin = '大头';
+const userQq = '1760258010';
+/*const identify = ['undergraduate'];
 const identification = [{
   label: '请选择',
   value: 'choice',
@@ -49,8 +54,14 @@ const identification = [{
   label: '其它',
   value: 'other',
 }
-];
-
+];*/
+const address = {
+    name: '蔡志军',
+    area: '北京市海淀区四环到五环之间',
+    place: '清华大学紫荆公寓11号楼',
+    mobilephone: '15702555845',
+    emial: '',
+  };
 
 /**** */
 const formItemLayout = {
@@ -109,55 +120,81 @@ export default class Basic_profiles extends PureComponent {
   renderInfo() {
     const { form, state }=this.props;
     const { getFieldDecorator, getFieldValue }=this.props.form;
-    const { changename }=this.state;
-    if( !changename ){
-      return(
+    //const { changename }=this.state;
+    
+      return (
         <Form
           hideRequiredMark
           style={{ marginTop: 8 }}
         >
           <FormItem
             colon={false}
-            labelCol={{span: 8, }}
-            wrapperCol={{span: 8, offset: 2}}
-           //{...formItemLayout}
-            label={<b>用户号:</b>}
-          >
-            <h3>{userNumber}</h3>           
-          </FormItem> 
-          <FormItem
-            colon={false}
-            labelCol={{span: 8, offset: 0}}
+            labelCol={{span: 4, offset: 0}}
             wrapperCol={{span: 8, offset: 2}}
             label={<b>用户名:</b>}
           > 
             <h3>{userName? userName:'未命名'}</h3>
           </FormItem>
           <FormItem
-             colon={false}
-             labelCol={{span: 8, offset: 0}}
-             wrapperCol={{span: 8, offset: 2}}
-             label={<b>头衔:</b>}
+            colon={false}
+            labelCol={{span: 4, offset: 0}}
+            wrapperCol={{span: 8, offset: 2}}
+           //{...formItemLayout}
+            label={<b>用户号:</b>}
           >
-            <h3>{userTitle}</h3>
+            <h3>{userNumber ? userNumber : '待补充'}</h3>           
+          </FormItem> 
+          <FormItem
+             colon={false}
+             labelCol={{span: 4, offset: 0}}
+             wrapperCol={{span: 8, offset: 2}}
+             label={<b>姓名:</b>}
+          >
+            <h3>{userTitle ? userTitle:'待补充'}</h3>
           </FormItem>
           <FormItem
              colon={false}
-             labelCol={{span: 8, offset: 0}}
+             labelCol={{span: 4, offset: 0}}
              wrapperCol={{span: 8, offset: 2}}
-             label={<b>受教育程度:</b>}
+             label={<b>性别:</b>}
           >
-            <h3>本科</h3>
+            <h3>{userSex ? userSex:'待补充'}</h3>
           </FormItem>
+          <FormItem
+             colon={false}
+             labelCol={{span: 4, offset: 0}}
+             wrapperCol={{span: 8, offset: 2}}
+             label={<b>身份证号:</b>}
+          >
+            <h3>{useridNumber ? useridNumber:'待补充'}</h3>
+          </FormItem>
+          <FormItem
+             colon={false}
+             labelCol={{span: 4, offset: 0}}
+             wrapperCol={{span: 8, offset: 2}}
+             label={<b>工作单位:</b>}
+          >
+            <h3>{userworkPlace ? userworkPlace:'待补充'}</h3>
+          </FormItem>
+          {/*
+            <FormItem
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label={<b>受教育程度:</b>}
+            >
+              <h3>本科</h3>
+            </FormItem> 
+          */}
         </Form>
       );
-    }
+   /*
     if(changename){
       return(
         <Form>
           <FormItem
             colon={false}
-            labelCol={{span: 8, offset: 0}}
+            labelCol={{span: 4, offset: 0}}
             wrapperCol={{span: 8, offset: 2}}
             label={<b>"用户号"</b>}
           >
@@ -189,12 +226,12 @@ export default class Basic_profiles extends PureComponent {
           </FormItem> 
           <FormItem
              colon={false}
-             labelCol={{span: 8, offset: 0}}
+             labelCol={{span: 4, offset: 0}}
              wrapperCol={{span: 8, offset: 2}}
              label={<b>受教育程度:</b>}
           >
             {getFieldDecorator('identification', {
-              initialValue: /*['undergraduate'] ,*/identify,
+              initialValue: ['undergraduate'] ,identify,
               rules: [{ 
                       //type :'array',
                       required: false, 
@@ -204,8 +241,8 @@ export default class Basic_profiles extends PureComponent {
           )}
           </FormItem>
         </Form>
-      );
-    }
+      );*/
+      
   }
   
   render() {
@@ -215,15 +252,16 @@ export default class Basic_profiles extends PureComponent {
     return (
       <div>
         <Card   
-          title='基本信息'
+          title={<div><b>基本信息</b></div>}
           bordered={true}
           style={{ marginBottom: 24 }}
         >
           <Row> 
-            <Col span={4} >
+            <Col span={6} >
               <Card
-                bordered={false}
-                style={{ marginTop: -10, textAlign: 'center' }}
+                //bordered={true}
+                style={{ marginTop: 10, textAlign: 'center', width: 240, marginLeft: 30 }}
+
               // title='个人头像'
               >
                 <div > 
@@ -250,12 +288,61 @@ export default class Basic_profiles extends PureComponent {
           </Row>
         </Card>
         <Card 
-          title={<div><b>地址信息</b></div>}
+          title={<div><b>联系方式</b></div>}
           bordered={true}
           style={{marginBottom: 24}}
-        >   
-          
+        > 
+          <Row> 
+            <Col span={6}/>
+            <Col span={12}> 
+              <Form
+                hideRequiredMark
+                style={{ marginTop: 8 }}
+              >
+                <FormItem
+                  colon={false}
+                  labelCol={{span: 4, offset: 0}}
+                  wrapperCol={{span: 8, offset: 2}}
+                  label={<b>邮箱:</b>}
+                > 
+                  <h3>{userEmail? userEmail:'待补充'}</h3>
+                </FormItem>
+                <FormItem
+                  colon={false}
+                  labelCol={{span: 4, offset: 0}}
+                  wrapperCol={{span: 8, offset: 2}}
+                  label={<b>手机号:</b>}
+                > 
+                  <h3>{userTeleplone? userTeleplone :'待补充'}</h3>
+                </FormItem>
+                <FormItem
+                  colon={false}
+                  labelCol={{span: 4, offset: 0}}
+                  wrapperCol={{span: 8, offset: 2}}
+                  label={<b>微信号:</b>}
+                > 
+                  <h3>{userWeixin? userWeixin :'待补充'}</h3>
+                </FormItem>
+                <FormItem
+                  colon={false}
+                  labelCol={{span: 4, offset: 0}}
+                  wrapperCol={{span: 8, offset: 2}}
+                  label={<b>QQ号:</b>}
+                > 
+                  <h3>{userQq? userQq :'待补充'}</h3>
+                </FormItem>
+              </Form>
+            </Col>
+          </Row>    
         </Card>
+        <Card
+          title={<div><b>邮寄地址</b></div>}
+          bordered={true}
+        >
+          
+
+        </Card>
+        {/*
         <Card 
           title= '绑定信息'
           bordered={true}
@@ -294,7 +381,8 @@ export default class Basic_profiles extends PureComponent {
             </Col>
             <Col span={4} />
           </Row> 
-        </Card>
+              </Card>*/}
+        {/*
         <FooterToolbar>
           <Button type="primary" htmlType="submit" loading={submitting}
           onClick={this.onChangestate}
@@ -307,7 +395,7 @@ export default class Basic_profiles extends PureComponent {
           >
             保存
           </Button>
-        </FooterToolbar>
+        </FooterToolbar>*/ }
       </div>
     );
   }
