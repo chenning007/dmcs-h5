@@ -81,7 +81,7 @@ const menuData = [{
     path: 'basic-profile',
   }, 
   {
-    name: '设置',
+    name: '修改',
     path: 'set_up',
   },
   
