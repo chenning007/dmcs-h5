@@ -34,7 +34,7 @@ export default class Profile extends Component {
     },
     {
         key: 'set_up',
-        tab: '设置',
+        tab: '修改',
       },
     {
       key: 'basic',
