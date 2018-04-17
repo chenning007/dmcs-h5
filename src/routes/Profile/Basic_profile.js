@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
+import { routerRedux, Route, Switch } from 'dva/router';
 import {
   Form, Input, DatePicker, Select, Button, Card, InputNumber, Radio, Icon, Tooltip, Cascader,
   Row, Col, Avatar, Upload, Divider
@@ -21,7 +22,8 @@ const userSex = '男' ;
 const useridNumber = '362330199819959003';
 const userEmail = 'caizj@123.com';
 const userworkPlace = '清华大学';
-const userTeleplone = '15701585253';
+const userTelephone = '15701585253';
+const userTelephone_1 = null;
 const userWeixin = '大头';
 const userQq = '1760258010';
 /*const identify = ['undergraduate'];
@@ -55,13 +57,25 @@ const identification = [{
   value: 'other',
 }
 ];*/
-const address = {
+const address = [{
+    key: '1',
+  　title: '学校',
     name: '蔡志军',
     area: '北京市海淀区四环到五环之间',
     place: '清华大学紫荆公寓11号楼',
     mobilephone: '15702555845',
+    fixedphone: '',
     emial: '',
-  };
+  },{
+    key: '2',
+    title: '家里',
+    name: '蔡志军',
+    area: '江西上饶市鄱阳县油墩街镇',
+    place: '油墩街镇潼港村委会表公村137号',
+    mobilephone: '15702555845',
+    fixedphone: '',
+    emial: '',
+  }];
 
 /**** */
 const formItemLayout = {
@@ -105,15 +119,14 @@ export default class Basic_profiles extends PureComponent {
       }
     });
   }
-
+  onChangestate = () => {
+     const {dispatch}=this.props;
+     dispatch(routerRedux.push(`set_up`));
+  }
   onChangeUserName = (e) => {
     this.setState({ data: e.target.value });
   }
   
-  onChangestate = () => {
-    this.setState({changename: !this.state.changename ,})
-  }
-
   renderInput(text)  {
     return text? <a>修改</a> : <a>绑定</a> ;
  }
@@ -250,24 +263,29 @@ export default class Basic_profiles extends PureComponent {
     const { getFieldDecorator, getFieldValue } = this.props.form;
 
     return (
-      <div>
-        <Card   
-          title={<div><b>基本信息</b></div>}
+      <div
+      //className='all'
+      >
+        <Card 
+          //className='basic_info'  
+          title={<div className='basic_info'><b>基本信息</b></div>}
           bordered={true}
           style={{ marginBottom: 24 }}
         >
           <Row> 
-            <Col span={6} >
+            <Col span={6} className='image'>
               <Card
                 //bordered={true}
                 style={{ marginTop: 10, textAlign: 'center', width: 240, marginLeft: 30 }}
 
               // title='个人头像'
               >
-                <div > 
+                <div className='image'> 
                   <img src='https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png' alt="头像" width="80%" />
                 </div>
-                <div style={{ marginTop: 16 }}>
+                <div 
+                 className='headimage'
+                style={{ marginTop: 16 }}>
                   <Upload>
                     <Button>
                         <Icon type="upload"/>
@@ -288,7 +306,8 @@ export default class Basic_profiles extends PureComponent {
           </Row>
         </Card>
         <Card 
-          title={<div><b>联系方式</b></div>}
+          //className='link_method'
+          title={<div ><b>联系方式</b></div>}
           bordered={true}
           style={{marginBottom: 24}}
         > 
@@ -313,8 +332,19 @@ export default class Basic_profiles extends PureComponent {
                   wrapperCol={{span: 8, offset: 2}}
                   label={<b>手机号:</b>}
                 > 
-                  <h3>{userTeleplone? userTeleplone :'待补充'}</h3>
+                  <h3>{userTelephone? userTelephone :'待补充'}</h3>
                 </FormItem>
+                { userTelephone_1
+                  &&
+                  <FormItem
+                  colon={false}
+                  labelCol={{span: 4, offset: 0}}
+                  wrapperCol={{span: 8, offset: 2}}
+                  label={<b>备份手机:</b>}
+                  > 
+                    <h3>{userTelephone_1}</h3>
+                  </FormItem> 
+                }
                 <FormItem
                   colon={false}
                   labelCol={{span: 4, offset: 0}}
@@ -335,12 +365,40 @@ export default class Basic_profiles extends PureComponent {
             </Col>
           </Row>    
         </Card>
+        
         <Card
-          title={<div><b>邮寄地址</b></div>}
+          //className='mail_address'
+          title={<div ><b>邮寄地址</b></div>}
           bordered={true}
         >
-          
-
+          <Row className='address'>
+            <Col span={4}/>
+            <Col span={16}>
+              
+              {address.map((item) => {
+                  return (
+                      <Card 
+                        bordered={true}
+                        key={item.key}
+                        title={item.title ? item.title : item.name}
+                        style={{marginBottom:12}}
+                        //className={item}
+                      >
+                        <p style={{paddingLeft: 24}}>收件人: &nbsp; <b> {item.name}</b></p>
+                        <p style={{paddingLeft: 24}}>所在地区: &nbsp; <b> {item.area}</b></p>
+                        <p style={{paddingLeft: 24}}>地址: &nbsp; <b> {item.place}</b></p>
+                        <p style={{paddingLeft: 24}}>手机: &nbsp; <b> {item.name}</b></p>
+                        <p style={{paddingLeft: 24}}>固定电话: &nbsp; <b> {item.fixedphone}</b></p>
+                        <p style={{paddingLeft: 24}}>邮箱: &nbsp; <b> {item.emial}</b></p>
+                      
+                      </Card>
+                    
+                  )
+                }
+              )}
+            </Col>
+            <Col span={4}/>
+          </Row>
         </Card>
         {/*
         <Card 
@@ -382,20 +440,14 @@ export default class Basic_profiles extends PureComponent {
             <Col span={4} />
           </Row> 
               </Card>*/}
-        {/*
+        
         <FooterToolbar>
-          <Button type="primary" htmlType="submit" loading={submitting}
-          onClick={this.onChangestate}
+          <Button type="primary" size='large' 
+            onClick={() =>this.onChangestate()}
           >
-            编辑
+            修改
           </Button>
-          <Divider type= 'vertical'/>
-          <Button type="primary" htmlType="submit" loading={submitting}
-          onClick={this.onChangestate}
-          >
-            保存
-          </Button>
-        </FooterToolbar>*/ }
+        </FooterToolbar>
       </div>
     );
   }
