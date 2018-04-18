@@ -194,7 +194,7 @@ export default class Register extends Component {
                 <Input
                   size="large"
                   type="password"
-                  placeholder="至少6位密码，区分大小写"
+                  placeholder="至少6位密码，可有数字和字母组成，区分大小写"
                 />
               )}
             </Popover>
