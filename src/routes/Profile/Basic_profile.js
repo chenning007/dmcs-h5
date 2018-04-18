@@ -127,9 +127,7 @@ export default class Basic_profiles extends PureComponent {
     this.setState({ data: e.target.value });
   }
   
-  renderInput(text)  {
-    return text? <a>修改</a> : <a>绑定</a> ;
- }
+
   renderInfo() {
     const { form, state }=this.props;
     const { getFieldDecorator, getFieldValue }=this.props.form;
