@@ -3,7 +3,7 @@ import moment from 'moment';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, 
-          Select, Tooltip, Table, Dropdown, Menu, Switch } from 'antd';
+          Select, Tooltip, Table, Dropdown, Menu, Switch, Divider } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import EditableLinkGroup from '../../components/EditableLinkGroup';
@@ -40,31 +40,26 @@ const columns = [{
   render: text => <Avatar src={text}/>,
 },{
   title: '',
-  dataIndex: 'name',
-  key: 'name',
+  dataIndex: 'userName',
+  key: 'userName',
   width:'16%'
 }, {
   title: '用户号',
-  dataIndex: 'id_number',
-  key: 'id_number',
+  dataIndex: 'useridNumber',
+  key: 'useridNumber',
   width: '30',
 }, {
   title: '联系方式',
-  dataIndex: 'phone_number',
-  key: 'phone_number',
-  width: '15',
+  dataIndex: 'userTelephone',
+  key: 'userTelephone',
+  width: '20',
 },
 {
   title: '单位',
-  key: 'work_place',
-  width: '20%',
-  dataIndex: 'work_place',
+  key: 'userworkPlace',
+  width: '30%',
+  dataIndex: 'userworkPlace',
   //render: '',
-},{
-  title: '权限',
-  key: 'access',
-  width: '15%',
-  dataIndex: 'access',
 }];
 
 const columns1 = [{
@@ -75,25 +70,25 @@ const columns1 = [{
   render: text => <Avatar src={text}/>,
 },{
   title: '',
-  dataIndex: 'name',
-  key: 'name',
+  dataIndex: 'userName',
+  key: 'userName',
   width:'16%'
 }, {
   title: '用户号',
-  dataIndex: 'id_number',
-  key: 'id_number',
+  dataIndex: 'useridNumber',
+  key: 'useridNumber',
   width: '30',
 }, {
   title: '联系方式',
-  dataIndex: 'phone_number',
-  key: 'phone_number',
+  dataIndex: 'userTelephone',
+  key: 'userTelephone',
   width: '20',
 },
 {
   title: '单位',
-  key: 'work_place',
+  key: 'userworkPlace',
   width: '30%',
-  dataIndex: 'work_place',
+  dataIndex: 'userworkPlace',
   //render: '',
 }];
 
@@ -223,9 +218,15 @@ export default class Device_friend extends PureComponent {
           }
           { selectedRowkeys.length===0
               &&
-            <span>
-              <Button type='primary'onClick={() => this.contentCondition(3)}>添加</Button>
-            </span>
+            <div>
+              <span>
+                <Button type='primary' onClick={() => this.contentCondition(2)}>权限</Button>
+              </span>
+              <Divider type='vertical' />
+              <span>
+                <Button type='primary' onClick={() => this.contentCondition(3)}>添加</Button>
+              </span>
+            </div>
           }
         </div>    
       );   
@@ -263,7 +264,15 @@ export default class Device_friend extends PureComponent {
       </div>
     );
    }
-   return ;
+   else{
+     return(
+       <div>
+          <Button type='primary' onClick={() => this.resetCondition()}>
+            <Icon type="rollback" />
+          </Button>
+       </div>
+     )
+   }
   }
     
 
@@ -327,11 +336,11 @@ export default class Device_friend extends PureComponent {
                       <span style={{fontSize: 16}}>
                         用户号:
                       </span>
-                      <span style={{fontSize: 16, paddingLeft: 4}}>{(list_people[tem]).id_number}</span>
+                      <span style={{fontSize: 16, paddingLeft: 4}}>{(list_people[tem]).useridNumber}</span>
                       <span style={{fontSize: 16, paddingLeft: 8}}>
                         用户名:
                       </span>
-                      <span style={{fontSize: 16, paddingLeft: 4}}>{(list_people[tem]).name}</span>
+                      <span style={{fontSize: 16, paddingLeft: 4}}>{(list_people[tem]).userName}</span>
                       <Card>
                         <div style={{paddingLeft: 8}}>
                           <span style={{fontSize: 16}}>
@@ -395,7 +404,7 @@ export default class Device_friend extends PureComponent {
               <List.Item key={item.key} actions={[<Button type='primary'>保存</Button>]}>
                 <span>
                 <Avatar
-                  src={item.avator} 
+                  src={item.avatar} 
                   /*title={
                       <a className={styles.username}>{item.user.name}</a>*/
                 /* }*/
