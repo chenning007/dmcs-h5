@@ -21,6 +21,7 @@ const userTitle = '蔡志军';
 const userSex = '男' ;
 const useridNumber = '362330199819959003';
 const userEmail = 'caizj@123.com';
+const userEmail_1 = null;
 const userworkPlace = '清华大学';
 const userTelephone = '15701585253';
 const userTelephone_1 = null;
@@ -324,6 +325,17 @@ export default class Basic_profiles extends PureComponent {
                 > 
                   <h3>{userEmail? userEmail:'待补充'}</h3>
                 </FormItem>
+                {userEmail_1
+                 &&
+                  <FormItem
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>备注邮箱:</b>}
+                  >
+                    <h3>{userEmail_1}</h3>
+                  </FormItem>
+                }
                 <FormItem
                   colon={false}
                   labelCol={{span: 4, offset: 0}}
@@ -338,7 +350,7 @@ export default class Basic_profiles extends PureComponent {
                   colon={false}
                   labelCol={{span: 4, offset: 0}}
                   wrapperCol={{span: 8, offset: 2}}
-                  label={<b>备份手机:</b>}
+                  label={<b>备注手机:</b>}
                   > 
                     <h3>{userTelephone_1}</h3>
                   </FormItem> 
