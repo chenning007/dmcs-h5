@@ -6,6 +6,7 @@ export default {
   namespace: 'form',
 
   state: {
+    status: undefined,
     step: {
       payAccount: 'ant-design@alipay.com',
       receiverAccount: 'test@example.com',
@@ -34,10 +35,10 @@ export default {
         type: 'changeRegularFormSubmitting',
         payload: true,
       });
-      yield call(fakeSubmitForm, payload);
+      const response = yield call(fakeSubmitForm, payload);
       yield put({
         type: 'changeRegularFormSubmitting',
-        payload: false,
+        payload: response,
       });
       message.success('提交成功');
     },
@@ -90,7 +91,11 @@ export default {
     changeRegularFormSubmitting(state, { payload }) {
       return {
         ...state,
-        regularFormSubmitting: payload,
+        status: {
+          ...state.status,
+          ...payload,
+        },
+        regularFormSubmitting: ((state.status === 'ok') ? true : false),
       };
     },
     changeStepFormSubmitting(state, { payload }) {
