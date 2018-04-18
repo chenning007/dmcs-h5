@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Input, Select, Button, Card, InputNumber, Icon, Row, Col, Avatar,  List, Divider, Steps, message, Form, Popover
+  Input, Select, Button, Card, InputNumber, Icon, Row, Col, Avatar, 
+  List, Divider, Steps, message, Form, Popover, Progress
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -380,7 +381,7 @@ renderPasswordProgress = () => {
                       placement="right"
                       visible={this.state.visible}
                     >
-                      {getFieldDecorator('newpassword', {
+                      {getFieldDecorator('password', {
                         //initialValue:'',
                         rules: [{ 
                           required: true,
@@ -389,7 +390,7 @@ renderPasswordProgress = () => {
                           validator: this.checkPassword,
                         }],
                       })(
-                        <Input type='password' placeholder="至少6位，可包含数字和字母，区分大小写"/>
+                        <Input type="password" placeholder="至少6位，可包含数字和字母，区分大小写"/>
                       )}
                     </Popover>
                   </Form.Item> 
@@ -399,7 +400,7 @@ renderPasswordProgress = () => {
                     wrapperCol={{span: 8, offset: 2}}
                     label={<b>确认密码:</b>}
                   >
-                    {getFieldDecorator('confirmpassword', {
+                    {getFieldDecorator('confirm', {
                       //initialValue:'',
                       rules: [{ 
                         required: true,
@@ -408,7 +409,7 @@ renderPasswordProgress = () => {
                         validator: this.checkConfirm,
                       }],
                     })(
-                      <Input type='password'　placeholder='请重新输入新密码'/>
+                      <Input type="password"　placeholder='请重新输入新密码'/>
                     )}
                   </Form.Item> 
                   <Form.Item
