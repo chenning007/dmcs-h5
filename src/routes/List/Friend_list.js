@@ -12,35 +12,35 @@ import styles from './Friend_list.less';
 const FormItem = Form.Item;
 
 /**** */
-const columns = [{
+const columns =  [{
   title: '朋友',
-  dataIndex: 'avator',
-  key: 'avator',
+  dataIndex: 'avatar',
+  key: 'avatar',
   width: '4%',
   render: text => <Avatar src={text}/>,
 },{
   title: '',
-  dataIndex: 'name',
-  key: 'name',
+  dataIndex: 'userName',
+  key: 'userName',
   width:'16%'
 }, {
   title: '用户号',
-  dataIndex: 'id_number',
-  key: 'id_number',
+  dataIndex: 'useridNumber',
+  key: 'useridNumber',
   width: '30',
 }, {
   title: '联系方式',
-  dataIndex: 'phone_number',
-  key: 'phone_number',
+  dataIndex: 'userTelephone',
+  key: 'userTelephone',
   width: '20',
 },
 {
   title: '单位',
-  key: 'work_place',
+  key: 'userworkPlace',
   width: '30%',
-  dataIndex: 'work_place',
+  dataIndex: 'userworkPlace',
   //render: '',
-}];
+}];;
 
 const avatar = [
   'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
@@ -56,46 +56,46 @@ const avatar = [
 ];
 const data = [{
   key: '1',
-  avator: avatar[1],
-  id_number: '123456',
-  name: 'John',
-  phone_number: '15701575451',
-  work_place: '清华大学',
+  avatar: avatar[1],
+  useridNumber: '123456',
+  userName: 'John',
+  userTelephone: '15701575451',
+  userworkPlace: '清华大学',
 }, {
   key: '2',
-  avator: avatar[2],
-  id_number: '123457',
-  name: 'Jim',
-  phone_number: '15701575452',
-  work_place: '清华大学',
+  avatar: avatar[2],
+  useridNumber: '123457',
+  userName: 'Jim',
+  userTelephone: '15701575452',
+  userworkPlace: '清华大学',
 }, {
   key: '3',
-  avator: avatar[3],
-  id_number: '123458',
-  name: 'Sara',
-  phone_number: '15701575453',
-  work_place: '清华大学',
+  avatar: avatar[3],
+  useridNumber: '123458',
+  userName: 'Sara',
+  userTelephone: '15701575453',
+  userworkPlace: '清华大学',
 },{
   key: '4',
-  avator: avatar[4],
-  id_number: '123459',
-  name: '茅军', 
-  phone_number: '15701575454',
-  work_place: '清华大学',
+  avatar: avatar[4],
+  useridNumber: '123459',
+  userName: '茅军', 
+  userTelephone: '15701575454',
+  userworkPlace: '清华大学',
 },{
   key: '5',
-  avator: avatar[5],
-  id_number: '123459',
-  name: '刘军',
-  phone_number: '15701575455',
-  work_place: '清华大学',
+  avatar: avatar[5],
+  useridNumber: '123459',
+  userName: '刘军',
+  userTelephone: '15701575455',
+  userworkPlace: '清华大学',
 },{
   key: '6',
-  avator: avatar[6],
-  id_number: '123451',
-  name: '胡军',
-  phone_number: '15701575456',
-  work_place: '清华大学',
+  avatar: avatar[6],
+  useridNumber: '123451',
+  userName: '胡军',
+  userTelephone: '15701575456',
+  userworkPlace: '清华大学',
 }
 ];
 /*** */
