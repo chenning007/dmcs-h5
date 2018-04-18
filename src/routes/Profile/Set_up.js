@@ -1,21 +1,34 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Input, Select, Button, Card, InputNumber, Icon, Row, Col, Avatar,  List, Divider, Steps, message } from 'antd';
+  Input, Select, Button, Card, InputNumber, Icon, Row, Col, Avatar,  List, Divider, Steps, message, Form, Popover
+} from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import logo from '../../../public/title.png';
 
-
+import styles from './set_up.less';
 const { Step }=Steps;
 
+const passwordStatusMap = {
+  ok: <div className={styles.success}>强度：强</div>,
+  pass: <div className={styles.warning}>强度：中</div>,
+  pool: <div className={styles.error}>强度：太短</div>,
+};
+
+const passwordProgressMap = {
+  ok: 'success',
+  pass: 'normal',
+  pool: 'exception',
+};
+
 @connect(state => ({
-  //data: state.form.data,
-  //submitting: state.form.regularFormSubmitting,
+  data: state.form.data,
+  submitting: state.form.regularFormSubmitting,
 }))
-//@Form.create()
+@Form.create()
 export default class Basic_form extends PureComponent {
-/*  handleSubmit = (e) => {
+    handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -25,11 +38,91 @@ export default class Basic_form extends PureComponent {
         });
       }
     });
-  }*/
+  }
   state = {
     condition: 0,
     current: 0,
+    choice: 1,
+    visible: false,
+    help: '',
   };
+
+  componentWillUnmount() {
+    this.setState({
+      current: 0,
+      condition: 0,
+      choice: 1,
+    });
+  }
+
+/*  *  */
+getPasswordStatus = () => {
+  const { form } = this.props;
+  const value = form.getFieldValue('password');
+  if (value && value.length > 9) {
+    return 'ok';
+  }
+  if (value && value.length > 5) {
+    return 'pass';
+  }
+  return 'pool';
+};
+
+checkConfirm = (rule, value, callback) => {
+  const { form } = this.props;
+  if (value && value !== form.getFieldValue('password')) {
+    callback('两次输入的密码不匹配!');
+  } else {
+    callback();
+  }
+};
+
+checkPassword = (rule, value, callback) => {
+  if (!value) {
+    this.setState({
+      help: '请输入密码！',
+      visible: !!value,
+    });
+    callback('error');
+  } else {
+    this.setState({
+      help: '',
+    });
+    if (!this.state.visible) {
+      this.setState({
+        visible: !!value,
+      });
+    }
+    if (value.length < 6) {
+      callback('error');
+    } else {
+      const { form } = this.props;
+      if (value && this.state.confirmDirty) {
+        form.validateFields(['confirm'], { force: true });
+      }
+      callback();
+    }
+  }
+};
+
+renderPasswordProgress = () => {
+  const { form } = this.props;
+  const value = form.getFieldValue('password');
+  const passwordStatus = this.getPasswordStatus();
+  return value && value.length ? (
+    <div className={styles[`progress-${passwordStatus}`]}>
+      <Progress
+        status={passwordProgressMap[passwordStatus]}
+        className={styles.progress}
+        strokeWidth={6}
+        percent={value.length * 10 > 100 ? 100 : value.length * 10}
+        showInfo={false}
+      />
+    </div>
+  ) : null;
+};
+
+/**   */
 
   onChangeUserName = (e) => {
     this.setState({ data: e.target.value });
@@ -37,14 +130,8 @@ export default class Basic_form extends PureComponent {
   onChangeState1 = () => {
     this.setState({condition: 1});
   }
-  onChangeState2 = () => {
-    this.setState({condition: 2});
-  }
-  onChangeState3 = () => {
-    this.setState({condition: 3});
-  }
-  onChangeState4 = () => {
-    this.setState({condition: 4});
+  onChangechoice = (key) => {
+    this.setState({choice: key});
   }
   next() {
     const temcurrent = this.state.current + 1;
@@ -54,25 +141,24 @@ export default class Basic_form extends PureComponent {
     const temcurrent=this.state.current - 1;
     this.setState({ current: temcurrent });
   }
-  componentWillUnmount() {
-    this.setState({current: 0,
-       condition: 0,
-    });
-  }
   reset() {
-    this.setState({current: 0,
+    this.setState({
+      current: 0,
       condition: 0,
    });
    message.success('修改成功');
   }
+
+
+
   
-  renderSet_up() {
+ /*{*//* renderSet_up() {
     //const { state }=this.props;
     const { condition,current }=this.state;
-    switch( condition ){
+    switch( condition ){  //这里相当于验证界面
        case 1 : return(
                        <Card bordered={false}>
-                         <Steps current={current} /*className={styles.steps}*/>
+                         <Steps current={current} className={styles.steps}>
                             <Step title="验证身份" />
                             <Step title="修改登录密码" />
                             <Step title="完成" />
@@ -95,7 +181,7 @@ export default class Basic_form extends PureComponent {
                       ) ;
        case 2 : return(
                         <Card bordered={false}>
-                          <Steps current={current} /*className={styles.steps}*/>
+                          <Steps current={current} className={styles.steps}>
                             <Step title="验证身份" />
                             <Step title="修改已验证手机" />
                             <Step title="完成" />
@@ -118,7 +204,7 @@ export default class Basic_form extends PureComponent {
                       )  ;
        case 3 : return (
                         <Card bordered={false}>
-                          <Steps current={current} /*className={styles.steps}*/>
+                          <Steps current={current} className={styles.steps}>
                             <Step title="验证身份" />
                             <Step title="验证邮箱" />
                             <Step title="完成" />
@@ -143,9 +229,9 @@ export default class Basic_form extends PureComponent {
 
        default : return (
                       <Row>
-                        <Col span={2}/>
+                        <Col span={4}/>
                         <Col span={20} >
-                          <Card  /*loading={loading}*/>
+                          <Card  >
                             <List bordered={false}>
                               <List.Item actions={[<Button type='dashed' size='large' onClick={this.onChangeState1}>修改</Button>]} >
                                 <Icon type="check-square" style={{fontSize: 48, color:'#7CFC00'}}/>
@@ -195,12 +281,12 @@ export default class Basic_form extends PureComponent {
                       </Row>
                       ) ;
     }
-  }
+ }*//*}*/
   
   render() {
-   // const { submitting, form, data } = this.props;
-   // const { getFieldDecorator, getFieldValue } = this.props.form;
-    
+    const { submitting, data, form } = this.props;
+    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { choice, } = this.state;
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -223,7 +309,126 @@ export default class Basic_form extends PureComponent {
 
     return (
       <div className='render'>
-      {this.renderSet_up()} 
+        {/*{this.renderSet_up()} */}
+        <Row>
+          <Col span={2}>
+            <Card 
+             style={{textAlign: 'center'}}
+            >
+              <div style={{marginBottom: 24}}>
+                <Button onClick={() => this.onChangechoice(1)}>
+                  <b>修改密码</b>
+                </Button>
+              </div>
+              <div style={{marginBottom: 24}}>
+                <Button onClick={() => this.onChangechoice(2)}>
+                  <b>修改信息</b>
+                </Button>
+              </div>
+              <div >
+                <Button onClick={() => this.onChangechoice(3)}>
+                  <b>修改地址</b>
+                </Button>
+              </div>
+            </Card>
+          </Col>
+          <Col span={20}>
+            { choice ===1
+              &&
+              <Card 
+                bordered={true}  
+                style={{marginLeft: 24}}
+              >
+                <Form 
+                  style={{ marginTop: 16 }}
+                  onSubmit={this.handleSubmit}
+                > 
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>原密码:</b>}
+                  >
+                    {getFieldDecorator('oldpassword', {
+                      //initialValue:'',
+                      rules: [{ 
+                        required: true,
+                        message: '请填入原始密码' 
+                      }],
+                    })(
+                      <Input />
+                    )}
+                  </Form.Item> 
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>新密码:</b>}
+                    help={this.state.help}
+                  > 
+                    <Popover
+                      content={
+                        <div style={{ padding: '4px 0' }}>
+                          {passwordStatusMap[this.getPasswordStatus()]}
+                          {this.renderPasswordProgress()}
+                          <div style={{ marginTop: 10 }}>
+                            请至少输入 6 个字符。请不要使用容易被猜到的密码。
+                          </div>
+                        </div>
+                      }
+                      overlayStyle={{ width: 240 }}
+                      placement="right"
+                      visible={this.state.visible}
+                    >
+                      {getFieldDecorator('newpassword', {
+                        //initialValue:'',
+                        rules: [{ 
+                          required: true,
+                          message: '请填入新密码' 
+                        },{
+                          validator: this.checkPassword,
+                        }],
+                      })(
+                        <Input type='password' placeholder="至少6位，可包含数字和字母，区分大小写"/>
+                      )}
+                    </Popover>
+                  </Form.Item> 
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>确认密码:</b>}
+                  >
+                    {getFieldDecorator('confirmpassword', {
+                      //initialValue:'',
+                      rules: [{ 
+                        required: true,
+                        message: '请重新输入新密码' 
+                      },{
+                        validator: this.checkConfirm,
+                      }],
+                    })(
+                      <Input type='password'　placeholder='请重新输入新密码'/>
+                    )}
+                  </Form.Item> 
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label=' '
+                  >
+                    <Button type='primary' size='large' style={{marginRight: 128}}
+                     htmlType="submit" loading={submitting}
+                    >
+                      提交
+                    </Button>
+                  </Form.Item> 
+                </Form>
+              </Card>
+            }
+          </Col>
+          <Col span={2}/>
+        </Row>
       </div>
     );
   }
