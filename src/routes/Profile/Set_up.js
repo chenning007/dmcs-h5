@@ -11,6 +11,42 @@ import logo from '../../../public/title.png';
 import styles from './set_up.less';
 const { Step }=Steps;
 
+/** */
+const userNumber = '1234567';
+const userName = '蔡哥';
+const userTitle = '蔡志军';
+const userSex = '男' ;
+const useridNumber = '362330199819959003';
+const userEmail = 'caizj@123.com';
+const userEmail_1 = null;
+const userworkPlace = '清华大学';
+const userTelephone = '15701585253';
+const userTelephone_1 = null;
+const userWeixin = '大头';
+const userQq = '1760258010';
+
+const address = [{
+  key: '1',
+　title: '学校',
+  name: '蔡志军',
+  area: '北京市海淀区四环到五环之间',
+  place: '清华大学紫荆公寓11号楼',
+  mobilephone: '15702555845',
+  fixedphone: '',
+  emial: '',
+},{
+  key: '2',
+  title: '家里',
+  name: '蔡志军',
+  area: '江西上饶市鄱阳县油墩街镇',
+  place: '油墩街镇潼港村委会表公村137号',
+  mobilephone: '15702555845',
+  fixedphone: '',
+  emial: '',
+}];
+/** */
+
+
 const passwordStatusMap = {
   ok: <div className={styles.success}>强度：强</div>,
   pass: <div className={styles.warning}>强度：中</div>,
@@ -412,6 +448,177 @@ renderPasswordProgress = () => {
                       <Input type="password"　placeholder='请重新输入新密码'/>
                     )}
                   </Form.Item> 
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label=' '
+                  >
+                    <Button type='primary' size='large' style={{marginRight: 128}}
+                     htmlType="submit" loading={submitting}
+                    >
+                      提交
+                    </Button>
+                  </Form.Item> 
+                </Form>
+              </Card>
+            }
+            { choice === 2
+              &&
+              <Card bordered={true}  
+                style={{marginLeft: 24}}
+              >
+                <Form style={{ marginTop: 16 }}
+                  onSubmit={this.handleSubmit}
+                >
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<h3>个人信息</h3>}
+                  />
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>真实姓名:</b>}
+                  >
+                    {getFieldDecorator('userName', {
+                        initialValue: userName ? userName : '待补充' ,
+                        rules: [{ 
+                          required: false, 
+                        }],
+                      })(
+                        <Input type="userName"/>
+                      )}
+                  </Form.Item>
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>身份证号:</b>}
+                  >
+                    {getFieldDecorator('useridNumber', {
+                        initialValue: useridNumber ? useridNumber : '待补充' ,
+                        rules: [{ 
+                          required: false, 
+                        }],
+                      })(
+                        <Input type="useridNumber"　/>
+                      )}
+                  </Form.Item>
+                  <Divider/>
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<h3>联系方式</h3>}
+                  />
+                  <Form.Item 
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>邮箱:</b>}
+                  >
+                    {getFieldDecorator('userEmail', {
+                        initialValue: userEmail ? userEmail : '待补充' ,
+                        rules: [{ 
+                          required: true,
+                          message: '请填入一个常用邮箱' 
+                        }],
+                      })(
+                        <Input type="userEmail"　/>
+                      )}
+                  </Form.Item>
+                  <Form.Item 
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>备注邮箱:</b>}
+                  >
+                    <span>
+                      {getFieldDecorator('userEmail_1', {
+                          initialValue: userEmail_1 ? userEmail_1 : '待补充' ,
+                          rules: [{ 
+                            required: false,
+                          }],
+                        })(
+                          <Input type="userEmail_1"　/>
+                        )}
+                    </span>
+                    <span>
+                      <h4>(备注邮箱可提高账户的安全性)</h4>
+                    </span>
+                  </Form.Item>
+                  <Form.Item 
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>手机:</b>}
+                  >
+                    {getFieldDecorator('userTelephone', {
+                        initialValue: userTelephone ? userTelephone : '待补充' ,
+                        rules: [{ 
+                          required: true,
+                          message: '请填入常用手机号码' 
+                        }],
+                      })(
+                        <Input type="userTelephone"　/>
+                      )}
+                  </Form.Item>
+                  <Form.Item 
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>备注手机:</b>}
+                  >
+                    <span>  
+                      {getFieldDecorator('userTelephone_1', {
+                          initialValue: userTelephone_1 ? userTelephone_1 : '待补充' ,
+                          rules: [{ 
+                            required: false,
+                            //message: '请填入常用手机号码' 
+                          }],
+                        })(
+                          <Input type="userTelephone_1"　/>
+                        )}
+                    </span>
+                    <span> 
+                      <h4>(备注手机可提高账户的安全性)</h4>
+                    </span>
+                  </Form.Item>
+                  <Form.Item 
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>微信号:</b>}
+                  >
+                    {getFieldDecorator('userWeixin', {
+                        initialValue: userWeixin ? userWeixin : '待补充' ,
+                        rules: [{ 
+                          required:false,
+                          //message: '请填入常用手机号码' 
+                        }],
+                      })(
+                        <Input type="userWeixin"　/>
+                      )}
+                  </Form.Item>
+                  <Form.Item 
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>QQ号:</b>}
+                  >
+                    {getFieldDecorator('userQq', {
+                        initialValue: userQq ? userQq : '待补充' ,
+                        rules: [{ 
+                          required:false,
+                          //message: '请填入常用手机号码' 
+                        }],
+                      })(
+                        <Input type="userQq"　/>
+                      )}
+                  </Form.Item>
                   <Form.Item
                     colon={false}
                     labelCol={{span: 4, offset: 0}}
