@@ -104,6 +104,12 @@ const proxy = {
     res.send({ status: 'ok', currentAuthority: 'user' });
   },  
 
+  'POST /api/device/addDevice': (req, res) => {
+    res.send(
+      {status: 'ok',}
+    );
+  },
+
   'GET /api/notices': getNotices,
   'GET /api/500': (req, res) => {
     res.status(500).send({
