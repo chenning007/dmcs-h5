@@ -10,7 +10,9 @@ import EditableLinkGroup from '../../components/EditableLinkGroup';
 import { Radar } from '../../components/Charts';
 
 import styles from './Device_friend.less';
+import { CALL_HISTORY_METHOD } from 'react-router-redux';
 
+import Table_friend from './Table_friend';
 const FormItem = Form.Item;
 
 const formItemLayout = {
@@ -283,6 +285,7 @@ export default class Device_friend extends PureComponent {
     const {
       activities: { list_people },
     } = this.props;
+    const { getFieldDecorator, getFieldValue } = this.props.form;
     const {content_condition, selectedRowkeys, modalVisible1, modalVisible2} =　this.state;
     const rowSelection = {
       selectedRowkeys,
@@ -293,9 +296,22 @@ export default class Device_friend extends PureComponent {
     {
       return (
         <div style={{padding: 10}}>
-          <Table columns={columns} dataSource={ list_people } 
-            pagination={false} rowSelection={rowSelection}
-          />
+          { ((content_condition !== 2)||(selectedRowkeys.length !==0))
+             &&
+            <div>
+              <Table columns={columns} dataSource={ list_people } 
+                pagination={false} rowSelection={rowSelection}
+              />
+            </div>
+          }
+          { (content_condition === 2) && (selectedRowkeys.length ===0)
+            &&
+            <Card /*title="权限管理"*/ bordered={false} style={{marginTop: 12}}>
+              {getFieldDecorator('auth', {
+                //initialValue: tableData,
+              })(<Table_friend />)}
+            </Card>
+          }
           {(selectedRowkeys.length > 0)&&(content_condition===1)
             &&
               <Modal
@@ -317,7 +333,8 @@ export default class Device_friend extends PureComponent {
                   })}   
                 </Form>
               </Modal>
-          }{
+          }
+          {
             (selectedRowkeys.length > 0)&&(content_condition===2)
              &&
               <Modal
