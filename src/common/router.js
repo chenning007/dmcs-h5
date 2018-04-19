@@ -87,6 +87,9 @@ export const getRouterData = (app) => {
     '/list/search/file_list': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/File_list')),
     },
+    '/list/table_friend': {
+      component: dynamicWrapper(app,[], () => import('../routes/List/Table_friend')),
+    },
     '/profile': {
       component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Profile')),
     },
