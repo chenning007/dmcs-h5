@@ -192,51 +192,41 @@ export default class Device extends PureComponent {
               style={{ marginBottom: 24 }}
               title="我的设备"
               bordered={false}
-              //extra={<Link to="/">全部项目</Link>}
               loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
-           {/*   <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus"
-               onClick={() => this.handleModalVisible(true)}
-              >
-               添加
-              </Button>
-                       */}
-              {
-                notice.map(item => (
-                  <Card.Grid className={styles.projectGrid} key={item.id}
-                  >
-                  <Row>
-                    <Col xl={4} lg={4} md={4} sm={4} xs={4}/>
-                    <Col xl={16} lg={16} md={16} sm={16} xs={16}>
-                    <Card 
-                    bodyStyle={{ padding: 10 }} 
-                    bordered={false}
-                    >
-                      <Card.Meta
-                        title={(
-                          <div className={styles.cardTitle}>
-                            <Link to="/dashboard/monitor_device"><Avatar size="large" src={item.logo}/></Link>
-                            {/*<Link to="/dashboard/monitor_device">{item.title}</Link>*/}
-                          </div>
-                        )}
-                       // description={item.description}
-                      />
-                      <div className={styles.projectItemContent}>
-                        <Link to="/dashboard/monitor_device">{item.member || ''}</Link>
-                       {/* {item.updatedAt && (
-                          <span className={styles.datetime} title={item.updatedAt}>
-                            {moment(item.updatedAt).fromNow()}
-                          </span>
-                        )}
-                      */}
-                      </div>
-                    </Card>
-                    </Col>
-                  </Row>
-                  </Card.Grid>
-                ))
-              }
+                {
+                    notice.map(item => (
+                        <Card.Grid className={styles.projectGrid} key={item.id}
+                        >
+                        <Button ghost={true} className={styles.button} 
+                          href="/#/dashboard/monitor_device"
+                        >
+                            <Row>
+                                <Col xl={4} lg={4} md={4} sm={4} xs={4}/>
+                                <Col xl={16} lg={16} md={16} sm={16} xs={16}>
+                                    <Card 
+                                    bodyStyle={{ padding: 0}} 
+                                    bordered={false}
+                                    >
+                                    <Card.Meta
+                                        title={(
+                                        <div className={styles.cardTitle}>
+                                            <Link to="/dashboard/monitor_device"><Avatar size="large" src={item.logo}/></Link>
+                                        </div>
+                                        )}
+                                        // description={item.description}
+                                    />
+                                        <div className={styles.projectItemContent}>
+                                            <Link to="/dashboard/monitor_device">{item.member || ''}</Link>
+                                        </div>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Button>
+                        </Card.Grid>
+                    ))
+                }
             </Card>
             {/*<Modal
                title="添加设备"
