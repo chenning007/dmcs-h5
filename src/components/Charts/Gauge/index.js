@@ -161,6 +161,7 @@ export default class Gauge extends React.Component {
           color={color}
           active={false}
         />
+        
       </Chart>
     );
   }
