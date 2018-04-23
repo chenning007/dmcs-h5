@@ -12,7 +12,6 @@ import logo from '../../../public/title.png';
 
 const FormItem = Form.Item;
 const { Option } = Select;
-//const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const userNumber = '1234567';
@@ -27,37 +26,6 @@ const userTelephone = '15701585253';
 const userTelephone_1 = null;
 const userWeixin = '大头';
 const userQq = '1760258010';
-/*const identify = ['undergraduate'];
-const identification = [{
-  label: '请选择',
-  value: 'choice',
-}
-,{
-   label: '初中',
-   value: 'middle',
-},{
-   label: '高中',
-   value: 'high' ,
-},{
-  label: '中专',
-  value: 'middle1',
-},{
-  label: '大专',
-  value: 'high1',
-},{
-  label: '本科',
-  value: 'undergraduate',
-},{
-  label: '硕士',
-  value: 'postgraduate',
-},{
-  label: '博士',
-  value: 'doctor',
-},{
-  label: '其它',
-  value: 'other',
-}
-];*/
 const address = [{
     key: '1',
   　title: '学校',
@@ -101,15 +69,15 @@ const submitFormLayout = {
 /****** */
 
 @connect(state => ({
-  data: state.form.data,
-  submitting: state.form.regularFormSubmitting,
+  //data: state.form.data,
+  //submitting: state.form.regularFormSubmitting,
 }))
 @Form.create()
 export default class Basic_profiles extends PureComponent {
   state = {
     changename: false,
   };
-  handleSubmit = (e) => {
+  /*handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -119,7 +87,7 @@ export default class Basic_profiles extends PureComponent {
         });
       }
     });
-  }
+  }*/
   onChangestate = () => {
      const {dispatch}=this.props;
      dispatch(routerRedux.push(`set_up`));
@@ -130,7 +98,7 @@ export default class Basic_profiles extends PureComponent {
   
 
   renderInfo() {
-    const { form, state }=this.props;
+    //const { form, state }=this.props;
     const { getFieldDecorator, getFieldValue }=this.props.form;
     //const { changename }=this.state;
     
@@ -143,7 +111,7 @@ export default class Basic_profiles extends PureComponent {
             colon={false}
             labelCol={{span: 4, offset: 0}}
             wrapperCol={{span: 8, offset: 2}}
-            label={<b>用户名:</b>}
+            label={<b>用户&nbsp;&nbsp;&nbsp;名:</b>}
           > 
             <h3>{userName? userName:'未命名'}</h3>
           </FormItem>
@@ -152,7 +120,7 @@ export default class Basic_profiles extends PureComponent {
             labelCol={{span: 4, offset: 0}}
             wrapperCol={{span: 8, offset: 2}}
            //{...formItemLayout}
-            label={<b>用户号:</b>}
+            label={<b>用户&nbsp;&nbsp;&nbsp;号:</b>}
           >
             <h3>{userNumber ? userNumber : '待补充'}</h3>           
           </FormItem> 
@@ -160,7 +128,7 @@ export default class Basic_profiles extends PureComponent {
              colon={false}
              labelCol={{span: 4, offset: 0}}
              wrapperCol={{span: 8, offset: 2}}
-             label={<b>姓名:</b>}
+             label={<b>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</b>}
           >
             <h3>{userTitle ? userTitle:'待补充'}</h3>
           </FormItem>
@@ -168,7 +136,7 @@ export default class Basic_profiles extends PureComponent {
              colon={false}
              labelCol={{span: 4, offset: 0}}
              wrapperCol={{span: 8, offset: 2}}
-             label={<b>性别:</b>}
+             label={<b>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</b>}
           >
             <h3>{userSex ? userSex:'待补充'}</h3>
           </FormItem>
@@ -188,77 +156,12 @@ export default class Basic_profiles extends PureComponent {
           >
             <h3>{userworkPlace ? userworkPlace:'待补充'}</h3>
           </FormItem>
-          {/*
-            <FormItem
-              colon={false}
-              labelCol={{span: 4, offset: 0}}
-              wrapperCol={{span: 8, offset: 2}}
-              label={<b>受教育程度:</b>}
-            >
-              <h3>本科</h3>
-            </FormItem> 
-          */}
         </Form>
-      );
-   /*
-    if(changename){
-      return(
-        <Form>
-          <FormItem
-            colon={false}
-            labelCol={{span: 4, offset: 0}}
-            wrapperCol={{span: 8, offset: 2}}
-            label={<b>"用户号"</b>}
-          >
-            <h3>{userNumber}</h3>           
-          </FormItem>
-          <FormItem
-            colon={false}
-            labelCol={{span: 8, offset: 0}}
-            wrapperCol={{span: 8, offset: 2}}
-            label={<b>用户名:</b>}
-          > 
-            {getFieldDecorator('username', {
-              initialValue: userName,
-              rules: [{
-                required: false, 
-              }],
-            })(
-              <Input  size="large" placeholder="例如: 12345678@123.com" 
-              />
-            )}
-          </FormItem>
-          <FormItem
-             colon={false}
-             labelCol={{span: 8, offset: 0}}
-             wrapperCol={{span: 8, offset: 2}}
-             label={<b>头衔:</b>}
-          >
-            <h3>{userTitle}</h3>
-          </FormItem> 
-          <FormItem
-             colon={false}
-             labelCol={{span: 4, offset: 0}}
-             wrapperCol={{span: 8, offset: 2}}
-             label={<b>受教育程度:</b>}
-          >
-            {getFieldDecorator('identification', {
-              initialValue: ['undergraduate'] ,identify,
-              rules: [{ 
-                      //type :'array',
-                      required: false, 
-              }],
-          })(
-            <Cascader options={identification} placeholder='请选择' />
-          )}
-          </FormItem>
-        </Form>
-      );*/
-      
+      );  
   }
   
   render() {
-    const { submitting, form, data } = this.props;
+    const { /*submitting,*/ form, } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
 
     return (
