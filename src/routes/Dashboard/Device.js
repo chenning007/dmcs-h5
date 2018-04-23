@@ -211,7 +211,7 @@ export default class Device extends PureComponent {
                                     <Card.Meta
                                         title={(
                                         <div className={styles.cardTitle}>
-                                            <Link to="/dashboard/monitor_device"><Avatar size="large" src={item.logo}/></Link>
+                                            <Avatar size="large" src={item.logo}/>
                                         </div>
                                         )}
                                         // description={item.description}
