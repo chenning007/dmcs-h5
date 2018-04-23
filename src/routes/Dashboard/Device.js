@@ -165,7 +165,6 @@ export default class Device extends PureComponent {
         </div>
         <div className={styles.content}>
           <div className={styles.contentTitle}>早安，蔡志军，祝你开心每一天！</div>
-          {/*<div>交互专家 | 蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED</div>*/}
         </div>
       </div>
     );
@@ -228,22 +227,7 @@ export default class Device extends PureComponent {
                     ))
                 }
             </Card>
-            {/*<Modal
-               title="添加设备"
-               visible={modalVisible}
-               onOk={this.handleAdd}
-               onCancel={() => this.handleModalVisible()}
-            >
-             <FormItem
-                 labelCol={{ span: 5 }}
-                 wrapperCol={{ span: 15 }}
-                 label="描述"
-              >
-                 <Input placeholder="请输入设备编号" onChange={this.handleAddInput} value={addInputValue} />
-              </FormItem>
-            </Modal>
-            */}
-           <Card
+            <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.projectList}
