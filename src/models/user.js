@@ -33,7 +33,7 @@ export default {
       });
     },
   },
-
+//action包含的内容
   reducers: {
     save(state, action) {
       return {
