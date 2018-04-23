@@ -28,10 +28,10 @@ const marks = {
 /****** */
 
 const device = [{
-  key:'1',
+  key: 1,
   title:'温度',
 },{
-  key:'2',
+  key: 2,
   title:'压力',
 }
 ];
@@ -43,6 +43,7 @@ const device = [{
 export default class Monitor_device extends PureComponent {
   state = {
     inputValue: 37,
+    device_length : 2,
   }
   componentDidMount() {
     this.props.dispatch({
@@ -55,7 +56,16 @@ export default class Monitor_device extends PureComponent {
       inputValue: value,
     });
   }
-  
+  /****** */
+  onchangeDevice = () => {
+    device.push({
+      key: device.length + 1,
+      title : ((device.length + 1) % 2 ? '温度': '压力'),
+    });
+    this.setState({device_length: this.state.device_length+1,});
+  }
+  /****** */
+
   device_panel = (device_type, unit, value) => {
     return(
       <Gauge
@@ -122,8 +132,9 @@ export default class Monitor_device extends PureComponent {
                   <Card
                     style={{ marginBottom: 24 }}
                     bodyStyle={{ textAlign: 'center' }}
+                    bordered={true}
                   >
-                    {this.device_panel('1', '2', this.state.inputValue)}
+                    {this.device_panel('', '2', this.state.inputValue)}
                   </Card>
                 </div>
                 <Button type="primary" icon="poweroff" 
@@ -222,19 +233,18 @@ export default class Monitor_device extends PureComponent {
             {/* </Row>*/}
           <Card bordered={false} title='设备监控'>
             {
-              device.map(item => (item ? (
+              device.map(item =>  (
                     <Card.Grid  key={item.key} >
                       {this.device_panel(item.title, '2', this.state.inputValue)}
-                    </Card.Grid>):(
-                    <Card.Grid>
-                      <Button type="dashed" >
-                        <Icon type="plus" /> 新增产品
-                      </Button>
-                    </Card.Grid>
-                  )
-                )
+                    </Card.Grid>)  
               )
             }
+              <Card.Grid>
+                <Button type="dashed" className={styles.button} onClick={() =>this.onchangeDevice() }>
+                  <Icon type="plus" /> 新增面板
+                </Button>
+              </Card.Grid>
+                  
           </Card>
         </div>
       </PageHeaderLayout>
