@@ -7,7 +7,7 @@ const dynamicWrapper = (app, models, component) => dynamic({
   app,
   // eslint-disable-next-line no-underscore-dangle
   models: () => models.filter(m => !app._models.some(({ namespace }) => namespace === m)).map(m => import(`../models/${m}.js`)),
-  // add routerData prop
+  //  add routerData prop
   component: () => {
     const routerData = getRouterData(app);
     return component().then((raw) => {
@@ -100,7 +100,7 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/AdvancedProfile')),
     },
     '/profile/basic-profile': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/Profile/Basic_profile')),
+      component: dynamicWrapper(app, [], () => import('../routes/Profile/Basic_profile')),
     },
     '/profile/set_up': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Profile/Set_up')),
