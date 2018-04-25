@@ -1,14 +1,13 @@
-import { queryActivities, query_Activities } from '../services/api';
+import { queryFriend } from '../services/api';
 
 export default {
   namespace: 'friend',
 
   state: {
-    list: [],
-    list_activities: [],
+    list_friend: [],
     loading: true,
     loading1: true,
-  },
+  },  
 
   effects: {
     *fetchList(_, { call, put }) {
@@ -16,12 +15,11 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryActivities);
+      const response = yield call(queryFriend);
       yield put({
         type: 'save',
         payload: { 
-          list: Array.isArray(response.list) ? response.list : [] ,
-          list_activities: Array.isArray(response.list_activities) ? response.list_activities : [],
+          list_friend: Array.isArray(response.list_friend) ? response.list_friend : [] ,
         },
       });
       yield put({
@@ -41,8 +39,7 @@ export default {
     },
     clear() {
       return {
-        list: [],
-        list_activities: [],
+        list_friend: [], 
       };
     },
     changeLoading(state, action) {
