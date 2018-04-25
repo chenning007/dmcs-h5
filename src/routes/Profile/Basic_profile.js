@@ -47,9 +47,9 @@ export default class Basic_profiles extends PureComponent {
     changename: false,
   };
 
-  onChangestate = () => {
-     const {dispatch}=this.props;
-     dispatch(routerRedux.push(`set_up`));
+  onChangestate = (avatar_src) => {
+    const {dispatch}=this.props;
+    dispatch(routerRedux.push(`set_up`));
   }
   onChangeUserName = (e) => {
     this.setState({ data: e.target.value });
