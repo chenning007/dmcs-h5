@@ -12,32 +12,6 @@ import styles from './Workplace.less';
 
 const FormItem = Form.Item;
 
-const links = [
-  {
-    title: '操作一',
-    href: '',
-  },
-  {
-    title: '操作二',
-    href: '',
-  },
-  {
-    title: '操作三',
-    href: '',
-  },
-  {
-    title: '操作四',
-    href: '',
-  },
-  {
-    title: '操作五',
-    href: '',
-  },
-  {
-    title: '操作六',
-    href: '',
-  },
-];
 
 const members = [
   {
