@@ -64,7 +64,7 @@ export async function queryDeviceInfo() {
   return request('/api/device/queryDeviceInfo');
 }
 
-export async function queryFakeList(params) {
+export async function queryDeviceList(params) {
   return request(`/api/fake_list?${stringify(params)}`);
 }
 
