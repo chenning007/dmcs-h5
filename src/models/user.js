@@ -62,5 +62,12 @@ export default {
         },
       };
     },
+    clear() {
+      return{
+        list: [],
+        loading: false,
+        currentUser: {},
+      };
+    },
   },
 };
