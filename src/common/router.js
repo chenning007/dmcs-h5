@@ -70,7 +70,7 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/AdvancedForm')),
     },
     '/list/device_friend': {
-      component: dynamicWrapper(app, ['list', 'activities', 'form'], () => import('../routes/List/Device_friend')),
+      component: dynamicWrapper(app, ['list', 'friend', 'form'], () => import('../routes/List/Device_friend')),
     },
     '/list/search': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/List')),
@@ -79,7 +79,7 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, ['friend'], () => import('../routes/List/Friend_list')),
     },
     '/list/search/device_list': {
-      component: dynamicWrapper(app, ['list'], () => import('../routes/List/Device_list')),
+      component: dynamicWrapper(app, ['device'], () => import('../routes/List/Device_list')),
     },
     '/list/search/data_list': {
       component: dynamicWrapper(app, ['list', 'project', 'activities', 'chart'], () => import('../routes/List/Data_list')),
