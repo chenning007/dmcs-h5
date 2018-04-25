@@ -5,8 +5,8 @@ export default {
 
   state: {
     list_friend: [],
-    loading: true,
-    loading1: true,
+    loading: false,
+    loading1: false,
   },  
 
   effects: {
