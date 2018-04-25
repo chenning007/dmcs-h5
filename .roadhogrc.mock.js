@@ -1,6 +1,6 @@
 import mockjs from 'mockjs';
 import { getRule, postRule } from './mock/rule';
-import { getActivities, getNotice, getFakeList, get_Activities, get_List } from './mock/api';
+import { getNotice, getFakeList, get_List } from './mock/api';
 import { getFakeChartData } from './mock/chart';
 import { getFakeFormData } from './mock/form';
 import { imgMap } from './mock/utils';
@@ -10,6 +10,7 @@ import { getNotices } from './mock/notices';
 import { format, delay } from 'roadhog-api-doc';
 
 import { currentUser } from  './mock/user' ;
+import { get_Friend } from './mock/friend';
 
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
@@ -36,8 +37,7 @@ const proxy = {
     address: 'Sidney No. 1 Lake Park',
   }],
   'GET /api/project/notice': getNotice,
-  'GET /api/activities': get_List,
-  'GET /api/query_activities': get_List,
+  'GET /api/friends': get_Friend,
   'GET /api/rule': getRule,
   'POST /api/rule': {
     $params: {
