@@ -416,7 +416,7 @@ export const list_people = [
     userworkPlace: '清华大学',
   },
 ];
-export const get_List = {
+export const get_Friend = {
   list: getActivities,
   list_activities: get_Activities,
   list_people: list_people,
