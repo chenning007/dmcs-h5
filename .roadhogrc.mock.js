@@ -11,7 +11,7 @@ import { format, delay } from 'roadhog-api-doc';
 
 import { currentUser } from  './mock/user' ;
 import { get_Friend } from './mock/friend';
-
+import { getDeviceList } from './mock/device'
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
 
@@ -54,7 +54,8 @@ const proxy = {
   'GET /api/tags': mockjs.mock({
     'list|100': [{ name: '@city', 'value|1-100': 150, 'type|0-2': 1 }]
   }),
-  'GET /api/fake_list': getFakeList,
+  'GET /api/fake_list': getDeviceList,
+  ////
   'GET /api/fake_chart_data': getFakeChartData,
   'GET /api/fake_form_data': getFakeFormData,
   'GET /api/profile/basic': getProfileBasicData,
