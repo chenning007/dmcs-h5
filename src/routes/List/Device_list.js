@@ -1,5 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
+import { routerRedux,} from 'dva/router';
+
 import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col, Steps, message } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
@@ -14,7 +16,8 @@ const { Step }=Steps;
 
 
 @connect(state => ({
-  list: state.list,
+  myself_device: state.device.myself_device,
+  loading: state.device.loading,
 }))
 export default class Device_list extends PureComponent {
 /***** */
@@ -28,12 +31,21 @@ export default class Device_list extends PureComponent {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'list/fetch',
+      type: 'device/fetch',
       payload: {
         count: 8,
       },
     });
   }
+
+  onLinktodevice = (avatar_src) => {
+    const {dispatch}=this.props;
+    dispatch(routerRedux.push({
+      pathname: '/list/device_friend',
+      state: { avatar: avatar_src,},
+    }));
+  }
+
   setModalvisible (setvisible) { 
     this.setState({modalVisible: setvisible,});
   };
@@ -107,7 +119,8 @@ export default class Device_list extends PureComponent {
 
 /******* */
   renderDevice(){
-    const { list: { list, loading } } = this.props;
+
+    const {  myself_device, loading  } = this.props;
     const {condition, current, change_remove, modalVisible}=this.state;
     if(condition===0){
       return (
@@ -125,11 +138,11 @@ export default class Device_list extends PureComponent {
                       <List 
                         rowkey="id"
                         loading={loading}
-                        dataSource={[...list]}
+                        dataSource={[...myself_device]}
                           renderItem={item =>(
                             <List.Item key={item.id}>
                                 <List.Item.Meta
-                                  avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
+                                  avatar={<a onClick={() =>this.onLinktodevice(item.avatar)}>{<Avatar size="large" src={item.avatar}/>}</a>}
                                   title={item.title}
                                   description={item.subDescription}
                                 />
@@ -150,14 +163,14 @@ export default class Device_list extends PureComponent {
                         <List 
                           rowkey="id"
                           loading={loading}
-                          dataSource={[...list]}
+                          dataSource={[...myself_device]}
                             renderItem={item =>(
                               <List.Item key={item.id} 
                                 actions={[<Button type='danger' 
                                     onClick={() =>this.setModalvisible(true)}>
                                     删除</Button>]}>
                                   <List.Item.Meta
-                                    avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
+                                    avatar={<a onClick={() =>this.onLinktodevice(item.avatar)}>{<Avatar size="large" src={item.avatar}/>}</a>}
                                     title={item.title}
                                     description={item.subDescription}
                                   />
@@ -178,7 +191,7 @@ export default class Device_list extends PureComponent {
                         <List 
                           rowkey="id"
                           loading={loading}
-                          dataSource={[...list]}
+                          dataSource={[...myself_device]}
                             renderItem={item =>(
                               <List.Item key={item.id} 
                                 actions={[
@@ -189,7 +202,7 @@ export default class Device_list extends PureComponent {
                                     </Button>
                                   ]}>
                                   <List.Item.Meta
-                                    avatar={<Link to="/list/device_friend">{<Avatar size="large" src={item.avatar}/>}</Link>}
+                                    avatar={<a onClick={() =>this.onLinktodevice(item.avatar)}>{<Avatar size="large" src={item.avatar}/>}</a>}
                                     title={item.title}
                                     description={item.subDescription}
                                   />
@@ -302,49 +315,3 @@ export default class Device_list extends PureComponent {
     );
   }
 }
-
-{/*
-//        <div className={styles.cardList}>
-          <List
-            rowKey="id"
-            loading={loading}
-            grid={{ gutter: 12, lg: 4, md: 2, sm: 1, xs: 1 }}
-            dataSource={['', ...list]}
-  //          renderItem={item => (item ? (
-    //          <List.Item key={item.id}>
-      //          <Card hoverable className={styles.card} /*actions={[<a>操作一</a>, <a>操作二</a>]}>
-                  <Card.Meta
-                    avatar={<Link to="/list/device_friend">{<img alt="" className={styles.cardAvatar} src={item.avatar} />}</Link>}
-  //                  title={<Link to="/list/device_friend">{item.title}</Link>}
-                    description={(
-                      <Ellipsis className={styles.item} lines={3}>{item.description}</Ellipsis>
-                    )}
-                  />
-    //            </Card>
-              </List.Item>
-              ) : (
-                <List.Item>
-                  <Button type="dashed" className={styles.newButton}
-                    onClick={() => this.handleModalVisible(true)}
-                  >
-                    <Icon type="plus" /> 新增设备
-                  </Button>
-                </List.Item>
-              )
-   //        )}
-          />
-          <Modal
-     //          title="添加设备"
-               visible={modalVisible}
-               onOk={this.handleAdd}
-               onCancel={() => this.handleModalVisible()}
-            >
-             <FormItem
-                 labelCol={{ span: 5 }}
-                 wrapperCol={{ span: 15 }}
-                 label="描述"
-              >
-                 <Input placeholder="请输入设备编号" onChange={this.handleAddInput} value={addInputValue} />
-    //          </FormItem>
-    //        </Modal>
-            </div> */ }
