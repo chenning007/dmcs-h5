@@ -34,37 +34,7 @@ const submitFormLayout = {
   },
 };
 
-const columns = [{
-  title: '人员',
-  dataIndex: 'avatar',
-  key: 'avatar',
-  width: '4%',
-  render: text => <Avatar src={text}/>,
-},{
-  title: '',
-  dataIndex: 'userName',
-  key: 'userName',
-  width:'16%'
-}, {
-  title: '用户号',
-  dataIndex: 'useridNumber',
-  key: 'useridNumber',
-  width: '30',
-}, {
-  title: '联系方式',
-  dataIndex: 'userTelephone',
-  key: 'userTelephone',
-  width: '20',
-},
-{
-  title: '单位',
-  key: 'userworkPlace',
-  width: '30%',
-  dataIndex: 'userworkPlace',
-  //render: '',
-}];
-
-const columns1 = [{
+const columns =  [{
   title: '朋友',
   dataIndex: 'avatar',
   key: 'avatar',
@@ -74,12 +44,17 @@ const columns1 = [{
   title: '',
   dataIndex: 'userName',
   key: 'userName',
-  width:'16%'
+  width:'6%'
 }, {
   title: '用户号',
   dataIndex: 'useridNumber',
   key: 'useridNumber',
-  width: '30',
+  width: '20',
+}, {
+  title: '姓名',
+  key: 'userTitle',
+  width: '20%',
+  dataIndex: 'userTitle',
 }, {
   title: '联系方式',
   dataIndex: 'userTelephone',
@@ -91,11 +66,45 @@ const columns1 = [{
   key: 'userworkPlace',
   width: '30%',
   dataIndex: 'userworkPlace',
-  //render: '',
+}];
+
+const columns1 =  [{
+  title: '朋友',
+  dataIndex: 'avatar',
+  key: 'avatar',
+  width: '4%',
+  render: text => <Avatar src={text}/>,
+},{
+  title: '',
+  dataIndex: 'userName',
+  key: 'userName',
+  width:'6%'
+}, {
+  title: '用户号',
+  dataIndex: 'useridNumber',
+  key: 'useridNumber',
+  width: '20',
+}, {
+  title: '姓名',
+  key: 'userTitle',
+  width: '20%',
+  dataIndex: 'userTitle',
+}, {
+  title: '联系方式',
+  dataIndex: 'userTelephone',
+  key: 'userTelephone',
+  width: '20',
+},
+{
+  title: '单位',
+  key: 'userworkPlace',
+  width: '30%',
+  dataIndex: 'userworkPlace',
 }];
 
 @connect(state => ({
-  activities: state.activities,
+  list_friend: state.friend.list_friend,
+  loading: state.friend.loading,
 }))
 
 @Form.create()
@@ -116,7 +125,7 @@ export default class Device_friend extends PureComponent {
   //    type: 'project/fetchNotice',
   //  });
     dispatch({
-      type: 'activities/fetchList',
+      type: 'friend/fetchList',
     });
    // dispatch({
    //   type: 'chart/fetch',
@@ -133,7 +142,7 @@ export default class Device_friend extends PureComponent {
       modalVisible2: false,
     })
     dispatch({
-      type: 'activities/clear',
+      type: 'friend/clear',
     });
   }
 /**** */
@@ -276,14 +285,28 @@ export default class Device_friend extends PureComponent {
      )
    }
   }
-    
 
 
-
+  show_title() {
+    if(this.props.location.state !== undefined ){
+      return(
+        <div>
+          <span><Avatar src={this.props.location.state.avatar} size='large'/></span>
+        </div>
+      );
+    }
+    else
+      return(
+        <div>
+          <span><Avatar size= 'large' src=''/></span>
+        </div>
+      )
+  }
+  
  /**** */ 
   renderActivities() {
     const {
-      activities: { list_people },
+      list_friend
     } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
     const {content_condition, selectedRowkeys, modalVisible1, modalVisible2} =　this.state;
@@ -299,7 +322,7 @@ export default class Device_friend extends PureComponent {
           { ((content_condition !== 2)||(selectedRowkeys.length !==0))
              &&
             <div>
-              <Table columns={columns} dataSource={ list_people } 
+              <Table columns={columns} dataSource={ list_friend } 
                 pagination={false} rowSelection={rowSelection}
               />
             </div>
@@ -309,6 +332,8 @@ export default class Device_friend extends PureComponent {
             <Card /*title="权限管理"*/ bordered={false} style={{marginTop: 12}}>
               {getFieldDecorator('auth', {
                 //initialValue: tableData,
+                
+                //这里需要完成数据的递交
               })(<Table_friend />)}
             </Card>
           }
@@ -327,7 +352,7 @@ export default class Device_friend extends PureComponent {
                     let tem=item-1;
                     return(
                       <Form.Item key={item}>
-                        <span>{(list_people[tem]).id_number}</span>
+                        <span>{(list_friend[tem]).id_number}</span>
                       </Form.Item>
                     );
                   })}   
@@ -353,11 +378,11 @@ export default class Device_friend extends PureComponent {
                       <span style={{fontSize: 16}}>
                         用户号:
                       </span>
-                      <span style={{fontSize: 16, paddingLeft: 4}}>{(list_people[tem]).useridNumber}</span>
+                      <span style={{fontSize: 16, paddingLeft: 4}}>{(list_friend[tem]).useridNumber}</span>
                       <span style={{fontSize: 16, paddingLeft: 8}}>
                         用户名:
                       </span>
-                      <span style={{fontSize: 16, paddingLeft: 4}}>{(list_people[tem]).userName}</span>
+                      <span style={{fontSize: 16, paddingLeft: 4}}>{(list_friend[tem]).userName}</span>
                       <Card>
                         <div style={{paddingLeft: 8}}>
                           <span style={{fontSize: 16}}>
@@ -408,7 +433,7 @@ export default class Device_friend extends PureComponent {
       extra={this.extraContent_3(selectedRowkeys.length)}
       >
         <div style={{padding:10 }}>
-          <Table columns={columns1} dataSource={ list_people } 
+          <Table columns={columns1} dataSource={ list_friend } 
           pagination={false} rowSelection={rowSelection}/>
         </div>
       </Card>
@@ -416,7 +441,7 @@ export default class Device_friend extends PureComponent {
     }
           /*
         case 1 :{
-          return list_people.map((item) => {
+          return list_friend.map((item) => {
             return (
               <List.Item key={item.key} actions={[<Button type='primary'>保存</Button>]}>
                 <span>
@@ -436,7 +461,7 @@ export default class Device_friend extends PureComponent {
         /*case 2 :{
           return (
             <div style={{padding: 10}}>
-              <Table columns={columns} dataSource={ list_people } 
+              <Table columns={columns} dataSource={ list_friend } 
                 pagination={false} rowSelection={rowSelection}
               />
               {selectedRowkeys.length > 0
@@ -454,7 +479,7 @@ export default class Device_friend extends PureComponent {
                         let tem=item-1;
                         return(
                           <Form.Item key={item}>
-                            <span>{(list_people[tem-1]).id_number}</span>
+                            <span>{(list_friend[tem-1]).id_number}</span>
                           </Form.Item>
                         );
                       })}   
@@ -473,9 +498,10 @@ export default class Device_friend extends PureComponent {
 
   render() {
     const {
-      activities: { loading: activitiesLoading, },
+      loading,
       form,
     } = this.props;
+   // const {avatar_src} = this.props.location.state.avatar !==undefined ?this.props.location.state.avatar:'';
 
     const { getFieldDecorator, getFieldValue } = this.props.form;
 
@@ -491,8 +517,8 @@ export default class Device_friend extends PureComponent {
                 bodyStyle={{ padding: 0 }}
                 bordered={false}
                 className={styles.activeCard}
-                title="共享成员"
-                loading={activitiesLoading}
+                title={this.show_title()}
+                loading={loading}
                 extra={this.extraContent(selectedRowkeys)}
                 style={{ marginBottom: 24 }} 
               > 
@@ -502,7 +528,7 @@ export default class Device_friend extends PureComponent {
               </Card>
               <Card 
                   bordered={true}
-                  title="设备信息"
+                  title={this.show_title()}
                   style={{ marginBottom: 36 }}
               >
                 <Row>
