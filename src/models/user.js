@@ -51,6 +51,7 @@ export default {
       return {
         ...state,
         currentUser: action.payload,
+        //userNumber: (currentUser.userNumber!==undefined ? currentUser.userNumber:null),
       };
     },
     changeNotifyCount(state, action) {
