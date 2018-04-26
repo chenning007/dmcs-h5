@@ -18,6 +18,7 @@ const { Step }=Steps;
 @connect(state => ({
   myself_device: state.device.myself_device,
   loading: state.device.loading,
+  currentUser: state.user.currentUser,
 }))
 export default class Device_list extends PureComponent {
 /***** */
@@ -30,12 +31,15 @@ export default class Device_list extends PureComponent {
 /******** */
 
   componentDidMount() {
-    this.props.dispatch({
-      type: 'device/fetch',
-      payload: {
-        count: 8,
-      },
-    });
+    const { currentUser } = this.props;
+    if((currentUser!==undefined)&&(currentUser!== {})){
+      this.props.dispatch({
+        type: 'device/fetch',
+        payload: {
+          count: currentUser.userNumber,
+        },
+      });
+    }
   }
 
   onLinktodevice = (avatar_src) => {
@@ -119,7 +123,6 @@ export default class Device_list extends PureComponent {
 
 /******* */
   renderDevice(){
-
     const {  myself_device, loading  } = this.props;
     const {condition, current, change_remove, modalVisible}=this.state;
     if(condition===0){
@@ -140,13 +143,20 @@ export default class Device_list extends PureComponent {
                         loading={loading}
                         dataSource={[...myself_device]}
                           renderItem={item =>(
-                            <List.Item key={item.id}>
-                                <List.Item.Meta
-                                  avatar={<a onClick={() =>this.onLinktodevice(item.avatar)}>{<Avatar size="large" src={item.avatar}/>}</a>}
-                                  title={item.title}
-                                  description={item.subDescription}
-                                />
-                              </List.Item>
+                            <List.Item key={item.id} >
+                              <span onClick={() =>this.onLinktodevice(item.avatar)}  
+                                style={{width:200}}
+                              >
+                                  <List.Item.Meta
+                                    avatar={<Avatar src={item.avatar} size='large'/>}
+                                    title={item.title}
+                                    description={<b>{item.deviceNumber}</b>}
+                                  />
+                              </span>
+                              <span style={{marginLeft:200, width:300}} ><h3>{item.description}</h3></span> 
+                              <span style={{marginLeft:200}}><h3>{item.time}</h3></span>
+                              
+                            </List.Item> 
                           )}
                         />  
                     </Card>
