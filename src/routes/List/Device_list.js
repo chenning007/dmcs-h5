@@ -32,21 +32,24 @@ export default class Device_list extends PureComponent {
 
   componentDidMount() {
     const { currentUser } = this.props;
-    if((currentUser!==undefined)&&(currentUser!== {})){
-      this.props.dispatch({
+    if((currentUser!==undefined)&&(currentUser!=={})){
+      this.props.dispatch ({
         type: 'device/fetch',
         payload: {
           count: currentUser.userNumber,
         },
-      });
+        }
+      ); 
     }
   }
 
-  onLinktodevice = (avatar_src) => {
+  onLinktodevice = (avatar_src,deviceNumber_src) => {
     const {dispatch}=this.props;
     dispatch(routerRedux.push({
       pathname: '/list/device_friend',
-      state: { avatar: avatar_src,},
+      state: { avatar: avatar_src,
+               deviceNumber: deviceNumber_src,
+             },
     }));
   }
 
@@ -141,10 +144,10 @@ export default class Device_list extends PureComponent {
                       <List 
                         rowkey="id"
                         loading={loading}
-                        dataSource={[...myself_device]}
+                        dataSource={myself_device ===undefined?[]:[...myself_device]}
                           renderItem={item =>(
                             <List.Item key={item.id} >
-                              <span onClick={() =>this.onLinktodevice(item.avatar)}  
+                              <span onClick={() =>this.onLinktodevice(item.avatar,item.deviceNumber)}  
                                 style={{width:200}}
                               >
                                   <List.Item.Meta
@@ -173,7 +176,7 @@ export default class Device_list extends PureComponent {
                         <List 
                           rowkey="id"
                           loading={loading}
-                          dataSource={[...myself_device]}
+                          dataSource={myself_device ===undefined?[]:[...myself_device]}
                             renderItem={item =>(
                               <List.Item key={item.id} 
                                 actions={[<Button type='danger' 
@@ -201,7 +204,7 @@ export default class Device_list extends PureComponent {
                         <List 
                           rowkey="id"
                           loading={loading}
-                          dataSource={[...myself_device]}
+                          dataSource={myself_device ===undefined?[]:[...myself_device]}
                             renderItem={item =>(
                               <List.Item key={item.id} 
                                 actions={[
