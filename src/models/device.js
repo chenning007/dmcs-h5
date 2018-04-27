@@ -69,5 +69,12 @@ export default {
         loading: action.payload,
       };
     },
+    clear() {
+      return {
+        myself_device: [],
+        public_device: [],
+        loading: false,
+      };
+    },
   },
 };
