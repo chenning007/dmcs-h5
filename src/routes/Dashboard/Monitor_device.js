@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Tooltip, Input, Avatar, Button, Slider, InputNumber, Icon, Menu, Dropdown } from 'antd';
+import { Row, Col, Card, Tooltip, Input, Avatar, Button, Slider, InputNumber, Icon, Menu, Dropdown, Divider } from 'antd';
 import numeral from 'numeral';
 
 import { Pie, WaterWave, Gauge, TagCloud } from '../../components/Charts';
@@ -48,7 +48,7 @@ export default class Monitor_device extends PureComponent {
     inputValue: 37,
     device_length : 2,
     equipment_length: 0,
-
+    marginleft: 0,
   }
   componentDidMount() {
     this.props.dispatch({
@@ -104,7 +104,21 @@ export default class Monitor_device extends PureComponent {
      />
     );
   }
-  
+
+  changePosition_right = () => {
+    this.setState(
+      {
+       marginleft: this.state.marginleft+10 ,
+      }
+    );
+  }
+  changePosition_left =() => {
+    if(this.state.marginleft !==0){
+      this.setState(
+        {marginleft: this.state.marginleft-10,}
+      );
+    }
+  }
 /******** */
 handleMenuClick = (e) => {
   this.onchangeEquipment(e.key);
@@ -126,6 +140,14 @@ extraContent() {
    );   //正常情况下
    return (
      <div > 
+      <Button type='primary' onClick={() =>this.changePosition_right()}>
+        右移
+      </Button>
+      <Divider type='vertical'/>
+      <Button type='primary' onClick={() => this.changePosition_left()}>
+        左移
+      </Button>
+      <Divider type='vertical'/>
       <Dropdown overlay={menu}>
         <Button>
           添加 <Icon type="down" />
@@ -134,6 +156,12 @@ extraContent() {
      </div>    
    );   
  }
+ onChange = (value) => {
+  this.setState({
+    inputValue: value,
+  });
+}
+
 /******* */
   render() {
     const { monitor } = this.props;
@@ -176,7 +204,7 @@ extraContent() {
                   <Card
                     style={{ marginBottom: 24 }}
                     bodyStyle={{ textAlign: 'center' }}
-                    bordered={true}
+                    bordered={ true }
                   >
                     {this.device_panel('', '2', this.state.inputValue)}
                   </Card>
@@ -229,29 +257,34 @@ extraContent() {
               </Card.Grid>
                   
           </Card>
-          <Card extra={this.extraContent()}>
+          <Card extra={this.extraContent()} >
             { equipment.length>0
               &&
               equipment.map(item=> (
-                <Card key={item.key} className={styles.card}>
-                  { item.type === 'swift'
-                    &&
-                    <Button type="primary" icon="poweroff" 
-                      onClick={this.enterIconLoading} >
-                      开/关
-                    </Button>
-                  }
-                  { item.type === 'slider'
-                    &&
-                    <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
-                  }
-                  { item.type === 'panel'
-                    &&
-                    <div>
-                      { this.device_panel('', '2', this.state.inputValue)} 
-                    </div>
-                  }
-                </Card>
+                
+                  <Card 
+                    key={item.key} 
+                    className={styles.card} style={{marginLeft: this.state.marginleft,}}
+                  >
+                    { item.type === 'swift'
+                      &&
+                      <Button type="primary" icon="poweroff" 
+                        onClick={this.enterIconLoading} >
+                        开/关
+                      </Button>
+                    }
+                    { item.type === 'slider'
+                      &&
+                      <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
+                    }
+                    { item.type === 'panel'
+                      &&
+                      <div>
+                        { this.device_panel('', '2', this.state.inputValue)} 
+                      </div>
+                    }
+                  </Card>
+                
               ))
 
             }
