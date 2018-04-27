@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Tooltip, Input, Avatar, Button, Slider, InputNumber, Icon } from 'antd';
+import { Row, Col, Card, Tooltip, Input, Avatar, Button, Slider, InputNumber, Icon, Menu, Dropdown } from 'antd';
 import numeral from 'numeral';
 
 import { Pie, WaterWave, Gauge, TagCloud } from '../../components/Charts';
@@ -9,7 +9,7 @@ import CountDown from '../../components/CountDown';
 import ActiveChart from '../../components/ActiveChart';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
-import styles from './Monitor.less';
+import styles from './Monitor_device.less';
 
 const targetTime = new Date().getTime() + 3900000;
 
@@ -36,6 +36,9 @@ const device = [{
 }
 ];
 
+const equipment = [
+];
+
 
 @connect(state => ({
   monitor: state.monitor,
@@ -44,6 +47,8 @@ export default class Monitor_device extends PureComponent {
   state = {
     inputValue: 37,
     device_length : 2,
+    equipment_length: 0,
+
   }
   componentDidMount() {
     this.props.dispatch({
@@ -63,6 +68,16 @@ export default class Monitor_device extends PureComponent {
       title : ((device.length + 1) % 2 ? '温度': '压力'),
     });
     this.setState({device_length: this.state.device_length+1,});
+  }
+  onchangeEquipment = (type) => {
+    //在这里进行判断返回的equipment是否有值
+    equipment.push({
+      key: equipment.length + 1,
+      type: type,
+      position: '',
+      node: '',
+    });
+    this.setState({equipment_length: this.state.equipment_length+1,});
   }
   /****** */
 
@@ -91,6 +106,35 @@ export default class Monitor_device extends PureComponent {
   }
   
 /******** */
+handleMenuClick = (e) => {
+  this.onchangeEquipment(e.key);
+}
+
+extraContent() {
+  const menu = (
+    <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
+      <Menu.Item key="swift">
+        开关 
+      </Menu.Item>
+      <Menu.Item key="slider">
+        滑条
+      </Menu.Item>
+      <Menu.Item key="panel">
+        表盘
+      </Menu.Item>
+    </Menu>
+   );   //正常情况下
+   return (
+     <div > 
+      <Dropdown overlay={menu}>
+        <Button>
+          添加 <Icon type="down" />
+        </Button>
+      </Dropdown>
+     </div>    
+   );   
+ }
+/******* */
   render() {
     const { monitor } = this.props;
     const { tags } = monitor;
@@ -170,68 +214,7 @@ export default class Monitor_device extends PureComponent {
               </Card>
             </Col>
           </Row>
-              {/*
-                <Col xl={12} lg={24} sm={24} xs={24}>
-                  <Card
-                    title="各品类占比"
-                    style={{ marginBottom: 24 }}
-                    bordered={false}
-                    className={styles.pieCard}
-                  >
-                    <Row gutter={4} style={{ padding: '16px 0' }}>
-                      <Col span={8}>
-                        <Pie
-                          animate={false}
-                          percent={28}
-                          subTitle="中式快餐"
-                          total="28%"
-                          height={128}
-                          lineWidth={2}
-                        />
-                      </Col>
-                      <Col span={8}>
-                        <Pie
-                          animate={false}
-                          color="#5DDECF"
-                          percent={22}
-                          subTitle="西餐"
-                          total="22%"
-                          height={128}
-                          lineWidth={2}
-                        />
-                      </Col>
-                      <Col span={8}>
-                        <Pie
-                          animate={false}
-                          color="#2FC25B"
-                          percent={32}
-                          subTitle="火锅"
-                          total="32%"
-                          height={128}
-                          lineWidth={2}
-                        />
-                      </Col>
-                    </Row>
-                  </Card>
-                </Col>
-                <Col xl={6} lg={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
-                  <Card title="热门搜索" bordered={false}>
-                    <TagCloud data={tags} height={161} />
-                  </Card>
-                </Col>
-              */}
-              {/*
-                <Col xl={6} lg={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
-                  <Card
-                    title="资源剩余"
-                    bodyStyle={{ textAlign: 'center', fontSize: 0 }}
-                    bordered={false}
-                  >
-                    <WaterWave height={161} title="补贴资金剩余" percent={34} />
-                  </Card>
-              </Col> */}
-            {/* </Row>*/}
-          <Card bordered={false} title='设备监控'>
+          <Card bordered={false} title='设备监控' style={{marginBottom:24}}>
             {
               device.map(item =>  (
                     <Card.Grid  key={item.key} >
@@ -245,6 +228,33 @@ export default class Monitor_device extends PureComponent {
                 </Button>
               </Card.Grid>
                   
+          </Card>
+          <Card extra={this.extraContent()}>
+            { equipment.length>0
+              &&
+              equipment.map(item=> (
+                <Card key={item.key} className={styles.card}>
+                  { item.type === 'swift'
+                    &&
+                    <Button type="primary" icon="poweroff" 
+                      onClick={this.enterIconLoading} >
+                      开/关
+                    </Button>
+                  }
+                  { item.type === 'slider'
+                    &&
+                    <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
+                  }
+                  { item.type === 'panel'
+                    &&
+                    <div>
+                      { this.device_panel('', '2', this.state.inputValue)} 
+                    </div>
+                  }
+                </Card>
+              ))
+
+            }
           </Card>
         </div>
       </PageHeaderLayout>
