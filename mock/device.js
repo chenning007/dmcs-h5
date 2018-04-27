@@ -56,6 +56,7 @@ export function fakeList(count) {
   const list = [];
   for (let i = 0; i < count; i += 1) {
     list.push({
+      key: i,
       deviceNumber: deviceNumber[i%  9],
       title: titles[i % 8],
       avatar: avatars[i % 8],
