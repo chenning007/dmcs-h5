@@ -42,12 +42,13 @@ export default class Device extends PureComponent {
     })
   }
 /**** */
-  onLinktodevice = (avatar_src,deviceNumber_src) => {
+  onLinktodevice = (avatar_src, title_src, deviceNumber_src) => {
     const {dispatch}=this.props;
     dispatch(routerRedux.push({
       pathname: '/dashboard/monitor_device',
       state: { 
         avatar: avatar_src,
+        title: title_src,
         deviceNumber: deviceNumber_src,
       },
     })
@@ -73,18 +74,6 @@ export default class Device extends PureComponent {
       </div>
     );
 
-    /*const extraContent = (
-      <div style={{ textAlign: 'center' }}>
-        <Input.Search
-          placeholder="请输入"
-          enterButton="搜索"
-          size="large"
-          //onSearch={this.handleFormSubmit}
-          style={{ width: 522 }}
-        />
-      </div>
-    );*/
-
     return (
       <PageHeaderLayout
       >
@@ -105,7 +94,7 @@ export default class Device extends PureComponent {
                       <Card 
                         bodyStyle={{ textAlign: 'center', padding: 0}} 
                         bordered={false}
-                        onClick={() =>this.onLinktodevice(item.avatar,item.deviceNumber)}
+                        onClick={() =>this.onLinktodevice(item.avatar, item.title, item.deviceNumber)}
                       >
                         <Card.Meta
                             style={{padding: 0}}
@@ -122,14 +111,14 @@ export default class Device extends PureComponent {
                   ))
                 }
             </Card>
-           {/* <Card
+            <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.projectList}
               title="共享设备"
               loading={loading}
-            >
-            {
+            />
+           {/* {
                 list.map(item => (
                   <Card.Grid className={styles.projectGrid} key={item.id}
                   >
