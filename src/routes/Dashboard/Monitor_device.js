@@ -36,8 +36,6 @@ const device = [{
 }
 ];
 
-const equipment = [
-];
 
 
 @connect(state => ({
@@ -47,8 +45,12 @@ export default class Monitor_device extends PureComponent {
   state = {
     inputValue: 37,
     device_length : 2,
-    equipment_length: 0,
     marginleft: 0,
+    equipment_length: 0,
+    equipment: [],
+    position: [],   //标示位置的数组
+    type_number: 0, //标示选定的容器
+    clicknumber: 0,
   }
   componentDidMount() {
     this.props.dispatch({
@@ -56,11 +58,6 @@ export default class Monitor_device extends PureComponent {
     });
   }
   /****** */
-  onChange = (value) => {
-    this.setState({
-      inputValue: value,
-    });
-  }
   /****** */
   onchangeDevice = () => {
     device.push({
@@ -71,12 +68,13 @@ export default class Monitor_device extends PureComponent {
   }
   onchangeEquipment = (type) => {
     //在这里进行判断返回的equipment是否有值
-    equipment.push({
-      key: equipment.length + 1,
+    this.state.equipment.push({
+      key: this.state.equipment.length + 1,
       type: type,
-      position: '',
+      position: 0,
       node: '',
     });
+    this.state.position.push( 0 );
     this.setState({equipment_length: this.state.equipment_length+1,});
   }
   /****** */
@@ -106,63 +104,79 @@ export default class Monitor_device extends PureComponent {
   }
 
   changePosition_right = () => {
-    this.setState(
-      {
-       marginleft: this.state.marginleft+10 ,
-      }
-    );
+    const { type_number, position }=this.state;
+    this.state.position.fill(position[type_number]+10, type_number,type_number+1);
+    this.setState({clicknumber: this.state.clicknumber+1});
   }
   changePosition_left =() => {
-    if(this.state.marginleft !==0){
-      this.setState(
-        {marginleft: this.state.marginleft-10,}
-      );
-    }
+    const { type_number, position }=this.state;
+    if(position[type_number]>0)
+    this.state.position.fill(position[type_number]-10, type_number,type_number+1);
+    this.setState({clicknumber: this.state.clicknumber+1});
   }
-/******** */
-handleMenuClick = (e) => {
-  this.onchangeEquipment(e.key);
-}
+  //选择标定的容器
+  position_type = (key) =>{
+    const { type_number, position }=this.state;
+    //this.setState({(equipment[key]).position: '' ,});
+    if(key>=1)
+    this.setState({type_number: key-1});
+  }
+ /******** */
+  handleMenuClick = (e) => {
+    this.onchangeEquipment(e.key);
+  }
 
-extraContent() {
-  const menu = (
-    <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
-      <Menu.Item key="swift">
-        开关 
-      </Menu.Item>
-      <Menu.Item key="slider">
-        滑条
-      </Menu.Item>
-      <Menu.Item key="panel">
-        表盘
-      </Menu.Item>
-    </Menu>
-   );   //正常情况下
-   return (
-     <div > 
-      <Button type='primary' onClick={() =>this.changePosition_right()}>
-        右移
-      </Button>
-      <Divider type='vertical'/>
-      <Button type='primary' onClick={() => this.changePosition_left()}>
-        左移
-      </Button>
-      <Divider type='vertical'/>
-      <Dropdown overlay={menu}>
-        <Button>
-          添加 <Icon type="down" />
+  extraContent() {
+    const menu = (
+      <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
+        <Menu.Item key="swift">
+          开关 
+        </Menu.Item>
+        <Menu.Item key="slider">
+          滑条
+        </Menu.Item>
+        <Menu.Item key="panel">
+          表盘
+        </Menu.Item>
+      </Menu>
+    );   //正常情况下
+    return (
+      <div > 
+        <Button type='primary' onClick={() =>this.changePosition_right()}>
+          右移
         </Button>
-      </Dropdown>
-     </div>    
-   );   
- }
- onChange = (value) => {
-  this.setState({
-    inputValue: value,
-  });
-}
+        <Divider type='vertical'/>
+        <Button type='primary' onClick={() => this.changePosition_left()}>
+          左移
+        </Button>
+        <Divider type='vertical'/>
+        <Dropdown overlay={menu}>
+          <Button>
+            添加 <Icon type="down" />
+          </Button>
+        </Dropdown>
+      </div>    
+    );   
+  }
+ 
+ show_title() {
+  if(this.props.location.state !== undefined ){
+    return(
+      <div>
+        <Avatar src={this.props.location.state.avatar} size='large'/>
+        {this.props.location.state.title}
+      </div>
+    );
+  }
+  else
+    return(
+      <div>
+        <span><Avatar size= 'large' src=''/></span>
+      </div>
+    )
+  }
 
-/******* */
+ /******* */
   render() {
     const { monitor } = this.props;
     const { tags } = monitor;
@@ -197,7 +211,7 @@ extraContent() {
         //extraContent={extraContent}
       >
        <div>
-          <Row gutter={24}>
+          {/*<Row gutter={24}>
             <Col xl={18} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
               <Card title="设备监控" bordered={false}>
                 <div className={styles.mapChart}>
@@ -241,8 +255,8 @@ extraContent() {
                 <WaterWave height={161} title="补贴资金剩余" percent={34} />
               </Card>
             </Col>
-          </Row>
-          <Card bordered={false} title='设备监控' style={{marginBottom:24}}>
+          </Row>*/}
+          {/*<Card bordered={false} title='设备监控' style={{marginBottom:24}}>
             {
               device.map(item =>  (
                     <Card.Grid  key={item.key} >
@@ -254,39 +268,39 @@ extraContent() {
                 <Button type="dashed" className={styles.button} onClick={() =>this.onchangeDevice() }>
                   <Icon type="plus" /> 新增面板
                 </Button>
-              </Card.Grid>
-                  
-          </Card>
-          <Card extra={this.extraContent()} >
-            { equipment.length>0
-              &&
-              equipment.map(item=> (
-                
-                  <Card 
-                    key={item.key} 
-                    className={styles.card} style={{marginLeft: this.state.marginleft,}}
-                  >
-                    { item.type === 'swift'
-                      &&
-                      <Button type="primary" icon="poweroff" 
-                        onClick={this.enterIconLoading} >
-                        开/关
-                      </Button>
-                    }
-                    { item.type === 'slider'
-                      &&
-                      <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
-                    }
-                    { item.type === 'panel'
-                      &&
-                      <div>
-                        { this.device_panel('', '2', this.state.inputValue)} 
-                      </div>
-                    }
-                  </Card>
-                
-              ))
+              </Card.Grid>        
+          </Card>*/}
 
+          <Card 
+            title={this.show_title()}
+            extra={this.extraContent()} >
+            { this.state.equipment.length>0
+              &&
+              this.state.equipment.map(item=> (
+                <Card 
+                  key={item.key} 
+                  className={styles.card} style={{marginLeft: this.state.position[item.key-1],}}
+                  onClick={() => this.position_type(item.key)}
+                >
+                  { item.type === 'swift'
+                    &&
+                    <Button type="primary" icon="poweroff" 
+                      onClick={this.enterIconLoading} >
+                      开/关
+                    </Button>
+                  }
+                  { item.type === 'slider'
+                    &&
+                    <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
+                  }
+                  { item.type === 'panel'
+                    &&
+                    <div>
+                      { this.device_panel('', '2', this.state.inputValue)} 
+                    </div>
+                  }
+                </Card> 
+              ))
             }
           </Card>
         </div>
