@@ -50,7 +50,7 @@ Shape.registerShape('point', 'pointer', {
     });
   },
 });
-
+ 
 @autoHeight()
 export default class Gauge extends React.Component {
   render() {
@@ -94,6 +94,7 @@ export default class Gauge extends React.Component {
             },
           }}
         />
+        {/* 这里对应的是*/}
         <Guide>
           <Line
             start={[3, 0.905]}
@@ -160,8 +161,7 @@ export default class Gauge extends React.Component {
           shape="pointer"
           color={color}
           active={false}
-        />
-        
+        />  
       </Chart>
     );
   }
