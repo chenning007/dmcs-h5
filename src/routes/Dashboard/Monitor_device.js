@@ -211,7 +211,7 @@ export default class Monitor_device extends PureComponent {
         //extraContent={extraContent}
       >
        <div>
-          {/*<Row gutter={24}>
+          <Row gutter={24}>
             <Col xl={18} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
               <Card title="设备监控" bordered={false}>
                 <div className={styles.mapChart}>
@@ -255,7 +255,7 @@ export default class Monitor_device extends PureComponent {
                 <WaterWave height={161} title="补贴资金剩余" percent={34} />
               </Card>
             </Col>
-          </Row>*/}
+          </Row>
           {/*<Card bordered={false} title='设备监控' style={{marginBottom:24}}>
             {
               device.map(item =>  (
@@ -271,7 +271,7 @@ export default class Monitor_device extends PureComponent {
               </Card.Grid>        
           </Card>*/}
 
-          <Card 
+         <Card 
             title={this.show_title()}
             extra={this.extraContent()} >
             { this.state.equipment.length>0
