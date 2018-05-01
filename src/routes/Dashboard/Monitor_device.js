@@ -51,6 +51,7 @@ export default class Monitor_device extends PureComponent {
     position: [],   //标示位置的数组
     type_number: 0, //标示选定的容器
     clicknumber: 0,
+    canvas_height: 1000,
   }
   componentDidMount() {
     this.props.dispatch({
@@ -97,7 +98,7 @@ export default class Monitor_device extends PureComponent {
         }
         }}
         title={device_type}
-        height={380}
+        height={240}
         percent={value}
      />
     );
@@ -121,6 +122,17 @@ export default class Monitor_device extends PureComponent {
     if(key>=1)
     this.setState({type_number: key-1});
   }
+  //改变画布的大小
+  changecanvas_height = (type) =>{
+    if(type){
+      this.setState({ canvas_height: this.state.canvas_height + 100,})
+    }
+    else {
+      if(this.state.canvas_height > 500){
+        this.setState({ canvas_height: this.state.canvas_height - 100,})
+      }
+    }
+  }
  /******** */
   handleMenuClick = (e) => {
     this.onchangeEquipment(e.key);
@@ -141,7 +153,15 @@ export default class Monitor_device extends PureComponent {
       </Menu>
     );   //正常情况下
     return (
-      <div > 
+      <div>
+        <Button type='primary' onClick={() =>this.changecanvas_height(true)}>
+          增长
+        </Button>
+        <Divider type='vertical'/> 
+        <Button type='primary' onClick={() =>this.changecanvas_height(false)}>
+          减小
+        </Button>
+        <Divider type='vertical'/>
         <Button type='primary' onClick={() =>this.changePosition_right()}>
           右移
         </Button>
@@ -220,7 +240,7 @@ export default class Monitor_device extends PureComponent {
                     bodyStyle={{ textAlign: 'center' }}
                     bordered={ true }
                   >
-                    {this.device_panel('', '2', this.state.inputValue)}
+                    {this.device_panel('温度表', '2', this.state.inputValue)}
                   </Card>
                 </div>
                 <Button type="primary" icon="poweroff" 
@@ -270,40 +290,45 @@ export default class Monitor_device extends PureComponent {
                 </Button>
               </Card.Grid>        
           </Card>*/}
-
-         <Card 
-            title={this.show_title()}
-            extra={this.extraContent()} >
-            { this.state.equipment.length>0
-              &&
-              this.state.equipment.map(item=> (
-                <Card 
-                  key={item.key} 
-                  className={styles.card} style={{marginLeft: this.state.position[item.key-1],}}
-                  onClick={() => this.position_type(item.key)}
-                >
-                  { item.type === 'swift'
-                    &&
-                    <Button type="primary" icon="poweroff" 
-                      onClick={this.enterIconLoading} >
-                      开/关
-                    </Button>
-                  }
-                  { item.type === 'slider'
-                    &&
-                    <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
-                  }
-                  { item.type === 'panel'
-                    &&
-                    <div>
-                      { this.device_panel('', '2', this.state.inputValue)} 
-                    </div>
-                  }
-                </Card> 
-              ))
-            }
-          </Card>
-        </div>
+          
+            <Card 
+              title={this.show_title()}
+              extra={this.extraContent()} 
+              style={{ height:this.state.canvas_height}}
+            >
+              { this.state.equipment.length>0
+                &&
+                this.state.equipment.map(item=> (
+                  <Card 
+                    key={item.key} 
+                    className={styles.card} style={{marginLeft: this.state.position[item.key-1],marginTop: 0}}
+                    onClick={() => this.position_type(item.key)}
+                    bordered={false}
+                  >
+                    { item.type === 'swift'
+                      &&
+                      <div>
+                      <Button type="primary" icon="poweroff" 
+                        onClick={this.enterIconLoading} >
+                        开/关
+                      </Button>
+                      </div>
+                    }
+                    { item.type === 'slider'
+                      &&
+                      <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
+                    }
+                    { item.type === 'panel'
+                      &&
+                      <div>
+                        { this.device_panel('', '2', this.state.inputValue)} 
+                      </div>
+                    }
+                  </Card> 
+                ))
+              }
+            </Card>
+          </div>
       </PageHeaderLayout>
     );
   }
