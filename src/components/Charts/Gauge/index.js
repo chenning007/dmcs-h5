@@ -53,6 +53,25 @@ Shape.registerShape('point', 'pointer', {
  
 @autoHeight()
 export default class Gauge extends React.Component {
+ /******* */
+  state = {
+    radio: 1,
+  };
+  componentDidMount() {
+    this.resize();
+    window.addEventListener('resize', this.resize);
+  };
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize);
+  }
+  resize = () => {
+    const { height } = this.props;
+    const { offsetWidth } = this.root.parentNode;
+    this.setState({
+      radio: offsetWidth < height ? offsetWidth / height : 1,
+    });
+  };
+  /******* */
   render() {
     const {
       title,
@@ -63,6 +82,8 @@ export default class Gauge extends React.Component {
       color = '#2F9CFF',
       bgColor = '#F0F2F5',
     } = this.props;
+    //const { offsetWidth } = this.root.parentNode;
+    const { radio } = this.state;
     const cols = {
       value: {
         type: 'linear',
@@ -74,11 +95,17 @@ export default class Gauge extends React.Component {
     };
     const data = [{ value: percent / 10 }];
     return (
+      <div ref={n => (this.root = n)} style={{ transform: `scale(${radio})` , padding:[-16, 0, 16, 0]}}>
       <Chart height={height} data={data} scale={cols} padding={[-16, 0, 16, 0]} forceFit={forceFit}>
         <Coord type="polar" startAngle={-1.25 * Math.PI} endAngle={0.25 * Math.PI} radius={0.8} />
+          {/* 上面的是极坐标表达式，用于控制极坐标的形式*/}
+          {/*对于这里面的固定形式，采用内部定义的形式进行展示，也可以利用存储的形式进行改进*/}
         <Axis name="1" line={null} />
         <Axis
           line={null}
+          //tickLine={{length: -6, lineWidth: 3}}
+          //subTickCount={4}
+          //subTickLine={{length: 3, lineWidth: 2}}
           tickLine={null}
           subTickLine={null}
           name="value"
@@ -142,18 +169,19 @@ export default class Gauge extends React.Component {
             }}
           />
           <Html
-            position={['50%', '95%']}
+            position={['50%', '80%']}
             html={() => {
               return `
-                <div style="width: 300px;text-align: center;font-size: 12px!important;">
-                  <p style="font-size: 14px; color: rgba(0,0,0,0.43);margin: 0;">${title}</p>
-                  <p style="font-size: 24px;color: rgba(0,0,0,0.85);margin: 0;">
-                    ${data[0].value * 10}%
-                  </p>
-                </div>`;
+                  <div style="width: 300px;text-align: center;font-size: 12px!important;">
+                    <p style="font-size: 20px; color: rgba(0,0,0,0.43);margin: 0;">${title}</p>
+                    <p style="font-size: 24px;color: rgba(0,0,0,0.85);margin: 0;">
+                      ${data[0].value * 10}
+                    </p>
+                  </div>
+               ` ;
             }}
           />
-        </Guide>
+          </Guide>
         <Geom
           line={false}
           type="point"
@@ -163,6 +191,7 @@ export default class Gauge extends React.Component {
           active={false}
         />  
       </Chart>
+      </div>
     );
   }
 }
