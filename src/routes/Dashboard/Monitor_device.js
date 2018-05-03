@@ -7,6 +7,7 @@ import { Pie, WaterWave, Gauge, TagCloud } from '../../components/Charts';
 import NumberInfo from '../../components/NumberInfo';
 import CountDown from '../../components/CountDown';
 import ActiveChart from '../../components/ActiveChart';
+import Dragger from '../../components/Dragger';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import styles from './Monitor_device.less';
@@ -106,7 +107,7 @@ export default class Monitor_device extends PureComponent {
 
   changePosition_right = () => {
     const { type_number, position }=this.state;
-    this.state.position.fill(position[type_number]+10, type_number,type_number+1);
+    this.state.position.fill(position[type_number]+10, type_number, type_number+1);
     this.setState({clicknumber: this.state.clicknumber+1});
   }
   changePosition_left =() => {
@@ -231,7 +232,7 @@ export default class Monitor_device extends PureComponent {
         //extraContent={extraContent}
       >
        <div>
-          <Row gutter={24}>
+          {/*<Row gutter={24}>
             <Col xl={18} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
               <Card title="设备监控" bordered={false}>
                 <div className={styles.mapChart}>
@@ -275,7 +276,7 @@ export default class Monitor_device extends PureComponent {
                 <WaterWave height={161} title="补贴资金剩余" percent={34} />
               </Card>
             </Col>
-          </Row>
+          </Row>*/}
           {/*<Card bordered={false} title='设备监控' style={{marginBottom:24}}>
             {
               device.map(item =>  (
@@ -299,32 +300,34 @@ export default class Monitor_device extends PureComponent {
               { this.state.equipment.length>0
                 &&
                 this.state.equipment.map(item=> (
-                  <Card 
-                    key={item.key} 
-                    className={styles.card} style={{marginLeft: this.state.position[item.key-1],marginTop: 0}}
-                    onClick={() => this.position_type(item.key)}
-                    bordered={false}
-                  >
-                    { item.type === 'swift'
-                      &&
-                      <div>
-                      <Button type="primary" icon="poweroff" 
-                        onClick={this.enterIconLoading} >
-                        开/关
-                      </Button>
-                      </div>
-                    }
-                    { item.type === 'slider'
-                      &&
-                      <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
-                    }
-                    { item.type === 'panel'
-                      &&
-                      <div>
-                        { this.device_panel('', '2', this.state.inputValue)} 
-                      </div>
-                    }
-                  </Card> 
+                  <Dragger>
+                    <Card 
+                      key={item.key} 
+                      className={styles.card} style={{marginLeft: this.state.position[item.key-1],marginTop: 0}}
+                      onClick={() => this.position_type(item.key)}
+                      bordered={false}
+                    >
+                      { item.type === 'swift'
+                        &&
+                        <div>
+                        <Button type="primary" icon="poweroff" 
+                          onClick={this.enterIconLoading} >
+                          开/关
+                        </Button>
+                        </div>
+                      }
+                      { item.type === 'slider'
+                        &&
+                        <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
+                      }
+                      { item.type === 'panel'
+                        &&
+                        <div>
+                          { this.device_panel('', '2', this.state.inputValue)} 
+                        </div>
+                      }
+                    </Card> 
+                  </Dragger>
                 ))
               }
             </Card>
