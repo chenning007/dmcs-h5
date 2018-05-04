@@ -286,12 +286,12 @@ export default class Device_friend extends PureComponent {
    }
   }
 
-
   show_title() {
     if(this.props.location.state !== undefined ){
       return(
         <div>
           <span><Avatar src={this.props.location.state.avatar} size='large'/></span>
+          {this.props.location.state.title}
         </div>
       );
     }
