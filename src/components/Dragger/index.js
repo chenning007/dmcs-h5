@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { int, innerHeight, innerWidth, outerHeight, outerWidth, parseBounds, isNumber } from './utils'
 
+//导致程序失去独立可移植性
+import styles from './style.less'
+
 const doc = document
 
 export default class Dragger extends React.Component {
@@ -146,10 +149,8 @@ export default class Dragger extends React.Component {
                 NewBounds = {
                     left: int(this.parent.style.paddingLeft) + int(this.self.style.marginLeft) - this.self.offsetLeft,
                     top: int(this.parent.style.paddingTop) + int(this.self.style.marginTop) - this.self.offsetTop,
-                    right: innerWidth(this.parent) - outerWidth(this.self) - this.self.offsetLeft +
-                    int(this.parent.style.paddingRight) - int(this.self.style.marginRight),
-                    bottom: innerHeight(this.parent) - outerHeight(this.self) - this.self.offsetTop +
-                    int(this.parent.style.paddingBottom) - int(this.self.style.marginBottom)
+                    right: int(this.parent.style.paddingRight) - int(this.self.style.marginRight) + innerWidth(this.parent) - outerWidth(this.self) - this.self.offsetLeft,
+                    bottom: int(this.parent.style.paddingBottom) - int(this.self.style.marginBottom) + innerHeight(this.parent) - outerHeight(this.self) - this.self.offsetTop,
                 }
             }
 
@@ -288,10 +289,28 @@ export default class Dragger extends React.Component {
             }
         }
     }
+    onclassname() {
+        const { type } = this.props;
+        if(type!==undefined){
+            switch(type){
+                case 'swift': 
+                return(styles.WrapDragger_swift);
+                case 'slider':
+                return(styles.WrapDragger_slider);
+                case 'panel':
+                return(styles.WrapDragger_panel);
+                case 'input':
+                return(styles.WrapDragger_input);
+                default: 
+                return(styles.WrapDragger_swift);
+            }
+        }
+        return(styles.WrapDragger_swift);
+    }
 
     render() {
         let { x, y } = this.state
-        const { bounds, style, className, others } = this.props
+        const { bounds, style, className, others, type } = this.props
 
         if (!this.props.isUserMove) {
             /**当外部设置其props的x,y初始属性的时候，我们在这里设置元素的初始位移 */
@@ -299,10 +318,12 @@ export default class Dragger extends React.Component {
             y = this.props.y
         }
 
+
         /**主要是为了让用户定义自己的className去修改css */
-        const fixedClassName = typeof className === 'undefined' ? '' : className + ' '
+        //const fixedClassName = this.onclassname();
         return (
-            <div className={`${fixedClassName}WrapDragger`}
+            <div 
+                className={this.onclassname()}
                 style={{ ...style, touchAction: 'none!important', transform: `translate(${x}px,${y}px)` }}
                 onMouseDown={this.onDragStart.bind(this)}
                 onMouseUp={this.onDragEnd.bind(this)}
