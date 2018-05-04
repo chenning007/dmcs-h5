@@ -43,12 +43,13 @@ export default class Device_list extends PureComponent {
     }
   }
 
-  onLinktodevice = (avatar_src,deviceNumber_src) => {
+  onLinktodevice = (avatar_src,deviceNumber_src,title_src) => {
     const {dispatch}=this.props;
     dispatch(routerRedux.push({
       pathname: '/list/device_friend',
       state: { avatar: avatar_src,
                deviceNumber: deviceNumber_src,
+               title: title_src,
              },
     }));
   }
@@ -147,7 +148,7 @@ export default class Device_list extends PureComponent {
                         dataSource={myself_device ===undefined?[]:[...myself_device]}
                           renderItem={item =>(
                             <List.Item key={item.id} >
-                              <span onClick={() =>this.onLinktodevice(item.avatar,item.deviceNumber)}  
+                              <span onClick={() =>this.onLinktodevice(item.avatar,item.deviceNumber,item.title)}  
                                 style={{width:200}}
                               >
                                   <List.Item.Meta
@@ -183,7 +184,7 @@ export default class Device_list extends PureComponent {
                                     onClick={() =>this.setModalvisible(true)}>
                                     删除</Button>]}>
                                   <List.Item.Meta
-                                    avatar={<a onClick={() =>this.onLinktodevice(item.avatar)}>{<Avatar size="large" src={item.avatar}/>}</a>}
+                                    avatar={<a onClick={() =>this.onLinktodevice(item.avatar,item.deviceNumber,item.title)}>{<Avatar size="large" src={item.avatar}/>}</a>}
                                     title={item.title}
                                     description={item.subDescription}
                                   />
@@ -215,7 +216,7 @@ export default class Device_list extends PureComponent {
                                     </Button>
                                   ]}>
                                   <List.Item.Meta
-                                    avatar={<a onClick={() =>this.onLinktodevice(item.avatar)}>{<Avatar size="large" src={item.avatar}/>}</a>}
+                                    avatar={<a onClick={() =>this.onLinktodevice(item.avatar,item.deviceNumber,item.title)}>{<Avatar size="large" src={item.avatar}/>}</a>}
                                     title={item.title}
                                     description={item.subDescription}
                                   />
