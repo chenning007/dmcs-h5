@@ -10,7 +10,10 @@ import ActiveChart from '../../components/ActiveChart';
 import Dragger from '../../components/Dragger';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
+
 import styles from './Monitor_device.less';
+
+import './Monitor_device.less';
 
 const targetTime = new Date().getTime() + 3900000;
 
@@ -48,7 +51,28 @@ export default class Monitor_device extends PureComponent {
     device_length : 2,
     marginleft: 0,
     equipment_length: 0,
-    equipment: [],
+    equipment: [{
+      key: 1,
+      type: 'swift',
+      position: 0,
+      node: '',   //存储节点 
+    },{
+      key: 2,
+      type: 'slider',
+      position: 0,
+      node: '',   //存储节点 
+    },{
+      key: 3,
+      type: 'panel',
+      position: 0,
+      node: '',   //存储节点 
+    },{
+      key: 4,
+      type: 'input',
+      position: 0,
+      node: '',   //存储节点 
+    },
+    ],
     position: [],   //标示位置的数组
     type_number: 0, //标示选定的容器
     clicknumber: 0,
@@ -151,6 +175,9 @@ export default class Monitor_device extends PureComponent {
         <Menu.Item key="panel">
           表盘
         </Menu.Item>
+        <Menu.Item key="input">
+          输入
+        </Menu.Item>
       </Menu>
     );   //正常情况下
     return (
@@ -163,14 +190,14 @@ export default class Monitor_device extends PureComponent {
           减小
         </Button>
         <Divider type='vertical'/>
-        <Button type='primary' onClick={() =>this.changePosition_right()}>
+        {/*<Button type='primary' onClick={() =>this.changePosition_right()}>
           右移
         </Button>
         <Divider type='vertical'/>
         <Button type='primary' onClick={() => this.changePosition_left()}>
           左移
         </Button>
-        <Divider type='vertical'/>
+        <Divider type='vertical'/>*/}
         <Dropdown overlay={menu}>
           <Button>
             添加 <Icon type="down" />
@@ -180,7 +207,7 @@ export default class Monitor_device extends PureComponent {
     );   
   }
  
- show_title() {
+  show_title() {
   if(this.props.location.state !== undefined ){
     return(
       <div>
@@ -197,7 +224,7 @@ export default class Monitor_device extends PureComponent {
     )
   }
 
- /******* */
+  /******* */
   render() {
     const { monitor } = this.props;
     const { tags } = monitor;
@@ -230,108 +257,72 @@ export default class Monitor_device extends PureComponent {
       <PageHeaderLayout
         //content={pageHeaderContent}
         //extraContent={extraContent}
-      >
-       <div>
-          {/*<Row gutter={24}>
-            <Col xl={18} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
-              <Card title="设备监控" bordered={false}>
-                <div className={styles.mapChart}>
-                  <Card
-                    style={{ marginBottom: 24 }}
-                    bodyStyle={{ textAlign: 'center' }}
-                    bordered={ true }
-                  >
-                    {this.device_panel('温度表', '2', this.state.inputValue)}
-                  </Card>
-                </div>
-                <Button type="primary" icon="poweroff" 
-                  onClick={this.enterIconLoading} >
-                  开/关
-                </Button>
-                <Row>
-                  <Col span={12}>
-                    <Slider marks={marks}  onChange={this.onChange} value={this.state.inputValue} />
-                  </Col>
-                  <Col span={4}>
-                    <InputNumber
-                      min={0}
-                      max={100}
-                      style={{ marginLeft: 16 }}
-                      value={this.state.inputValue}
-                      onChange={this.onChange}
-                    />
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col xl={6} lg={24} md={24} sm={24} xs={24}>
-              <Card title="活动情况预测" style={{ marginBottom: 24 }} bordered={false}>
-                <ActiveChart />
-              </Card>
-              <Card
-                title="资源剩余"
-                bodyStyle={{ textAlign: 'center', fontSize: 0 }}
-                bordered={false}
-              >
-                <WaterWave height={161} title="补贴资金剩余" percent={34} />
-              </Card>
-            </Col>
-          </Row>*/}
-          {/*<Card bordered={false} title='设备监控' style={{marginBottom:24}}>
-            {
-              device.map(item =>  (
-                    <Card.Grid  key={item.key} >
-                      {this.device_panel(item.title, '2', this.state.inputValue)}
-                    </Card.Grid>)  
-              )
-            }
-              <Card.Grid>
-                <Button type="dashed" className={styles.button} onClick={() =>this.onchangeDevice() }>
-                  <Icon type="plus" /> 新增面板
-                </Button>
-              </Card.Grid>        
-          </Card>*/}
-          
-            <Card 
-              title={this.show_title()}
-              extra={this.extraContent()} 
-              style={{ height:this.state.canvas_height}}
-            >
-              { this.state.equipment.length>0
-                &&
-                this.state.equipment.map(item=> (
-                  <Dragger>
-                    <Card 
-                      key={item.key} 
-                      className={styles.card} style={{marginLeft: this.state.position[item.key-1],marginTop: 0}}
-                      onClick={() => this.position_type(item.key)}
-                      bordered={false}
-                    >
-                      { item.type === 'swift'
-                        &&
-                        <div>
+      > 
+        {/*<div  
+          style={{
+            border: ' 1px solid rgba(120, 120, 120, 0.4)', 
+            left: 300, top: 240,
+            width: 1500, height: 500,
+            position: 'absolute'
+          }}>
+          <Dragger bounds='parent' className='styles'>
+            < div>
+              我爱学习
+            </div>
+          </Dragger> 
+        </div>*/} 
+        <Card 
+          title={ this.show_title() }
+          extra={ this.extraContent() } 
+          //className={ styles.button }
+          //style={{ height:this.state.canvas_height,}}
+        />
+          <div  
+            style={{
+              
+              border: ' 1px solid rgba(120, 120, 120, 0.4)', 
+              left: 300, top: 240,
+              width: 1500, 
+              height: 500,
+              position: 'absolute'
+            }}>
+            { this.state.equipment.length>0
+              &&
+              this.state.equipment.map(item=> (
+                <Dragger  grid={[10, 10]} bounds='parent' key={item.key} type={item.type}>
+                  < div  >
+                    { item.type === 'swift'
+                      &&
+                      
                         <Button type="primary" icon="poweroff" 
                           onClick={this.enterIconLoading} >
                           开/关
                         </Button>
-                        </div>
-                      }
-                      { item.type === 'slider'
-                        &&
+                      
+                    }
+                    { item.type === 'slider'
+                      &&
+                      <div>
                         <Slider marks={marks}  /*onChange={this.onChange}*/ value={this.state.inputValue} />
-                      }
-                      { item.type === 'panel'
-                        &&
-                        <div>
-                          { this.device_panel('', '2', this.state.inputValue)} 
-                        </div>
-                      }
-                    </Card> 
-                  </Dragger>
-                ))
-              }
-            </Card>
-          </div>
+                      </div>
+                    }
+                    { item.type === 'panel'
+                      &&
+                      <div>
+                        { this.device_panel('', '2', this.state.inputValue)} 
+                      </div>
+                    }
+                    { item.type === 'input'
+                      &&
+                      <div>
+                        <InputNumber min={1} max={20}/> 
+                      </div>
+                    }
+                  </div> 
+                </Dragger>
+              ))
+            }
+          </div>      
       </PageHeaderLayout>
     );
   }
