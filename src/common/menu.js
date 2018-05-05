@@ -2,58 +2,21 @@ const menuData = [{
   name: '设备监控',
   icon: 'dashboard',
   path: 'dashboard/workplace',
-  //children: [{
-  //  name: '工作台',
- //   path: 'workplace',
- // }, {
- //   name: '监控页',
-  //  path: 'monitor',
- // }, {
-  //  name: '分析页',
-///    path: 'analysis',
-    // hideInMenu: true,
- // }],
-},// {
-  //name: '设备管理',
- // icon: 'form',
- // path: 'form',
- /// children: [{
- //   name: '创建设备',
- //   path: 'basic-form',
- // }, {
-  //  name: '设备列表',
- //   path: 'advanced-form',
- // }, {
- //   name: '系统管理',
- //   path: 'step-form',
- // }],
-//},
- {
+  },
+  {
    name: '数据浏览',
    icon: 'database',
    path: 'dashboard/analysis',
- },
- {
+  },
+  {
    name: '文件查看',
    icon: 'folder',
    path: '/dashboard/monitor',
- },
- {
+  },
+  {
   name: ' 群组管理',
   icon: 'team',
   path: 'list/search',
-  //children: [{
- //   name: '查询表格',
- //   path: 'table-list',
- //// }, {
- //   name: '标准列表',
- //   path: 'basic-list',
- /// }, {
- //   name: '卡片列表',
- //   path: 'card-list',
-///  }, {
-//    name: '搜索列表',
-//    path: 'search',
     children: [
       {
         name: '设备',
@@ -93,50 +56,6 @@ const menuData = [{
     path: 'advanced',
   }],
 }, 
-/*{
-  name: '结果页',
-  icon: 'check-circle-o',
-  path: 'result',
-  children: [{
-    name: '成功',
-    path: 'success',
-  }, {
-    name: '失败',
-    path: 'fail',
-  }],
-}, {
-  name: '异常页',
-  icon: 'warning',
-  path: 'exception',
-  children: [{
-    name: '403',
-    path: '403',
-  }, {
-    name: '404',
-    path: '404',
-  }, {
-    name: '500',
-    path: '500',
-  }, {
-    name: '触发异常',
-    path: 'trigger',
-  }],
-}, */
-//{
-//  name: '账户',
-//  icon: 'user',
-//  path: 'user',
-//  children: [{
-//    name: '登录',
-//    path: 'login',
-//  }, {
-//    name: '注册',
-//    path: 'register',
-//  }, {
-//    name: '注册结果',
-//    path: 'register-result',
-//  }],
-//}, 
 {
   name: '使用文档',
   icon: 'book',
