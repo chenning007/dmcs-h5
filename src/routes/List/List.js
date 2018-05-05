@@ -6,7 +6,7 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getRoutes } from '../../utils/utils';
 
 @connect()
-export default class SearchList extends Component {
+export default class List extends Component {
   handleTabChange = (key) => {
     const { dispatch, match } = this.props;
     switch (key) {
