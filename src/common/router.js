@@ -46,6 +46,18 @@ export const getRouterData = (app) => {
       // hideInBreadcrumb: true,
       // name: '工作台',
     },
+    '/dashboard/monitor_dgo':{
+      component: dynamicWrapper(app,[],() => import('../routes/Dashboard/Monitor_dgo')),
+    },
+    '/dashboard/monitor_dgo/monitor_device':{
+      component: dynamicWrapper(app,['monitor'],() => import('../routes/Dashboard/Monitor_device')),
+    },
+    '/dashboard/monitor_dgo/monitor_graph':{
+      component: dynamicWrapper(app,['monitor'],() => import('../routes/Dashboard/Monitor_device')),
+    },
+    '/dashboard/monitor_dgo/monitor_data':{
+      component: dynamicWrapper(app,['monitor'],() => import('../routes/Dashboard/Monitor_device')),
+    },
     '/dashboard/monitor_device': {
       component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor_device')),
       // hideInBreadcrumb: true,
