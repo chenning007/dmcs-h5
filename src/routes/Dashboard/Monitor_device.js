@@ -254,7 +254,7 @@ export default class Monitor_device extends PureComponent {
     );
 
     return (
-      <PageHeaderLayout
+      <div
         //content={pageHeaderContent}
         //extraContent={extraContent}
       > 
@@ -281,7 +281,7 @@ export default class Monitor_device extends PureComponent {
             style={{
               
               border: ' 1px solid rgba(120, 120, 120, 0.4)', 
-              left: 300, top: 240,
+              left: 300, top: 280,
               width: 1500, 
               height: 500,
               position: 'absolute'
@@ -323,7 +323,7 @@ export default class Monitor_device extends PureComponent {
               ))
             }
           </div>      
-      </PageHeaderLayout>
+      </div>
     );
   }
 }
