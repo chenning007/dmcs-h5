@@ -40,43 +40,48 @@ const device = [{
 }
 ];
 
-
-
 @connect(state => ({
   monitor: state.monitor,
 }))
 export default class Monitor_device extends PureComponent {
   state = {
     inputValue: 37,
-    device_length : 2,
-    marginleft: 0,
     equipment_length: 0,
+    canvas_height: 1000,
     equipment: [{
       key: 1,
       type: 'swift',
-      position: 0,
+      position_x: 550,
+      position_y: 340,
+      range: null,
+      measurement: '',
       node: '',   //存储节点 
     },{
       key: 2,
       type: 'slider',
-      position: 0,
+      position_x: 570,
+      position_y: 290,
+      range: null,
+      measurement: '',
       node: '',   //存储节点 
     },{
       key: 3,
       type: 'panel',
-      position: 0,
+      position_x: 550,
+      position_y: 50,
+      range: null,
+      measurement: '',
       node: '',   //存储节点 
     },{
       key: 4,
       type: 'input',
-      position: 0,
+      position_x: 810,
+      position_y: 340,
+      range: null,
+      measurement: '',
       node: '',   //存储节点 
     },
     ],
-    position: [],   //标示位置的数组
-    type_number: 0, //标示选定的容器
-    clicknumber: 0,
-    canvas_height: 1000,
   }
   componentDidMount() {
     this.props.dispatch({
@@ -85,22 +90,17 @@ export default class Monitor_device extends PureComponent {
   }
   /****** */
   /****** */
-  onchangeDevice = () => {
-    device.push({
-      key: device.length + 1,
-      title : ((device.length + 1) % 2 ? '温度': '压力'),
-    });
-    this.setState({device_length: this.state.device_length+1,});
-  }
   onchangeEquipment = (type) => {
     //在这里进行判断返回的equipment是否有值
     this.state.equipment.push({
       key: this.state.equipment.length + 1,
       type: type,
-      position: 0,
+      position_x: 0,
+      position_y: 0,
+      range: null,
+      measurement: null,
       node: '',
     });
-    this.state.position.push( 0 );
     this.setState({equipment_length: this.state.equipment_length+1,});
   }
   /****** */
@@ -128,25 +128,6 @@ export default class Monitor_device extends PureComponent {
      />
     );
   }*/
-
-  changePosition_right = () => {
-    const { type_number, position }=this.state;
-    this.state.position.fill(position[type_number]+10, type_number, type_number+1);
-    this.setState({clicknumber: this.state.clicknumber+1});
-  }
-  changePosition_left =() => {
-    const { type_number, position }=this.state;
-    if(position[type_number]>0)
-    this.state.position.fill(position[type_number]-10, type_number,type_number+1);
-    this.setState({clicknumber: this.state.clicknumber+1});
-  }
-  //选择标定的容器
-  position_type = (key) =>{
-    const { type_number, position }=this.state;
-    //this.setState({(equipment[key]).position: '' ,});
-    if(key>=1)
-    this.setState({type_number: key-1});
-  }
   //改变画布的大小
   changecanvas_height = (type) =>{
     if(type){
@@ -220,6 +201,7 @@ export default class Monitor_device extends PureComponent {
   render() {
     const { monitor } = this.props;
     const { tags } = monitor;
+    const {equipment = []} = this.state;
 
     const pageHeaderContent = (
         <div className={styles.pageHeaderContent}>
@@ -247,11 +229,14 @@ export default class Monitor_device extends PureComponent {
               height: 500,
               position: 'absolute'
             }}>
-            { this.state.equipment.length>0
+            { equipment.length>0
               &&
-              this.state.equipment.map(item=> (
-                <Dragger  grid={[10, 10]} bounds='parent' key={item.key} type={item.type}>
-                  < div >
+              equipment.map(item=> (
+                < Dragger  grid={[10, 10]} bounds='parent' 
+                  key={item.key} type={item.type}
+                  style={{left: item.position_x, top: item.position_y}}
+                >
+                  <div>
                     { item.type === 'swift'
                       &&
                       <Button type="primary" icon="poweroff" 
