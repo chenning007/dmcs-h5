@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Avatar, List, Tooltip, Dropdown, Menu } from 'antd';
+import { Row, Col, Form, Card, Avatar, List, Tooltip, Dropdown, Menu, Table } from 'antd';
 
 /* eslint react/no-array-index-key: 0 */
 const device_data = [{
@@ -81,6 +81,11 @@ const device_data = [{
 }
 ];
 
+const columns=[ 
+    {title: '端点',width: '40%', dataIndex: 'type', key: 'type'},
+    {title: '数据', width: '60%', dataIndex: 'data', key: 'data'}
+   ]
+
 @connect(state => ({ 
 }))
 export default class Monitor_data extends PureComponent {
@@ -113,20 +118,7 @@ export default class Monitor_data extends PureComponent {
                   bodyStyle={{ paddingBottom: 20 }} 
                   title={item.title}
                 >
-                <div>
-                   <List
-                    rowKey="id"
-                    dataSource={item.node}
-                    renderItem={item => (
-                        <List.Item key={item.key}>
-                          <div>
-                          <span><h3>{item.type}</h3></span>
-                          <span>{item.data}</span>
-                          </div>
-                        </List.Item>
-                    )}
-                   /> 
-                </div>
+                <Table columns={columns} dataSource={item.node} scroll={{y: 200}} pagination={false}/>
               </Card>
             </List.Item>
           )}
