@@ -45,7 +45,7 @@ export default class Device extends PureComponent {
   onLinktodevice = (avatar_src, title_src, deviceNumber_src) => {
     const {dispatch}=this.props;
     dispatch(routerRedux.push({
-      pathname: '/dashboard/monitor_dgo',
+      pathname: '/dashboard/monitor_dgo/monitor_device',
       state: { 
         avatar: avatar_src,
         title: title_src,
