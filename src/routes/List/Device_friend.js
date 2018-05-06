@@ -242,31 +242,6 @@ export default class Device_friend extends PureComponent {
         </div>    
       );   
     } 
-
-               // {/*
-               // <div className={styles.extraContent}>  
-               //   <div className={styles.statItem}> 
-               //     <Tooltip title='权限管理'>
-               /*       <a onClick={() => this.contentCondition(1)}>
-                        <Icon type="setting" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
-                      </a>
-                    </Tooltip>
-                  </div>
-                  <div className={styles.statItem} >
-                    <Tooltip title='删除人员'>
-                      <a onClick={() => this.contentCondition(2)}>
-                        <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
-                      </a>
-                    </Tooltip>
-                  </div>
-                  <div className={styles.statItem} > 
-                    <Tooltip title='添加人员'>
-                      <a onClick={()=> this.contentCondition(3)}>
-                        <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
-                      </a>
-                    </Tooltip>
-                  </div>
-                </div>*//*}*/
   extraContent_3(content_condition){
     if(content_condition){
     return(
