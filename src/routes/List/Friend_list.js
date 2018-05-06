@@ -94,24 +94,6 @@ export default class Friend_list extends PureComponent {
          <Button type='primary'>添加</Button>
       </div>
     ); 
-    /*const formItemLayout = {
-      labelCol: {
-        xs: { span: 24, offset: -10 },
-        sm: { span: 7 , offset: -10 }, 
-      },
-      wrapperCol: {
-        xs: { span: 24, offset: 3},
-        sm: { span: 12 },
-        md: { span: 10 },
-      },
-    };*/
-
-    /*const submitFormLayout = {
-      wrapperCol: {
-        xs: { span: 24, offset: 0 },
-        sm: { span: 10, offset: 10 },
-      },
-    };*/
 
     return (
       <Row gutter={24}>
