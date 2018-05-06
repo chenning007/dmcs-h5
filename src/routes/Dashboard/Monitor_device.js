@@ -105,7 +105,7 @@ export default class Monitor_device extends PureComponent {
   }
   /****** */
 
-  device_panel = (device_type, unit, value) => {
+  /*device_panel = (device_type, unit, value) => {
     return(
       <Gauge
         format={(val) => {
@@ -127,7 +127,7 @@ export default class Monitor_device extends PureComponent {
         percent={value}
      />
     );
-  }
+  }*/
 
   changePosition_right = () => {
     const { type_number, position }=this.state;
@@ -190,14 +190,6 @@ export default class Monitor_device extends PureComponent {
           减小
         </Button>
         <Divider type='vertical'/>
-        {/*<Button type='primary' onClick={() =>this.changePosition_right()}>
-          右移
-        </Button>
-        <Divider type='vertical'/>
-        <Button type='primary' onClick={() => this.changePosition_left()}>
-          左移
-        </Button>
-        <Divider type='vertical'/>*/}
         <Dropdown overlay={menu}>
           <Button>
             添加 <Icon type="down" />
@@ -240,46 +232,15 @@ export default class Monitor_device extends PureComponent {
           
         </div>
     );
-    
-    const extraContent = (
-        <div style={{ textAlign: 'center' }}>
-          <Input.Search
-            placeholder="请输入"
-            enterButton="搜索"
-            size="large"
-            //onSearch={this.handleFormSubmit}
-            style={{ width: 400 }}
-          />
-        </div>
-    );
 
     return (
-      <div
-        //content={pageHeaderContent}
-        //extraContent={extraContent}
-      > 
-        {/*<div  
-          style={{
-            border: ' 1px solid rgba(120, 120, 120, 0.4)', 
-            left: 300, top: 240,
-            width: 1500, height: 500,
-            position: 'absolute'
-          }}>
-          <Dragger bounds='parent' className='styles'>
-            < div>
-              我爱学习
-            </div>
-          </Dragger> 
-        </div>*/} 
+      <div>          
         <Card 
           title={ this.show_title() }
           extra={ this.extraContent() } 
-          //className={ styles.button }
-          //style={{ height:this.state.canvas_height,}}
         />
           <div  
-            style={{
-              
+            style={{  
               border: ' 1px solid rgba(120, 120, 120, 0.4)', 
               left: 300, top: 280,
               width: 1500, 
@@ -290,15 +251,13 @@ export default class Monitor_device extends PureComponent {
               &&
               this.state.equipment.map(item=> (
                 <Dragger  grid={[10, 10]} bounds='parent' key={item.key} type={item.type}>
-                  < div  >
+                  < div >
                     { item.type === 'swift'
                       &&
-                      
-                        <Button type="primary" icon="poweroff" 
-                          onClick={this.enterIconLoading} >
-                          开/关
-                        </Button>
-                      
+                      <Button type="primary" icon="poweroff" 
+                        onClick={this.enterIconLoading} >
+                        开/关
+                      </Button>  
                     }
                     { item.type === 'slider'
                       &&
@@ -308,8 +267,26 @@ export default class Monitor_device extends PureComponent {
                     }
                     { item.type === 'panel'
                       &&
-                      <div>
-                        { this.device_panel('', '2', this.state.inputValue)} 
+                      <div style={{width: 360}}>
+                        <Gauge
+                          format={(val) => {
+                            switch (parseInt(val, 10)) {
+                              case 20:
+                                return '差';
+                              case 40:
+                                return '中';
+                              case 60:
+                                return '良';
+                              case 80:
+                                return '优';
+                              default:
+                                return '';
+                            }
+                          }}
+                          title=''
+                          height={240}
+                          percent={37}
+                        />
                       </div>
                     }
                     { item.type === 'input'
@@ -322,7 +299,30 @@ export default class Monitor_device extends PureComponent {
                 </Dragger>
               ))
             }
-          </div>      
+          </div> 
+            {/*<div >
+              <div style={{marginTop: 540, border: '1px solid rgba(120, 120, 120, 0.4)',width: 240,}}> 
+                <Gauge
+                  format={(val) => {
+                    switch (parseInt(val, 10)) {
+                      case 20:
+                        return '差';
+                      case 40:
+                        return '中';
+                      case 60:
+                        return '良';
+                      case 80:
+                        return '优';
+                      default:
+                        return '';
+                    }
+                  }}
+                  title=''
+                  height={240}
+                  percent={37}
+                />  
+              </div> 
+            </div>*/}
       </div>
     );
   }
