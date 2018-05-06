@@ -56,7 +56,7 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app,['monitor'],() => import('../routes/Dashboard/Monitor_device')),
     },
     '/dashboard/monitor_dgo/monitor_data':{
-      component: dynamicWrapper(app,['monitor'],() => import('../routes/Dashboard/Monitor_device')),
+      component: dynamicWrapper(app,['monitor'],() => import('../routes/Dashboard/Monitor_data')),
     },
     '/dashboard/monitor_device': {
       component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor_device')),
