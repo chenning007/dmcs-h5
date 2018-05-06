@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { routerRedux, Route, Switch } from 'dva/router';
 import { connect } from 'dva';
-import { Input } from 'antd';
+import { Input, Avatar } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getRoutes } from '../../utils/utils';
 
@@ -23,6 +23,24 @@ export default class Monitor_dgo extends Component {
         break;
     }
   }
+  
+  show_title() {
+    if(this.props.location.state !== undefined ){
+      return(
+        <div>
+          <Avatar src={this.props.location.state.avatar} size='small'/>
+          {this.props.location.state.title}
+        </div>
+      );
+    }
+    else
+      return(
+        <div>
+          <span><Avatar size= 'large' src=''/></span>
+        </div>
+      )
+  }
+  
 
   render() {
     const tabList = [{
@@ -39,8 +57,6 @@ export default class Monitor_dgo extends Component {
     },
   ];
 
-
-
     const { match, routerData, location } = this.props;
     const routes = getRoutes(match.path, routerData);
 
@@ -49,6 +65,7 @@ export default class Monitor_dgo extends Component {
         tabList={tabList}
         activeTabKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
+        //extraContent={this.show_title()}
       >
         <Switch>
           {
