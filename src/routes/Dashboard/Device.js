@@ -63,20 +63,8 @@ export default class Device extends PureComponent {
       myself_device, loading,
     } = this.props;
 
-    const pageHeaderContent = (
-      <div className={styles.pageHeaderContent}>
-        <div className={styles.avatar}>
-          <Avatar size="large" src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
-        </div>
-        <div className={styles.content}>
-          <div className={styles.contentTitle}>早安，蔡志军，祝你开心每一天！</div>
-        </div>
-      </div>
-    );
-
     return (
-      <PageHeaderLayout
-      >
+      <div>
         <Row gutter={24}>
           <Col xl={24} lg={24} md={24} sm={24} xs={24}>
             <Card
@@ -118,46 +106,9 @@ export default class Device extends PureComponent {
               title="共享设备"
               loading={loading}
             />
-           {/* {
-                list.map(item => (
-                  <Card.Grid className={styles.projectGrid} key={item.id}
-                  >
-                  <Row>
-                    <Col xl={4} lg={4} md={4} sm={4} xs={4}/>
-                    <Col xl={16} lg={16} md={16} sm={16} xs={16}>
-                    <Card 
-                    bodyStyle={{ padding: 10 }} 
-                    bordered={false}
-                    >
-                      <Card.Meta
-                        title={(
-                          <div className={styles.cardTitle}>
-                            <Avatar size="large" src={item.logo} />
-                            {/*<Link to="/dashboard/monitor_device">{item.title}</Link>*/}
-                        {/*  </div>
-                        )}
-                       // description={item.description}
-                      />
-                      <div className={styles.projectItemContent}>
-                        <Link to="/dashboard/monitor_device">{item.member || ''}</Link>
-                       {/* {item.updatedAt && (
-                          <span className={styles.datetime} title={item.updatedAt}>
-                            {moment(item.updatedAt).fromNow()}
-                          </span>
-                        )}
-                      */}
-                    {/*  </div>
-                    </Card>
-                    </Col>
-                  </Row>
-                  </Card.Grid>
-                ))
-              }
-            </Card>*/}
-  
           </Col>
         </Row>
-      </PageHeaderLayout>
+      </div>
     );
   }
 }
