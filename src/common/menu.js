@@ -1,7 +1,7 @@
 const menuData = [{
   name: '设备监控',
   icon: 'dashboard',
-  path: 'dashboard/workplace',
+  path: 'dashboard/device',
   },
   {
    name: '数据浏览',
