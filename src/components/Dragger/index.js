@@ -289,6 +289,7 @@ export default class Dragger extends React.Component {
             }
         }
     }
+    //这里又涉及到了耦合的函数，后面进行设计时需要注意到这个问题
     onclassname() {
         const { type } = this.props;
         if(type!==undefined){
