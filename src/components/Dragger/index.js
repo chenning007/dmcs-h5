@@ -185,6 +185,7 @@ export default class Dragger extends React.Component {
 
     onDragStart(event) {
         /** 保证用户在移动元素的时候不会选择到元素内部的东西 */
+        
         doc.body.style.userSelect = 'none'
 
         if (this.props.hasDraggerHandle) {
@@ -239,6 +240,8 @@ export default class Dragger extends React.Component {
             lastX: this.state.x,
             lastY: this.state.y
         })
+        let e_state= {x: this.state.x, y:this.state.y}
+        this.props.onchange(e_state);
        
     }
 
@@ -252,8 +255,9 @@ export default class Dragger extends React.Component {
 
         doc.removeEventListener('touchmove',this.move)
         doc.removeEventListener('touchend', this.onDragEnd)
-
-        if (this.props.onDragEnd) this.props.onDragEnd(event)
+        if (this.props.onDragEnd) {
+            this.props.onDragEnd(event)
+        }
     }
 
     componentDidMount() {
