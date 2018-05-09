@@ -234,7 +234,7 @@ export default class Monitor_device extends PureComponent {
     const { tags } = monitor;
     const {equipment = []} = this.state;
 
-    const pageHeaderContent = (
+    /*const pageHeaderContent = (
         <div className={styles.pageHeaderContent}>
           <div className={styles.avatar}>
             <Avatar size="large" src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
@@ -244,7 +244,7 @@ export default class Monitor_device extends PureComponent {
           </div>
           
         </div>
-    );
+    );*/
 
     return (
       <div>          
@@ -252,13 +252,9 @@ export default class Monitor_device extends PureComponent {
           title={ this.show_title() }
           extra={ this.extraContent() } 
         />
-          <div  
-            style={{  
-              border: ' 1px solid rgba(120, 120, 120, 0.4)', 
-              left: 300, top: 280,
-              width: 1500, 
+          <Card  
+            style={{   
               height: 500,
-              position: 'absolute'
             }}>
             { equipment.length>0
               &&
@@ -317,7 +313,7 @@ export default class Monitor_device extends PureComponent {
                 </Dragger>
               ))
             }
-          </div> 
+          </Card> 
             {/*<div >
               <div style={{marginTop: 540, border: '1px solid rgba(120, 120, 120, 0.4)',width: 240,}}> 
                 <Gauge
