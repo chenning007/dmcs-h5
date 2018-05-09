@@ -143,6 +143,9 @@ export default class Monitor_device extends PureComponent {
   handleMenuClick = (e) => {
     this.onchangeEquipment(e.key);
   }
+  condition = (e) => {
+    return;
+  }
 
   extraContent() {
     const menu = (
@@ -235,6 +238,7 @@ export default class Monitor_device extends PureComponent {
                 < Dragger  grid={[10, 10]} bounds='parent' 
                   key={item.key} type={item.type}
                   style={{left: item.position_x, top: item.position_y}}
+                  onchange={this.condition}
                 >
                   <div>
                     { item.type === 'swift'
