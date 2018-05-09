@@ -82,6 +82,25 @@ export default class Monitor_device extends PureComponent {
       node: '',   //存储节点 
     },
     ],
+    //存储临时的各变量的位置信息
+    temporary_position: [{ 
+      key: 1,
+      temporary_x: null,
+      temporary_y: null,     
+    },{
+      key: 2,
+      temporary_x: null,
+      temporary_y: null,     
+    },{
+      key: 3,
+      temporary_x: null,
+      temporary_y: null,     
+    },{
+      key: 4,
+      temporary_x: null,
+      temporary_y: null,     
+    },
+    ],
   }
   componentDidMount() {
     this.props.dispatch({
@@ -100,6 +119,11 @@ export default class Monitor_device extends PureComponent {
       range: null,
       measurement: null,
       node: '',
+    });
+    this.state.temporary_position.push({
+      key: this.state.temporary_position.length + 1,
+      temporary_x: null,
+      temporary_y: null,
     });
     this.setState({equipment_length: this.state.equipment_length+1,});
   }
@@ -144,7 +168,11 @@ export default class Monitor_device extends PureComponent {
     this.onchangeEquipment(e.key);
   }
   condition = (e) => {
-    return;
+    if(e !==undefined){
+      let element = {key: e.key, temporary_x: e.x, temporary_y: e.y};
+      this.state.temporary_position.splice(e.key-1,1,element);
+    }
+    console.log(this.state.temporary_position);
   }
 
   extraContent() {
@@ -235,7 +263,8 @@ export default class Monitor_device extends PureComponent {
             { equipment.length>0
               &&
               equipment.map(item=> (
-                < Dragger  grid={[10, 10]} bounds='parent' 
+                < Dragger  grid={[10, 10]} bounds='parent'
+                  id={item.key} 
                   key={item.key} type={item.type}
                   style={{left: item.position_x, top: item.position_y}}
                   onchange={this.condition}
