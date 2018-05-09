@@ -240,7 +240,7 @@ export default class Dragger extends React.Component {
             lastX: this.state.x,
             lastY: this.state.y
         })
-        let e_state= {x: this.state.x, y:this.state.y}
+        let e_state= {x: this.state.x, y:this.state.y, key: this.props.id}
         this.props.onchange(e_state);
        
     }
@@ -315,7 +315,7 @@ export default class Dragger extends React.Component {
 
     render() {
         let { x, y } = this.state
-        const { bounds, style, className, others, type } = this.props
+        const { bounds, style, className, others, type, id } = this.props
 
         if (!this.props.isUserMove) {
             /**当外部设置其props的x,y初始属性的时候，我们在这里设置元素的初始位移 */
