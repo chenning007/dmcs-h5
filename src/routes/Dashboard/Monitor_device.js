@@ -54,32 +54,32 @@ export default class Monitor_device extends PureComponent {
       position_x: 550,
       position_y: 340,
       range: null,
-      measurement: '',
-      node: '',   //存储节点 
+      measurement: null,
+      node: null,   //存储节点 
     },{
       key: 2,
       type: 'slider',
       position_x: 570,
       position_y: 290,
       range: null,
-      measurement: '',
-      node: '',   //存储节点 
+      measurement: null,
+      node: null,   //存储节点 
     },{
       key: 3,
       type: 'panel',
       position_x: 550,
       position_y: 50,
       range: null,
-      measurement: '',
-      node: '',   //存储节点 
+      measurement: null,
+      node: null,   //存储节点 
     },{
       key: 4,
       type: 'input',
       position_x: 810,
       position_y: 340,
       range: null,
-      measurement: '',
-      node: '',   //存储节点 
+      measurement: null,
+      node: null,   //存储节点 
     },
     ],
     //存储临时的各变量的位置信息
@@ -101,6 +101,7 @@ export default class Monitor_device extends PureComponent {
       temporary_y: null,     
     },
     ],
+    edit_enable: false,    //判断表盘页面是否进入到编辑状态
   }
   componentDidMount() {
     this.props.dispatch({
@@ -118,7 +119,7 @@ export default class Monitor_device extends PureComponent {
       position_y: 0,
       range: null,
       measurement: null,
-      node: '',
+      node: null,
     });
     this.state.temporary_position.push({
       key: this.state.temporary_position.length + 1,
@@ -167,6 +168,7 @@ export default class Monitor_device extends PureComponent {
   handleMenuClick = (e) => {
     this.onchangeEquipment(e.key);
   }
+  //改变位置信息
   condition = (e) => {
     if(e !==undefined){
       let element = {key: e.key, temporary_x: e.x, temporary_y: e.y};
@@ -174,8 +176,11 @@ export default class Monitor_device extends PureComponent {
     }
     console.log(this.state.temporary_position);
   }
-
+  Edit_enable = (value) => {
+    this.setState({edit_enable: value});
+  }
   extraContent() {
+    const {edit_enable} =this.state;
     const menu = (
       <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
         <Menu.Item key="swift">
@@ -192,23 +197,31 @@ export default class Monitor_device extends PureComponent {
         </Menu.Item>
       </Menu>
     );   //正常情况下
-    return (
-      <div>
-        <Button type='primary' onClick={() =>this.changecanvas_height(true)}>
-          增长
-        </Button>
-        <Divider type='vertical'/> 
-        <Button type='primary' onClick={() =>this.changecanvas_height(false)}>
-          减小
-        </Button>
-        <Divider type='vertical'/>
-        <Dropdown overlay={menu}>
-          <Button>
-            添加 <Icon type="down" />
+   
+    if(edit_enable) {
+      return (
+        <div>
+          <Button type='primary' onClick={() => this.Edit_enable(false)}>
+            保存
           </Button>
-        </Dropdown>
-      </div>    
-    );   
+          <Divider type='vertical'/>
+          <Dropdown overlay={menu}>
+            <Button>
+              添加 <Icon type="down" />
+            </Button>
+          </Dropdown>
+        </div>    
+      );
+    }   
+    else{
+      return(
+        <div>
+          <Button type='primary' onClick={() => this.Edit_enable(true)}>
+            编辑
+          </Button>
+        </div>
+      );
+    } 
   }
  
   show_title() {
@@ -254,7 +267,7 @@ export default class Monitor_device extends PureComponent {
         />
           <Card  
             style={{   
-              height: 500,
+              height: this.state.canvas_height,
             }}>
             { equipment.length>0
               &&
@@ -263,6 +276,7 @@ export default class Monitor_device extends PureComponent {
                   id={item.key} 
                   key={item.key} type={item.type}
                   style={{left: item.position_x, top: item.position_y}}
+                  static={!this.state.edit_enable}
                   onchange={this.condition}
                 >
                   <div>
