@@ -260,19 +260,19 @@ export default class Dragger extends React.Component {
         }
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         /** 
          * 这个函数只会调用一次 
          * 这个只是一个临时的解决方案，因为这样会使得元素进行两次刷新
         */
-        if (typeof this.props.x === 'number' &&
+    /*    if (typeof this.props.x === 'number' &&
             typeof this.props.y === 'number') {
             this.setState({
                 x: this.props.x,
                 y: this.props.y
             })
         }
-    }
+    }*/
 
     componentWillReceiveProps(nextProps) {
         /**
