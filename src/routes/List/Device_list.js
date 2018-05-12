@@ -1,19 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { routerRedux,} from 'dva/router';
-
 import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col, Steps, message } from 'antd';
-
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import Ellipsis from '../../components/Ellipsis';
 
 import styles from './Device_list.less';
 
-import { Link } from 'dva/router';
-
 const FormItem = Form.Item;
 const { Step }=Steps;
-
 
 @connect(state => ({
   myself_device: state.device.myself_device,
