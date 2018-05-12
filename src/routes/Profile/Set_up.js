@@ -6,22 +6,11 @@ import {
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
+import Address from './Address';
 import styles from './set_up.less';
 const { Step }=Steps;
 
 /** */
-const userNumber = '1234567';
-const userName = '蔡哥';
-const userTitle = '蔡志军';
-const userSex = '男' ;
-const useridNumber = '362330199819959003';
-const userEmail = 'caizj@123.com';
-const userEmail_1 = null;
-const userworkPlace = '清华大学';
-const userTelephone = '15701585253';
-const userTelephone_1 = null;
-const userWeixin = '大头';
-const userQq = '1760258010';
 
 /** */
 
@@ -45,7 +34,7 @@ const passwordProgressMap = {
 @Form.create()
 export default class Basic_form extends PureComponent {
     handleSubmit = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
@@ -439,7 +428,6 @@ renderPasswordProgress = () => {
                         initialValue: currentUser.userQq ? currentUser.userQq : '待补充' ,
                         rules: [{ 
                           required:false,
-                          //message: '请填入常用手机号码' 
                         }],
                       })(
                         <Input />
@@ -463,35 +451,22 @@ renderPasswordProgress = () => {
             { choice === 3
               /*修改地址*/
               /**直接通过三个地址循环进行遍历即可 */
+              /*** */
               &&
               <Card
-                title={<div ><b>邮寄地址</b></div>}
+                style={{marginLeft: 24}}
                 bordered={true}
               >
                 <Row >
                   <Col span={4}/>
                     <Col span={16}>  
-                      { currentUser.address !== undefined
-                        &&
-                        (currentUser.address).map((item) => {
-                          return (
-                            <Card 
-                              bordered={true}
-                              key={item.key}
-                              title={item.title ? item.title : item.name}
-                              style={{marginBottom:12}}
-                            >
-                              <p style={{paddingLeft: 24}}>收件人: &nbsp; <b> {item.name}</b></p>
-                              <p style={{paddingLeft: 24}}>所在地区: &nbsp; <b> {item.area}</b></p>
-                              <p style={{paddingLeft: 24}}>地址: &nbsp; <b> {item.place}</b></p>
-                              <p style={{paddingLeft: 24}}>手机: &nbsp; <b> {item.name}</b></p>
-                              <p style={{paddingLeft: 24}}>固定电话: &nbsp; <b> {item.fixedphone}</b></p>
-                              <p style={{paddingLeft: 24}}>邮箱: &nbsp; <b> {item.emial}</b></p>
-                            
-                            </Card>  
-                          )
-                        }
-                      )}
+                      { getFieldDecorator('address', {
+                          initialValue: currentUser.address ,
+                        })(<Address />)}
+                      < Button type='primary' size='large' style={{marginRight: 128}}
+                        htmlType="submit" loading={submitting} onClick={() => this.handleSubmit()}>
+                        提交
+                      </Button>
                     </Col>
                   <Col span={4}/>
                 </Row>
