@@ -6,6 +6,35 @@
  * 
  */
 //////
+  const address = [{
+    key: '1',
+  　title: '学校',
+    name: '蔡志军',
+    area: '北京市海淀区四环到五环之间',
+    place: '清华大学紫荆公寓11号楼',
+    mobilephone: '15702555845',
+    fixedphone: '',
+    emial: '',
+  },{
+    key: '2',
+    title: '家里',
+    name: '蔡志军',
+    area: '江西上饶市鄱阳县油墩街镇',
+    place: '油墩街镇潼港村委会表公村137号',
+    mobilephone: '15702555845',
+    fixedphone: '',
+    emial: '',
+  },{
+    key: '3',
+    title: null,
+    name: null,
+    area: null,
+    place: null,
+    mobilephone: null,
+    fixedphone: null,
+    email: null,
+  }];
+
   export const currentUser = {
     $desc: "获取当前用户接口",
     $params: {
@@ -28,25 +57,7 @@
       userTelephone_1 : null ,
       userWeixin : '大头' ,
       userQq : '1760258010' ,
-      address : [{
-        key: '1',
-      　title: '学校',
-        name: '蔡志军',
-        area: '北京市海淀区四环到五环之间',
-        place: '清华大学紫荆公寓11号楼',
-        mobilephone: '15702555845',
-        fixedphone: '',
-        emial: '',
-      },{
-        key: '2',
-        title: '家里',
-        name: '蔡志军',
-        area: '江西上饶市鄱阳县油墩街镇',
-        place: '油墩街镇潼港村委会表公村137号',
-        mobilephone: '15702555845',
-        fixedphone: '',
-        emial: '',
-      }],
+      address : address,
     },
-  } ;
+  };
   
