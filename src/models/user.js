@@ -1,4 +1,6 @@
-import { query as queryUsers, queryCurrent } from '../services/user';
+import { query as queryUsers, queryCurrent, } from '../services/user';
+import { message } from 'antd';
+import { fakeSubmitForm } from '../services/api';
 
 export default {
   namespace: 'user',
@@ -7,6 +9,7 @@ export default {
     list: [],
     loading: false,
     currentUser: {},
+    regularFormSubmitting: false,
   },
   effects: {
     *fetchCurrent(_, { call, put }) {
@@ -15,6 +18,18 @@ export default {
         type: 'saveCurrentUser',
         payload: response,
       });
+    },
+    *submitRegularForm({ payload }, { call, put }) {
+      yield put({
+        type: 'changeRegularFormSubmitting',
+        payload: true,
+      });
+      const response = yield call(fakeSubmitForm, payload);
+      yield put({
+        type: 'changeRegularFormSubmitting',
+        payload: response,
+      });
+      message.success('提交成功');
     },
   },
 //action包含的内容
@@ -37,6 +52,16 @@ export default {
         list: [],
         loading: false,
         currentUser: {},
+      };
+    },
+    changeRegularFormSubmitting(state, { payload }) {
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          ...payload,
+        },
+        regularFormSubmitting: ((state.status === 'ok') ? true : false),
       };
     },
   },
