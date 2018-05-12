@@ -46,24 +46,12 @@ export default class List extends Component {
     }
   ];
 
-    const mainSearch = (
-      <div style={{ textAlign: 'center' }}>
-        <Input.Search
-          placeholder="请输入"
-          enterButton="搜索"
-          size="large"
-          onSearch={this.handleFormSubmit}
-          style={{ width: 522 }}
-        />
-      </div>
-    );
 
     const { match, routerData, location } = this.props;
     const routes = getRoutes(match.path, routerData);
 
     return (
       <PageHeaderLayout
-        //content={mainSearch}
         tabList={tabList}
         activeTabKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
