@@ -29,17 +29,21 @@ const passwordProgressMap = {
 
 @connect(state => ({
   currentUser: state.user.currentUser,
-  submitting: state.form.regularFormSubmitting,
+  submitting: state.user.regularFormSubmitting,
 }))
 @Form.create()
 export default class Basic_form extends PureComponent {
     handleSubmit = (e) => {
+    const { currentUser } = this.props;
     //e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'form/submitRegularForm',
-          payload: values,
+          type: 'user/submitRegularForm',
+          payload: {
+            values,
+            currentUser,
+          }   
         });
       }
     });
