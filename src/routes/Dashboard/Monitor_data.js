@@ -120,24 +120,6 @@ export default class Monitor_data extends PureComponent {
             </Col>
         </Row>    
         </Card>
-        {/*<List
-            rowKey="id"
-            style={{ marginTop: 24 }}
-            grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
-            //loading={loading}
-            dataSource={Device_data}
-            renderItem={item => (
-            <List.Item key={item.key}>
-                < Card
-                  hoverable
-                  bodyStyle={{ paddingBottom: 20 }} 
-                  title={item.title}
-                >
-                <Table columns={columns} dataSource={item.node} scroll={{y: 200}} pagination={false}/>
-              </Card>
-            </List.Item>
-          )}
-        />*/}
       </div>
     );
   }
