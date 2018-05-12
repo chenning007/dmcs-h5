@@ -4,6 +4,7 @@ export default {
   namespace: 'device',
 
   state: {
+    device_will: [],
     myself_device: [],
     public_device: [],
     loading: false,
@@ -20,6 +21,7 @@ export default {
         type: 'save',
         payload: { 
           myself_device: Array.isArray(response.myself_device) ? response.myself_device : [],
+          device_will: Array.isArray(response.device_will) ? response.device_will : [],
         }
       });
       yield put({
@@ -73,6 +75,7 @@ export default {
       return {
         myself_device: [],
         public_device: [],
+        device_will: [],
         loading: false,
       };
     },
