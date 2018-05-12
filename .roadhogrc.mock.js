@@ -20,22 +20,6 @@ const proxy = {
   // 支持值为 Object 和 Array
   'GET /api/currentUser': currentUser,
   // GET POST 可省略
-  'GET /api/users': [{
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  }, {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  }, {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-  }],
   'GET /api/project/notice': getNotice,
   'GET /api/friends': get_Friend,
   'GET /api/rule': getRule,
@@ -63,7 +47,6 @@ const proxy = {
   //'GET /api/device/queryDeviceInfo':'http://localhost:8080/dmcs',
   //'POST /api/v1/user/login': 'http://localhost:8080/dmcs',
   //'POST /api/v1/user/register': 'http://localhost:8080/dmcs',
-
   'POST /api/v1/user/login': (req, res) => {
     const { password, userName, type } = req.body;
     if(password === '888888' && userName === 'admin'){
