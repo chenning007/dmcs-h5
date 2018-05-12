@@ -235,13 +235,13 @@ export default class Basic_profiles extends PureComponent {
                       <Card 
                         bordered={true}
                         key={item.key}
-                        title={item.title ? item.title : item.name}
+                        title={item.title ? item.title : (item.name ? item.name: '')}
                         style={{marginBottom:12}}
                       >
                         <p style={{paddingLeft: 24}}>收件人: &nbsp; <b> {item.name}</b></p>
                         <p style={{paddingLeft: 24}}>所在地区: &nbsp; <b> {item.area}</b></p>
                         <p style={{paddingLeft: 24}}>地址: &nbsp; <b> {item.place}</b></p>
-                        <p style={{paddingLeft: 24}}>手机: &nbsp; <b> {item.name}</b></p>
+                        <p style={{paddingLeft: 24}}>手机: &nbsp; <b> {item.mobilephone}</b></p>
                         <p style={{paddingLeft: 24}}>固定电话: &nbsp; <b> {item.fixedphone}</b></p>
                         <p style={{paddingLeft: 24}}>邮箱: &nbsp; <b> {item.emial}</b></p>
                       
