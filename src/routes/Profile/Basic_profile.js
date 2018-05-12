@@ -26,7 +26,6 @@ const formItemLayout = {
     sm: { span: 12 },
     md: { span: 10 },
   },
- // marginBottom: 48,
 };
 
 const submitFormLayout = {
@@ -38,21 +37,13 @@ const submitFormLayout = {
 /****** */
 @connect(state => ({
   currentUser: state.user.currentUser,
-  //submitting: state.form.regularFormSubmitting,
-
 }))
-//@Form.create()
+
 export default class Basic_profiles extends PureComponent {
-  state = {
-    changename: false,
-  };
 
   onChangestate = (avatar_src) => {
-    const {dispatch}=this.props;
+    const { dispatch }=this.props;
     dispatch(routerRedux.push(`set_up`));
-  }
-  onChangeUserName = (e) => {
-    this.setState({ data: e.target.value });
   }
   
 
@@ -118,11 +109,8 @@ export default class Basic_profiles extends PureComponent {
   render() {
     const { currentUser, form, } = this.props;
     return (
-      <div
-      //className='all'
-      >
-        <Card 
-          //className='basic_info'  
+      <div>
+        <Card   
           title={<div className='basic_info'><b>基本信息</b></div>}
           bordered={true}
           style={{ marginBottom: 24 }}
@@ -232,7 +220,6 @@ export default class Basic_profiles extends PureComponent {
           </Row>    
         </Card>
         <Card
-          //className='mail_address'
           title={<div ><b>邮寄地址</b></div>}
           bordered={true}
         >
@@ -243,23 +230,25 @@ export default class Basic_profiles extends PureComponent {
               { currentUser.address !== undefined
                 &&
                 (currentUser.address).map((item) => {
-                  return (
-                    <Card 
-                      bordered={true}
-                      key={item.key}
-                      title={item.title ? item.title : item.name}
-                      style={{marginBottom:12}}
-                      //className={item}
-                    >
-                      <p style={{paddingLeft: 24}}>收件人: &nbsp; <b> {item.name}</b></p>
-                      <p style={{paddingLeft: 24}}>所在地区: &nbsp; <b> {item.area}</b></p>
-                      <p style={{paddingLeft: 24}}>地址: &nbsp; <b> {item.place}</b></p>
-                      <p style={{paddingLeft: 24}}>手机: &nbsp; <b> {item.name}</b></p>
-                      <p style={{paddingLeft: 24}}>固定电话: &nbsp; <b> {item.fixedphone}</b></p>
-                      <p style={{paddingLeft: 24}}>邮箱: &nbsp; <b> {item.emial}</b></p>
-                    
-                    </Card>  
-                  )
+                  if(item.area !== null){
+                    return (
+                      <Card 
+                        bordered={true}
+                        key={item.key}
+                        title={item.title ? item.title : item.name}
+                        style={{marginBottom:12}}
+                      >
+                        <p style={{paddingLeft: 24}}>收件人: &nbsp; <b> {item.name}</b></p>
+                        <p style={{paddingLeft: 24}}>所在地区: &nbsp; <b> {item.area}</b></p>
+                        <p style={{paddingLeft: 24}}>地址: &nbsp; <b> {item.place}</b></p>
+                        <p style={{paddingLeft: 24}}>手机: &nbsp; <b> {item.name}</b></p>
+                        <p style={{paddingLeft: 24}}>固定电话: &nbsp; <b> {item.fixedphone}</b></p>
+                        <p style={{paddingLeft: 24}}>邮箱: &nbsp; <b> {item.emial}</b></p>
+                      
+                      </Card> 
+                      
+                    );
+                  }
                 }
               )}
             </Col>
