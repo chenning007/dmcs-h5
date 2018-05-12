@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { routerRedux,} from 'dva/router';
-import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col, Steps, message } from 'antd';
+import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col, Steps, message, Tooltip } from 'antd';
 
 import styles from './Device_list.less';
 
@@ -10,6 +10,7 @@ const { Step }=Steps;
 
 @connect(state => ({
   myself_device: state.device.myself_device,
+  device_will: state.device.device_will,
   loading: state.device.loading,
   currentUser: state.user.currentUser,
 }))
@@ -51,10 +52,10 @@ export default class Device_list extends PureComponent {
     this.setState({modalVisible: setvisible,});
   };
   onchangeCondition() {
-    this.setState({condition: 1,}); //１进入到设备添加状态
+    this.setState({condition: 1,});   //１进入到设备添加状态
   }
   onchange_remove1() {
-    if(this.state.change_remove===0){ //change_remove进入到删除操作
+    if(this.state.change_remove===0){ //change_remove进入到删除操作,这是最开始的代码，有点挫
     this.setState({change_remove: 1,});
     }
   }
@@ -73,6 +74,9 @@ export default class Device_list extends PureComponent {
     this.setState({ current: temcurrent });
   }
   componentWillUnmount() {
+    this.props.dispatch({
+      type: 'device/clear',
+    })
     this.setState({
        current: 0,
        condition: 0,
@@ -93,34 +97,48 @@ export default class Device_list extends PureComponent {
    message.success('修改成功');
   }
 
-  extracontent() {
-    if(this.state.change_remove===0){
-      return(
-      <div className={styles.extraContent}>
-        <div className={styles.statItem}> 
-          <a onClick={()=>this.onchangeCondition()}> <Icon type="plus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} /> </a>
+  extracontent(tempor) {
+    if (tempor !==undefined) {
+      if(tempor===0){
+        return(
+        <div className={styles.extraContent}>
+          <div className={styles.statItem}> 
+            <a onClick={()=>this.onchangeCondition()}>
+              <Tooltip placement='topLeft' title='添加设备'> 
+                <Icon type='plus' style={{fontSize: 32, color: 'rgb(0, 129, 204)'}} />
+              </Tooltip>
+            </a>
+          </div>
+          <div className={styles.statItem} >
+            <a onClick={()=>this.onchange_remove1()}>
+              <Tooltip placement='top' title='删除设备'>
+                <Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+              </Tooltip>
+            </a>
+          </div>
+          <div className={styles.statItem} >
+            <a onClick={() =>this.onchange_remove2()}>
+              <Tooltip placement='topRight' title='转让设备'>
+                <Icon type="retweet" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/>
+              </Tooltip>
+            </a>
+          </div>
         </div>
-        <div className={styles.statItem} >
-          <a onClick={()=>this.onchange_remove1()}><Icon type="minus" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/></a>
-        </div>
-        <div className={styles.statItem} >
-          <a onClick={() =>this.onchange_remove2()}><Icon type="retweet" style={{fontSize: 32, color: 'rgb(0, 129, 204)'}}/></a>
-        </div>
-      </div>
-    )}
-    if(this.state.change_remove!==0){
-      return(
-          <Button type='primary' size='large' onClick={()=> this.resetchange_remove()}>
-            <Icon type="rollback" />
-          </Button>
-      )
+      )}
+      else {
+        return(
+            <Button type='primary' size='large' onClick={()=> this.resetchange_remove()}>
+              <Icon type="rollback" />
+            </Button>
+        )
+      }
     }
   };
 /******* */
 
 /******* */
   renderDevice(){
-    const {  myself_device, loading  } = this.props;
+    const {  myself_device = [], device_will= [],loading  } = this.props;
     const {condition, current, change_remove, modalVisible}=this.state;
     if(condition===0){
       return (
@@ -132,30 +150,29 @@ export default class Device_list extends PureComponent {
                       bordered={false}
                       title="我的设备"
                       loading={loading}
-                      extra={this.extracontent()}
+                      extra={this.extracontent(change_remove)}
                       style={{ marginBottom: 24 }} 
                     >
                       <List 
                         rowkey="id"
                         loading={loading}
-                        dataSource={myself_device ===undefined?[]:[...myself_device]}
+                        dataSource={[...myself_device]}
                           renderItem={item =>(
-                            <List.Item key={item.id} >
+                            <List.Item key={item.key} >
                               <span onClick={() =>this.onLinktodevice(item.avatar,item.deviceNumber,item.title)}  
                                 style={{width:200}}
                               >
-                                  <List.Item.Meta
-                                    avatar={<Avatar src={item.avatar} size='large'/>}
-                                    title={item.title}
-                                    description={<b>{item.deviceNumber}</b>}
-                                  />
+                                <List.Item.Meta
+                                  avatar={<Avatar src={item.avatar} size='large'/>}
+                                  title={item.title}
+                                  description={<b>{item.deviceNumber}</b>}
+                                />
                               </span>
                               <span style={{marginLeft:200, width:300}} ><h3>{item.description}</h3></span> 
-                              <span style={{marginLeft:200}}><h3>{item.time}</h3></span>
-                              
+                              <span style={{marginLeft:200}}><h3>{item.time}</h3></span>  
                             </List.Item> 
-                          )}
-                        />  
+                        )}
+                      />  
                     </Card>
                   }
                   { change_remove===1
@@ -164,7 +181,7 @@ export default class Device_list extends PureComponent {
                       bordered={false}
                       title="我的设备"
                       loading={loading}
-                      extra={this.extracontent()}
+                      extra={this.extracontent(change_remove)}
                       style={{ marginBottom: 24 }} 
                       >
                         <List 
@@ -192,7 +209,7 @@ export default class Device_list extends PureComponent {
                         bordered={false}
                         title="我的设备"
                         loading={loading}
-                        extra={this.extracontent()}
+                        extra={this.extracontent(change_remove)}
                         style={{ marginBottom: 24 }}
                       >
                         <List 
@@ -280,8 +297,21 @@ export default class Device_list extends PureComponent {
             { current===0
               &&
               <div>
-                <Card> 
-
+                <Card style={{marginBottom: 12}}> 
+                  <List 
+                    rowkey="id"
+                    loading={loading}
+                    dataSource={[...device_will]}
+                    renderItem={item =>(
+                      <List.Item key={item.key} > 
+                        <List.Item.Meta
+                          avatar={<Avatar src={item.defaultavatar} size='large'/>}
+                          title={item.defaulttitle}
+                          description={<b>{item.deviceNumber}</b>}
+                        />  
+                      </List.Item> 
+                    )}
+                  /> 
                 </Card>
                 <Button type='primary' onClick={() =>this.next()}>下一步</Button>
               </div>
@@ -289,7 +319,7 @@ export default class Device_list extends PureComponent {
             { current===1
               &&
               <div>
-                <Card>
+                <Card style={{marginBottom: 12}}>
                    
                 </Card>
                 <span>
@@ -301,7 +331,7 @@ export default class Device_list extends PureComponent {
             { current===2
               &&
               <div>
-                <Card>
+                <Card style={{marginBottom: 12}}>
                 </Card>
                 <span> 
                     <Button type='primary' onClick={()=>this.reset()}>完成</Button>
