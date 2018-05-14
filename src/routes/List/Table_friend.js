@@ -186,9 +186,7 @@ const data1 = [{
 export default class Table_friend extends PureComponent{
    render() {
        return (
-         
             <Table columns={columns} dataSource={data} scroll={{ x:1500, y:300}}/>
-         
        );
    }   
 
