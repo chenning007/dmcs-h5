@@ -1,12 +1,36 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { routerRedux,} from 'dva/router';
-import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col, Steps, message, Tooltip } from 'antd';
+import { Card, Button, Icon, List, Modal, Form, Input, Avatar, Row, Col, Steps, message, Tooltip, Divider, Table, Popover } from 'antd';
 
 import styles from './Device_list.less';
 
 const FormItem = Form.Item;
 const { Step }=Steps;
+const columns = [
+  { title: '设备', width: 150, dataIndex: 'defaultavatar', key: 'defaultavatar', fixed: 'left',
+    render: text =>  <Avatar src={text}/>,
+  },{
+    title: '设备号',width:300, dataIndex: 'deviceNumber', key: 'deviceNumber', fixed: 'left',
+    render: text => <h3><b>{text}</b></h3>,
+  },
+];
+
+function getNowFormatDate() {
+  var date = new Date();
+  var seperator1 = "-";
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var strDate = date.getDate();
+  if (month >= 1 && month <= 9) {
+      month = "0" + month;
+  }
+  if (strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
+  }
+  var currentdate = year + seperator1 + month + seperator1 + strDate;
+  return currentdate;
+}
 
 @connect(state => ({
   myself_device: state.device.myself_device,
@@ -21,6 +45,10 @@ export default class Device_list extends PureComponent {
     current: 0,
     change_remove: 0,
     modalVisible: false,
+    selectedRowkeys:[],
+    input_value: null,
+    visible: false,
+     //device_myself用来当做局部变量存储myself_device的值，从而做到可以刷新界面的能力.
   };
 /******** */
 
@@ -64,14 +92,25 @@ export default class Device_list extends PureComponent {
     this.setState({change_remove: 2,})
     }
   }
+//这个是在本地进行密码验证，实际上应该在后台进行密码验证
+  next(selected,inputvalue) {
+    const {device_will=[]}=this.props;
+    if((device_will[selected]).secret === inputvalue){
+      const temcurrent = this.state.current + 1;
+      this.setState({current: temcurrent, visible: false});
+    }
+    else{
+      this.setState({visible: true})
+    }
 
-  next() {
+  }
+  next1_2() {
     const temcurrent = this.state.current + 1;
-    this.setState({current: temcurrent });
+    this.setState({current: temcurrent});
   }
   pre() {
     const temcurrent=this.state.current - 1;
-    this.setState({ current: temcurrent });
+    this.setState({ current: temcurrent, visible: false });
   }
   componentWillUnmount() {
     this.props.dispatch({
@@ -82,6 +121,9 @@ export default class Device_list extends PureComponent {
        condition: 0,
        change_remove: 0,
        modalVisible: false,
+       selectedRowkeys:[],
+       input_value: null,
+       visible: false,
     });
   }
   resetchange_remove(){
@@ -93,8 +135,11 @@ export default class Device_list extends PureComponent {
       condition: 0,
       change_remove: 0,
       modalVisible: false,
+      selectedRowkeys:[],
+      input_value: null,
+      visible: false,
    });
-   message.success('修改成功');
+   //message.success('修改成功');
   }
 
   extracontent(tempor) {
@@ -135,11 +180,88 @@ export default class Device_list extends PureComponent {
     }
   };
 /******* */
+onSelectedChange = (selectedRowkeys) => {
+  this.setState({selectedRowkeys: selectedRowkeys});
+}
 
+changevalue = (e) =>{
+  this.setState({input_value:e.target.value});
+}
+
+condition_step = (condition,current,length) =>{
+  const {device_will} = this.props;
+  const {selectedRowkeys,input_value} = this.state;
+  if((condition===1)&&(current==1)){
+    if(length===1){
+    return(
+      <div>
+        <Card style={{marginBottom: 12}} >
+          <div style={{marginBottom:24}}>
+            <span style={{width:150}}>&nbsp;&nbsp;&nbsp;设备号：</span>
+            <span style={{maginLeft: 200, width:300, fontSize: 18}}><b>{device_will[selectedRowkeys[0]].deviceNumber}</b></span>
+          </div>
+          <Popover content={<div style={{ marginTop: 10, color:'#FF0000' }}>  请输入正确的密码 !!!</div>}
+            placement="right"
+            visible={this.state.visible}
+          >
+            <span style={{width:150}}>密码验证：</span>
+            <span ><Input value={input_value} onChange={this.changevalue} style={{width:200}} type='password'/></span>
+          </Popover>
+        </Card>
+        <span>
+          <Button type='primary' onClick={() =>this.next(selectedRowkeys[0],input_value)}>下一步</Button>
+          <Divider type='vertical'/>
+          <Button type='primary' style={{marginLeft: 8}} onClick={()=>this.pre()}>上一步</Button>
+        </span>  
+      </div>
+    );}
+    else 
+     return(
+      <div>
+      <Card style={{marginBottom: 12}}>
+        <div style={{textAlign:'center'}}>
+          <span style={{color:'#FFFF00',fontSize: 24}}>&nbsp;&nbsp;!&nbsp;&nbsp;!&nbsp;&nbsp;!&nbsp;&nbsp;&nbsp;</span>
+          <span style={{fontSize:20}}>未选择任何设备</span>
+        </div> 
+      </Card>
+      <Button type='primary' style={{marginLeft: 8}} onClick={()=>this.pre()}>上一步</Button>
+      </div>
+      );
+  }
+}
+
+/*reset_push(key) {
+  const {myself_device = [],device_will=[]} =this.props;
+  const newData = mysel_device.map(item =>({...item}));
+  const temp = device_will[key];
+  newData.push({
+    key:newData.length,
+    deviceNumber: temp.deviceNumber,
+    title: temp.defaulttitle,
+    avatar: temp.defaultavatar,
+    description: null,
+    time: getNowFormatDate(),
+  })
+  this.setState({
+    current: 0,
+    condition: 0,
+    change_remove: 0,
+    modalVisible: false,
+    device_myself: newData,
+  });
+  message.success('修改成功');
+
+}*/
 /******* */
   renderDevice(){
     const {  myself_device = [], device_will= [],loading  } = this.props;
-    const {condition, current, change_remove, modalVisible}=this.state;
+    const {condition, current, change_remove, modalVisible, selectedRowkeys,}=this.state;
+    const rowSelection = {
+      selectedRowkeys,
+      onChange: this.onSelectedChange,
+      hideDefaultSelections: true,
+      type: 'radio',
+    }
     if(condition===0){
       return (
             <Row gutter={24}>  
@@ -170,7 +292,7 @@ export default class Device_list extends PureComponent {
                               </span>
                               <span style={{marginLeft:200, width:300}} ><h3>{item.description}</h3></span> 
                               <span style={{marginLeft:200}}><h3>{item.time}</h3></span>  
-                            </List.Item> 
+                          </List.Item> 
                         )}
                       />  
                     </Card>
@@ -297,44 +419,33 @@ export default class Device_list extends PureComponent {
             { current===0
               &&
               <div>
-                <Card style={{marginBottom: 12}}> 
-                  <List 
-                    rowkey="id"
-                    loading={loading}
-                    dataSource={[...device_will]}
-                    renderItem={item =>(
-                      <List.Item key={item.key} > 
-                        <List.Item.Meta
-                          avatar={<Avatar src={item.defaultavatar} size='large'/>}
-                          title={item.defaulttitle}
-                          description={<b>{item.deviceNumber}</b>}
-                        />  
-                      </List.Item> 
-                    )}
-                  /> 
+                <Card style={{marginBottom: 12}} bordered={false}> 
+                  <div style={{width: 520}}>
+                    <Table columns={columns} dataSource={device_will} scroll={{  y:500}} pagination={false} rowSelection={rowSelection}/>
+                  </div>
                 </Card>
-                <Button type='primary' onClick={() =>this.next()}>下一步</Button>
+                <span>
+                  <Button type='primary' onClick={() =>this.next1_2()}>下一步</Button>
+                  <Divider type='vertical'/>
+                  <Button type='primary' onClick={() => this.reset()}>返回</Button>
+                </span>
               </div>
             }
             { current===1
               &&
-              <div>
-                <Card style={{marginBottom: 12}}>
-                   
-                </Card>
-                <span>
-                  <Button type='primary' onClick={() =>this.next()}>下一步</Button>
-                  <Button type='primary' style={{marginLeft: 8}} onClick={()=>this.pre()}>上一步</Button>
-                </span>  
-              </div>
+              this.condition_step(condition,current,selectedRowkeys.length)
             }
             { current===2
               &&
               <div>
-                <Card style={{marginBottom: 12}}>
+                <Card style={{marginBottom: 12, textAlign:'center'}}>
+                  <span>
+                  <Icon type="check-square" style={{fontSize: 48, color:'#7CFC00'}}/>
+                  <span style={{fontSize:32, marginLeft: 40}}>添加成功</span>
+                  </span>
                 </Card>
                 <span> 
-                    <Button type='primary' onClick={()=>this.reset()}>完成</Button>
+                  <Button type='primary' onClick={()=>this.reset()}>完成</Button>
                 </span>
               </div>
             }   
