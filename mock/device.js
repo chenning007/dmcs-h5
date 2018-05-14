@@ -22,19 +22,19 @@ const avatars = [
   'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
 ];
 const avatars1 = [
-  'file:///usr/mygit/dmcs-h5/public/image/device1.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device2.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device3.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device4.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device5.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device6.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device7.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device8.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device9.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device10.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device11.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device12.jpeg',
-  'file:///usr/mygit/dmcs-h5/public/image/device13.jpeg',
+  'http://127.0.0.1:8887/device1.jpeg',
+  'http://127.0.0.1:8887/device2.jpeg',
+  'http://127.0.0.1:8887/device3.jpeg',
+  'http://127.0.0.1:8887/device4.jpeg',
+  'http://127.0.0.1:8887/device5.jpeg',
+  'http://127.0.0.1:8887/device6.jpeg',
+  'http://127.0.0.1:8887/device7.jpeg',
+  'http://127.0.0.1:8887/device8.jpeg',
+  'http://127.0.0.1:8887/device9.jpeg',
+  'http://127.0.0.1:8887/device10.jpeg',
+  'http://127.0.0.1:8887/device11.jpeg',
+  'http://127.0.0.1:8887/device12.jpeg',
+  'http://127.0.0.1:8887/device13.jpeg',
 ];
 const deviceNumber = [
   2018010000001,
@@ -124,7 +124,7 @@ export function will_deviceList(count) {
   for (let i = 0; i < count; i += 1) {
     list.push({
       key: i,
-      deviceNumber: deviceNumber[i%  10],
+      deviceNumber: will_number[i%  10],
       defaulttitle: titles[i % 10],
       defaultavatar: avatars1[i % 10],
       secret: secret[i %10],
