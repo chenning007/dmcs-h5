@@ -18,7 +18,7 @@ const avatar = [
   ];
 
 /****** */
-/***** */
+/***** **/
 
 const columns = [
     { title: '用户', width: 60, dataIndex: 'avatar', key: 'avatar', fixed: 'left',
