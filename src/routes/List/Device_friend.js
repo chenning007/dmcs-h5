@@ -3,7 +3,7 @@ import moment from 'moment';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, 
-          Select, Tooltip, Table, Dropdown, Menu, Switch, Divider } from 'antd';
+       Select, Tooltip, Table, Dropdown, Menu, Switch, Divider } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import EditableLinkGroup from '../../components/EditableLinkGroup';
@@ -115,6 +115,7 @@ export default class Device_friend extends PureComponent {
     selectedRowkeys: [],   //用于列表的选择
     modalVisible1: false,  //用于显示删除的信息
     modalVisible2: false,  //用于显示提示的信息
+    edit_condition: false,
   }
   onSelectedChange = (selectedRowkeys) => {
     this.setState({selectedRowkeys: selectedRowkeys});
@@ -139,6 +140,18 @@ export default class Device_friend extends PureComponent {
       type: 'friend/clear',
     });
   }
+submitAuthority() {
+  const { dispatch, } = this.props;
+  const { validateFieldsAndScroll } = this.props.form;
+  validateFieldsAndScroll( (error, values) => {
+    if(!error) {
+      dispatch({
+        type: 'user/submitRegularForm',
+        payload: values,
+      });
+    }
+  });
+}
 /**** */
   handleAddInput = (e) => {
     this.setState({
@@ -152,9 +165,15 @@ export default class Device_friend extends PureComponent {
       selectedRowkeys: [],
       modalVisible1: false,
       modalVisible2: false,
-
+      edit_condition: false,
     });
   }
+  /***** */
+  reset_submit() {
+    this.submitAuthority();
+    this.resetCondition();
+  }
+  /***** */
 
   contentCondition = (content_condition) =>{
     this.setState({content_condition: content_condition});
@@ -186,38 +205,58 @@ export default class Device_friend extends PureComponent {
   }
   
   extraContent( selectedRowkeys, content_condition) {
-    return (
-      <div > 
-        { selectedRowkeys.length > 0 
-          &&
-          <div>
-            <Tooltip placement='topRight' title='删除人员'><Button type='primary' onClick={() => this.setModalvisible1(true)}>删除</Button></Tooltip>
-          </div>
-        }
-        { (selectedRowkeys.length===0)&&(content_condition===0)
-          &&
+    if(selectedRowkeys.length > 0) {
+      return( 
+        <div>
+          <Tooltip placement='topRight' title='删除人员'><Button type='primary' onClick={() => this.setModalvisible1(true)}>删除</Button></Tooltip>
+        </div>
+      );
+    }
+    if(selectedRowkeys.length===0) {
+      if(content_condition===0){
+        return(
           <div>           
-            <span>
-              <Tooltip placement='topLeft' title='添加人员'><Button type='primary' onClick={() => this.contentCondition(2)}>添加</Button></Tooltip>
-                <Divider type='vertical' />
-              <Tooltip placement='top' title='删除人员'><Button type='primary' onClick={() => this.setModalvisible2(true)}>删除</Button></Tooltip>
-                <Divider type='vertical' />
-              <Tooltip placement='topRight' title='权限管理'><Button type='primary' onClick={() => this.contentCondition(1)}>权限</Button></Tooltip>
-            </span>
-          </div>
+              <span>
+                <Tooltip placement='topLeft' title='添加人员'><Button type='primary' onClick={() => this.contentCondition(2)}>添加</Button></Tooltip>
+                  <Divider type='vertical' />
+                <Tooltip placement='top' title='删除人员'><Button type='primary' onClick={() => this.setModalvisible2(true)}>删除</Button></Tooltip>
+                  <Divider type='vertical' />
+                <Tooltip placement='topRight' title='权限管理'><Button type='primary' onClick={() => this.contentCondition(1)}>权限</Button></Tooltip>
+              </span>
+            </div>
+        );
+      }
+      if(content_condition===1){
+        let edit_condition = this.state.edit_condition;
+        if(!edit_condition){
+          return(
+            <div>  
+              <Tooltip placement='top' title='返回'>         
+                <Button type='primary' onClick={() => this.resetCondition()}>
+                  <Icon type="rollback" />
+                </Button>
+              </Tooltip>
+            </div> 
+          );
         }
-        { (selectedRowkeys.length===0)&&(content_condition===1)
-          &&
+        return(
           <div>  
-            <Tooltip placement='top' title='返回'>         
-              <Button type='primary' onClick={() => this.resetCondition()}>
-                <Icon type="rollback" />
+            <Tooltip placement='topLeft' title='保存权限更改'>         
+              <Button type='primary' onClick={() => this.reset_submit()}>
+                保存
               </Button>
             </Tooltip>
-          </div>
-        }
-      </div>    
-    );   
+            <Divider type='vertical'/>
+            <Tooltip placement='topRight' title='取消权限更改'>         
+              <Button type='primary' onClick={() => this.resetCondition()}>
+                取消
+              </Button>
+            </Tooltip>
+          </div> 
+        );
+      }
+    }   
+       
   } 
   extraContent_3(length){
     if(length){
@@ -257,13 +296,17 @@ export default class Device_friend extends PureComponent {
       )
   }
   
+  edit_Condition(e,edit_enable) {
+    //let edit_enable = edit_enable;
+    this.setState({edit_condition: edit_enable});
+  }
  /**** */ 
   renderActivities() {
     const {
       list_device_friend=[],
       list_friend=[],
     } = this.props;
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { getFieldDecorator, validateFieldsAndScroll, getFieldValue } = this.props.form;
     const {content_condition, selectedRowkeys=[], modalVisible1, modalVisible2} =　this.state;
     const rowSelection = {
       selectedRowkeys,
@@ -289,8 +332,7 @@ export default class Device_friend extends PureComponent {
             <Card /*title="权限管理"*/ bordered={false} style={{marginTop: 12}}>
               {getFieldDecorator('authorize', {
                 initialValue: list_device_friend,
-                //这里需要完成数据的递交
-              })(<Table_friend/>)}
+              })(<Table_friend onChange={(e, edit_enable) => this.edit_Condition(e,edit_enable)}/>)}
             </Card>
           }
           {(selectedRowkeys.length > 0)&&(content_condition===0)
@@ -429,7 +471,6 @@ export default class Device_friend extends PureComponent {
                       <Button type="primary" htmlType="submit" /*loading={submitting}*/>
                         保存
                       </Button>
-                        {/*<Button style={{ marginLeft: 8 }}>保存</Button>*/}
                     </FormItem>           
                   </Form>
                 </Col>
