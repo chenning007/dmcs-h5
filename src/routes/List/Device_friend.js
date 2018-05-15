@@ -103,6 +103,7 @@ const columns1 =  [{
 }];
 
 @connect(state => ({
+  list_device_friend: state.friend.list_device_friend,
   list_friend: state.friend.list_friend,
   loading: state.friend.loading,
 }))
@@ -259,7 +260,8 @@ export default class Device_friend extends PureComponent {
  /**** */ 
   renderActivities() {
     const {
-      list_friend=[]
+      list_device_friend=[],
+      list_friend=[],
     } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
     const {content_condition, selectedRowkeys=[], modalVisible1, modalVisible2} =　this.state;
@@ -286,7 +288,7 @@ export default class Device_friend extends PureComponent {
             &&
             <Card /*title="权限管理"*/ bordered={false} style={{marginTop: 12}}>
               {getFieldDecorator('authorize', {
-                //initialValue: tableData,
+                initialValue: list_device_friend,
                 //这里需要完成数据的递交
               })(<Table_friend/>)}
             </Card>
