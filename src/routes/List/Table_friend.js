@@ -137,57 +137,22 @@ const columns = [
 
 /****** */
 
-const data1 = [{
-    key: '1',
-    avatar: avatar[1],
-    useridNumber: '123456',
-    userName: 'John',
-    userTelephone: '15701575451',
-    userworkPlace: '清华大学',
-  }, {
-    key: '2',
-    avatar: avatar[2],
-    useridNumber: '123457',
-    userName: 'Jim',
-    userTelephone: '15701575452',
-    userworkPlace: '清华大学',
-  }, {
-    key: '3',
-    avatar: avatar[3],
-    useridNumber: '123458',
-    userName: 'Sara',
-    userTelephone: '15701575453',
-    userworkPlace: '清华大学',
-  },{
-    key: '4',
-    avatar: avatar[4],
-    useridNumber: '123459',
-    userName: '茅军', 
-    userTelephone: '15701575454',
-    userworkPlace: '清华大学',
-  },{
-    key: '5',
-    avatar: avatar[5],
-    useridNumber: '123459',
-    userName: '刘军',
-    userTelephone: '15701575455',
-    userworkPlace: '清华大学',
-  },{
-    key: '6',
-    avatar: avatar[6],
-    useridNumber: '123451',
-    userName: '胡军',
-    userTelephone: '15701575456',
-    userworkPlace: '清华大学',
-  }
-  ];
 /****** */
 
 export default class Table_friend extends PureComponent{
-   render() {
-       return (
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            data: props.value,
+            loading: false,
+        }
+    }
+    render() {
+        const { list_device_friend=[] } = this.state;
+        return (
             <Table columns={columns} dataSource={data} scroll={{ x:1500, y:300}}/>
-       );
-   }   
+        );
+    }   
 
 }
