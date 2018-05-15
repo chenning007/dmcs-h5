@@ -157,7 +157,6 @@ export const list_device_friend = [
     key: '10',
     avatar: avatars2[0],
     useridNumber: '123443',
-    userName: '滤波器',
     userTitle: '风清扬',
     auth1:false,
     auth2:true,
