@@ -17,6 +17,9 @@ import logo from '../assets/image1.png';
 
 /**
  * 根据菜单取得重定向地址.
+ * 
+ * redirectData用于存储从getMenuData解析得到的数据,
+ *　利用函数getRedirect函数完成这一过程
  */
 const redirectData = [];
 const getRedirect = (item) => {
@@ -128,10 +131,30 @@ class BasicLayout extends React.PureComponent {
       });
     }
   }
+
+  getBashRedirect = () => {
+    // According to the url parameter to redirect
+    // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
+    const urlParams = new URL(window.location.href);
+
+    const redirect = urlParams.searchParams.get('redirect');
+    // Remove the parameters in the url
+    if (redirect) {
+      urlParams.searchParams.delete('redirect');
+      window.history.replaceState(null, 'redirect', urlParams.href);
+    } else {
+      return '/dashboard/device';
+    }
+    return redirect;
+  }
+
   render() {
     const {
       currentUser, collapsed, fetchingNotices, notices, routerData, match, location,
     } = this.props;
+
+    const bashRedirect = this.getBashRedirect();
+
     const layout = (
       <Layout>
         <SiderMenu
@@ -171,7 +194,7 @@ class BasicLayout extends React.PureComponent {
                     />
                   ))
                 }
-                <Redirect exact from="/" to="/dashboard/device" />
+                < Redirect exact from="/" to={bashRedirect}/>
                 <Route render={NotFound} />
               </Switch>
             </div>

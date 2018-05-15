@@ -14,9 +14,10 @@ const app = dva({
 });
 
 // 2. Plugins
+
 // app.use({});
 
-// 3. Register global model
+// 3. Register global model,这个不知道有没有调用过
 app.model(require('./models/global'));
 
 // 4. Router
