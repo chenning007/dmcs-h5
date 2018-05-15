@@ -4,6 +4,7 @@ export default {
   namespace: 'friend',
 
   state: {
+    list_device_friend: [],
     list_friend: [],
     loading: false,
     loading1: false,
@@ -19,6 +20,7 @@ export default {
       yield put({
         type: 'save',
         payload: { 
+          list_device_friend: Array.isArray(response.list_device_friend) ? response.list_device_friend : [] ,
           list_friend: Array.isArray(response.list_friend) ? response.list_friend : [] ,
         },
       });
@@ -39,7 +41,8 @@ export default {
     },
     clear() {
       return {
-        list_friend: [], 
+        list_friend: [],
+        list_device_friend: [], 
       };
     },
     changeLoading(state, action) {
