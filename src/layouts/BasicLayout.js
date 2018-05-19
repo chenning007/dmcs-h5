@@ -15,6 +15,10 @@ import { getRoutes } from '../utils/utils';
 import { getMenuData } from '../common/menu';
 import logo from '../assets/image1.png';
 
+import Authorized from '../utils/Authorized';
+
+const { AuthorizedRoute } = Authorized;
+
 /**
  * 根据菜单取得重定向地址.
  * 
@@ -158,6 +162,9 @@ class BasicLayout extends React.PureComponent {
     const layout = (
       <Layout>
         <SiderMenu
+          logo={logo}
+          Authorized={Authorized}
+          menuData={getMenuData()}
           collapsed={collapsed}
           location={location}
           isMobile={this.state.isMobile}
@@ -185,14 +192,18 @@ class BasicLayout extends React.PureComponent {
                   )
                 }
                 {
-                  getRoutes(match.path, routerData).map(item => (
-                    <Route
-                      key={item.key}
-                      path={item.path}
-                      component={item.component}
-                      exact={item.exact}
-                    />
-                  ))
+                  getRoutes(match.path, routerData).map(item => 
+                    (
+                      <AuthorizedRoute
+                        key={item.key}
+                        path={item.path}
+                        component={item.component}
+                        exact={item.exact}
+                        authority={item.authority}
+                        redirectPath="/exception/403"
+                      />
+                    )
+                  )
                 }
                 < Redirect exact from="/" to={bashRedirect}/>
                 <Route render={NotFound} />
