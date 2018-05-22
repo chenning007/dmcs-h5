@@ -72,9 +72,9 @@ const proxy = {
     });
   },
 
-  'POST /api/v1/user/register': (req, res) => {
+  /*'POST /api/v1/user/register': (req, res) => {
     res.send({ status: 'ok', currentAuthority: 'user' });
-  },  
+  }, */ 
 
   'POST /api/device/addDevice': (req, res) => {
     res.send(
@@ -112,9 +112,9 @@ const proxy = {
   },
 };
 
- export default noProxy ? {} : delay(proxy, 1000);
+export default noProxy ? {} : delay(proxy, 1000);
 
-//export default {
-//  'POST /api/(.*)': 'http://localhost:8080/dmcs/api/',
-//};
+/*export default {
+  'POST /api/(.*)': 'http://localhost:8080/dmcs/api/',
+};*/
 
