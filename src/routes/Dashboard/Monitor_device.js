@@ -104,6 +104,7 @@ export default class Monitor_device extends PureComponent {
     edit_enable: false,    //判断表盘页面是否进入到编辑状态
     modalVisible: false,    //属性控制界面是否可见
     component_key: null,
+
     range_tem: null,       //用于存储临时的变量, range,measurement,node三个变量
     measurement_tem: null,
     node_tem: null,
@@ -150,12 +151,18 @@ export default class Monitor_device extends PureComponent {
       }
     }
   }
+  //
+  //
+  //
+  //
  /******** */
   handleMenuClick = (e) => {
     this.onchangeEquipment(e.key);
   }
   //改变位置信息
   condition = (e) => {
+    const { setFieldsValue }=this.props.form;
+
     if(e !==undefined){
       let element = {key: e.key, temporary_x: e.x, temporary_y: e.y};
       this.state.temporary_position.splice(e.key-1,1,element);
@@ -166,27 +173,33 @@ export default class Monitor_device extends PureComponent {
         measurement_tem: target.measurement,
         node_tem: target.node,
       });
+      /*if(setFieldsValue)
+      {setFieldsValue({
+        range: this.state.range_tem!==null ? this.state.range_tem : null,
+        measurement: this.state.measurement_tem!==null ? this.state.measurement_tem : null,
+        node: this.state.node_tem!==null ?  this.state.node_tem : null,
+      });}*/
     }
+    //顺序,当点击属性展示modal时，该程序已经执行完成。对于搜集数据时，则在保存时完成操作。
     //console.log(this.state.temporary_position);
   }
   Edit_enable = (value) => {
     if(value){
       this.setState({edit_enable: value})
     }
-    if(!value)
+    const { component_key } = this.state;
+    if((!value)&&!(component_key)) //这样的话，是必须选中才能进行编辑，但是希望是在任何情况下都编辑
     {
-      const { component_key } = this.state;
       const newequipment = this.state.equipment.map(item => ({...item}));
       const target_equipment = this.getElementBykey(component_key, newequipment);
       let target_position = this.getElementBykey(component_key, this.state.temporary_position);
         if((target_equipment)&&(target_position)) {
           target_equipment.position_x = target_equipment.position_x+target_position.temporary_x;
           target_equipment.position_y = target_equipment.position_y+target_position.temporaty_y;
-          this.setState({equipment: newequipment});
-
-          this.setState({edit_enable: value});
+          //this.setState({equipment: newequipment});
         }
     }
+    this.setState({edit_enable: value});//这里存在一些问题，因为这样在任何时候都能进行编辑保存了
   }
   extraContent() {
     const {edit_enable} =this.state;
@@ -266,11 +279,12 @@ export default class Monitor_device extends PureComponent {
       target.range=value.range;
       target.measurement=value.measurement;
       target.node=value.node;
-      target.position_x=value.position_x;
-      target.position_y=value.position_y;
+      //target.position_x=value.position_x;
+      //target.position_y=value.position_y;
       this.setState({equipment: newequipment});
     }
   }
+
   modal_temp(component_key){
     const { getFieldValue } = this.props.form;
     let target_equipment = this.getElementBykey(component_key, this.state.equipment);
@@ -281,8 +295,8 @@ export default class Monitor_device extends PureComponent {
         range: getFieldValue('range'),
         measurement: getFieldValue('measurement'),
         node: getFieldValue('node'),
-        position_x: (target_position.temporary_x)+(target_equipment.position_x),//重新进行位置的计算
-        position_y: (target_position.temporary_y)+(target_equipment.position_y),//重新进行位置的计算
+        //position_x: (target_position.temporary_x)+(target_equipment.position_x),//重新进行位置的计算
+        //position_y: (target_position.temporary_y)+(target_equipment.position_y),//重新进行位置的计算
       }
       this.component_control(value, component_key);
       this.setModalvisible(false);
@@ -298,7 +312,7 @@ export default class Monitor_device extends PureComponent {
     if(target){
       return(
         <Modal
-          title='控件属性控制'
+          title={target.type}
           visible={modalVisible}
           onOk={()=>this.modal_temp(component_key)}
           onCancel={()=>this.setModalvisible(false)}
