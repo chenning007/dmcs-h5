@@ -86,6 +86,9 @@ export const getRouterData = (app) => {
       // hideInBreadcrumb: true,
       // name: '工作台',
     },
+    '/dashboard/graph': {
+      component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Graph')),
+    },
     '/dashboard/monitor_dgo':{
       component: dynamicWrapper(app,[],() => import('../routes/Dashboard/Monitor_dgo')),
     },
@@ -100,8 +103,6 @@ export const getRouterData = (app) => {
     },
     '/dashboard/monitor_device': {
       component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor_device')),
-      // hideInBreadcrumb: true,
-      // name: '工作台',
     },
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
@@ -187,9 +188,6 @@ export const getRouterData = (app) => {
     '/user/register-result': {
       component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
     },
-    // '/user/:id': {
-    //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
-    // },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());
