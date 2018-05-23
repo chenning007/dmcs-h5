@@ -33,7 +33,7 @@ const passwordProgressMap = {
 }))
 @Form.create()
 export default class Basic_form extends PureComponent {
-    handleSubmit = (e) => {
+  handleSubmit = (e) => {
     const { currentUser } = this.props;
     //e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
