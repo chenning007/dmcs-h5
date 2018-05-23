@@ -81,7 +81,6 @@ export default class Table_friend extends PureComponent{
         this.toggleEditable(e,key);
         //this.props.callbackParent(edit_enable);
     }
-    //这里是向父组件传值，为啥不可行;
     saveRow(e, key) {
         e.persist();
         this.setState({
@@ -93,14 +92,6 @@ export default class Table_friend extends PureComponent{
             return;
           }
           const target = this.getRowByKey(key) || {};
-          /*if (!target.workId || !target.name || !target.department) {
-            message.error('请填写完整成员信息。');
-            e.target.focus();
-            this.setState({
-              loading: false,
-            });
-            return;
-          }*/
           delete target.isNew;
           this.toggleEditable(e, key);
           let edit_enable = true;
