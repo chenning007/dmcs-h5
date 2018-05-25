@@ -306,7 +306,7 @@ renderPasswordProgress = () => {
                     label={<b>真实姓名:</b>}
                   >
                     {getFieldDecorator('userName', {
-                        initialValue: currentUser.userName ? currentUser.userName : '待补充' ,
+                        initialValue: currentUser.realname ? currentUser.realname : '待补充' ,
                         rules: [{ 
                           required: false, 
                         }],
