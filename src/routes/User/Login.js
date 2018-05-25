@@ -81,15 +81,15 @@ export default class Login extends Component {
                 this.renderMessage('账户或密码错误')
               }
               <FormItem>
-                {getFieldDecorator('userName', {
+                {getFieldDecorator('username', {
                   rules: [{
-                    required: type === 'account', message: '请输入账户名！',
+                    required: type === 'account', message: '请输入用户名/手机/邮箱！',
                   }],
                 })(
                   <Input
                     size="large"
                     prefix={<Icon type="user" className={styles.prefixIcon} />}
-                    placeholder="邮件地址"
+                    placeholder="用户名/手机/邮箱"
                   />
                 )}
               </FormItem>
