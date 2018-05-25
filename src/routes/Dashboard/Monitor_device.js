@@ -50,7 +50,7 @@ export default class Monitor_device extends PureComponent {
     equipment_length: 0,
     canvas_height: 1000,
     equipment: [{
-      key: 1,
+      id: 1,
       type: 'swift',
       position_x: 550,
       position_y: 340,
@@ -58,7 +58,7 @@ export default class Monitor_device extends PureComponent {
       measurement: null,
       node: null,   //存储节点 
     },{
-      key: 2,
+      id: 2,
       type: 'slider',
       position_x: 570,
       position_y: 290,
@@ -66,7 +66,7 @@ export default class Monitor_device extends PureComponent {
       measurement: null,
       node: null,   //存储节点 
     },{
-      key: 3,
+      id: 3,
       type: 'panel',
       position_x: 550,
       position_y: 50,
@@ -74,7 +74,7 @@ export default class Monitor_device extends PureComponent {
       measurement: null,
       node: null,   //存储节点 
     },{
-      key: 4,
+      id: 4,
       type: 'input',
       position_x: 810,
       position_y: 340,
@@ -85,19 +85,19 @@ export default class Monitor_device extends PureComponent {
     ],
     //存储临时的各变量的位置信息
     temporary_position: [{ 
-      key: 1,
+      id: 1,
       temporary_x: 0,
       temporary_y: 0,     
     },{
-      key: 2,
+      id: 2,
       temporary_x: 0,
       temporary_y: 0,     
     },{
-      key: 3,
+      id: 3,
       temporary_x: 0,
       temporary_y: 0,     
     },{
-      key: 4,
+      id: 4,
       temporary_x: 0,
       temporary_y: 0,     
     },],
@@ -119,7 +119,7 @@ export default class Monitor_device extends PureComponent {
   onchangeEquipment = (type) => {
     //在这里进行判断返回的equipment是否有值
     this.state.equipment.push({
-      key: this.state.equipment.length + 1,
+      id: this.state.equipment.length + 1,
       type: type,
       position_x: 0,
       position_y: 0,
@@ -128,7 +128,7 @@ export default class Monitor_device extends PureComponent {
       node: null,
     });
     this.state.temporary_position.push({
-      key: this.state.temporary_position.length + 1,
+      id: this.state.temporary_position.length + 1,
       temporary_x: 0,
       temporary_y: 0,
     });
@@ -136,8 +136,8 @@ export default class Monitor_device extends PureComponent {
   }
   /****** */
   /****** */
-  getElementBykey(key,newequipment) {
-    return (newequipment || this.state.equipment).filter(item => item.key === key)[0];
+  getElementBykey(id,newequipment) {
+    return (newequipment || this.state.equipment).filter(item => item.id === id)[0];
   }
   /****** */
   //改变画布的大小
@@ -159,12 +159,23 @@ export default class Monitor_device extends PureComponent {
   handleMenuClick = (e) => {
     this.onchangeEquipment(e.key);
   }
+  /*setInputValue(){
+    const { setFieldsValue }=this.props.form;
+    if(setFieldsValue)
+    {setFieldsValue({
+        range: this.state.range_tem!==null ? this.state.range_tem : null,
+        measurement: this.state.measurement_tem!==null ? this.state.measurement_tem : null,
+        node: this.state.node_tem!==null ?  this.state.node_tem : null,
+      });
+    }
+  }*/
   //改变位置信息
+  //这部分的错误自己还是没有好好的解决掉
   condition = (e) => {
     const { setFieldsValue }=this.props.form;
 
     if(e !==undefined){
-      let element = {key: e.key, temporary_x: e.x, temporary_y: e.y};
+      let element = {id: e.key, temporary_x: e.x, temporary_y: e.y};
       this.state.temporary_position.splice(e.key-1,1,element);
       let target = this.getElementBykey(e.key,this.state.equipment);
       this.setState({ 
@@ -173,12 +184,10 @@ export default class Monitor_device extends PureComponent {
         measurement_tem: target.measurement,
         node_tem: target.node,
       });
-      /*if(setFieldsValue)
-      {setFieldsValue({
-        range: this.state.range_tem!==null ? this.state.range_tem : null,
-        measurement: this.state.measurement_tem!==null ? this.state.measurement_tem : null,
-        node: this.state.node_tem!==null ?  this.state.node_tem : null,
-      });}*/
+     /* if(setFieldsValue){
+        this.setInputValue();
+      }*/
+      
     }
     //顺序,当点击属性展示modal时，该程序已经执行完成。对于搜集数据时，则在保存时完成操作。
     //console.log(this.state.temporary_position);
@@ -373,8 +382,8 @@ export default class Monitor_device extends PureComponent {
             &&
             equipment.map(item=> (
               < Dragger  grid={[10, 10]} bounds='parent'
-                id={item.key} 
-                key={item.key} type={item.type}
+                id={item.id} 
+                key={item.id} type={item.type}
                 style={{left: item.position_x, top: item.position_y}}
                 static={!this.state.edit_enable}
                 onchange={this.condition}
