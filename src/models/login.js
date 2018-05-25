@@ -32,7 +32,7 @@ export default {
       yield put({
         type: 'changeLoginStatus',
         payload: {
-          status: false,
+          status: error,
         },
       });
       yield put(routerRedux.push('/user/login'));
