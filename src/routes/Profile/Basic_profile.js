@@ -60,7 +60,7 @@ export default class Basic_profiles extends PureComponent {
             wrapperCol={{span: 8, offset: 2}}
             label={<b>用户&nbsp;&nbsp;&nbsp;名:</b>}
           > 
-            <h3>{currentUser.userName? currentUser.userName:'未命名'}</h3>
+            <h3>{currentUser.username? currentUser.username:'未命名'}</h3>
           </FormItem>
           <FormItem
             colon={false}
