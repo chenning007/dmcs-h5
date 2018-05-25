@@ -47,13 +47,13 @@ const proxy = {
   //'GET /api/device/queryDeviceInfo':'http://localhost:8080/dmcs',
   //'POST /api/v1/user/login': 'http://localhost:8080/dmcs',
   //'POST /api/v1/user/register': 'http://localhost:8080/dmcs',
-  'POST /api/v1/user/login': (req, res) => {
+  /*'POST /api/v1/user/login': (req, res) => {
     const { password, userName, type } = req.body;
     if(password === '888888' && userName === 'admin'){
       res.send({
         status: 'ok',
         type,
-        currentAuthority: 'admin'
+        currentAuthority: 'admin',
       });
       return ;
     }
@@ -61,21 +61,22 @@ const proxy = {
       res.send({
         status: 'ok',
         type,
-        currentAuthority: 'user'
+        currentAuthority: 'user',
       });
       return ;
     }
     res.send({
       status: 'error',
       type,
-      currentAuthority: 'guest'
+      currentAuthority: 'guest',
     });
-  },
+  },*/
 
   /*'POST /api/v1/user/register': (req, res) => {
     res.send({ status: 'ok', currentAuthority: 'user' });
   }, */ 
-
+  'POST /api/v1/user/login': 'http://localhost:8080/dmcs',
+  'POST /api/v1/user/register':'http://localhost:8080/dmcs',
   'POST /api/device/addDevice': (req, res) => {
     res.send(
       {status: 'ok',}
