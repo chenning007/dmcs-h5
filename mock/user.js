@@ -46,6 +46,7 @@
     $body: {
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
       userNumber : '1234567',
+      username : 'caizj15',
       realname : '蔡志军',
       userSex : '男' ,
       useridNumber : '362330199819959003',
