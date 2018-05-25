@@ -31,11 +31,23 @@ export default class Register extends Component {
     visible: false,
     help: '',
     prefix: '86',
+    register_status: true,
   };
 
   componentWillReceiveProps(nextProps) {
+    const { getFieldValue } = this.props.form;
     if (nextProps.register.status === 'ok') {
-      this.props.dispatch(routerRedux.push('/user/register-result'));
+      if(getFieldValue('mail')) {
+        this.props.dispatch(routerRedux.push({
+        pathname: '/user/register-result',
+        state:{
+          email: getFieldValue('mail'),
+        }
+      }));
+      }
+    }
+    if (nextProps.register.status === 'error') {
+      this.setState({register_status: false,});
     }
   }
 
@@ -66,7 +78,20 @@ export default class Register extends Component {
     }
     return 'pool';
   };
-
+  /*******
+   * 
+   * onLinktodevice = (email) => {
+    const {dispatch}=this.props;
+    dispatch(routerRedux.push({
+      pathname: '/dashboard/monitor_dgo/monitor_device',
+      state: { 
+        email: email,  
+      },
+    })
+    );
+  }
+  ****
+   */
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields({ force: true }, (err, values) => {
@@ -156,11 +181,42 @@ export default class Register extends Component {
         <h3>注册</h3>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
+            <Popover 
+              content={<b>"用户名已存在"</b>}
+              overlayStyle={{ width: 120 }}
+              placement="right"
+              visible={!this.state.register_status}
+            >
+            {getFieldDecorator('username', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入用户名！',
+                },
+              ],
+            })(<Input size="large" placeholder="用户名,可由字母与数字组成" />)} {/* 这里有必要加入用户名校验措施*/}
+            </Popover>
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('sex', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入性别！',
+                },
+              ],
+            })( <Select placeholder="性别" style={{width:'20%'}}>
+                  <Option value="man">男</Option>
+                  <Option value="woman">女</Option>
+                  <Option value="man_woman">无</Option>
+                </Select>)} {/* 这里有必要加入用户名校验措施*/}
+          </FormItem>
+          <FormItem>
             {getFieldDecorator('mail', {
               rules: [
                 {
                   required: true,
-                  message: '请输入邮箱地址！',
+                  message: ' 请输入邮箱地址！',
                 },
                 {
                   type: 'email',
