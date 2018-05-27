@@ -44,7 +44,7 @@
       },
     },
     $body: {
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+      avatar: 'http://localhost:80/ZiESqWwCXBRQoaPONSJe.png',
       userNumber : '1234567',
       username : 'caizj15',
       realname : '蔡志军',

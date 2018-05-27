@@ -1,9 +1,9 @@
 export const imgMap = {
-  user: 'https://gw.alipayobjects.com/zos/rmsportal/UjusLxePxWGkttaqqmUI.png',
-  a: 'https://gw.alipayobjects.com/zos/rmsportal/ZrkcSjizAKNWwJTwcadT.png',
-  b: 'https://gw.alipayobjects.com/zos/rmsportal/KYlwHMeomKQbhJDRUVvt.png',
-  c: 'https://gw.alipayobjects.com/zos/rmsportal/gabvleTstEvzkbQRfjxu.png',
-  d: 'https://gw.alipayobjects.com/zos/rmsportal/jvpNzacxUYLlNsHTtrAD.png',
+  user: 'http://localhost:80/UjusLxePxWGkttaqqmUI.png',
+  a: 'http://localhost:80/ZrkcSjizAKNWwJTwcadT.png',
+  b: 'http://localhost:80/KYlwHMeomKQbhJDRUVvt.png',
+  c: 'http://localhost:80/gabvleTstEvzkbQRfjxu.png',
+  d: 'http://localhost:80/jvpNzacxUYLlNsHTtrAD.png',
 };
 
 // refers: https://www.sitepoint.com/get-url-parameters-with-javascript/

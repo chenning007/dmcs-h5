@@ -14,16 +14,16 @@ const titles = [
   'Webpack',
 ];
 const avatars2 = [
-  'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/psOgztMplJMGpVEqfcgF.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/ZpBqSxLxVEXfcUNoPKrz.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/laiEnJdGHVOhJrUShBaJ.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/UrQsqscbKEpNuJcvBZBu.png',
+  'http://localhost:80/BiazfanxmamNRoxxVxka.png',
+  'http://localhost:80/cnrhVkzwxjPwAaCfPbdc.png',
+  'http://localhost:80/gaOngJwsRYRaVAuXXcmB.png',
+  'http://localhost:80/ubnKSIfAJTxIgXOKlciN.png',
+  'http://localhost:80/WhxKECPNujWoWEFNdnJE.png',
+  'http://localhost:80/jZUIxmJycoymBprLOUbT.png',
+  'http://localhost:80/psOgztMplJMGpVEqfcgF.png',
+  'http://localhost:80/ZpBqSxLxVEXfcUNoPKrz.png',
+  'http://localhost:80/laiEnJdGHVOhJrUShBaJ.png',
+  'http://localhost:80/UrQsqscbKEpNuJcvBZBu.png',
 ];
 //
 export const list_device_friend = [
