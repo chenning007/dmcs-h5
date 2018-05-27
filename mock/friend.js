@@ -14,16 +14,16 @@ const titles = [
   'Webpack',
 ];
 const avatars2 = [
-  'http://localhost:80/BiazfanxmamNRoxxVxka.png',
-  'http://localhost:80/cnrhVkzwxjPwAaCfPbdc.png',
-  'http://localhost:80/gaOngJwsRYRaVAuXXcmB.png',
-  'http://localhost:80/ubnKSIfAJTxIgXOKlciN.png',
-  'http://localhost:80/WhxKECPNujWoWEFNdnJE.png',
-  'http://localhost:80/jZUIxmJycoymBprLOUbT.png',
-  'http://localhost:80/psOgztMplJMGpVEqfcgF.png',
-  'http://localhost:80/ZpBqSxLxVEXfcUNoPKrz.png',
-  'http://localhost:80/laiEnJdGHVOhJrUShBaJ.png',
-  'http://localhost:80/UrQsqscbKEpNuJcvBZBu.png',
+  'http://localhost:80/image/BiazfanxmamNRoxxVxka.png',
+  'http://localhost:80/image/cnrhVkzwxjPwAaCfPbdc.png',
+  'http://localhost:80/image/gaOngJwsRYRaVAuXXcmB.png',
+  'http://localhost:80/image/ubnKSIfAJTxIgXOKlciN.png',
+  'http://localhost:80/image/WhxKECPNujWoWEFNdnJE.png',
+  'http://localhost:80/image/jZUIxmJycoymBprLOUbT.png',
+  'http://localhost:80/image/psOgztMplJMGpVEqfcgF.png',
+  'http://localhost:80/image/ZpBqSxLxVEXfcUNoPKrz.png',
+  'http://localhost:80/image/laiEnJdGHVOhJrUShBaJ.png',
+  'http://localhost:80/image/UrQsqscbKEpNuJcvBZBu.png',
 ];
 //
 export const list_device_friend = [

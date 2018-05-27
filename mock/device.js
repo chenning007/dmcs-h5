@@ -12,29 +12,29 @@ const titles = [
   '测温计',
 ];
 const avatars = [
-  'http://localhost:80/WdGqmHpayyMjiEhcKoVE.png', // Alipay/
-  'http://localhost:80/zOsKZmFRdUtvpqCImOVY.png', // Angular
-  'http://localhost:80/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
-  'http://localhost:80/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
-  'http://localhost:80/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
-  'http://localhost:80/kZzEzemZyKLKFsojXItE.png', // React
-  'http://localhost:80/ComBAopevLwENQdKWiIn.png', // Vue
-  'http://localhost:80/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
+  'http://localhost:80/image/WdGqmHpayyMjiEhcKoVE.png', // Alipay/
+  'http://localhost:80/image/zOsKZmFRdUtvpqCImOVY.png', // Angular
+  'http://localhost:80/image/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
+  'http://localhost:80/image/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
+  'http://localhost:80/image/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
+  'http://localhost:80/image/kZzEzemZyKLKFsojXItE.png', // React
+  'http://localhost:80/image/ComBAopevLwENQdKWiIn.png', // Vue
+  'http://localhost:80/image/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
 ];
 const avatars1 = [
-  'http://localhost:80/device1.jpeg',
-  'http://localhost:80/device2.jpeg',
-  'http://localhost:80/device3.jpeg',
-  'http://localhost:80/device4.jpeg',
-  'http://localhost:80/device5.jpeg',
-  'http://localhost:80/device6.jpeg',
-  'http://localhost:80/device7.jpeg',
-  'http://localhost:80/device8.jpeg',
-  'http://localhost:80/device9.jpeg',
-  'http://localhost:80/device10.jpeg',
-  'http://localhost:80/device11.jpeg',
-  'http://localhost:80/device12.jpeg',
-  'http://localhost:80/device13.jpeg',
+  'http://localhost:80/image/device1.jpeg',
+  'http://localhost:80/image/device2.jpeg',
+  'http://localhost:80/image/device3.jpeg',
+  'http://localhost:80/image/device4.jpeg',
+  'http://localhost:80/image/device5.jpeg',
+  'http://localhost:80/image/device6.jpeg',
+  'http://localhost:80/image/device7.jpeg',
+  'http://localhost:80/image/device8.jpeg',
+  'http://localhost:80/image/device9.jpeg',
+  'http://localhost:80/image/device10.jpeg',
+  'http://localhost:80/image/device11.jpeg',
+  'http://localhost:80/image/device12.jpeg',
+  'http://localhost:80/image/device13.jpeg',
 ];
 const deviceNumber = [
   2018010000001,

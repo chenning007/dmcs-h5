@@ -14,34 +14,34 @@ const titles = [
   'Webpack',
 ];
 const avatars = [
-  'http://localhost:80/WdGqmHpayyMjiEhcKoVE.png', // Alipay
-  'http://localhost:80/zOsKZmFRdUtvpqCImOVY.png', // Angular
-  'http://localhost:80/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
-  'http://localhost:80/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
-  'http://localhost:80/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
-  'http://localhost:80/kZzEzemZyKLKFsojXItE.png', // React
-  'http://localhost:80/ComBAopevLwENQdKWiIn.png', // Vue
-  'http://localhost:80/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
+  'http://localhost:80/image/WdGqmHpayyMjiEhcKoVE.png', // Alipay
+  'http://localhost:80/image/zOsKZmFRdUtvpqCImOVY.png', // Angular
+  'http://localhost:80/image/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
+  'http://localhost:80/image/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
+  'http://localhost:80/image/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
+  'http://localhost:80/image/kZzEzemZyKLKFsojXItE.png', // React
+  'http://localhost:80/image/ComBAopevLwENQdKWiIn.png', // Vue
+  'http://localhost:80/image/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
 ];
 
 const avatars2 = [
-  'http://localhost:80/BiazfanxmamNRoxxVxka.png',
-  'http://localhost:80/cnrhVkzwxjPwAaCfPbdc.png',
-  'http://localhost:80/gaOngJwsRYRaVAuXXcmB.png',
-  'http://localhost:80/ubnKSIfAJTxIgXOKlciN.png',
-  'http://localhost:80/WhxKECPNujWoWEFNdnJE.png',
-  'http://localhost:80/jZUIxmJycoymBprLOUbT.png',
-  'http://localhost:80/psOgztMplJMGpVEqfcgF.png',
-  'http://localhost:80/ZpBqSxLxVEXfcUNoPKrz.png',
-  'http://localhost:80/laiEnJdGHVOhJrUShBaJ.png',
-  'http://localhost:80/UrQsqscbKEpNuJcvBZBu.png',
+  'http://localhost:80/image/BiazfanxmamNRoxxVxka.png',
+  'http://localhost:80/image/cnrhVkzwxjPwAaCfPbdc.png',
+  'http://localhost:80/image/gaOngJwsRYRaVAuXXcmB.png',
+  'http://localhost:80/image/ubnKSIfAJTxIgXOKlciN.png',
+  'http://localhost:80/image/WhxKECPNujWoWEFNdnJE.png',
+  'http://localhost:80/image/jZUIxmJycoymBprLOUbT.png',
+  'http://localhost:80/image/psOgztMplJMGpVEqfcgF.png',
+  'http://localhost:80/image/ZpBqSxLxVEXfcUNoPKrz.png',
+  'http://localhost:80/image/laiEnJdGHVOhJrUShBaJ.png',
+  'http://localhost:80/image/UrQsqscbKEpNuJcvBZBu.png',
 ];
 
 const covers = [
-  'http://localhost:80/uMfMFlvUuceEyPpotzlq.png',
-  'http://localhost:80/iZBVOIhGJiAnhplqjvZW.png',
-  'http://localhost:80/uVZonEtjWwmUZPBQfycs.png',
-  'http://localhost:80/gLaIAoVWTtLbBWZNYEMg.png',
+  'http://localhost:80/image/uMfMFlvUuceEyPpotzlq.png',
+  'http://localhost:80/image/iZBVOIhGJiAnhplqjvZW.png',
+  'http://localhost:80/image/uVZonEtjWwmUZPBQfycs.png',
+  'http://localhost:80/image/gLaIAoVWTtLbBWZNYEMg.png',
 ];
 const desc = [
   '那是一种内在的东西， 他们到达不了，也无法触及的',
@@ -89,15 +89,15 @@ export function fakeList(count) {
       content: '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
       members: [
         {
-          avatar: 'http://localhost:80/ZiESqWwCXBRQoaPONSJe.png',
+          avatar: 'http://localhost:80/image/ZiESqWwCXBRQoaPONSJe.png',
           name: '曲丽丽',
         },
         {
-          avatar: 'http://localhost:80/tBOxZPlITHqwlGjsJWaF.png',
+          avatar: 'http://localhost:80/image/tBOxZPlITHqwlGjsJWaF.png',
           name: '王昭君',
         },
         {
-          avatar: 'http://localhost:80/sBxjgqiuHMGRkIjqlQCd.png',
+          avatar: 'http://localhost:80/image/sBxjgqiuHMGRkIjqlQCd.png',
           name: '董娜娜',
         },
       ],

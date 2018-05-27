@@ -1,9 +1,9 @@
 export const imgMap = {
-  user: 'http://localhost:80/UjusLxePxWGkttaqqmUI.png',
-  a: 'http://localhost:80/ZrkcSjizAKNWwJTwcadT.png',
-  b: 'http://localhost:80/KYlwHMeomKQbhJDRUVvt.png',
-  c: 'http://localhost:80/gabvleTstEvzkbQRfjxu.png',
-  d: 'http://localhost:80/jvpNzacxUYLlNsHTtrAD.png',
+  user: 'http://localhost:80/image/UjusLxePxWGkttaqqmUI.png',
+  a: 'http://localhost:80/image/ZrkcSjizAKNWwJTwcadT.png',
+  b: 'http://localhost:80/image/KYlwHMeomKQbhJDRUVvt.png',
+  c: 'http://localhost:80/image/gabvleTstEvzkbQRfjxu.png',
+  d: 'http://localhost:80/image/jvpNzacxUYLlNsHTtrAD.png',
 };
 
 // refers: https://www.sitepoint.com/get-url-parameters-with-javascript/

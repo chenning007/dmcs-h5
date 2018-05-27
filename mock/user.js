@@ -44,7 +44,7 @@
       },
     },
     $body: {
-      avatar: 'http://localhost:80/ZiESqWwCXBRQoaPONSJe.png',
+      avatar: 'http://localhost:80/image/ZiESqWwCXBRQoaPONSJe.png',
       userNumber : '1234567',
       username : 'caizj15',
       realname : '蔡志军',
