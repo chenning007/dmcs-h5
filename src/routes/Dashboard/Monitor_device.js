@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Tooltip, Input, Avatar, Button, Slider, InputNumber, Icon, Menu, Dropdown, Divider, Form, Modal } from 'antd';
+import { Row, Col, Card, Tooltip, Input, Avatar, Button, Slider, InputNumber, Icon, Menu, Dropdown, Divider, Form, Modal, Select } from 'antd';
 import numeral from 'numeral';
 
 import { Pie, WaterWave, Gauge, TagCloud } from '../../components/Charts';
@@ -16,6 +16,7 @@ import styles from './Monitor_device.less';
 import './Monitor_device.less';
 
 const targetTime = new Date().getTime() + 3900000;
+const { Option } = Select;
 const FormItem = Form.Item;
 /******* */
 const marks = {
@@ -103,7 +104,9 @@ export default class Monitor_device extends PureComponent {
     },],
     edit_enable: false,    //判断表盘页面是否进入到编辑状态
     modalVisible: false,    //属性控制界面是否可见
-    component_key: null,
+    component_key: null,　　　//在第一次会出现问题
+    
+    tem: null,
 
     range_tem: null,       //用于存储临时的变量, range,measurement,node三个变量
     measurement_tem: null,
@@ -159,16 +162,53 @@ export default class Monitor_device extends PureComponent {
   handleMenuClick = (e) => {
     this.onchangeEquipment(e.key);
   }
-  /*setInputValue(){
-    const { setFieldsValue }=this.props.form;
-    if(setFieldsValue)
+  //这里存在第一次调用的时候为空值
+  
+  checkNode = (rule, value, callback) => {
+    if(value){
+      this.setState({tem: null });
+    if(this.state !==undefined){
+    const newequipment = this.state.equipment.map(item => ({...item}));
+    const target = this.getElementBykey(this.state.component_key, newequipment);
+    
+    if(target){
+      if(value){
+        if((target.type === 'swift') || (target.type === 'input')){
+          if(value.slice(0,1) === 's'){
+            callback();
+          }
+          else {callback('error');}
+        }
+        if((target.type === 'panel') || (target.type === 'Slider')){
+          if(value.slice(0,1) === 'r'){
+            callback('');
+          }
+          else {callback('error');}
+        }
+      }
+      else {
+        callback();
+      }
+    }
+    callback('error');
+    }
+    callback('error');
+    }
+    else if(!value){
+      callback();
+    }
+  }
+  ////
+  setInputValue(){
+    const { setFieldsValue, getFieldValue }=this.props.form;
+    if((setFieldsValue)&&(getFieldValue('range')!==undefined))
     {setFieldsValue({
         range: this.state.range_tem!==null ? this.state.range_tem : null,
         measurement: this.state.measurement_tem!==null ? this.state.measurement_tem : null,
         node: this.state.node_tem!==null ?  this.state.node_tem : null,
       });
     }
-  }*/
+  }
   //改变位置信息
   //这部分的错误自己还是没有好好的解决掉
   condition = (e) => {
@@ -184,9 +224,9 @@ export default class Monitor_device extends PureComponent {
         measurement_tem: target.measurement,
         node_tem: target.node,
       });
-     /* if(setFieldsValue){
+      if(setFieldsValue){
         this.setInputValue();
-      }*/
+      }
       
     }
     //顺序,当点击属性展示modal时，该程序已经执行完成。对于搜集数据时，则在保存时完成操作。
@@ -335,7 +375,12 @@ export default class Monitor_device extends PureComponent {
           >
             {getFieldDecorator('range', {
               initialValue: target.range,
-              })(<Input />)
+              })( <Select placeholder="量程" style={{width: '50%'}} >
+                    <Option value= '5'>0~5</Option>
+                    <Option value = '10'>0~10</Option>
+                    <Option value= '100' >0~100</Option>
+                    <Option value='1000'>0~1000</Option>
+                  </Select>)
             }
           </FormItem>
           <FormItem
@@ -345,7 +390,12 @@ export default class Monitor_device extends PureComponent {
           >
             {getFieldDecorator('measurement', {
               initialValue: target.measurement,
-              })(<Input />)
+              })( <Select placeholder="单位" style={{width: '50%'}} >
+                    <Option value= 'current' >A</Option>
+                    <Option value= 'voltage' >V</Option>
+                    <Option value= 'resistance'>Ω</Option>
+                    <Option value= 'force' >F</Option>
+                  </Select>)
             }
           </FormItem>  
           <FormItem
@@ -354,15 +404,31 @@ export default class Monitor_device extends PureComponent {
             label="端点"
           >
             {getFieldDecorator('node', {
-              initialValue: target.node,
-              })(<Input />)
+              //initialValue: target.node,
+              rules: [{validator: this.checkNode}],
+              })( <Select placeholder="单位" style={{width: '50%'}} >
+                    <Option value= 's1'>S1</Option>
+                    <Option value= 's2'>S2</Option>
+                    <Option value= 's3'>S3</Option>
+                    <Option value= 's4'>S4</Option>
+                    <Option value= 'r1'>R1</Option>
+                    <Option value= 'r2'>R2</Option>
+                    <Option value= 'r3'>R3</Option>
+                    <Option value= 'r4'>R4</Option>
+                  </Select>)
             }
           </FormItem>
         </Modal>
       );
     }
   }
-
+  /**
+   * rules: [
+              {
+                validator: this.checkPassword,
+              },
+            ],
+   * * */
   /******* */
   render() {
     const { monitor } = this.props;
