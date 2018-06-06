@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Form, Input, Tabs, Button, Icon, Checkbox, Row, Col, Alert } from 'antd';
 import styles from './Login.less';
+import logo from '../../assets/logo.svg';
 
 const FormItem = Form.Item;
 const { TabPane } = Tabs;
@@ -70,59 +71,70 @@ export default class Login extends Component {
     const { getFieldDecorator } = form;
     const { count, type } = this.state;
     return (
-      <div className={styles.main}>
-        <Form onSubmit={this.handleSubmit}>
-          <Tabs animated={false} className={styles.tabs} activeKey={type} onChange={this.onSwitch}>
-            <TabPane tab="账户密码登录" key="account">
-              {
-                login.status === 'error' &&
-                login.type === 'account' &&
-                login.submitting === false &&
-                this.renderMessage('账户或密码错误')
-              }
-              <FormItem>
-                {getFieldDecorator('username', {
-                  rules: [{
-                    required: type === 'account', message: '请输入用户名/手机/邮箱！',
-                  }],
-                })(
-                  <Input
-                    size="large"
-                    prefix={<Icon type="user" className={styles.prefixIcon} />}
-                    placeholder="用户名/手机/邮箱"
-                  />
-                )}
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator('password', {
-                  rules: [{
-                    required: type === 'account', message: '请输入密码！',
-                  }],
-                })(
-                  <Input
-                    size="large"
-                    prefix={<Icon type="lock" className={styles.prefixIcon} />}
-                    type="password"
-                  />
-                )}
-              </FormItem>
-            </TabPane>
-          </Tabs>
-          <FormItem className={styles.additional}>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
-            })(
-              <Checkbox className={styles.autoLogin}>自动登录</Checkbox>
-            )}
-            <a className={styles.forgot} href="">忘记密码</a>
-            <Button size="large" loading={login.submitting} className={styles.submit} type="primary" htmlType="submit">
-              登录
-            </Button>
-          </FormItem>
-        </Form>
-        <div className={styles.other}>
-          <Link className={styles.register} to="/user/register">注册账户</Link>
+      <div style={{paddingTop:110 ,paddingRight:0 ,paddingBottom:144 ,paddingLeft:0}}/*className={styles.container}*/>
+        <div className={styles.top}>
+          <div className={styles.header}>
+            <Link to="/">
+              <img alt="logo" className={styles.logo} src={logo} />
+              <span className={styles.title}>DMCS Valley</span>
+            </Link>
+          </div>
+          <div className={styles.desc}>DMCS Valley 最先进的物联网解决方案专家</div>
+        </div>
+        <div className={styles.main}>
+          <Form onSubmit={this.handleSubmit}>
+            <Tabs animated={false} className={styles.tabs} activeKey={type} onChange={this.onSwitch}>
+              <TabPane tab="账户密码登录" key="account">
+                {
+                  login.status === 'error' &&
+                  login.type === 'account' &&
+                  login.submitting === false &&
+                  this.renderMessage('账户或密码错误')
+                }
+                <FormItem>
+                  {getFieldDecorator('username', {
+                    rules: [{
+                      required: type === 'account', message: '请输入用户名/手机/邮箱！',
+                    }],
+                  })(
+                    <Input
+                      size="large"
+                      prefix={<Icon type="user" className={styles.prefixIcon} />}
+                      placeholder="用户名/手机/邮箱"
+                    />
+                  )}
+                </FormItem>
+                <FormItem>
+                  {getFieldDecorator('password', {
+                    rules: [{
+                      required: type === 'account', message: '请输入密码！',
+                    }],
+                  })(
+                    <Input
+                      size="large"
+                      prefix={<Icon type="lock" className={styles.prefixIcon} />}
+                      type="password"
+                    />
+                  )}
+                </FormItem>
+              </TabPane>
+            </Tabs>
+            <FormItem className={styles.additional}>
+              {getFieldDecorator('remember', {
+                valuePropName: 'checked',
+                initialValue: true,
+              })(
+                <Checkbox className={styles.autoLogin}>自动登录</Checkbox>
+              )}
+              <a className={styles.forgot} href="">忘记密码</a>
+              <Button size="large" loading={login.submitting} className={styles.submit} type="primary" htmlType="submit">
+                登录
+              </Button>
+            </FormItem>
+          </Form>
+          <div className={styles.other}>
+            <Link className={styles.register} to="/user/register">注册账户</Link>
+          </div>
         </div>
       </div>
     );
