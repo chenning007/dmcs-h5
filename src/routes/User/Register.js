@@ -3,6 +3,8 @@ import { connect } from 'dva';
 import { routerRedux, Link } from 'dva/router';
 import { Form, Input, Button, Select, Row, Col, Popover, Progress } from 'antd';
 import styles from './Register.less';
+import logo from '../../assets/logo.svg';
+
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -177,143 +179,154 @@ export default class Register extends Component {
     const { getFieldDecorator } = form;
     const { count, prefix } = this.state;
     return (
-      <div className={styles.main}>
-        <h3>注册</h3>
-        <Form onSubmit={this.handleSubmit}>
-          <FormItem>
-            <Popover 
-              content={<b>"用户名已存在"</b>}
-              overlayStyle={{ width: 120 }}
-              placement="right"
-              visible={!this.state.register_status}
-            >
-            {getFieldDecorator('username', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入用户名！',
-                },
-              ],
-            })(<Input size="large" placeholder="用户名,可由字母与数字组成" />)} {/* 这里有必要加入用户名校验措施*/}
-            </Popover>
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('sex', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入性别！',
-                },
-              ],
-            })( <Select placeholder="性别" style={{width:'20%'}}>
-                  <Option value="man">男</Option>
-                  <Option value="woman">女</Option>
-                  <Option value="man_woman">无</Option>
-                </Select>)} {/* 这里有必要加入用户名校验措施*/}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('mail', {
-              rules: [
-                {
-                  required: true,
-                  message: ' 请输入邮箱地址！',
-                },
-                {
-                  type: 'email',
-                  message: '邮箱地址格式错误！',
-                },
-              ],
-            })(<Input size="large" placeholder="邮箱" />)}
-          </FormItem>
-          <FormItem help={this.state.help}>
-            <Popover
-              content={
-                <div style={{ padding: '4px 0' }}>
-                  {passwordStatusMap[this.getPasswordStatus()]}
-                  {this.renderPasswordProgress()}
-                  <div style={{ marginTop: 10 }}>
-                    请至少输入 6 个字符。请不要使用容易被猜到的密码。
-                  </div>
-                </div>
-              }
-              overlayStyle={{ width: 240 }}
-              placement="right"
-              visible={this.state.visible}
-            >
-              {getFieldDecorator('password', {
-                rules: [
-                  {
-                    validator: this.checkPassword,
-                  },
-                ],
-              })(
-                <Input
-                  size="large"
-                  type="password"
-                  placeholder="至少6位密码，可有数字和字母组成，区分大小写"
-                />
-              )}
-            </Popover>
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('confirm', {
-              rules: [
-                {
-                  required: true,
-                  message: '请确认密码！',
-                },
-                {
-                  validator: this.checkConfirm,
-                },
-              ],
-            })(<Input size="large" type="password" placeholder="确认密码" />)}
-          </FormItem>
-          <FormItem>
-            <InputGroup compact>
-              <Select
-                size="large"
-                value={prefix}
-                onChange={this.changePrefix}
-                style={{ width: '20%' }}
+      <div style={{paddingTop:110 ,paddingRight:0 ,paddingBottom:144 ,paddingLeft:0}}>
+        <div className={styles.top}>
+          <div className={styles.header}>
+            <Link to="/">
+              <img alt="logo" className={styles.logo} src={logo} />
+              <span className={styles.title}>DMCS Valley</span>
+            </Link>
+          </div>
+          <div className={styles.desc}>DMCS Valley 最先进的物联网解决方案专家</div>
+        </div>
+        <div className={styles.main}>
+          <h3>注册</h3>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem>
+              <Popover 
+                content={<b>"用户名已存在"</b>}
+                overlayStyle={{ width: 120 }}
+                placement="right"
+                visible={!this.state.register_status}
               >
-                <Option value="86">+86</Option>
-              </Select>
-              {getFieldDecorator('mobile', {
+              {getFieldDecorator('username', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入手机号！',
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: '手机号格式错误！',
+                    message: '请输入用户名！',
                   },
                 ],
-              })(
-                <Input
+              })(<Input size="large" placeholder="用户名,可由字母与数字组成" />)} {/* 这里有必要加入用户名校验措施*/}
+              </Popover>
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator('sex', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入性别！',
+                  },
+                ],
+              })( <Select placeholder="性别" style={{width:'20%'}}>
+                    <Option value="man">男</Option>
+                    <Option value="woman">女</Option>
+                    <Option value="man_woman">无</Option>
+                  </Select>)} {/* 这里有必要加入用户名校验措施*/}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator('mail', {
+                rules: [
+                  {
+                    required: true,
+                    message: ' 请输入邮箱地址！',
+                  },
+                  {
+                    type: 'email',
+                    message: '邮箱地址格式错误！',
+                  },
+                ],
+              })(<Input size="large" placeholder="邮箱" />)}
+            </FormItem>
+            <FormItem help={this.state.help}>
+              <Popover
+                content={
+                  <div style={{ padding: '4px 0' }}>
+                    {passwordStatusMap[this.getPasswordStatus()]}
+                    {this.renderPasswordProgress()}
+                    <div style={{ marginTop: 10 }}>
+                      请至少输入 6 个字符。请不要使用容易被猜到的密码。
+                    </div>
+                  </div>
+                }
+                overlayStyle={{ width: 240 }}
+                placement="right"
+                visible={this.state.visible}
+              >
+                {getFieldDecorator('password', {
+                  rules: [
+                    {
+                      validator: this.checkPassword,
+                    },
+                  ],
+                })(
+                  <Input
+                    size="large"
+                    type="password"
+                    placeholder="至少6位密码，可有数字和字母组成，区分大小写"
+                  />
+                )}
+              </Popover>
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator('confirm', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请确认密码！',
+                  },
+                  {
+                    validator: this.checkConfirm,
+                  },
+                ],
+              })(<Input size="large" type="password" placeholder="确认密码" />)}
+            </FormItem>
+            <FormItem>
+              <InputGroup compact>
+                <Select
                   size="large"
-                  style={{ width: '80%' }}
-                  placeholder="11位手机号"
-                />
-              )}
-            </InputGroup>
-          </FormItem>
+                  value={prefix}
+                  onChange={this.changePrefix}
+                  style={{ width: '20%' }}
+                >
+                  <Option value="86">+86</Option>
+                </Select>
+                {getFieldDecorator('mobile', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入手机号！',
+                    },
+                    {
+                      pattern: /^1\d{10}$/,
+                      message: '手机号格式错误！',
+                    },
+                  ],
+                })(
+                  <Input
+                    size="large"
+                    style={{ width: '80%' }}
+                    placeholder="11位手机号"
+                  />
+                )}
+              </InputGroup>
+            </FormItem>
 
-          <FormItem>
-            <Button
-              size="large"
-              loading={register.submitting}
-              className={styles.submit}
-              type="primary"
-              htmlType="submit"
-            >
-              注册
-            </Button>
-            <Link className={styles.login} to="/user/login">
-              使用已有账户登录
-            </Link>
-          </FormItem>
-        </Form>
+            <FormItem>
+              <Button
+                size="large"
+                loading={register.submitting}
+                className={styles.submit}
+                type="primary"
+                htmlType="submit"
+              >
+                注册
+              </Button>
+              <Link className={styles.login} to="/user/login">
+                使用已有账户登录
+              </Link>
+            </FormItem>
+          </Form>
+        </div>
       </div>
     );
   }
