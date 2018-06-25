@@ -26,7 +26,7 @@ class UserLayout extends React.PureComponent {
     const { pathname } = location;
     let title = 'DMCS Valley';
     if (routerData[pathname] && routerData[pathname].name) {
-      title = `${routerData[pathname].name} - Ant Design Pro`;
+      title = `${routerData[pathname].name} - DMCS Valley`;
     }
     return title;
   }
@@ -47,11 +47,31 @@ class UserLayout extends React.PureComponent {
               )
             )
           }
-          <GlobalFooter className={styles.footer} links={links} copyright={copyright} />
+          <GlobalFooter
+            className={styles.footer}
+            links={[{
+              title: '清华大学首页',
+              href: 'http://www.tsinghua.edu.cn/',
+              blankTarget: true,
+            }, {
+              title: 'GitHub',
+              href: 'https://github.com/chenning007/dmcs-h5',
+              blankTarget: true,
+            }, {
+              title: '清华大学精密仪器系',
+              href: 'http://www.tsinghua.edu.cn/publish/dpi/',
+              blankTarget: true,
+            }]}
+            copyright={
+              <div>
+                Copyright <Icon type="copyright" /> 2018 清华大学出品
+              </div>
+            }
+          />
         </div>
       </DocumentTitle>
     );
   }
 }
-
+//className={styles.footer}
 export default UserLayout;
