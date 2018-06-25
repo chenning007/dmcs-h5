@@ -102,79 +102,78 @@ export default class FirstPage extends PureComponent {
     )
   }
   render() {
-    //const { user: { list, loading } } = this.props;
     return (
       <div>
         <Layout>
-          <Header style={{background:'#f0f2f5'}}>
-            {this.showheader()}
+          <Header style={{marginTop:0 ,background:'#f0f2f5'}}>
+            <div>{this.showheader()}</div>
           </Header>
-          <Header style={{color:'#FFFAFA'}}>
-            {this.showheader_select()}
+          <Header style={{marginTop:0 ,width:'100%' , color:'#FFFAFA'}}>
+            <div>
+                      {/*<Row>
+                        <Col style={{width:'20%'}}>
+                          <Dropdown overlay={this.menu}>
+                            <Button style={{ marginLeft: 8 }}>
+                              Button <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </Col>
+                        <Col style={{width:'20%'}}>
+                          <Dropdown overlay={this.menu}>
+                            <Button style={{ marginLeft: 8 }}>
+                              Button <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </Col>
+                        <Col style={{width:'20%'}}>
+                          <Dropdown overlay={this.menu}>
+                            <Button style={{ marginLeft: 8 }}>
+                              Button <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </Col>
+                        <Col style={{width:'20%'}}>
+                          <Dropdown overlay={this.menu}>
+                            <Button style={{ marginLeft: 8 }}>
+                              Button <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </Col>
+                        <Col style={{width:'20%'}}>
+                          <Dropdown overlay={this.menu}>
+                            <Button style={{ marginLeft: 8 }}>
+                              Button <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </Col>
+                      </Row>*/}
+              <Menu
+                theme="dark"
+                mode="horizontal"
+                defaultSelectedKeys={['1']}
+                style={{ lineHeight: '64px' }}
+              >
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="1">关于我们</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="2">学术交流</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="3">科研成果</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="4">科研产品</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="6">关于我们</Menu.Item>
+              </Menu>
+            </div>
           </Header>
-          <Content>
-            content
-          </Content>
-          <Footer>
-            Footer
-          </Footer>
-        </Layout>
-        {/*<Row gutter={24}>
-          <Col span={8}>
-            <Card bordered={false}>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card bordered={false}>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card bordered={false}>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={24} style={{ marginTop: 24 }}>
-          <Col span={12}>
-            <Card bordered={false}>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-            </Card>
-          </Col>
-          <Col span={12}>
-            <Card bordered={false}>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-              <p>卡片内容</p>
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={24} style={{ marginTop: 24 }}>
-          <Col span={24}>
-            <Card
-              title="业务表格"
-              bordered={false}
-              extra={<Icon type="setting" />}
-            >
-            {/*  <Table dataSource={list} loading={loading} columns={columns} />*/}
-          {/*}  </Card>
-          </Col>
-        </Row>*/}
 
+          <Content style={{marginTop:8, textAlign: 'center'}}>
+            <img src="http://localhost:80/image/u108.png"/>
+          </Content>
+          {
+            /*<Footer>
+            Footer
+          </Footer>*/}
+
+        </Layout>  
       </div>
     );
   }
 }
 
-/*export default connect(state => ({
-  user: state.user,
-}))(Dashboard);*/
