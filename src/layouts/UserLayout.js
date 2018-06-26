@@ -35,42 +35,45 @@ class UserLayout extends React.PureComponent {
     const { routerData, match } = this.props;
     return (
       <DocumentTitle title={this.getPageTitle()}>
-        <Layout /*className={styles.container}*/>
-          <Content>
-          {
-            getRoutes(match.path, routerData).map(item =>
-              (
-                <Route
-                  key={item.key}
-                  path={item.path}
-                  component={item.component}
-                  exact={item.exact}
-                />
+        <Layout className={styles.container}>
+        
+          <Content /*style={{ margin: '24px 24px 0', height: '100%' }}*/>
+          <div style={{ minHeight: 'calc(100vh - 260px)' }}>
+            {
+              getRoutes(match.path, routerData).map(item =>
+                (
+                  <Route
+                    key={item.key}
+                    path={item.path}
+                    component={item.component}
+                    exact={item.exact}
+                  />
+                )
               )
-            )
-          }
-          </Content>
-          <GlobalFooter
-            className={styles.footer}
-            links={[{
-              title: '清华大学首页',
-              href: 'http://www.tsinghua.edu.cn/',
-              blankTarget: true,
-            }, {
-              title: 'GitHub',
-              href: 'https://github.com/chenning007/dmcs-h5',
-              blankTarget: true,
-            }, {
-              title: '清华大学精密仪器系',
-              href: 'http://www.tsinghua.edu.cn/publish/dpi/',
-              blankTarget: true,
-            }]}
-            copyright={
-              <div>
-                Copyright <Icon type="copyright" /> 2018 清华大学出品
-              </div>
             }
-          />
+          </div>
+            <GlobalFooter
+              /*className={styles.footer}*/
+              links={[{
+                title: '清华大学首页',
+                href: 'http://www.tsinghua.edu.cn/',
+                blankTarget: true,
+              }, {
+                title: 'GitHub',
+                href: 'https://github.com/chenning007/dmcs-h5',
+                blankTarget: true,
+              }, {
+                title: '清华大学精密仪器系',
+                href: 'http://www.tsinghua.edu.cn/publish/dpi/',
+                blankTarget: true,
+              }]}
+              copyright={
+                <div>
+                  Copyright <Icon type="copyright" /> 2018 清华大学出品
+                </div>
+              }
+            />
+          </Content>
         </Layout>
       </DocumentTitle>
     );
