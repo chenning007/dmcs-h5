@@ -105,48 +105,11 @@ export default class FirstPage extends PureComponent {
     return (
       <div>
         <Layout>
-          <Header style={{marginTop:0 ,background:'#f0f2f5'}}>
+          <Header style={{/*position: 'fixed', */marginTop:0 ,background:'#f0f2f5'}}>
             <div>{this.showheader()}</div>
           </Header>
-          <Header style={{marginTop:0 ,width:'100%' , color:'#FFFAFA'}}>
+          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' , color:'#FFFAFA'}}>
             <div>
-                      {/*<Row>
-                        <Col style={{width:'20%'}}>
-                          <Dropdown overlay={this.menu}>
-                            <Button style={{ marginLeft: 8 }}>
-                              Button <Icon type="down" />
-                            </Button>
-                          </Dropdown>
-                        </Col>
-                        <Col style={{width:'20%'}}>
-                          <Dropdown overlay={this.menu}>
-                            <Button style={{ marginLeft: 8 }}>
-                              Button <Icon type="down" />
-                            </Button>
-                          </Dropdown>
-                        </Col>
-                        <Col style={{width:'20%'}}>
-                          <Dropdown overlay={this.menu}>
-                            <Button style={{ marginLeft: 8 }}>
-                              Button <Icon type="down" />
-                            </Button>
-                          </Dropdown>
-                        </Col>
-                        <Col style={{width:'20%'}}>
-                          <Dropdown overlay={this.menu}>
-                            <Button style={{ marginLeft: 8 }}>
-                              Button <Icon type="down" />
-                            </Button>
-                          </Dropdown>
-                        </Col>
-                        <Col style={{width:'20%'}}>
-                          <Dropdown overlay={this.menu}>
-                            <Button style={{ marginLeft: 8 }}>
-                              Button <Icon type="down" />
-                            </Button>
-                          </Dropdown>
-                        </Col>
-                      </Row>*/}
               <Menu
                 theme="dark"
                 mode="horizontal"
@@ -156,20 +119,36 @@ export default class FirstPage extends PureComponent {
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="1">关于我们</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="2">学术交流</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="3">科研成果</Menu.Item>
-                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="4">科研产品</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
-                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="6">关于我们</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="6">关注更多</Menu.Item>
               </Menu>
             </div>
           </Header>
 
-          <Content style={{marginTop:8, textAlign: 'center'}}>
+          <Content style={{marginTop:72, textAlign: 'center'}}>
             <img src="http://localhost:80/image/u108.png"/>
+            <Card>
+              <Card title="关于我们">
+
+              </Card>
+              <Card title="学术交流">
+
+              </Card>
+              <Card title="科研成果">
+
+              </Card>
+              <Card title="设计案例">
+
+              </Card>
+              <Card title="合作方式">
+
+              </Card>
+              <Card title="关注更多">
+
+              </Card>
+            </Card>
           </Content>
-          {
-            /*<Footer>
-            Footer
-          </Footer>*/}
 
         </Layout>  
       </div>
