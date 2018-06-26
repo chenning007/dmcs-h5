@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, Route } from 'dva/router';
 import DocumentTitle from 'react-document-title';
-import { Icon } from 'antd';
+import { Icon, Layout } from 'antd';
 import GlobalFooter from '../components/GlobalFooter';
 import styles from './UserLayout.less';
 import logo from '../assets/logo.svg';
 import { getRoutes } from '../utils/utils';
 
+const {Content} = Layout;
 const links = [{
   title: '帮助',
   href: '',
@@ -34,7 +35,8 @@ class UserLayout extends React.PureComponent {
     const { routerData, match } = this.props;
     return (
       <DocumentTitle title={this.getPageTitle()}>
-        <div className={styles.container}>
+        <Layout /*className={styles.container}*/>
+          <Content>
           {
             getRoutes(match.path, routerData).map(item =>
               (
@@ -47,6 +49,7 @@ class UserLayout extends React.PureComponent {
               )
             )
           }
+          </Content>
           <GlobalFooter
             className={styles.footer}
             links={[{
@@ -68,7 +71,7 @@ class UserLayout extends React.PureComponent {
               </div>
             }
           />
-        </div>
+        </Layout>
       </DocumentTitle>
     );
   }
