@@ -74,7 +74,7 @@ export default class Login extends Component {
       <div style={{paddingTop:110 ,paddingRight:0 ,paddingBottom:144 ,paddingLeft:0}}/*className={styles.container}*/>
         <div className={styles.top}>
           <div className={styles.header}>
-            <Link to="/">
+            <Link to="/user/firstpage">
               <img alt="logo" className={styles.logo} src={logo} />
               <span className={styles.title}>DMCS Valley</span>
             </Link>
