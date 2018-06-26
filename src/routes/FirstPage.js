@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
+
+import { routerRedux, Route, Switch } from 'dva/router';
 import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown,Button,message } from 'antd';
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content} = Layout ;
+
 const columns = [{
   title: 'Name',
   dataIndex: 'name',
@@ -31,84 +34,32 @@ const columns = [{
   ),
 }];
 
+@connect(state => ({}))
 export default class FirstPage extends PureComponent {
-  /*componentDidMount() {
-    this.props.dispatch({
-      type: 'user/fetch',
-    });
-  }*/
-  
-  handleMenuClick(e){
-    return;
+
+  changeRouterLogin() {
+    const { dispatch }=this.props;
+    dispatch(routerRedux.push(`login`));
   }
 
-  menu = (
-    <Menu onClick={this.handleMenuClick}>
-      <Menu.Item key="1">1st menu item</Menu.Item>
-      <Menu.Item key="2">2nd menu item</Menu.Item>
-      <Menu.Item key="3">3rd item</Menu.Item>
-    </Menu>
-  );
-
-  showheader() {
-    return (
-      <div>
-        <Button type='primary'>登录</Button>
-        <Divider type='vertical'/>
-        <Button type='primary'>注册</Button>
-      </div>
-    );
+  changeRouterRegister(){
+    const { dispatch }=this.props;
+    dispatch(routerRedux.push(`register`));
   }
 
-  showheader_select() {
-    return(
-      <Row>
-        <Col style={{width:'20%'}}>
-          <Dropdown overlay={this.menu}>
-            <Button style={{ marginLeft: 8 }}>
-              Button <Icon type="down" />
-            </Button>
-          </Dropdown>
-        </Col>
-        <Col style={{width:'20%'}}>
-          <Dropdown overlay={this.menu}>
-            <Button style={{ marginLeft: 8 }}>
-              Button <Icon type="down" />
-            </Button>
-          </Dropdown>
-        </Col>
-        <Col style={{width:'20%'}}>
-          <Dropdown overlay={this.menu}>
-            <Button style={{ marginLeft: 8 }}>
-              Button <Icon type="down" />
-            </Button>
-          </Dropdown>
-        </Col>
-        <Col style={{width:'20%'}}>
-          <Dropdown overlay={this.menu}>
-            <Button style={{ marginLeft: 8 }}>
-              Button <Icon type="down" />
-            </Button>
-          </Dropdown>
-        </Col>
-        <Col style={{width:'20%'}}>
-          <Dropdown overlay={this.menu}>
-            <Button style={{ marginLeft: 8 }}>
-              Button <Icon type="down" />
-            </Button>
-          </Dropdown>
-        </Col>
-      </Row>
-    )
-  }
   render() {
     return (
       <div>
         <Layout>
-          <Header style={{/*position: 'fixed', */marginTop:0 ,background:'#f0f2f5'}}>
-            <div>{this.showheader()}</div>
+          <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
+            <img src="http://localhost:80/image/u110.png"/>
+            <div style={{float: 'right'}}>
+              <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
+              <Divider type='vertical'/>
+              <Button type='primary' onClick={()=>this.changeRouterRegister()}>注册</Button>
+            </div>
           </Header>
-          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' , color:'#FFFAFA'}}>
+          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , color:'#FFFAFA'}}>
             <div>
               <Menu
                 theme="dark"
@@ -126,30 +77,29 @@ export default class FirstPage extends PureComponent {
             </div>
           </Header>
 
-          <Content style={{marginTop:72, textAlign: 'center'}}>
+          <Content style={{marginTop:128, width: '100%', textAlign: 'center'}}>
             <img src="http://localhost:80/image/u108.png"/>
-            <Card>
-              <Card title="关于我们">
-
+            <Card style={{zIndex:0}}>
+              <Card title={<span><Icon type="question-circle-o"/>&nbsp;&nbsp;关于我们</span>} style={{marginBottom:24}}>
+                <img src="http://localhost:80/image/u110.png"/>
               </Card>
-              <Card title="学术交流">
-
+              <Card title={<span><img style={{width:'2%'}} src="http://localhost:80/image/u2327.png"/>&nbsp;&nbsp;学术交流</span>} style={{marginBottom:24}}>
+                <img src="http://localhost:80/image/u110.png"/>
               </Card>
-              <Card title="科研成果">
-
+              <Card title={<span><img src="http://localhost:80/image/u26.png"/>&nbsp;&nbsp;科研成果</span>} style={{marginBottom:24}}>
+                <img src="http://localhost:80/image/u110.png"/> 
               </Card>
-              <Card title="设计案例">
-
+              <Card title={<span><img src="http://localhost:80/image/u26.png"/>&nbsp;&nbsp;设计案例</span>} style={{marginBottom:24}}>
+                <img src="http://localhost:80/image/u2699.png"style={{width:'20%'}}/>
               </Card>
-              <Card title="合作方式">
-
+              <Card title={<span><img src="http://localhost:80/image/u34.png"/>&nbsp;&nbsp;合作方式</span>}>
+                <img src="http://localhost:80/image/u2443.png"style={{width:'50%'}}/>
               </Card>
-              <Card title="关注更多">
-
+              <Card title={<span><img src="http://localhost:80/image/u34.png"/>&nbsp;&nbsp;关注更多</span>}>
+                <img src="http://localhost:80/image/u2416.png"style={{width:'50%'}}/> 
               </Card>
             </Card>
           </Content>
-
         </Layout>  
       </div>
     );
