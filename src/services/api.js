@@ -69,14 +69,14 @@ export async function queryDeviceList(params) {
 }
 
 export async function accountLogin(params) {
-  return request('/api/v1/user/login', {
+  return request('http://localhost:8080/api/v1/user/login', {
     method: 'POST',
     body: params,
   });
 }
 
 export async function register(params) {
-  return request('/api/v1/user/register', {
+  return request('http://localhost:8080/api/v1/user/register', {
     method: 'POST',
     body: params,
   });
