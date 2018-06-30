@@ -52,7 +52,7 @@ export default class FirstPage extends PureComponent {
       <div>
         <Layout>
           <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
-            <img src="http://127.0.0.1:80/image/u110.png"/>
+            <img src="http://47.92.126.195:80/image/u110.png"/>
             <div style={{float: 'right'}}>
               <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
               <Divider type='vertical'/>
@@ -78,25 +78,25 @@ export default class FirstPage extends PureComponent {
           </Header>
 
           <Content style={{marginTop:128, width: '100%', textAlign: 'center'}}>
-            <img src="http://127.0.0.1:80/image/u108.png"/>
+            <img src="http://47.92.126.195:80/image/u108.png"/>
             <Card style={{zIndex:0}}>
               <Card title={<span><Icon type="question-circle-o"/>&nbsp;&nbsp;关于我们</span>} style={{marginBottom:24}}>
-                <img src="http://127.0.0.1:80/image/u110.png"/>
+                <img src="http://47.92.126.195:80/image/u110.png"/>
               </Card>
-              <Card title={<span><img style={{width:'2%'}} src="http://127.0.0.1:80/image/u2327.png"/>&nbsp;&nbsp;学术交流</span>} style={{marginBottom:24}}>
-                <img src="http://127.0.0.1:80/image/u110.png"/>
+              <Card title={<span><img style={{width:'2%'}} src="http://47.92.126.195:80/image/u2327.png"/>&nbsp;&nbsp;学术交流</span>} style={{marginBottom:24}}>
+                <img src="http://47.92.126.195:80/image/u110.png"/>
               </Card>
-              <Card title={<span><img src="http://127.0.0.1:80/image/u26.png"/>&nbsp;&nbsp;科研成果</span>} style={{marginBottom:24}}>
-                <img src="http://127.0.0.1:80/image/u110.png"/> 
+              <Card title={<span><img src="http://47.92.126.195:80/image/u26.png"/>&nbsp;&nbsp;科研成果</span>} style={{marginBottom:24}}>
+                <img src="http://47.92.126.195:80/image/u110.png"/> 
               </Card>
-              <Card title={<span><img src="http://127.0.0.1:80/image/u26.png"/>&nbsp;&nbsp;设计案例</span>} style={{marginBottom:24}}>
-                <img src="http://127.0.0.1:80/image/u2699.png"style={{width:'20%'}}/>
+              <Card title={<span><img src="http://47.92.126.195:80/image/u26.png"/>&nbsp;&nbsp;设计案例</span>} style={{marginBottom:24}}>
+                <img src="http://47.92.126.195:80/image/u2699.png"style={{width:'20%'}}/>
               </Card>
-              <Card title={<span><img src="http://127.0.0.1:80/image/u34.png"/>&nbsp;&nbsp;合作方式</span>}>
-                <img src="http://127.0.0.1:80/image/u2443.png"style={{width:'50%'}}/>
+              <Card title={<span><img src="http://47.92.126.195:80/image/u34.png"/>&nbsp;&nbsp;合作方式</span>}>
+                <img src="http://47.92.126.195:80/image/u2443.png"style={{width:'50%'}}/>
               </Card>
-              <Card title={<span><img src="http://127.0.0.1:80/image/u34.png"/>&nbsp;&nbsp;关注更多</span>}>
-                <img src="http://127.0.0.1:80/image/u2416.png"style={{width:'50%'}}/> 
+              <Card title={<span><img src="http://47.92.126.195:80/image/u34.png"/>&nbsp;&nbsp;关注更多</span>}>
+                <img src="http://47.92.126.195:80/image/u2416.png"style={{width:'50%'}}/> 
               </Card>
             </Card>
           </Content>
