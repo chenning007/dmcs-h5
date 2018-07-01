@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 
 import { routerRedux, Route, Switch } from 'dva/router';
-import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown,Button,message } from 'antd';
+import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown,Button,message, Avatar } from 'antd';
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content} = Layout ;
 
@@ -52,7 +52,8 @@ export default class FirstPage extends PureComponent {
       <div>
         <Layout>
           <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
-            <img src="http://47.92.126.195:80/image/u110.png"/>
+            <img style={{marginLeft:-56,}}src="http://47.92.126.195:80/image/u110.png"/>
+
             <div style={{float: 'right'}}>
               <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
               <Divider type='vertical'/>
