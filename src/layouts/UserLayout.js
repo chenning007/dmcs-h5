@@ -52,8 +52,8 @@ class UserLayout extends React.PureComponent {
               )
             }
           </div>
+          
             <GlobalFooter
-              style={{background:'#000000'}}
               links={[{
                 title: '清华大学首页',
                 href: 'http://www.tsinghua.edu.cn/',
@@ -73,6 +73,7 @@ class UserLayout extends React.PureComponent {
                 </div>
               }
             />
+          
           </Content>
         </Layout>
       </DocumentTitle>

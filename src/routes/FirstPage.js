@@ -55,15 +55,14 @@ export default class FirstPage extends PureComponent {
         <Layout>
           <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
             <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/u110.png" alt='logo'/>
-
             <div style={{float: 'right'}} >
-                <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
-                <Divider type='vertical'/>
-                <Button type='primary' /*style={{marginRight:0}}*/ onClick={()=>this.changeRouterRegister()}>注册</Button>
-                <Search
-                  placeholder="input search text"
-                  style={{width:'40%',marginLeft:120}}/> 
-                </div>
+              <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
+              <Divider type='vertical'/>
+              <Button type='primary' /*style={{marginRight:0}}*/ onClick={()=>this.changeRouterRegister()}>注册</Button>
+              <Search
+                placeholder="input search text"
+                style={{width:'40%',marginLeft:120}}/> 
+            </div>
             {/*<Search
               placeholder="input search text"
               style={{width:'20%',marginLeft:160}} 
@@ -77,12 +76,12 @@ export default class FirstPage extends PureComponent {
                 defaultSelectedKeys={['1']}
                 style={{ lineHeight: '64px' }}
               >
-                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="1">关于我们</Menu.Item>
-                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="2">学术交流</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="1">DMCS简介</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="2">解决方案</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="3">科研成果</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
-                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="6">关注更多</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
               </Menu>
             </div>
           </Header>
@@ -91,7 +90,7 @@ export default class FirstPage extends PureComponent {
             <img src="http://47.92.126.195:80/image/u108.png" style={{width:'100%'}}/>
             <div style={{zIndex:0}}>
               <div style={{ background:'#f0f2f5'}} >
-                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}><Icon type="question-circle-o"/>&nbsp;&nbsp;关于我们</div>
+                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</div>
                 <img style={{marginBottom:20, marginLeft:4}}src="http://47.92.126.195:80/image/u110.png" alt='picture'/>
               </div>
               <div style={{background:'#ffffff'}}>
