@@ -69,8 +69,19 @@ export default class FirstPage extends PureComponent {
     const { dispatch }=this.props;
     dispatch(routerRedux.push(`register`));
   }
-
+  /***************************/
+  loadmore() {
+    const { dispatch }=this.props;
+    dispatch(routerRedux.push(`login`));
+  }
   render() {
+    const loadMore = (
+      <div>
+        <Button type='primary' onClick={() => this.loadmore()}>
+          更多
+        </Button>
+      </div>
+    );
     return (
       <div>
         <Layout>
@@ -103,11 +114,36 @@ export default class FirstPage extends PureComponent {
             </div>
           </Header>
 
-          <Content style={{marginTop:128, width: '100%', /*textAlign: 'center'*/}}>
+          <Content style={{marginTop:128, width: '100%', textAlign: 'center'}}>
             <img src="http://47.92.126.195:80/image/u108.png" style={{width:'100%'}}/>
             <div style={{zIndex:0}}>
               <div style={{ background:'#f0f2f5', }} >
-                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</div>
+                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</div>
+                <Row>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24}>
+                    <Card bordered={false}/>
+                  </Col>
+                  <Col xl={20} lg={12} md={12} sm={24} xs={24}>
+                    <List 
+                    loadMore={loadMore}
+                    grid={{ gutter: 16, lg: 4, md: 2, sm: 1, xs: 1 }}
+                    dataSource={design_exam}
+                    renderItem={item => (
+                    <List.Item key={item.key}>
+                      <Card cover={<img alt='cover' src={item.src}/>}>
+                        <Meta description={item.description}/>
+                      </Card>
+                    </List.Item>)}
+                    />
+                  </Col>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
+                </Row>
+              </div>
+              <div style={{background:'#ffffff'}}>
+                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
+                  <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u2327.png"/>
+                  &nbsp;&nbsp;学术交流
+                </div>
                 <Row>
                   <Col xl={2} lg={12} md={12} sm={24} xs={24} />
                   <Col xl={20} lg={12} md={12} sm={24} xs={24}>
@@ -125,33 +161,70 @@ export default class FirstPage extends PureComponent {
                   <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
                 </Row>
               </div>
-              <div style={{background:'#ffffff'}}>
-                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
-                  <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u2327.png"/>
-                  &nbsp;&nbsp;学术交流
-                </div>
-                <img style={{marginBottom:20, marginLeft:4,}}src="http://47.92.126.195:80/image/u110.png"/>
-              </div>
               <div style={{ background:'#f0f2f5'}}>
-                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
+                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
                   <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u26.png"/>
                   &nbsp;&nbsp;科研成果
                 </div>
-                <img style={{marginBottom:20, marginLeft:4,}}src="http://47.92.126.195:80/image/u110.png"/>
+                <Row>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24} />
+                  <Col xl={20} lg={12} md={12} sm={24} xs={24}>
+                    <List 
+                    grid={{ gutter: 16, column: 4 }}
+                    dataSource={design_exam}
+                    renderItem={item => (
+                    <List.Item key={item.key}>
+                      <Card cover={<img alt='cover' src={item.src}/>}>
+                        <Meta description={item.description}/>
+                      </Card>
+                    </List.Item>)}
+                    />
+                  </Col>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
+                </Row>
               </div>
               <div style={{ background:'#ffffff'}}>
-                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
+                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
                   <img src="http://47.92.126.195:80/image/u26.png"/>
                   &nbsp;&nbsp;设计案例
                 </div>
-                <img src="http://47.92.126.195:80/image/u2699.png" style={{marginBottom:20, marginLeft:4,width:'20%'}}/>
+                <Row>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24} />
+                  <Col xl={20} lg={12} md={12} sm={24} xs={24}>
+                    <List 
+                    grid={{ gutter: 16, column: 4 }}
+                    dataSource={design_exam}
+                    renderItem={item => (
+                    <List.Item key={item.key}>
+                      <Card cover={<img alt='cover' src={item.src}/>}>
+                        <Meta description={item.description}/>
+                      </Card>
+                    </List.Item>)}
+                    />
+                  </Col>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
+                </Row>
               </div>
               <div style={{ background:'#f0f2f5'}}>
-                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
+                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
                   <img src="http://47.92.126.195:80/image/u34.png"/>
                   &nbsp;&nbsp;合作方式
                 </div>
-                <img src="http://47.92.126.195:80/image/u2443.png" style={{marginBottom:20, marginLeft:4, width:'50%'}}/>
+                <Row>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24} />
+                  <Col xl={20} lg={12} md={12} sm={24} xs={24}>
+                    <List 
+                    grid={{ gutter: 16, column: 4 }}
+                    dataSource={design_exam}
+                    renderItem={item => (
+                    <List.Item key={item.key}>
+                      <Card cover={<img alt='cover' src={item.src}/>}>
+                        <Meta description={item.description}/>
+                      </Card>
+                    </List.Item>)}
+                    />
+                  </Col>
+                </Row>
               </div>
             </div>
           </Content>
