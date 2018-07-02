@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 
 import { routerRedux, Route, Switch } from 'dva/router';
-import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown,Button,message, Avatar, Input } from 'antd';
+import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown, Button, Input, List } from 'antd';
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content} = Layout ;
 const {Meta} = Card;
@@ -48,11 +48,11 @@ const design_exam = [{
   key: 4,
   src: 'http://47.92.126.195:80/image/shili4.png',
   description: 'IPT22105/22106 IPCAN电源转换节点', 
-  },{
+  },/*{
   key: 5,
   src: 'http://47.92.126.195:80/image/shili5.png',  
   description: 'IPT70540 PCB表贴植锡丝印台',
-  }
+  }*/
 ];
  
 const Search = Input.Search;
@@ -84,10 +84,6 @@ export default class FirstPage extends PureComponent {
                 placeholder="input search text"
                 style={{width:'40%',marginLeft:120}}/> 
             </div>
-            {/*<Search
-              placeholder="input search text"
-              style={{width:'20%',marginLeft:160}} 
-            />*/}
           </Header>
           <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
             <div>
@@ -112,14 +108,22 @@ export default class FirstPage extends PureComponent {
             <div style={{zIndex:0}}>
               <div style={{ background:'#f0f2f5', }} >
                 <div style={{fontSize:24,marginBottom:4, marginLeft:4}}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</div>
-                {/*<img style={{marginBottom:20, marginLeft:4}}src="http://47.92.126.195:80/image/u110.png" alt='picture'/>*/}
-                {design_exam.map(item=>(
-                  <Card id ={item.key} cover={<img alt='cover' src={item.src}/>}>
-                    <Meta description={item.description}
+                <Row>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24} />
+                  <Col xl={20} lg={12} md={12} sm={24} xs={24}>
+                    <List 
+                    grid={{ gutter: 16, column: 4 }}
+                    dataSource={design_exam}
+                    renderItem={item => (
+                    <List.Item key={item.key}>
+                      <Card cover={<img alt='cover' src={item.src}/>}>
+                        <Meta description={item.description}/>
+                      </Card>
+                    </List.Item>)}
                     />
-                  </Card>
-                ))}
-
+                  </Col>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
+                </Row>
               </div>
               <div style={{background:'#ffffff'}}>
                 <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
