@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 
 import { routerRedux, Route, Switch } from 'dva/router';
-import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown,Button,message, Avatar } from 'antd';
+import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown,Button,message, Avatar, Input } from 'antd';
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content} = Layout ;
 
@@ -33,6 +33,8 @@ const columns = [{
     </span>
   ),
 }];
+ 
+const Search = Input.Search;
 
 @connect(state => ({}))
 export default class FirstPage extends PureComponent {
@@ -52,18 +54,25 @@ export default class FirstPage extends PureComponent {
       <div>
         <Layout>
           <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
-            <img style={{marginLeft:-56,}}src="http://47.92.126.195:80/image/u110.png"/>
+            <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/u110.png" alt='logo'/>
 
-            <div style={{float: 'right'}}>
-              <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
-              <Divider type='vertical'/>
-              <Button type='primary' onClick={()=>this.changeRouterRegister()}>注册</Button>
-            </div>
+            <div style={{float: 'right'}} >
+                <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
+                <Divider type='vertical'/>
+                <Button type='primary' /*style={{marginRight:0}}*/ onClick={()=>this.changeRouterRegister()}>注册</Button>
+                <Search
+                  placeholder="input search text"
+                  style={{width:'40%',marginLeft:120}}/> 
+                </div>
+            {/*<Search
+              placeholder="input search text"
+              style={{width:'20%',marginLeft:160}} 
+            />*/}
           </Header>
-          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , color:'#FFFAFA'}}>
+          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
             <div>
               <Menu
-                theme="dark"
+                theme="black"
                 mode="horizontal"
                 defaultSelectedKeys={['1']}
                 style={{ lineHeight: '64px' }}
@@ -78,28 +87,42 @@ export default class FirstPage extends PureComponent {
             </div>
           </Header>
 
-          <Content style={{marginTop:128, width: '100%', textAlign: 'center'}}>
-            <img src="http://47.92.126.195:80/image/u108.png"/>
-            <Card style={{zIndex:0}}>
-              <Card title={<span><Icon type="question-circle-o"/>&nbsp;&nbsp;关于我们</span>} style={{marginBottom:24}}>
-                <img src="http://47.92.126.195:80/image/u110.png"/>
-              </Card>
-              <Card title={<span><img style={{width:'2%'}} src="http://47.92.126.195:80/image/u2327.png"/>&nbsp;&nbsp;学术交流</span>} style={{marginBottom:24}}>
-                <img src="http://47.92.126.195:80/image/u110.png"/>
-              </Card>
-              <Card title={<span><img src="http://47.92.126.195:80/image/u26.png"/>&nbsp;&nbsp;科研成果</span>} style={{marginBottom:24}}>
-                <img src="http://47.92.126.195:80/image/u110.png"/> 
-              </Card>
-              <Card title={<span><img src="http://47.92.126.195:80/image/u26.png"/>&nbsp;&nbsp;设计案例</span>} style={{marginBottom:24}}>
-                <img src="http://47.92.126.195:80/image/u2699.png"style={{width:'20%'}}/>
-              </Card>
-              <Card title={<span><img src="http://47.92.126.195:80/image/u34.png"/>&nbsp;&nbsp;合作方式</span>}>
-                <img src="http://47.92.126.195:80/image/u2443.png"style={{width:'50%'}}/>
-              </Card>
-              <Card title={<span><img src="http://47.92.126.195:80/image/u34.png"/>&nbsp;&nbsp;关注更多</span>}>
-                <img src="http://47.92.126.195:80/image/u2416.png"style={{width:'50%'}}/> 
-              </Card>
-            </Card>
+          <Content style={{marginTop:128, width: '100%', /*textAlign: 'center'*/}}>
+            <img src="http://47.92.126.195:80/image/u108.png" style={{width:'100%'}}/>
+            <div style={{zIndex:0}}>
+              <div style={{ background:'#f0f2f5'}} >
+                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}><Icon type="question-circle-o"/>&nbsp;&nbsp;关于我们</div>
+                <img style={{marginBottom:20, marginLeft:4}}src="http://47.92.126.195:80/image/u110.png" alt='picture'/>
+              </div>
+              <div style={{background:'#ffffff'}}>
+                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
+                  <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u2327.png"/>
+                  &nbsp;&nbsp;学术交流
+                </div>
+                <img style={{marginBottom:20, marginLeft:4,}}src="http://47.92.126.195:80/image/u110.png"/>
+              </div>
+              <div style={{ background:'#f0f2f5'}}>
+                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
+                  <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u26.png"/>
+                  &nbsp;&nbsp;科研成果
+                </div>
+                <img style={{marginBottom:20, marginLeft:4,}}src="http://47.92.126.195:80/image/u110.png"/>
+              </div>
+              <div style={{ background:'#ffffff'}}>
+                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
+                  <img src="http://47.92.126.195:80/image/u26.png"/>
+                  &nbsp;&nbsp;设计案例
+                </div>
+                <img src="http://47.92.126.195:80/image/u2699.png" style={{marginBottom:20, marginLeft:4,width:'20%'}}/>
+              </div>
+              <div style={{ background:'#f0f2f5'}}>
+                <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
+                  <img src="http://47.92.126.195:80/image/u34.png"/>
+                  &nbsp;&nbsp;合作方式
+                </div>
+                <img src="http://47.92.126.195:80/image/u2443.png" style={{marginBottom:20, marginLeft:4, width:'50%'}}/>
+              </div>
+            </div>
           </Content>
         </Layout>  
       </div>
