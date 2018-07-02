@@ -5,6 +5,7 @@ import { routerRedux, Route, Switch } from 'dva/router';
 import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown,Button,message, Avatar, Input } from 'antd';
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content} = Layout ;
+const {Meta} = Card;
 
 const columns = [{
   title: 'Name',
@@ -33,6 +34,26 @@ const columns = [{
     </span>
   ),
 }];
+const design_exam = [{
+  key: 1, 
+  src: 'http://47.92.126.195:80/image/shili1.png',
+  description: 'IPT70135/6/7测控节点电路封装盒',},{
+  key: 2,
+  src: 'http://47.92.126.195:80/image/shili2.png',
+  description: 'IPT10533/10550 3.3V/5.0V输出非隔离式电源转换模块',},{
+  key: 3,
+  src: 'http://47.92.126.195:80/image/shili3.png',
+  description: 'IPT12105 IPCAN总线供电转换模块',
+  },{
+  key: 4,
+  src: 'http://47.92.126.195:80/image/shili4.png',
+  description: 'IPT22105/22106 IPCAN电源转换节点', 
+  },{
+  key: 5,
+  src: 'http://47.92.126.195:80/image/shili5.png',  
+  description: 'IPT70540 PCB表贴植锡丝印台',
+  }
+];
  
 const Search = Input.Search;
 
@@ -89,9 +110,16 @@ export default class FirstPage extends PureComponent {
           <Content style={{marginTop:128, width: '100%', /*textAlign: 'center'*/}}>
             <img src="http://47.92.126.195:80/image/u108.png" style={{width:'100%'}}/>
             <div style={{zIndex:0}}>
-              <div style={{ background:'#f0f2f5'}} >
+              <div style={{ background:'#f0f2f5', }} >
                 <div style={{fontSize:24,marginBottom:4, marginLeft:4}}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</div>
-                <img style={{marginBottom:20, marginLeft:4}}src="http://47.92.126.195:80/image/u110.png" alt='picture'/>
+                {/*<img style={{marginBottom:20, marginLeft:4}}src="http://47.92.126.195:80/image/u110.png" alt='picture'/>*/}
+                {design_exam.map(item=>(
+                  <Card id ={item.key} cover={<img alt='cover' src={item.src}/>}>
+                    <Meta description={item.description}
+                    />
+                  </Card>
+                ))}
+
               </div>
               <div style={{background:'#ffffff'}}>
                 <div style={{fontSize:24,marginBottom:4, marginLeft:4}}>
