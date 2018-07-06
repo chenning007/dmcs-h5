@@ -12,46 +12,53 @@ const {Meta} = Card;
 export default class Pageinfo extends PureComponent {
     /**this.props.location.state. */
     /********* */
-    Menu_key(e) {
+    Menu_key = (e) => {
         const { dispatch } = this.props;
+    
         switch(e.key){
-          case 1: {
+          case '1': {
             dispatch(routerRedux.push({
-              pathname: 'user/pageinfo',
+              pathname: 'firstpage',
               state:{
-                key:1,
+                key:'1',
               }
             }));
+            break;
           };
-          case 2: {
+          case '2': {
             dispatch(routerRedux.push({
-              pathname: 'user/pagelist',
+              pathname: 'pageinfo',
               state:{
-                key:2,
+                key:'2',
               }
             }));
+            break;
           };
           case 3: {
             dispatch(routerRedux.push({
-              pathname: 'user/pagelist',
+              pathname: 'pagelist',
               state:{
-                key:3,
+                key:'3',
               }
             }));
+            break;
           };
           case 4: {
             dispatch(routerRedux.push({
-              pathname: 'user/pagelist',
+              pathname: 'pagelist',
               state:{
-                key:4,
+                key:'4',
               }
             }));
+            break;
           };
+          default: break;
         }
     }
 
     render() {
         const { key = 1 } = this.props.location.state===undefined ? 1:this.props.location.state;
+        
         return(
             <Layout>
                 <Header style={{position: 'fixed', marginTop:8 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
@@ -59,7 +66,7 @@ export default class Pageinfo extends PureComponent {
                         <Menu
                             theme="black"
                             mode="horizontal"
-                            defaultSelectedKeys={[`key`]}
+                            defaultSelectedKeys={[key]}
                             style={{ lineHeight: '64px' }}
                             onClick={this.Menu_key}
                         >
