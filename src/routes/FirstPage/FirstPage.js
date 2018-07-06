@@ -85,7 +85,7 @@ export default class FirstPage extends PureComponent {
     switch(type){
       case 1: {
         dispatch(routerRedux.push({
-          pathname: 'user/pageinfo',
+          pathname: 'pageinfo',
           state:{
             key: 1,
             content: 'no',
@@ -94,7 +94,7 @@ export default class FirstPage extends PureComponent {
       };
       case 2: {
         dispatch(routerRedux.push({
-          pathname: 'user/pagelist',
+          pathname: 'pagelist',
           state:{
             key: 2,
           }
@@ -102,7 +102,7 @@ export default class FirstPage extends PureComponent {
       };
       case 3: {
         dispatch(routerRedux.push({
-          pathname: 'user/pagelist',
+          pathname: 'pagelist',
           state:{
             key: 3,
           }
@@ -110,7 +110,7 @@ export default class FirstPage extends PureComponent {
       };
       case 4: {
         dispatch(routerRedux.push({
-          pathname: 'user/pagelist',
+          pathname: 'pagelist',
           state:{
             key: 4,
           }
@@ -119,41 +119,47 @@ export default class FirstPage extends PureComponent {
     }
   }
   
-  Menu_key(e) {
+  Menu_key = (e) => {
     const { dispatch } = this.props;
+
     switch(e.key){
-      case 1: {
+      case '1': {
         dispatch(routerRedux.push({
-          pathname: 'user/pageinfo',
+          pathname: 'firstpage',
           state:{
-            key:1,
+            key:'1',
           }
         }));
+        break;
       };
-      case 2: {
+      case '2': {
         dispatch(routerRedux.push({
-          pathname: 'user/pagelist',
+          pathname: 'pageinfo',
           state:{
-            key:2,
+            key:'2',
           }
         }));
+        break;
       };
       case 3: {
         dispatch(routerRedux.push({
-          pathname: 'user/pagelist',
+          pathname: 'pagelist',
           state:{
-            key:3,
+            key:'3',
           }
         }));
+        break;
       };
       case 4: {
         dispatch(routerRedux.push({
-          pathname: 'user/pagelist',
+          pathname: 'pagelist',
           state:{
-            key:4,
+            key:'4',
           }
         }));
+        break;
       };
+      default: break;
     }
   }
 
@@ -182,9 +188,9 @@ export default class FirstPage extends PureComponent {
                 style={{ lineHeight: '64px' }}
                 onClick={this.Menu_key}
               >
-                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="1">DMCS简介</Menu.Item>
-                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="2">解决方案</Menu.Item>
-                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="3">科研成果</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key='1'>DMCS简介</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key='2'>解决方案</Menu.Item>
+                <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key='3'>科研成果</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
