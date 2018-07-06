@@ -8,7 +8,7 @@ import styles from './FirstPage.less';
 const { Header, Footer, Sider, Content} = Layout ;
 const {Meta} = Card;
 
-const columns = [{
+/*const columns = [{
   title: 'Name',
   dataIndex: 'name',
   key: 'name',
@@ -34,7 +34,7 @@ const columns = [{
       </a>
     </span>
   ),
-}];
+}];*/
 const design_exam = [{
   key: 1, 
   src: 'http://47.92.126.195:80/image/shili1.png',
@@ -80,19 +80,84 @@ export default class FirstPage extends PureComponent {
     dispatch(routerRedux.push(`register`));
   }
   /***************************/
-  loadmore() {
+  loadmore(type) {
     const { dispatch }=this.props;
-    dispatch(routerRedux.push(`login`));
+    switch(type){
+      case 1: {
+        dispatch(routerRedux.push({
+          pathname: 'user/pageinfo',
+          state:{
+            key: 1,
+            content: 'no',
+          }
+        }));
+      };
+      case 2: {
+        dispatch(routerRedux.push({
+          pathname: 'user/pagelist',
+          state:{
+            key: 2,
+          }
+        }));
+      };
+      case 3: {
+        dispatch(routerRedux.push({
+          pathname: 'user/pagelist',
+          state:{
+            key: 3,
+          }
+        }));
+      };
+      case 4: {
+        dispatch(routerRedux.push({
+          pathname: 'user/pagelist',
+          state:{
+            key: 4,
+          }
+        }));
+      };
+    }
   }
+  
+  Menu_key(e) {
+    const { dispatch } = this.props;
+    switch(e.key){
+      case 1: {
+        dispatch(routerRedux.push({
+          pathname: 'user/pageinfo',
+          state:{
+            key:1,
+          }
+        }));
+      };
+      case 2: {
+        dispatch(routerRedux.push({
+          pathname: 'user/pagelist',
+          state:{
+            key:2,
+          }
+        }));
+      };
+      case 3: {
+        dispatch(routerRedux.push({
+          pathname: 'user/pagelist',
+          state:{
+            key:3,
+          }
+        }));
+      };
+      case 4: {
+        dispatch(routerRedux.push({
+          pathname: 'user/pagelist',
+          state:{
+            key:4,
+          }
+        }));
+      };
+    }
+  }
+
   render() {
-    const loadMore = (
-      <div>
-        <Button type='primary' onClick={() => this.loadmore()}>
-          <Icon type="plus" />
-          更多
-        </Button>
-      </div>
-    );
     return (
       <div>
         <Layout>
@@ -107,6 +172,7 @@ export default class FirstPage extends PureComponent {
                 style={{width:'40%',marginLeft:120}}/> 
             </div>
           </Header>
+
           <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
             <div>
               <Menu
@@ -114,6 +180,7 @@ export default class FirstPage extends PureComponent {
                 mode="horizontal"
                 defaultSelectedKeys={['1']}
                 style={{ lineHeight: '64px' }}
+                onClick={this.Menu_key}
               >
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="1">DMCS简介</Menu.Item>
                 <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="2">解决方案</Menu.Item>
@@ -131,7 +198,14 @@ export default class FirstPage extends PureComponent {
               <div style={{ background:'#f0f2f5', }} >
                 <div style={{marginBottom: 8, marginTop: 16 }}>
                   <span style={{fontSize:28}}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</span>
-                  <span style={{float:'right' ,marginRight: 16}}>{loadMore}</span>
+                  <span style={{float:'right' ,marginRight: 16}}>
+                    <div>
+                      <Button type='primary' onClick={() => this.loadmore(1)}>
+                        <Icon type="plus" />
+                        更多
+                      </Button>
+                    </div>
+                  </span>
                 </div>  
                 <Row>
                   <Col xl={2} lg={12} md={12} sm={24} xs={24}>
