@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import { routerRedux, Route, Switch } from 'dva/router';
 import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown, Button, Input, List } from 'antd';
 import { Layout } from 'antd';
+import styles from './FirstPage.less';
 const { Header, Footer, Sider, Content} = Layout ;
 const {Meta} = Card;
 
@@ -40,7 +41,7 @@ const design_exam = [{
   description: 'IPT70135/6/7测控节点电路封装盒',},{
   key: 2,
   src: 'http://47.92.126.195:80/image/shili2.png',
-  description: 'IPT10533/10550 3.3V/5.0V输出非隔离式电源转换模块',},{
+  description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换模块',},{
   key: 3,
   src: 'http://47.92.126.195:80/image/shili3.png',
   description: 'IPT12105 IPCAN总线供电转换模块',
@@ -55,8 +56,16 @@ const design_exam = [{
   }*/
 ];
  
+
 const Search = Input.Search;
 
+/*function trans_description(description) {
+　return(
+  <div style={{display:, WebkitLineClamp:2,}}>
+    {description}
+  </div>
+);
+}*/
 @connect(state => ({}))
 export default class FirstPage extends PureComponent {
 
@@ -64,6 +73,7 @@ export default class FirstPage extends PureComponent {
     const { dispatch }=this.props;
     dispatch(routerRedux.push(`login`));
   }
+  
 
   changeRouterRegister(){
     const { dispatch }=this.props;
@@ -78,6 +88,7 @@ export default class FirstPage extends PureComponent {
     const loadMore = (
       <div>
         <Button type='primary' onClick={() => this.loadmore()}>
+          <Icon type="plus" />
           更多
         </Button>
       </div>
@@ -118,22 +129,24 @@ export default class FirstPage extends PureComponent {
             <img src="http://47.92.126.195:80/image/u108.png" style={{width:'100%'}}/>
             <div style={{zIndex:0}}>
               <div style={{ background:'#f0f2f5', }} >
-                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</div>
+                <div style={{marginBottom: 8, marginTop: 16 }}>
+                  <span style={{fontSize:28}}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</span>
+                  <span style={{float:'right' ,marginRight: 16}}>{loadMore}</span>
+                </div>  
                 <Row>
                   <Col xl={2} lg={12} md={12} sm={24} xs={24}>
                     <Card bordered={false}/>
                   </Col>
                   <Col xl={20} lg={12} md={12} sm={24} xs={24}>
                     <List 
-                    loadMore={loadMore}
                     grid={{ gutter: 16, lg: 4, md: 2, sm: 1, xs: 1 }}
                     dataSource={design_exam}
                     renderItem={item => (
                     <List.Item key={item.key}>
                       <Card cover={<img alt='cover' src={item.src}/>}>
-                        <Meta description={item.description}/>
+                        <Meta description={ item.description}/>
                       </Card>
-                    </List.Item>)}
+                    </List.Item>)}  
                     />
                   </Col>
                   <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
@@ -153,7 +166,7 @@ export default class FirstPage extends PureComponent {
                     renderItem={item => (
                     <List.Item key={item.key}>
                       <Card cover={<img alt='cover' src={item.src}/>}>
-                        <Meta description={item.description}/>
+                        <Meta description={ item.description}/>
                       </Card>
                     </List.Item>)}
                     />
@@ -175,7 +188,7 @@ export default class FirstPage extends PureComponent {
                     renderItem={item => (
                     <List.Item key={item.key}>
                       <Card cover={<img alt='cover' src={item.src}/>}>
-                        <Meta description={item.description}/>
+                        <Meta description={ item.description}/>
                       </Card>
                     </List.Item>)}
                     />
