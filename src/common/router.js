@@ -180,7 +180,7 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
     },
     '/user/firstpage': {
-      component: dynamicWrapper(app, [], () => import('../routes/FirstPage')),
+      component: dynamicWrapper(app, [], () => import('../routes/FirstPage/FirstPage')),
     },
     '/user/login': {
       component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
