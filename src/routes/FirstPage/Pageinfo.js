@@ -1,15 +1,30 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-
+import { enquireScreen } from 'enquire-js';
 import { routerRedux, Route, Switch } from 'dva/router';
 import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown, Button, Input, List } from 'antd';
 import { Layout } from 'antd';
 import styles from './FirstPage.less';
 const { Header, Footer, Sider, Content} = Layout ;
 const {Meta} = Card;
+const Search = Input.Search;
 
+let isMobile;
+enquireScreen((b) => {
+  isMobile = b;
+});
 @connect(state=>({}))
 export default class Pageinfo extends PureComponent {
+    state = {isMobile,};
+  
+    componentDidMount() {
+        enquireScreen((mobile) => {
+        this.setState({
+        isMobile : mobile,
+        });
+        });
+    }
+
     /**this.props.location.state. */
     /********* */
     Menu_key = (e) => {
@@ -56,30 +71,88 @@ export default class Pageinfo extends PureComponent {
         }
     }
 
+    Header() {
+        const { isMobile } = this.state;
+        if(isMobile===true) {
+          return(
+            <Layout>
+              <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
+                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/u110.png" alt='logo'/>
+                <div style={{float: 'right'}} >
+                  <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
+                  <Divider type='vertical'/>
+                  <Button type='primary' onClick={()=>this.changeRouterRegister()}>注册</Button>
+                  <Search
+                    placeholder="input search text"
+                    style={{width:'40%',marginLeft:120}}/> 
+                </div>
+              </Header>
+    
+              <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
+                <div>
+                  <Menu
+                    theme="black"
+                    mode="horizontal"
+                    defaultSelectedKeys={['1']}
+                    style={{ lineHeight: '64px' }}
+                    onClick={this.Menu_key}
+                  >
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='1'>DMCS简介</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='2'>解决方案</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='3'>科研成果</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
+                  </Menu>
+                </div>
+              </Header>
+            </Layout>
+          );
+        }
+        if(isMobile===undefined) {
+          return(
+            <Layout>
+              <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
+                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/u110.png" alt='logo'/>
+                <div style={{float: 'right'}} >
+                  <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
+                  <Divider type='vertical'/>
+                  <Button type='primary' onClick={()=>this.changeRouterRegister()}>注册</Button>
+                  <Search
+                    placeholder="input search text"
+                    style={{width:'40%',marginLeft:120}}/> 
+                </div>
+              </Header>
+    
+              <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
+                <div>
+                  <Menu
+                    theme="black"
+                    mode="horizontal"
+                    defaultSelectedKeys={['1']}
+                    style={{ lineHeight: '64px' }}
+                    onClick={this.Menu_key}
+                  >
+                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='1'>DMCS简介</Menu.Item>
+                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='2'>解决方案</Menu.Item>
+                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='3'>科研成果</Menu.Item>
+                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
+                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
+                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
+                  </Menu>
+                </div>
+              </Header>
+            </Layout>
+          );
+        }
+    }
+
     render() {
         const { key = 1 } = this.props.location.state===undefined ? 1:this.props.location.state;
         
         return(
             <Layout>
-                <Header style={{position: 'fixed', marginTop:8 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
-                    <div>
-                        <Menu
-                            theme="black"
-                            mode="horizontal"
-                            defaultSelectedKeys={[key]}
-                            style={{ lineHeight: '64px' }}
-                            onClick={this.Menu_key}
-                        >
-                            <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="1">DMCS简介</Menu.Item>
-                            <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="2">解决方案</Menu.Item>
-                            <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="3">科研成果</Menu.Item>
-                            <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
-                            <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
-                            <Menu.Item style={{width:'16%',textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
-                        </Menu>
-                    </div>
-                </Header>
-
+                {this.Header()}
                 <Content style={{marginTop:80, width: '100%', textAlign: 'center'}}>
                     <div style={{zIndex:0, background:'#f0f2f5',}}>
                         <Row>
