@@ -95,7 +95,7 @@ export default class FirstPage extends PureComponent {
         dispatch(routerRedux.push({
           pathname: 'pagelist',
           state:{
-            key: '4',
+            key: '5',
             content: 'no',
           }
         }));
@@ -104,7 +104,7 @@ export default class FirstPage extends PureComponent {
         dispatch(routerRedux.push({
           pathname: 'pagelist',
           state:{
-            key: 2,
+            key: '3',
           }
         }));
       };
@@ -112,7 +112,7 @@ export default class FirstPage extends PureComponent {
         dispatch(routerRedux.push({
           pathname: 'pagelist',
           state:{
-            key: 3,
+            key: '4',
           }
         }));
       };
@@ -120,7 +120,7 @@ export default class FirstPage extends PureComponent {
         dispatch(routerRedux.push({
           pathname: 'pagelist',
           state:{
-            key: 4,
+            key: '5',
           }
         }));
       };
@@ -158,9 +158,64 @@ export default class FirstPage extends PureComponent {
         }));
         break;
       };
+      case '5': {
+        dispatch(routerRedux.push({
+          pathname: 'pagelist',
+          state:{
+            key:'5',
+          }
+        }));
+        break;
+      };
+      case '6': {
+        dispatch(routerRedux.push({
+          pathname: 'pagelist',
+          state:{
+            key:'6',
+          }
+        }));
+        break;
+      };
+      case '7': {
+        dispatch(routerRedux.push({
+          pathname: 'pagelist',
+          state:{
+            key:'7',
+          }
+        }));
+        break;
+      };
+      case '8': {
+        dispatch(routerRedux.push({
+          pathname: 'pagelist',
+          state:{
+            key:'8',
+          }
+        }));
+        break;
+      };
+      case '9': {
+        dispatch(routerRedux.push({
+          pathname: 'pagelist',
+          state:{
+            key:'9',
+          }
+        }));
+        break;
+      };
+      case '10': {
+        dispatch(routerRedux.push({
+          pathname: 'pagelist',
+          state:{
+            key:'10',
+          }
+        }));
+        break;
+      };
       default: break;
     }
   }
+
   Header() {
     const { isMobile } = this.state;
     if(isMobile===true) {
@@ -187,12 +242,18 @@ export default class FirstPage extends PureComponent {
                 style={{ lineHeight: '64px' }}
                 onClick={this.Menu_key}
               >
-                <Menu.Item style={{textAlign: 'center',fontSize:18}} key='1'>DMCS简介</Menu.Item>
-                <Menu.Item style={{textAlign: 'center',fontSize:18}} key='2'>解决方案</Menu.Item>
-                <Menu.Item style={{textAlign: 'center',fontSize:18}} key='3'>科研成果</Menu.Item>
-                <Menu.Item style={{textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
-                <Menu.Item style={{textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
-                <Menu.Item style={{textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
+                <Menu.Item style={{textAlign: 'center',fontSize:18}} key='1'>首页</Menu.Item>
+                <Menu.Item style={{textAlign: 'center',fontSize:18}} key='2'>DMCS简介</Menu.Item>
+                <Menu.Item style={{textAlign: 'center',fontSize:18}} key='3'>解决方案</Menu.Item>
+                <Menu.Item style={{textAlign: 'center',fontSize:18}} key='4'>科研成果</Menu.Item>
+                <Menu.Item style={{textAlign: 'center',fontSize:18}} key="5">设计案例</Menu.Item>
+                <Menu.Item style={{textAlign: 'center',fontSize:18}} key="6">合作方式</Menu.Item>
+                <Menu.SubMenu key='sub1' title={<text style={{textAlign: 'center',fontSize:18}}>更多</text>}>
+                  <Menu.Item style={{textAlign: 'center',fontSize:18}} key='7'>软件下载</Menu.Item>
+                  <Menu.Item style={{textAlign: 'center',fontSize:18}} key='8'>资料下载</Menu.Item>
+                  <Menu.Item style={{textAlign: 'center',fontSize:18}} key='9'>合作规则</Menu.Item>
+                  <Menu.Item style={{textAlign: 'center',fontSize:18}} key='10'>合作留言</Menu.Item>
+                </Menu.SubMenu>
               </Menu>
             </div>
           </Header>
@@ -223,12 +284,18 @@ export default class FirstPage extends PureComponent {
                 style={{ lineHeight: '64px' }}
                 onClick={this.Menu_key}
               >
-                <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='1'>DMCS简介</Menu.Item>
-                <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='2'>解决方案</Menu.Item>
-                <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='3'>科研成果</Menu.Item>
-                <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
-                <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
-                <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
+                <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='1'>首页</Menu.Item>
+                <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='2'>DMCS简介</Menu.Item>
+                <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='3'>解决方案</Menu.Item>
+                <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='4'>科研成果</Menu.Item>
+                <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key="5">设计案例</Menu.Item>
+                <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key="6">合作方式</Menu.Item>
+                <Menu.SubMenu style={{width: '14%', textAlign: 'center', fontSize:18}} key='sub1' title='更多'>
+                  <Menu.Item style={{textAlign: 'center',fontSize:18}} key='7'>软件下载</Menu.Item>
+                  <Menu.Item style={{textAlign: 'center',fontSize:18}} key='8'>资料下载</Menu.Item>
+                  <Menu.Item style={{textAlign: 'center',fontSize:18}} key='9'>合作规则</Menu.Item>
+                  <Menu.Item style={{textAlign: 'center',fontSize:18}} key='10'>合作留言</Menu.Item>
+                </Menu.SubMenu>
               </Menu>
             </div>
           </Header>
@@ -248,15 +315,13 @@ export default class FirstPage extends PureComponent {
             <img src="http://47.92.126.195:80/image/u108.png" style={{width:'100%'}}/>
             <div style={{zIndex:0}}>
               <div style={{ background:'#f0f2f5', }} >
-                <div style={{marginBottom: 8, marginTop: 16 }}>
+                <div style={{marginBottom: 8, marginTop: 12 }}>
                   <span style={{fontSize:28}}><Icon type="question-circle-o"/>&nbsp;&nbsp;设计案例</span>
-                  <span style={{float:'right' ,marginRight: 16}}>
-                    <div>
-                      <Button type='primary' onClick={() => this.loadmore(1)}>
-                        <Icon type="plus" />
-                        更多
-                      </Button>
-                    </div>
+                  <span style={{float:'right' ,marginRight: 16, marginTop:8}}>
+                    <Button type='primary' onClick={() => this.loadmore(1)}>
+                      <Icon type="plus" />
+                      更多
+                    </Button>
                   </span>
                 </div>  
                 <Row>
@@ -278,10 +343,19 @@ export default class FirstPage extends PureComponent {
                   <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
                 </Row>
               </div>
+
               <div style={{background:'#ffffff'}}>
-                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
-                  <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u2327.png"/>
-                  &nbsp;&nbsp;学术交流
+                <div style={{marginBottom: 8, marginTop: 12 }}>
+                  <span style={{fontSize:28}}> 
+                    <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u2327.png"/>
+                    &nbsp;&nbsp;解决方案
+                  </span>
+                  <span style={{float:'right', marginRight: 16, marginTop:8}}>
+                    <Button type='primary' onClick={() => this.loadmore(2)}>
+                        <Icon type="plus" />
+                        更多
+                    </Button>
+                  </span>
                 </div>
                 <Row>
                   <Col xl={2} lg={12} md={12} sm={24} xs={24} />
@@ -300,10 +374,19 @@ export default class FirstPage extends PureComponent {
                   <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
                 </Row>
               </div>
+
               <div style={{ background:'#f0f2f5'}}>
-                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
-                  <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u26.png"/>
-                  &nbsp;&nbsp;科研成果
+                <div style={{marginBottom: 8, marginTop: 16 }}>
+                  <span style={{fontSize:28,}}>
+                    <img style={{ width:'2%'}} src="http://47.92.126.195:80/image/u26.png"/>
+                    &nbsp;&nbsp;科研成果
+                  </span>
+                  <span style={{float:'right', marginRight: 16, marginTop:8}}>
+                    <Button type='primary' onClick={() => this.loadmore(3)}>
+                        <Icon type="plus" />
+                        更多
+                    </Button>
+                  </span>
                 </div>
                 <Row>
                   <Col xl={2} lg={12} md={12} sm={24} xs={24} />
@@ -323,9 +406,17 @@ export default class FirstPage extends PureComponent {
                 </Row>
               </div>
               <div style={{ background:'#ffffff'}}>
-                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
-                  <img src="http://47.92.126.195:80/image/u26.png"/>
-                  &nbsp;&nbsp;设计案例
+                <div style={{marginBottom: 8, marginTop: 16, marginTop:8 }}>
+                  <span style={{fontSize:28,}}>
+                    <img src="http://47.92.126.195:80/image/u26.png"/>
+                    &nbsp;&nbsp;合作方式
+                  </span>
+                  <span style={{float:'right', marginRight: 16, marginTop:8}}>
+                    <Button type='primary' onClick={() => this.loadmore(3)}>
+                        <Icon type="plus" />
+                        更多
+                    </Button>
+                  </span>
                 </div>
                 <Row>
                   <Col xl={2} lg={12} md={12} sm={24} xs={24} />
@@ -344,7 +435,7 @@ export default class FirstPage extends PureComponent {
                   <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
                 </Row>
               </div>
-              <div style={{ background:'#f0f2f5'}}>
+              {/*<div style={{ background:'#f0f2f5'}}>
                 <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
                   <img src="http://47.92.126.195:80/image/u34.png"/>
                   &nbsp;&nbsp;合作方式
@@ -364,7 +455,7 @@ export default class FirstPage extends PureComponent {
                     />
                   </Col>
                 </Row>
-              </div>
+              </div>*/}
             </div>
           </Content>
         </Layout>  

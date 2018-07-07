@@ -25,8 +25,6 @@ export default class Pageinfo extends PureComponent {
         });
     }
 
-    /**this.props.location.state. */
-    /********* */
     Menu_key = (e) => {
         const { dispatch } = this.props;
     
@@ -40,16 +38,7 @@ export default class Pageinfo extends PureComponent {
             }));
             break;
           };
-          /*case '2': {
-            dispatch(routerRedux.push({
-              pathname: 'pageinfo',
-              state:{
-                key:'2',
-              }
-            }));
-            break;
-          };*/
-          case 3: {
+          case '3': {
             dispatch(routerRedux.push({
               pathname: 'pagelist',
               state:{
@@ -58,11 +47,65 @@ export default class Pageinfo extends PureComponent {
             }));
             break;
           };
-          case 4: {
+          case '4': {
             dispatch(routerRedux.push({
               pathname: 'pagelist',
               state:{
                 key:'4',
+              }
+            }));
+            break;
+          };
+          case '5': {
+            dispatch(routerRedux.push({
+              pathname: 'pagelist',
+              state:{
+                key:'5',
+              }
+            }));
+            break;
+          };
+          case '6': {
+            dispatch(routerRedux.push({
+              pathname: 'pagelist',
+              state:{
+                key:'6',
+              }
+            }));
+            break;
+          };
+          case '7': {
+            dispatch(routerRedux.push({
+              pathname: 'pagelist',
+              state:{
+                key:'7',
+              }
+            }));
+            break;
+          };
+          case '8': {
+            dispatch(routerRedux.push({
+              pathname: 'pagelist',
+              state:{
+                key:'8',
+              }
+            }));
+            break;
+          };
+          case '9': {
+            dispatch(routerRedux.push({
+              pathname: 'pagelist',
+              state:{
+                key:'9',
+              }
+            }));
+            break;
+          };
+          case '10': {
+            dispatch(routerRedux.push({
+              pathname: 'pagelist',
+              state:{
+                key:'10',
               }
             }));
             break;
@@ -73,6 +116,7 @@ export default class Pageinfo extends PureComponent {
 
     Header() {
         const { isMobile } = this.state;
+        const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state ;
         if(isMobile===true) {
           return(
             <Layout>
@@ -93,16 +137,22 @@ export default class Pageinfo extends PureComponent {
                   <Menu
                     theme="black"
                     mode="horizontal"
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={[key]}
                     style={{ lineHeight: '64px' }}
                     onClick={this.Menu_key}
                   >
-                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='1'>DMCS简介</Menu.Item>
-                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='2'>解决方案</Menu.Item>
-                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='3'>科研成果</Menu.Item>
-                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
-                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
-                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='1'>首页</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='2'>DMCS简介</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='3'>解决方案</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key='4'>科研成果</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key="5">设计案例</Menu.Item>
+                    <Menu.Item style={{textAlign: 'center',fontSize:18}} key="6">合作方式</Menu.Item>
+                    <Menu.SubMenu key='sub1' title={<text style={{textAlign: 'center',fontSize:18}}>更多</text>}>
+                      <Menu.Item style={{textAlign: 'center',fontSize:18}} key='7'>软件下载</Menu.Item>
+                      <Menu.Item style={{textAlign: 'center',fontSize:18}} key='8'>资料下载</Menu.Item>
+                      <Menu.Item style={{textAlign: 'center',fontSize:18}} key='9'>合作规则</Menu.Item>
+                      <Menu.Item style={{textAlign: 'center',fontSize:18}} key='10'>合作留言</Menu.Item>
+                    </Menu.SubMenu>
                   </Menu>
                 </div>
               </Header>
@@ -129,16 +179,22 @@ export default class Pageinfo extends PureComponent {
                   <Menu
                     theme="black"
                     mode="horizontal"
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={[key]}
                     style={{ lineHeight: '64px' }}
                     onClick={this.Menu_key}
                   >
-                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='1'>DMCS简介</Menu.Item>
-                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='2'>解决方案</Menu.Item>
-                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key='3'>科研成果</Menu.Item>
-                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="4">设计案例</Menu.Item>
-                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="5">合作方式</Menu.Item>
-                    <Menu.Item style={{width: '16%', textAlign: 'center',fontSize:18}} key="6">更多</Menu.Item>
+                    <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='1'>首页</Menu.Item>
+                    <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='2'>DMCS简介</Menu.Item>
+                    <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='3'>解决方案</Menu.Item>
+                    <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='4'>科研成果</Menu.Item>
+                    <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key="5">设计案例</Menu.Item>
+                    <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key="6">合作方式</Menu.Item>
+                    <Menu.SubMenu style={{width: '14%', textAlign: 'center', fontSize:18}} key='sub1' title='更多'>
+                      <Menu.Item style={{textAlign: 'center',fontSize:18}} key='7'>软件下载</Menu.Item>
+                      <Menu.Item style={{textAlign: 'center',fontSize:18}} key='8'>资料下载</Menu.Item>
+                      <Menu.Item style={{textAlign: 'center',fontSize:18}} key='9'>合作规则</Menu.Item>
+                      <Menu.Item style={{textAlign: 'center',fontSize:18}} key='10'>合作留言</Menu.Item>
+                    </Menu.SubMenu>
                   </Menu>
                 </div>
               </Header>
@@ -148,12 +204,11 @@ export default class Pageinfo extends PureComponent {
     }
 
     render() {
-        const { key = 1 } = this.props.location.state===undefined ? 1:this.props.location.state;
         
         return(
             <Layout>
                 {this.Header()}
-                <Content style={{marginTop:80, width: '100%', textAlign: 'center'}}>
+                <Content style={{marginTop:128, width: '100%', textAlign: 'center'}}>
                     <div style={{zIndex:0, background:'#f0f2f5',}}>
                         <Row>
                             <Col xl={2} lg={12} md={12} sm={24} xs={24}>
