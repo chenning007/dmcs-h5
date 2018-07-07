@@ -85,9 +85,9 @@ export default class FirstPage extends PureComponent {
     switch(type){
       case 1: {
         dispatch(routerRedux.push({
-          pathname: 'pageinfo',
+          pathname: 'pagelist',
           state:{
-            key: 1,
+            key: '4',
             content: 'no',
           }
         }));
@@ -123,15 +123,6 @@ export default class FirstPage extends PureComponent {
     const { dispatch } = this.props;
 
     switch(e.key){
-      case '1': {
-        dispatch(routerRedux.push({
-          pathname: 'firstpage',
-          state:{
-            key:'1',
-          }
-        }));
-        break;
-      };
       case '2': {
         dispatch(routerRedux.push({
           pathname: 'pageinfo',
@@ -172,7 +163,7 @@ export default class FirstPage extends PureComponent {
             <div style={{float: 'right'}} >
               <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
               <Divider type='vertical'/>
-              <Button type='primary' /*style={{marginRight:0}}*/ onClick={()=>this.changeRouterRegister()}>注册</Button>
+              <Button type='primary' onClick={()=>this.changeRouterRegister()}>注册</Button>
               <Search
                 placeholder="input search text"
                 style={{width:'40%',marginLeft:120}}/> 

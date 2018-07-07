@@ -25,7 +25,7 @@ export default class Pageinfo extends PureComponent {
             }));
             break;
           };
-          case '2': {
+          /*case '2': {
             dispatch(routerRedux.push({
               pathname: 'pageinfo',
               state:{
@@ -33,7 +33,7 @@ export default class Pageinfo extends PureComponent {
               }
             }));
             break;
-          };
+          };*/
           case 3: {
             dispatch(routerRedux.push({
               pathname: 'pagelist',
