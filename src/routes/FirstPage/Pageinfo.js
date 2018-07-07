@@ -203,6 +203,17 @@ export default class Pageinfo extends PureComponent {
         }
     }
 
+
+    Content_data() {
+        const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state;
+        return(
+            <Card>
+                本网站由清华大学DMCS(Distributed Measurement & Control System)课题组主办，目的在于课题组的新技术推广和实质性学术交流。 清华大学DMCS课题组长期从事分布式测控系统及其相关技术研究。
+                经过多年的坚持和努力，基于课题组曾提出的"IPT (Information Pipe Technology)"信息管道技术，研制出了IPT系列多种新技术产品，可满足多数新型分布式测控系统的设计和应用需求。在热、机、电等应用领域的分布式测控技术方面，有望探索出一条技术和市场高度相结合的科技发展道路。欢迎更多的有识之士支持或加入我们团队。
+            </Card>
+        );
+    }
+
     render() {
         
         return(
@@ -215,10 +226,8 @@ export default class Pageinfo extends PureComponent {
                                 <Card bordered={false}/>
                             </Col>
                             <Col xl={20} lg={12} md={12} sm={24} xs={24}>
-                                <Card title='DMCS简介'>
-                                   本网站由清华大学DMCS(Distributed Measurement & Control System)课题组主办，目的在于课题组的新技术推广和实质性学术交流。
-                                   清华大学DMCS课题组长期从事分布式测控系统及其相关技术研究。经过多年的坚持和努力，基于课题组曾提出的"IPT (Information Pipe Technology)"信息管道技术，研制出了IPT系列多种新技术产品，可满足多数新型分布式测控系统的设计和应用需求。在热、机、电等应用领域的分布式测控技术方面，有望探索出一条技术和市场高度相结合的科技发展道路。欢迎更多的有识之士支持或加入我们团队。  
-                                </Card>
+                                <img src="http://47.92.126.195:80/image/firstpage/background.png" style={{width:'100%'}}/>
+                                {this.Content_data()}
                             </Col>
                             <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
                         </Row>

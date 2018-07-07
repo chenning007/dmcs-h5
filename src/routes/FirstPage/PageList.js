@@ -77,7 +77,7 @@ export default class PageList extends PureComponent {
         }
     }
     /******* */
-    content(key) {
+    Content(key) {
        if(key!==undefined){
             /*** */
             switch(key){
@@ -264,13 +264,14 @@ export default class PageList extends PureComponent {
                                 <Card bordered={false}/>
                             </Col>
                             <Col xl={20} lg={12} md={12} sm={24} xs={24}>
-                                {this.content(key)}
+                                <img src="http://47.92.126.195:80/image/firstpage/background.png" style={{width:'100%'}}/>
+                                {this.Content(key)}
                             </Col>
                             <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
                         </Row>
                     </div>
                 </Content>    
             </Layout>
-        )
+        );
     }
 }
