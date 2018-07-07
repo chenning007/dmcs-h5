@@ -170,7 +170,7 @@ export default class PageList extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
-                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -212,7 +212,7 @@ export default class PageList extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
-                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>

@@ -121,7 +121,7 @@ export default class Pageinfo extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
-                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -163,7 +163,7 @@ export default class Pageinfo extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
-                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -208,7 +208,7 @@ export default class Pageinfo extends PureComponent {
         return(
             <Layout>
                 {this.Header()}
-                <Content style={{marginTop:128, width: '100%', textAlign: 'center'}}>
+                <Content style={{marginTop:128, width: '100%', /*textAlign: 'center'*/}}>
                     <div style={{zIndex:0, background:'#f0f2f5',}}>
                         <Row>
                             <Col xl={2} lg={12} md={12} sm={24} xs={24}>
