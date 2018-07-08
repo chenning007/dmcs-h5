@@ -2,39 +2,12 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Route, Switch } from 'dva/router';
-import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown, Button, Input, List } from 'antd';
+import { Row, Col, Card, Icon, Divider, Menu, Button, Input, List, Carousel } from 'antd';
 import { Layout } from 'antd';
 import styles from './FirstPage.less';
 const { Header, Footer, Sider, Content} = Layout ;
 const {Meta} = Card;
 
-/*const columns = [{
-  title: 'Name',
-  dataIndex: 'name',
-  key: 'name',
-}, {
-  title: 'Age',
-  dataIndex: 'age',
-  key: 'age',
-}, {
-  title: 'Address',
-  dataIndex: 'address',
-  key: 'address',
-}, {
-  title: 'Action',
-  key: 'action',
-  render: (text, record) => (
-    <span>
-      <a href="">Action 一 {record.name}</a>
-      <Divider type="vertical" />
-      <a href="">Delete</a>
-      <Divider type="vertical" />
-      <a href="" className="ant-dropdown-link">
-        More actions <Icon type="down" />
-      </a>
-    </span>
-  ),
-}];*/
 const design_exam = [{
   key: 1, 
   src: 'http://47.92.126.195:80/image/firstpage/shili1.png',
@@ -55,9 +28,77 @@ const design_exam = [{
   description: 'IPT70540 PCB表贴植锡丝印台',
   }*/
 ];
- 
+
+
 
 const Search = Input.Search;
+
+const img_data = [{
+  id: 1,
+  img_src: 'http://47.92.126.195:80/image/firstpage/u108.png',
+  title: 'IOT',
+  description: 'IOT',
+  mode:'1',
+  time: '2018-07-08',
+  author: 'caizj15',
+},{
+  id: 3,
+  img_src: 'http://47.92.126.195:80/image/firstpage/figure2.png',
+  title: 'IOT',
+  description: 'IOT',
+  mode:'1',
+  time: '2018-07-08',
+  author: 'caizj15',
+},{
+  id: 5,
+  img_src: 'http://47.92.126.195:80/image/firstpage/figure3.png',
+  title: 'IOT',
+  description: 'IOT',
+  mode:'1',
+  time: '2018-07-08',
+  author: 'caizj15',
+},{
+  id: 7,
+  img_src: 'http://47.92.126.195:80/image/firstpage/figure4.png',
+  title: 'IOT',
+  description: 'IOT',
+  mode:'1',
+  time: '2018-07-08',
+  author: 'caizj15',
+},{
+  id: 8,
+  img_src: 'http://47.92.126.195:80/image/firstpage/shili1.png',
+  title: 'IPT70135',
+  description: 'IPT70135/6/7测控节点电路封装盒',
+  mode:'5',
+  time: '2018-07-08',
+  author: 'caizj15',
+},{
+  id: 9,
+  img_src: 'http://47.92.126.195:80/image/firstpage/shili2.png',
+  title: 'IPT10533',
+  description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换模块',
+  mode:'5',
+  time: '2018-07-08',
+  author: 'caizj15',
+},{
+  id: 10,
+  img_src: 'http://47.92.126.195:80/image/firstpage/shili3.png',
+  title: 'IPT12105',
+  description: 'IPT12105 IPCAN总线供电转换模块',
+  mode:'5',
+  time: '2018-07-08',
+  author: 'caizj15',
+},{
+  id: 11,
+  img_src: 'http://47.92.126.195:80/image/firstpage/shili4.png',
+  title: 'IPT22105',
+  description: 'IPT22105/22106 IPCAN电源转换节点',
+  mode:'5',
+  time: '2018-07-08',
+  author: 'caizj15',
+}];
+
 
 let isMobile;
 enquireScreen((b) => {
@@ -303,6 +344,17 @@ export default class FirstPage extends PureComponent {
       );
     }
   }
+  /********* */
+  Linkpage(id,mode) {
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push({
+      pathname: 'pageinfo',
+      state: {
+        key: mode,
+        id: id,
+      },
+    })); 
+  }
 
   render() {
     const { isMobile } = this.state ;
@@ -312,7 +364,12 @@ export default class FirstPage extends PureComponent {
           {this.Header()}
 
           <Content style={{marginTop:128, width: '100%', textAlign: 'center'}}>
-            <img src="http://47.92.126.195:80/image/firstpage/u108.png" style={{width:'100%'}}/>
+            <Carousel autoplay>
+              <img src={img_data[0].img_src} style={{width:'100%'}} onClick={()=>this.Linkpage(img_data[0].id,img_data[0].mode)}/>
+              <img src={img_data[1].img_src} style={{width:'100%'}} onClick={()=>this.Linkpage(img_data[1].id,img_data[1].mode)}/>
+              <img src={img_data[2].img_src} style={{width:'100%'}} onClick={()=>this.Linkpage(img_data[2].id,img_data[2].mode)}/>
+              <img src={img_data[3].img_src} style={{width:'100%'}} onClick={()=>this.Linkpage(img_data[3].id,img_data[3].mode)}/>
+            </Carousel>
             <div style={{zIndex:0}}>
               <div style={{ background:'#f0f2f5', }} >
                 <div style={{marginBottom: 8, marginTop: 12 }}>

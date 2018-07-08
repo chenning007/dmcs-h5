@@ -13,6 +13,22 @@ let isMobile;
 enquireScreen((b) => {
   isMobile = b;
 });
+function KeytoName(key) {
+    switch(key){
+        case 1 : return '首页'; break;
+        case 2 : return 'DMCS简介'; break;
+        case 3 : return '解决方案' ; break;
+        case 4 : return '科研成果' ; break;
+        case 5 : return '设计案例' ; break;
+        case 6 : return '合作方式' ; break;
+        case 7 : return '软件下载' ;break;
+        case 8 : return '资料下载'  ; break;
+        case 9 :  return '合作规则' ; break;
+        case 10:  return '合作留言' ; break;
+        default : return '首页' ; break;
+    }
+}
+
 @connect(state=>({}))
 export default class Pageinfo extends PureComponent {
     state = {isMobile,};
@@ -23,6 +39,10 @@ export default class Pageinfo extends PureComponent {
         isMobile : mobile,
         });
         });
+    }
+
+    componentWillUnmount() {
+        this.setState({isMobile: undefined});
     }
 
     Menu_key = (e) => {
@@ -205,28 +225,77 @@ export default class Pageinfo extends PureComponent {
 
 
     Content_data() {
-        const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state;
-        return(
-            <Card>
-                本网站由清华大学DMCS(Distributed Measurement & Control System)课题组主办，目的在于课题组的新技术推广和实质性学术交流。 清华大学DMCS课题组长期从事分布式测控系统及其相关技术研究。
-                经过多年的坚持和努力，基于课题组曾提出的"IPT (Information Pipe Technology)"信息管道技术，研制出了IPT系列多种新技术产品，可满足多数新型分布式测控系统的设计和应用需求。在热、机、电等应用领域的分布式测控技术方面，有望探索出一条技术和市场高度相结合的科技发展道路。欢迎更多的有识之士支持或加入我们团队。
-            </Card>
-        );
+        const { id = 1,   } = this.props.location.state === undefined ?  1 :this.props.location.state;
+        switch(id){
+            case 1,3,5,7: {
+                return(
+                    <Card>
+                    内容
+                    </Card>
+                );
+                break;
+            }
+            case 8,9,10,11: {
+                return(
+                    <Card>
+                    暂无
+                    </Card>
+                );
+            }
+            default: {
+                <Card>
+                    本网站由清华大学DMCS(Distributed Measurement & Control System)课题组主办，目的在于课题组的新技术推广和实质性学术交流。 清华大学DMCS课题组长期从事分布式测控系统及其相关技术研究。
+                    经过多年的坚持和努力，基于课题组曾提出的"IPT (Information Pipe Technology)"信息管道技术，研制出了IPT系列多种新技术产品，可满足多数新型分布式测控系统的设计和应用需求。在热、机、电等应用领域的分布式测控技术方面，有望探索出一条技术和市场高度相结合的科技发展道路。欢迎更多的有识之士支持或加入我们团队。
+                </Card>
+                break;
+            }
+        }
+    }
+
+    Position() {
+        const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state ;
+        const { id = 1,   } = this.props.location.state === undefined ?  1 :this.props.location.state;
+        if(key === '1') {
+            return(
+                <div style={{background:'#4B0082', color:'#ffffff'}}>
+                    <Icon type="home" style={{marginLeft:24,fontSize:28,}}/>
+                    <span style={{paddingLeft:24,}}>
+                      您当前的位置:&nbps;&nbps;
+                      <text onClick={() => this.Linkpage(1)}>首页</text>&nbps;&nbps;>&nbps;&nbps;{id}
+                    </span>
+                </div>
+            );
+        }
+        if(key ==='2') {
+            return(
+                <div style={{background:'#4B0082', color:'#ffffff'}}>
+                    <Icon type="home" style={{marginLeft:24,fontSize:28,}}/>
+                    <span style={{paddingLeft:24,}}>
+                      您当前的位置:&nbps;&nbps;
+                      <text onClick={() => this.Linkpage(1)}>首页</text>&nbps;&nbps;>&nbps;&nbps;
+                      <text onClick={() => this.Linkpage(2)}></text>
+                      {id}
+                    </span>
+                </div>
+            );
+        }
     }
 
     render() {
-        
+        const
         return(
             <Layout>
                 {this.Header()}
                 <Content style={{marginTop:128, width: '100%', /*textAlign: 'center'*/}}>
                     <div style={{zIndex:0, background:'#f0f2f5',}}>
+                        
                         <Row>
                             <Col xl={2} lg={12} md={12} sm={24} xs={24}>
                                 <Card bordered={false}/>
                             </Col>
                             <Col xl={20} lg={12} md={12} sm={24} xs={24}>
                                 <img src="http://47.92.126.195:80/image/firstpage/background.png" style={{width:'100%'}}/>
+                                {this.Position()}
                                 {this.Content_data()}
                             </Col>
                             <Col xl={2} lg={12} md={12} sm={24} xs={24}/>

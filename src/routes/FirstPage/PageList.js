@@ -31,7 +31,10 @@ export default class PageList extends PureComponent {
         });
         });
     }
-
+    
+    componentWillUnmount() {
+        this.setState({isMobile: undefined});
+    }
     /******** */
     Menu_key = (e) => {
         const { dispatch } = this.props;
