@@ -20,33 +20,68 @@ enquireScreen((b) => {
   isMobile = b;
 });
 
+function KeytoName(key) {
+    switch(key){
+        case '1' : return '首页'; break;
+        case '2' : return 'DMCS简介'; break;
+        case '3' : return '解决方案' ; break;
+        case '4' : return '科研成果' ; break;
+        case '5' : return '设计案例' ; break;
+        case '6' : return '合作方式' ; break;
+        case '7' : return '软件下载' ;break;
+        case '8' : return '资料下载'  ; break;
+        case '9' :  return '合作规则' ; break;
+        case '10' :  return '合作留言' ; break;
+        default : return '首页' ; break;
+    }
+}
+
 @connect(state=>({}))
 export default class PageList extends PureComponent {
-    state = {isMobile,};
+    state = {isMobile, keynum:'1'};
   
     componentDidMount() {
+        const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state ;
+
         enquireScreen((mobile) => {
         this.setState({
         isMobile : mobile,
         });
         });
+        this.setState({keynum:key});
+
     }
     
     componentWillUnmount() {
-        this.setState({isMobile: undefined});
+        this.setState({isMobile: undefined, keynum:'1'});
     }
     /******** */
+
+    Linkpage(key) {
+        const {dispatch} =this.props;
+        if(key==='1'){
+          dispatch(routerRedux.push(`firstpage`));
+        }
+        if(key==='2'){
+            dispatch(routerRedux.push({
+                pathname: 'pageinfo',
+                state: {
+                    key: '2',
+                    id: 1,
+                }
+            }))
+        }
+        if(key!=='1'&&key!=='2'){
+            this.setState({keynum: key});
+        }
+    }
+
     Menu_key = (e) => {
         const { dispatch } = this.props;
-    
+
         switch(e.key){
           case '1': {
-            dispatch(routerRedux.push({
-              pathname: 'firstpage',
-              state:{
-                key:'1',
-              }
-            }));
+            dispatch(routerRedux.push(`firstpage`));
             break;
           };
           case '2': {
@@ -54,28 +89,23 @@ export default class PageList extends PureComponent {
               pathname: 'pageinfo',
               state:{
                 key:'2',
+                id: 1,
               }
             }));
             break;
           };
-          /*case 3: {
-            dispatch(routerRedux.push({
-              pathname: 'pagelist',
-              state:{
-                key:'3',
-              }
-            }));
+          case '3' : 
+          case '4' :
+          case '5' :
+          case '6' :
+          case '7' :
+          case '8' :
+          case '9' :
+          case '10':
+          {
+            this.setState({keynum: e.key});
             break;
-          };
-          case 4: {
-            dispatch(routerRedux.push({
-              pathname: 'pagelist',
-              state:{
-                key:'4',
-              }
-            }));
-            break;
-          };*/
+          }
           default: break;
         }
     }
@@ -167,8 +197,8 @@ export default class PageList extends PureComponent {
     }
 
     Header() {
-        const { isMobile } = this.state;
-        const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state ;
+        const { isMobile, keynum } = this.state;
+        
         if(isMobile===true) {
           return(
             <Layout>
@@ -189,7 +219,7 @@ export default class PageList extends PureComponent {
                   <Menu
                     theme="black"
                     mode="horizontal"
-                    defaultSelectedKeys={[key]}
+                    defaultSelectedKeys={[keynum]}
                     style={{ lineHeight: '64px' }}
                     onClick={this.Menu_key}
                   >
@@ -231,7 +261,7 @@ export default class PageList extends PureComponent {
                   <Menu
                     theme="black"
                     mode="horizontal"
-                    defaultSelectedKeys={[key]}
+                    defaultSelectedKeys={[keynum]}
                     style={{ lineHeight: '64px' }}
                     onClick={this.Menu_key}
                   >
@@ -255,12 +285,39 @@ export default class PageList extends PureComponent {
         }
     }
 
+    Position() {
+        const { keynum } = this.state; 
+        if(keynum === '1') {
+          return(
+              <div style={{background:'#4B0082', color:'#ffffff'}}>
+                  <Icon type="home" style={{marginLeft:24,fontSize:28,}}/>
+                  <span style={{paddingLeft:24, fontSize:18}}>
+                    您当前的位置:&nbsp;&nbsp;
+                    <a onClick={() => this.Linkpage('1')}>首页</a>&nbsp;&nbsp;>&nbsp;&nbsp;
+                  </span>
+              </div>
+          );
+        }
+        if(keynum!=='1') {
+          return(
+            <div style={{background:'#4B0082', color:'#ffffff'}}>
+              <Icon type="home" style={{marginLeft:24,fontSize:28,}}/>
+              <span style={{paddingLeft:24, fontSize:18}}>
+                您当前的位置:&nbsp;&nbsp;
+                <a onClick={() => this.Linkpage('1')}>首页</a>&nbsp;&nbsp;>&nbsp;&nbsp;
+                <a onClick={() => this.Linkpage(keynum)}>{KeytoName(keynum)}</a>&nbsp;&nbsp;
+              </span>
+            </div>
+          );
+        }
+      }
+
     render() {
         const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state ; 
         return (
             <Layout>
                 {this.Header()}
-                <Content style={{marginTop:128, width: '100%', textAlign: 'center'}}>
+                <Content style={{marginTop:128, width: '100%', /*textAlign: 'center'*/}}>
                     <div style={{zIndex:0, background:'#f0f2f5',}}>
                         <Row>
                             <Col xl={2} lg={12} md={12} sm={24} xs={24}>
@@ -268,7 +325,8 @@ export default class PageList extends PureComponent {
                             </Col>
                             <Col xl={20} lg={12} md={12} sm={24} xs={24}>
                                 <img src="http://47.92.126.195:80/image/firstpage/background.png" style={{width:'100%'}}/>
-                                {this.Content(key)}
+                                {this.Position()}
+                                {this.Content(this.state.keynum)}
                             </Col>
                             <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
                         </Row>

@@ -34,7 +34,7 @@ const design_exam = [{
 const Search = Input.Search;
 
 const img_data = [{
-  id: 1,
+  id: 2,
   img_src: 'http://47.92.126.195:80/image/firstpage/u108.png',
   title: 'IOT',
   description: 'IOT',

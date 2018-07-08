@@ -15,16 +15,16 @@ enquireScreen((b) => {
 });
 function KeytoName(key) {
     switch(key){
-        case 1 : return '首页'; break;
-        case 2 : return 'DMCS简介'; break;
-        case 3 : return '解决方案' ; break;
-        case 4 : return '科研成果' ; break;
-        case 5 : return '设计案例' ; break;
-        case 6 : return '合作方式' ; break;
-        case 7 : return '软件下载' ;break;
-        case 8 : return '资料下载'  ; break;
-        case 9 :  return '合作规则' ; break;
-        case 10:  return '合作留言' ; break;
+        case '1' : return '首页'; break;
+        case '2' : return 'DMCS简介'; break;
+        case '3' : return '解决方案' ; break;
+        case '4' : return '科研成果' ; break;
+        case '5' : return '设计案例' ; break;
+        case '6' : return '合作方式' ; break;
+        case '7' : return '软件下载' ;break;
+        case '8' : return '资料下载'  ; break;
+        case '9' :  return '合作规则' ; break;
+        case '10' :  return '合作留言' ; break;
         default : return '首页' ; break;
     }
 }
@@ -42,7 +42,22 @@ export default class Pageinfo extends PureComponent {
     }
 
     componentWillUnmount() {
-        this.setState({isMobile: undefined});
+      this.setState({isMobile: undefined});
+    }
+
+    Linkpage(key) {
+      const {dispatch} =this.props;
+      if(key==='1'){
+        dispatch(routerRedux.push(`firstpage`));
+      }
+      else {
+        dispatch(routerRedux.push({
+          pathname:'pagelist',
+          state: {
+            key:key,
+          },
+        }));
+      }
     }
 
     Menu_key = (e) => {
@@ -253,56 +268,57 @@ export default class Pageinfo extends PureComponent {
     }
 
     Position() {
-        const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state ;
-        const { id = 1,   } = this.props.location.state === undefined ?  1 :this.props.location.state;
-        if(key === '1') {
-            return(
-                <div style={{background:'#4B0082', color:'#ffffff'}}>
-                    <Icon type="home" style={{marginLeft:24,fontSize:28,}}/>
-                    <span style={{paddingLeft:24,}}>
-                      您当前的位置:&nbps;&nbps;
-                      <text onClick={() => this.Linkpage(1)}>首页</text>&nbps;&nbps;>&nbps;&nbps;{id}
-                    </span>
-                </div>
-            );
-        }
-        if(key ==='2') {
-            return(
-                <div style={{background:'#4B0082', color:'#ffffff'}}>
-                    <Icon type="home" style={{marginLeft:24,fontSize:28,}}/>
-                    <span style={{paddingLeft:24,}}>
-                      您当前的位置:&nbps;&nbps;
-                      <text onClick={() => this.Linkpage(1)}>首页</text>&nbps;&nbps;>&nbps;&nbps;
-                      <text onClick={() => this.Linkpage(2)}></text>
-                      {id}
-                    </span>
-                </div>
-            );
-        }
+      const { key ='1' } = this.props.location.state === undefined ? '1':this.props.location.state ;
+      const { id = 1,   } = this.props.location.state === undefined ?  1 :this.props.location.state;
+      if(key === '1') {
+        return(
+            <div style={{background:'#4B0082', color:'#ffffff'}}>
+                <Icon type="home" style={{marginLeft:24,fontSize:28,}}/>
+                <span style={{paddingLeft:24, fontSize:18}}>
+                  您当前的位置:&nbsp;&nbsp;
+                  <a onClick={() => this.Linkpage('1')}>首页</a>&nbsp;&nbsp;>&nbsp;&nbsp;
+                  {id}
+                </span>
+            </div>
+        );
+      }
+      if(key!=='1') {
+        return(
+          <div style={{background:'#4B0082', color:'#ffffff'}}>
+            <Icon type="home" style={{marginLeft:24,fontSize:28,}}/>
+            <span style={{paddingLeft:24, fontSize:18}}>
+              您当前的位置:&nbsp;&nbsp;
+              <a onClick={() => this.Linkpage('1')}>首页</a>&nbsp;&nbsp;>&nbsp;&nbsp;
+              <a onClick={() => this.Linkpage(key)}>{KeytoName(key)}</a>&nbsp;&nbsp;>
+              &nbsp;&nbsp;
+              {id}
+            </span>
+          </div>
+        );
+      }
     }
 
     render() {
-        const
-        return(
-            <Layout>
-                {this.Header()}
-                <Content style={{marginTop:128, width: '100%', /*textAlign: 'center'*/}}>
-                    <div style={{zIndex:0, background:'#f0f2f5',}}>
-                        
-                        <Row>
-                            <Col xl={2} lg={12} md={12} sm={24} xs={24}>
-                                <Card bordered={false}/>
-                            </Col>
-                            <Col xl={20} lg={12} md={12} sm={24} xs={24}>
-                                <img src="http://47.92.126.195:80/image/firstpage/background.png" style={{width:'100%'}}/>
-                                {this.Position()}
-                                {this.Content_data()}
-                            </Col>
-                            <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
-                        </Row>
-                    </div>
-                </Content>
-            </Layout>
-        );
+      return(
+          <Layout>
+              {this.Header()}
+              <Content style={{marginTop:128, width: '100%', /*textAlign: 'center'*/}}>
+                  <div style={{zIndex:0, background:'#f0f2f5',}}>
+                      
+                      <Row>
+                          <Col xl={2} lg={12} md={12} sm={24} xs={24}>
+                              <Card bordered={false}/>
+                          </Col>
+                          <Col xl={20} lg={12} md={12} sm={24} xs={24}>
+                              <img src="http://47.92.126.195:80/image/firstpage/background.png" style={{width:'100%'}}/>
+                              {this.Position()}
+                              {this.Content_data()}
+                          </Col>
+                          <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
+                      </Row>
+                  </div>
+              </Content>
+          </Layout>
+      );
     }
 }
