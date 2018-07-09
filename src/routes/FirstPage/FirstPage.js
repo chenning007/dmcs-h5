@@ -77,7 +77,7 @@ const img_data = [{
   id: 9,
   img_src: 'http://47.92.126.195:80/image/firstpage/shili2.png',
   title: 'IPT10533',
-  description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换模块',
+  description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换',
   mode:'5',
   time: '2018-07-08',
   author: 'caizj15',
