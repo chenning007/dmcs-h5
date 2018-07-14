@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 
 import createImagePlugin from 'draft-js-image-plugin';
-import ImageAdd from './ImageAdd';
+//import ImageAdd from './ImageAdd';
 
 import editorStyles from './editorStyles.less';
 
@@ -39,11 +39,11 @@ export default class CustomImageEditor extends Component {
             ref={(element) => { this.editor = element; }}
           />
         </div>
-        <ImageAdd
+        {/*<ImageAdd
           editorState={this.state.editorState}
           onChange={this.onChange}
           modifier={imagePlugin.addImage}
-        />
+        />*/}
       </div>
     );
   }
