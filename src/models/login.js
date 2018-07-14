@@ -9,6 +9,7 @@ export default {
 
   state: {
     status: undefined,
+    currentUser:{},
   },
 
   effects: {
@@ -28,14 +29,25 @@ export default {
         yield put(routerRedux.push('/'));
       }
     },
-    *logout(_, { put }) {
-      yield put({
-        type: 'changeLoginStatus',
-        payload: {
-          status: error,
-        },
-      });
-      yield put(routerRedux.push('/user/login'));
+    *logout(_, { put, select }) {
+      try {
+        // get location pathname
+        const urlParams = new URL(window.location.href);
+        const pathname = yield select(state => state.routing.location.pathname);
+        // add the parameters in the url
+        urlParams.searchParams.set('redirect', pathname);
+        window.history.replaceState(null, 'login', urlParams.href);
+      } finally {
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            status: false,
+            currentAuthority: 'guest',
+          },
+        });
+        reloadAuthorized();
+        yield put(routerRedux.push('/user/login'));
+      }
     },
   },
 
@@ -45,6 +57,7 @@ export default {
         ...state,
         status: payload.status,
         type: payload.type,
+        currentUser: payload.data,
         submitting: false,
       };
     },
