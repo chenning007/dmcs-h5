@@ -34,9 +34,18 @@ const submitFormLayout = {
     sm: { span: 10, offset: 10 },
   },
 };
+
+function eng_chi (sex) {
+  switch(sex){
+    case "man": return "男"; break;
+    case "woman": return "女"; break;
+    case "man_woman": return "无"; break;
+    default: return "待补充";
+  }
+}
 /****** */
 @connect(state => ({
-  currentUser: state.user.currentUser,
+  currentUser: state.login.currentUser,
 }))
 
 export default class Basic_profiles extends PureComponent {
@@ -68,7 +77,7 @@ export default class Basic_profiles extends PureComponent {
             wrapperCol={{span: 8, offset: 2}}
             label={<b>用户&nbsp;&nbsp;&nbsp;号:</b>}
           >
-            <h3>{currentUser.userNumber ? currentUser.userNumber : '待补充'}</h3>           
+            <h3>{currentUser.userid ? currentUser.userid : '待补充'}</h3>           
           </FormItem> 
           <FormItem
              colon={false}
@@ -79,12 +88,12 @@ export default class Basic_profiles extends PureComponent {
             <h3>{currentUser.realname ? currentUser.realname:'待补充'}</h3>
           </FormItem>
           <FormItem
-             colon={false}
-             labelCol={{span: 4, offset: 0}}
-             wrapperCol={{span: 8, offset: 2}}
-             label={<b>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</b>}
+            colon={false}
+            labelCol={{span: 4, offset: 0}}
+            wrapperCol={{span: 8, offset: 2}}
+            label={<b>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</b>}
           >
-            <h3>{currentUser.userSex ? currentUser.userSex:'待补充'}</h3>
+            <h3>{currentUser.usersex ? eng_chi(currentUser.usersex):'待补充'}</h3>
           </FormItem>
           <FormItem
              colon={false}
@@ -92,7 +101,7 @@ export default class Basic_profiles extends PureComponent {
              wrapperCol={{span: 8, offset: 2}}
              label={<b>身份证号:</b>}
           >
-            <h3>{currentUser.useridNumber ? currentUser.useridNumber:'待补充'}</h3>
+            <h3>{currentUser.userIdnumber ? currentUser.userIdNumber:'待补充'}</h3>
           </FormItem>
           <FormItem
              colon={false}

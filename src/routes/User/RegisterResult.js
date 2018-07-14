@@ -9,8 +9,8 @@ const title = <div className={styles.title}>你的账户：AntDesign@example.com
 
 const actions = (
   <div className={styles.actions}>
-    <a href=""><Button size="large" type="primary">查看邮箱</Button></a>
-    <Link to="/"><Button size="large">返回首页</Button></Link>
+    <a href="#/user/login"><Button size="large" type="primary">重新登录</Button></a>
+    <Link to="#/user/firstpage"><Button size="large">返回首页</Button></Link>
   </div>
 );
 
@@ -31,7 +31,7 @@ export default class RegisterResult extends Component {
             <img alt="logo" className={styles.logo} src={logo} />
             <span className={styles.title}>DMCS Valley</span>
           </Link>
-        </div>
+        </div>  
         <div className={styles.desc}>DMCS Valley 最先进的物联网解决方案专家</div>
       </div>
       <Result

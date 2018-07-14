@@ -210,7 +210,7 @@ export default class AdvancedProfile extends Component {
 
     return (
       <div>
-        <Card title="流程进度" style={{ marginBottom: 24 }} bordered={false}>
+        {/*<Card title="流程进度" style={{ marginBottom: 24 }} bordered={false}>
           <Steps direction={stepDirection} progressDot={customDot} current={1}>
             <Step title="创建项目" description={desc1} />
             <Step title="部门初审" description={desc2} />
@@ -277,8 +277,8 @@ export default class AdvancedProfile extends Component {
           onTabChange={this.onOperationTabChange}
         >
           {contentList[this.state.operationkey]}
-        </Card>
-        </div>
+            </Card>*/}
+      </div>
     );
   }
 }
