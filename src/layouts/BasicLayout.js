@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Layout, Icon, message } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
-import { Route, Redirect, Switch } from 'dva/router';
+import { Route, Redirect, Switch, routerRedux } from 'dva/router';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import { enquireScreen } from 'enquire-js';
@@ -89,9 +89,13 @@ class BasicLayout extends React.PureComponent {
         isMobile: mobile,
       });
     });
-    this.props.dispatch({
-      type: 'user/fetchCurrent',
-    });
+    /*this.props.dispatch ({
+      type: 'login/login',
+    });*/
+
+    if(this.props.currentUser.username===undefined){
+      this.props.dispatch(routerRedux.push('/user/update-result'));
+    }
   }
   componentWillUnmount() {
     const { dispatch } = this.props;
@@ -245,7 +249,7 @@ class BasicLayout extends React.PureComponent {
 }
 
 export default connect(state => ({
-  currentUser: state.user.currentUser,
+  currentUser: state.login.currentUser,
   collapsed: state.global.collapsed,
   fetchingNotices: state.global.fetchingNotices,
   notices: state.global.notices,
