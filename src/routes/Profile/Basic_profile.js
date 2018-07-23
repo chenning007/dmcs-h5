@@ -138,7 +138,7 @@ export default class Basic_profiles extends PureComponent {
                 <div 
                  className='headimage'
                 style={{ marginTop: 16 }}>
-                  <Upload>
+                  <Upload action='api/v1/user/image' name='caizj15.png'>
                     <Button>
                         <Icon type="upload"/>
                           更改头像
