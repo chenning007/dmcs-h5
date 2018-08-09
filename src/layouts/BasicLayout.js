@@ -151,7 +151,7 @@ class BasicLayout extends React.PureComponent {
       urlParams.searchParams.delete('redirect');
       window.history.replaceState(null, 'redirect', urlParams.href);
     } else {
-      return '/dashboard/device';
+      return '/dashboard/device';///dashboard/device
     }
     return redirect;
   }
