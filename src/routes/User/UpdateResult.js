@@ -9,8 +9,8 @@ const title = <div className={styles.title}>你的账户：AntDesign@example.com
 
 const actions = (
   <div className={styles.actions}>
-    <a href="#/user/login"><Button size="large" type="primary">重新登录</Button></a>
-    <Link to="#/user/firstpage"><Button size="large">返回首页</Button></Link>
+    <a href="/user/login"><Button size="large" type="primary">重新登录</Button></a>
+    <Link to="/user/firstpage"><Button size="large">返回首页</Button></Link>
   </div>
 );
 
