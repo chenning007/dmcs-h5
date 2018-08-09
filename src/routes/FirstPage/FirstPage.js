@@ -14,7 +14,7 @@ const design_exam = [{
   description: 'IPT70135/6/7测控节点电路封装盒',},{
   key: 2,
   src: 'http://47.92.126.195:80/image/firstpage/shili2.png',
-  description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换模块',},{
+  description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换',},{
   key: 3,
   src: 'http://47.92.126.195:80/image/firstpage/shili3.png',
   description: 'IPT12105 IPCAN总线供电转换模块',
@@ -262,7 +262,7 @@ export default class FirstPage extends PureComponent {
     if(isMobile===true) {
       return(
         <Layout>
-          <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
+          <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
             <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
             <div style={{float: 'right'}} >
               <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
@@ -274,13 +274,13 @@ export default class FirstPage extends PureComponent {
             </div>
           </Header>
 
-          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
+          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#f0f2f5'}}>
             <div>
               <Menu
-                theme="black"
+                theme="dark"
                 mode="horizontal"
                 defaultSelectedKeys={['1']}
-                style={{ lineHeight: '64px' }}
+                style={{ lineHeight: '64px',background:'f0f2f5' }}
                 onClick={this.Menu_key}
               >
                 <Menu.Item style={{textAlign: 'center',fontSize:18}} key='1'>首页</Menu.Item>
@@ -304,7 +304,7 @@ export default class FirstPage extends PureComponent {
     if(isMobile===undefined) {
       return(
         <Layout>
-          <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
+          <Header style={{position: 'fixed', marginTop:0 ,width:'120%',zIndex:1 , background:'#ffffff'}}>  
             <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
             <div style={{float: 'right'}} >
               <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
@@ -316,13 +316,13 @@ export default class FirstPage extends PureComponent {
             </div>
           </Header>
 
-          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
+          <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#f0f2f5'}}>
             <div>
               <Menu
-                theme="black"
+                theme="dark"
                 mode="horizontal"
                 defaultSelectedKeys={['1']}
-                style={{ lineHeight: '64px' }}
+                style={{ lineHeight: '64px', background:'f0f2f5' }}
                 onClick={this.Menu_key}
               >
                 <Menu.Item style={{width: '14%', textAlign: 'center',fontSize:18}} key='1'>首页</Menu.Item>

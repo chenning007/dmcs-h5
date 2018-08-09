@@ -202,7 +202,7 @@ export default class PageList extends PureComponent {
         if(isMobile===true) {
           return(
             <Layout>
-              <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
+              <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
                 <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
@@ -214,10 +214,10 @@ export default class PageList extends PureComponent {
                 </div>
               </Header>
     
-              <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
+              <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#f0f2f5'}}>
                 <div>
                   <Menu
-                    theme="black"
+                    theme="dark"
                     mode="horizontal"
                     defaultSelectedKeys={[keynum]}
                     style={{ lineHeight: '64px' }}
@@ -244,7 +244,7 @@ export default class PageList extends PureComponent {
         if(isMobile===undefined) {
           return(
             <Layout>
-              <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#f0f2f5'}}>  
+              <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
                 <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
@@ -256,10 +256,10 @@ export default class PageList extends PureComponent {
                 </div>
               </Header>
     
-              <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#ffffff'}}>
+              <Header style={{position: 'fixed', marginTop:60 ,width:'100%' ,zIndex:1 , background:'#f0f2f5'}}>
                 <div>
                   <Menu
-                    theme="black"
+                    theme="dark"
                     mode="horizontal"
                     defaultSelectedKeys={[keynum]}
                     style={{ lineHeight: '64px' }}
