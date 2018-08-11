@@ -92,10 +92,10 @@ class BasicLayout extends React.PureComponent {
     /*this.props.dispatch ({
       type: 'login/login',
     });*/
-
-    if(this.props.currentUser.username===undefined){
+    //这个是在渲染结束之后进行的，要保证不进入到该界面必须得保证currentUser非空
+    /*if(this.props.currentUser.username===undefined){
       this.props.dispatch(routerRedux.push('/user/update-result'));
-    }
+    }*/
   }
   componentWillUnmount() {
     const { dispatch } = this.props;
