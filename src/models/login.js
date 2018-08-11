@@ -3,6 +3,7 @@ import { accountLogin } from '../services/api';
 
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
+import token from '../utils/token';
 
 export default {
   namespace: 'login',
@@ -24,8 +25,10 @@ export default {
         payload: response,
       });
       // Login successfully
+      token.save(response.token);
+
       if (response.status === 'ok') {
-        reloadAuthorized();
+        reloadAuthorized();//这个部分存在问题
         yield put(routerRedux.push('/'));
       }
     },
@@ -38,6 +41,7 @@ export default {
         urlParams.searchParams.set('redirect', pathname);
         window.history.replaceState(null, 'login', urlParams.href);
       } finally {
+        token.remove();
         yield put({
           type: 'changeLoginStatus',
           payload: {
