@@ -5,7 +5,7 @@ import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
 import { getRouterData } from './common/router';
 
-import Authorized from './utils/Authorized';``
+import Authorized from './utils/Authorized';
 const { ConnectedRouter } = routerRedux;
 
 import styles from './index.less';
