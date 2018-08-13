@@ -68,6 +68,16 @@ enquireScreen((b) => {
   isMobile = b;
 });
 
+//清除所有cookie函数
+function clearAllCookie() {
+  var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+  if(keys) {
+    for(var i = keys.length; i--;)
+      document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+  }
+}
+
+
 class BasicLayout extends React.PureComponent {
   static childContextTypes = {
     location: PropTypes.object,
@@ -92,10 +102,9 @@ class BasicLayout extends React.PureComponent {
     /*this.props.dispatch ({
       type: 'login/login',
     });*/
-    //这个是在渲染结束之后进行的，要保证不进入到该界面必须得保证currentUser非空
-    /*if(this.props.currentUser.username===undefined){
+    if(document.cookie==null||document.cookie==undefined){
       this.props.dispatch(routerRedux.push('/user/update-result'));
-    }*/
+    }
   }
   componentWillUnmount() {
     const { dispatch } = this.props;
@@ -131,6 +140,7 @@ class BasicLayout extends React.PureComponent {
         type: 'login/logout',
       });
     }
+    clearAllCookie();
   }
   handleNoticeVisibleChange = (visible) => {
     if (visible) {
