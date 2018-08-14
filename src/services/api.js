@@ -75,6 +75,13 @@ export async function accountLogin(params) {
   });
 }
 
+export async function accountTemcheck(params) {
+  return request('api/v1/user/temcheck',{
+    method: 'POST',
+    body: params,
+  });
+}
+
 export async function register(params) {
   return request('/api/v1/user/register', {
     method: 'POST',
