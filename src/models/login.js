@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { accountLogin } from '../services/api';
+import { accountLogin, accountTemcheck } from '../services/api';
 
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
@@ -25,11 +25,28 @@ export default {
         payload: response,
       });
       // Login successfully
-      token.save(response.token);
+     // token.save(response.token);
 
       if (response.status === 'ok') {
         reloadAuthorized();//这个部分存在问题
         yield put(routerRedux.push('/'));
+      }
+    },
+    *temcheck({ payload }, { call, put}){
+      yield put({
+        type: 'changeSubmitting',
+        payload: true,
+      });
+      const response = yield call(accountTemcheck, payload);
+      yield put({
+        type: 'changeTemcheck',
+        payload: response,
+      });
+      if(response.status === 'ok'){
+        reloadAuthorized();
+      }
+      if(response.status === 'error'){
+        yield put(routerRedux.push('/user/update-result'));
       }
     },
     *logout(_, { put, select }) {
@@ -41,7 +58,6 @@ export default {
         urlParams.searchParams.set('redirect', pathname);
         window.history.replaceState(null, 'login', urlParams.href);
       } finally {
-        token.remove();
         yield put({
           type: 'changeLoginStatus',
           payload: {
@@ -57,12 +73,22 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.data==undefined ? undefined:payload.data.currentAuthority);
+      setAuthority(payload.data==undefined ? 'guest' : payload.data.currentAuthority);
       return {
         ...state,
         status: payload.status,
         type: payload.type,
         currentUser: payload.data,
+        submitting: false,
+      };
+    },
+    changeTemcheck(state, { payload }) {
+      setAuthority(payload.data==undefined ? 'guest' : payload.data.currentAuthority);
+      return {
+        ...state,
+        status: payload.status,
+        type: payload.type,
+        currentUser: payload.data==undefined ? {} : payload.data,
         submitting: false,
       };
     },
