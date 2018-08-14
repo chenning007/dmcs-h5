@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button } from 'antd';
-import { Link } from 'dva/router';
+import { Link, Route, Redirect, Switch, routerRedux } from 'dva/router';
 import Result from '../../components/Result';
 import styles from './RegisterResult.less';
 import logo from '../../assets/logo.svg';
@@ -9,7 +9,7 @@ const title = <div className={styles.title}>你的账户：AntDesign@example.com
 
 const actions = (
   <div className={styles.actions}>
-    <a href="/user/login"><Button size="large" type="primary">重新登录</Button></a>
+    <Link to="/user/login"><Button size="large" type="primary">重新登录</Button></Link>
     <Link to="/user/firstpage"><Button size="large">返回首页</Button></Link>
   </div>
 );
