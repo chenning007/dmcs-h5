@@ -77,6 +77,22 @@ function clearAllCookie() {
   }
 }
 
+function cookieToJson() {
+  //Cookie=document.cookie.replace(/\"/g, "");
+  let cookieArr = document.cookie.split(";");
+  var cookieObj = cookieArr.reduce((pre, next) => {
+    const key = next.split('=')[0];
+    const val = next.split('=')[1];
+    pre[key] = val;
+    return pre;  
+}, {});
+  /*let obj = {}; 
+  cookieArr.forEach((i) => {
+    let arr = i.split("=");
+    obj[arr[0]] =arr[1];
+  });*/
+  return cookieObj;
+}
 
 class BasicLayout extends React.PureComponent {
   static childContextTypes = {
@@ -99,10 +115,14 @@ class BasicLayout extends React.PureComponent {
         isMobile: mobile,
       });
     });
-    /*this.props.dispatch ({
-      type: 'login/login',
-    });*/
-    if(document.cookie==null||document.cookie==undefined){
+    if(this.props.currentUser.username==undefined||this.props.currentUser.username==null){
+      this.props.dispatch ({
+        type: 'login/temcheck',
+        payload: cookieToJson(),
+      });
+    }
+    var Cookie = document.cookie;
+    if( Cookie===null||Cookie===""||Cookie==={}){
       this.props.dispatch(routerRedux.push('/user/update-result'));
     }
   }
@@ -251,7 +271,11 @@ class BasicLayout extends React.PureComponent {
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <ContainerQuery query={query}>
-          {params => <div className={classNames(params)}>{layout}</div>}
+          {params => 
+          <div className={classNames(params)}>
+            {layout}
+          </div>
+          }
         </ContainerQuery>
       </DocumentTitle>
     );
