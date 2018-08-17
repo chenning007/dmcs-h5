@@ -3,8 +3,9 @@ import { connect } from 'dva';
 import { routerRedux, Route, Switch } from 'dva/router';
 import {
   Form, Input, DatePicker, Select, Button, Card, InputNumber, Radio, Icon, Tooltip, Cascader,
-  Row, Col, Avatar, Upload, Divider
+  Row, Col, Avatar, Upload, Divider, message
 } from 'antd';
+import reqwest from 'reqwest';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import FooterToolbar from '../../components/FooterToolbar';
 
@@ -49,12 +50,53 @@ function eng_chi (sex) {
 }))
 
 export default class Basic_profiles extends PureComponent {
-
+  state = {
+    fileList: [],
+    uploading: false,
+  }
+  
   onChangestate = (avatar_src) => {
     const { dispatch }=this.props;
     dispatch(routerRedux.push(`set_up`));
   }
   
+  handleUpload = () => {
+    const { fileList } = this.state;
+    const formData = new FormData();
+    fileList.forEach((file) => {
+      formData.append('file', file);
+    });
+    console.log(formData.has('file'));
+    console.log(formData.get('file'));
+    fileList.forEach((file) =>{
+      console.log(file);
+    }
+    );
+    this.setState({
+      uploading: true,
+    });
+
+    
+    reqwest({
+      url: 'api/v1/user/image',
+      method: 'post',
+      processData: false,
+      data: formData,
+      success: () => {
+        this.setState({
+          fileList: [],
+          uploading: false,
+        });
+        message.success('upload successfully.');
+      },
+      error: () => {
+        this.setState({
+          uploading: false,
+        });
+        message.error('upload failed.');
+      },
+    });
+  }
 
   renderInfo() {
     const { currentUser }=this.props; 
@@ -117,6 +159,42 @@ export default class Basic_profiles extends PureComponent {
   
   render() {
     const { currentUser, form, } = this.props;
+    const { fileList, uploading } = this.state;
+    /*const prop = {
+      accept:'image/*',
+      listType:'text',
+      name: 'image',  //名字要跟后台对应
+      action: "api/v1/user/image",
+      headers: {
+        authorization: 'authorization-text',
+      },
+      onChange: this.handlechange,
+      // headers:{'Content-Type':'multipart/form-data'},
+      /*onChange(info) {
+        let file = info.fileList[0];
+        const fileSize = (file.size / (1024 * 1024)).toFixed(2);  //获得文件大小
+        const name = file.name;  //获得文件名
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+          that.props.getSize(fileSize,name)  //传给父级
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      },*/
+    /*};*/
+    const props = {
+      action:'/api/v1/user/image',
+      beforeUpload:(file) => {
+        this.setState(({fileList})=>({
+        fileList: [...fileList, file],
+      }));
+      return false;
+      },
+      fileList: this.state.fileList,
+    }
     return (
       <div>
         <Card   
@@ -138,12 +216,20 @@ export default class Basic_profiles extends PureComponent {
                 <div 
                  className='headimage'
                 style={{ marginTop: 16 }}>
-                  <Upload action= 'api/v1/user/image' name='caizj15.png'>
+                  <Upload {...props}>
                     <Button>
                         <Icon type="upload"/>
                           更改头像
                     </Button>
                   </Upload>
+                  <Button
+                    type="primary"
+                    onClick={this.handleUpload}
+                    disabled={this.state.fileList.length === 0}
+                    loading={uploading}
+                  >
+                    {uploading ? 'Uploading' : 'Start Upload' }
+                  </Button>
                 </div>
               </Card>
             </Col>
