@@ -79,9 +79,9 @@ export default class Basic_profiles extends PureComponent {
     
     reqwest({
       url: 'api/v1/user/image',
-      enctype: 'multipart/form-data',  
+      //enctype: 'multipart/form-data',  
+      contentType:false,
       method: 'post',
-      contentType: false,
       processData: false,
       data: formData,
       success: () => {
