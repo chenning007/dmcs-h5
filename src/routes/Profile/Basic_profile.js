@@ -10,6 +10,7 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import FooterToolbar from '../../components/FooterToolbar';
 
 import logo from '../../../public/title.png';
+import 'whatwg-fetch';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -80,13 +81,15 @@ export default class Basic_profiles extends PureComponent {
       uploading: true,
     });
 
+    let url= 'http://localhost:8080/dmcs/api/v1/user/image';
     
-    reqwest({
+    /*reqwest({
       url: 'api/v1/user/image',
       //enctype: 'multipart/form-data',  
       method: 'post',
       processData: false,
       data: formData,
+
       success: () => {
         this.setState({
           fileList: [],
@@ -100,7 +103,24 @@ export default class Basic_profiles extends PureComponent {
         });
         message.error('upload failed.');
       },
-    });
+    });*/
+    fetch(url, {
+      body: formData,
+      method: "POST",
+      catch: false,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+  })
+      .then(res => {
+          console.log(res);
+      })
+      .then(data => {
+
+      })
+      .catch(err => {
+          alert(err.msg);
+      }) 
   }
 
   renderInfo() {
