@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@antv/data-set": "^0.8.0",
+    "@types/reqwest": "git+https://git@github.com/nozzlegear/reqwest.d.ts.git",
     "antd": "^3.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.9.2",
