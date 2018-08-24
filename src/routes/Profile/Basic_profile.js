@@ -66,6 +66,10 @@ export default class Basic_profiles extends PureComponent {
     fileList.forEach((file) => {
       formData.append('file', file);
     });//生成formData
+    
+    formData.append('file1','caizj15');
+    formData.append('file2','luwanping_15');
+
     console.log(formData.has('file'));
     console.log(formData.get('file'));
     fileList.forEach((file) =>{
@@ -80,7 +84,6 @@ export default class Basic_profiles extends PureComponent {
     reqwest({
       url: 'api/v1/user/image',
       //enctype: 'multipart/form-data',  
-      contentType:false,
       method: 'post',
       processData: false,
       data: formData,
