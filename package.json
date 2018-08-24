@@ -61,7 +61,8 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.0.0",
     "react-fittext": "^1.0.0",
-    "reqwest": "^2.0.5"
+    "reqwest": "^2.0.5",
+    "tsd": "^0.6.5"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
