@@ -3,7 +3,7 @@ import { accountLogin, accountTemcheck } from '../services/api';
 
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
-import token from '../utils/token';
+
 
 export default {
   namespace: 'login',
@@ -11,6 +11,7 @@ export default {
   state: {
     status: undefined,
     currentUser:{},
+    submitting: false,
   },
 
   effects: {
@@ -24,17 +25,14 @@ export default {
         type: 'changeLoginStatus',
         payload: response,
       });
-      // Login successfully
-     // token.save(response.token);
-
       if (response.status === 'ok') {
-        reloadAuthorized();//这个部分存在问题
+        reloadAuthorized();
         yield put(routerRedux.push('/'));
       }
     },
     *temcheck({ payload }, { call, put}){
       yield put({
-        type: 'changeSubmitting',
+        type: 'save',
         payload: true,
       });
       const response = yield call(accountTemcheck, payload);
@@ -98,5 +96,10 @@ export default {
         submitting: payload,
       };
     },
+    save(state, { payload }) {
+      return {
+        ...state,
+      };
+    }
   },
 };
