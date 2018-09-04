@@ -26,7 +26,7 @@ export default class Login extends Component {
     this.setState({ type });
   }
 
-  onGetCaptcha = () => {
+  /*onGetCaptcha = () => {
     let count = 59;
     this.setState({ count });
     this.interval = setInterval(() => {
@@ -36,7 +36,7 @@ export default class Login extends Component {
         clearInterval(this.interval);
       }
     }, 1000);
-  }
+  }*/
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -69,7 +69,7 @@ export default class Login extends Component {
   render() {
     const { form, login } = this.props;
     const { getFieldDecorator } = form;
-    const { count, type } = this.state;
+    const { type } = this.state;
     return (
       <div style={{paddingTop:110 ,paddingRight:0 ,paddingBottom:144 ,paddingLeft:0}}/*className={styles.container}*/>
         <div className={styles.top}>
