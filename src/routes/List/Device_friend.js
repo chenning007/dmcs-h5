@@ -1,17 +1,7 @@
 import React, { PureComponent } from 'react';
-import moment from 'moment';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, 
-       Select, Tooltip, Table, Dropdown, Menu, Switch, Divider } from 'antd';
-
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import EditableLinkGroup from '../../components/EditableLinkGroup';
-import { Radar } from '../../components/Charts';
-
+import { Row, Col, Card, Avatar, Input, Button, Icon, Modal, Form,  Tooltip, Table, Divider } from 'antd';
 import styles from './Device_friend.less';
-import { CALL_HISTORY_METHOD } from 'react-router-redux';
-
 import Table_friend from './Table_friend';
 const FormItem = Form.Item;
 
@@ -110,9 +100,9 @@ const columns1 =  [{
 
 @Form.create()
 export default class Device_friend extends PureComponent {
-  state={
-    content_condition: 0,  //用于设置content部分的内容,其中1时权限管理，2时添加人员,0为正常状态
-    selectedRowkeys: [],   //用于列表的选择
+  state={ /********* ***********/
+    content_condition: 0,  //用于设置content部分的内容,其中1时权限管理，2时添加人员,0为正常状态/******************* *********/
+    selectedRowkeys: [],   //用于列表的选择，可以通过该部分信息得到权限情况
     modalVisible1: false,  //用于显示删除的信息
     modalVisible2: false,  //用于显示提示的信息
     edit_condition: false,
@@ -386,13 +376,10 @@ submitAuthority() {
   }
 
   render() {
-    const {
-      loading,
-      form,
-    } = this.props;
+    const { loading } = this.props;
     // const {avatar_src} = this.props.location.state.avatar !==undefined ?this.props.location.state.avatar:'';
 
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { getFieldDecorator, } = this.props.form;
     const { selectedRowkeys, content_condition } = this.state;
 
     return (
