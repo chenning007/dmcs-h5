@@ -78,7 +78,7 @@ function clearAllCookie() {
 }
 
 function cookieToJson() {
-  //Cookie=document.cookie.replace(/\"/g, "");
+  //将string的cookie转换为可以识别的键对组合;
   let cookieArr = document.cookie.split(";");
   var cookieObj = cookieArr.reduce((pre, next) => {
     const key = next.split('=')[0];
@@ -86,11 +86,7 @@ function cookieToJson() {
     pre[key] = val;
     return pre;  
 }, {});
-  /*let obj = {}; 
-  cookieArr.forEach((i) => {
-    let arr = i.split("=");
-    obj[arr[0]] =arr[1];
-  });*/
+
   return cookieObj;
 }
 
@@ -123,7 +119,7 @@ class BasicLayout extends React.PureComponent {
     }
     var Cookie = document.cookie;
     if( Cookie===null||Cookie===""||Cookie==={}){
-      this.props.dispatch(routerRedux.push('/user/update-result'));
+      this.props.dispatch(routerRedux.push('/user/login'));
     }
   }
   componentWillUnmount() {
