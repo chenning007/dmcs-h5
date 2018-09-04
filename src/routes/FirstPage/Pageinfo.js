@@ -156,7 +156,7 @@ export default class Pageinfo extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
-                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://localhost:80/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -198,7 +198,7 @@ export default class Pageinfo extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
-                <img style={{marginLeft:-56,}} src="http://47.92.126.195:80/image/firstpage/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://localhost:80/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -310,7 +310,7 @@ export default class Pageinfo extends PureComponent {
                               <Card bordered={false}/>
                           </Col>
                           <Col xl={20} lg={12} md={12} sm={24} xs={24}>
-                              <img src="http://47.92.126.195:80/image/firstpage/background.png" style={{width:'100%'}}/>
+                              <img src="http://localhost:80/image/firstpage/background.png" style={{width:'100%'}}/>
                               {this.Position()}
                               {this.Content_data()}
                           </Col>
