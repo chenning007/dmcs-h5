@@ -4,9 +4,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form } from 'antd';
 
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import EditableLinkGroup from '../../components/EditableLinkGroup';
-import { Radar } from '../../components/Charts';
+
 
 import styles from './Data_list.less';
 
@@ -184,7 +182,7 @@ export default class Data_list extends PureComponent {
 
     return (
         <Row gutter={24}>
-          <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+          {/*<Col xl={24} lg={24} md={24} sm={24} xs={24}>
             <Card
               className={styles.projectList}
               style={{ marginBottom: 24 }}
@@ -211,7 +209,6 @@ export default class Data_list extends PureComponent {
                         title={(
                           <div className={styles.cardTitle}>
                             <Avatar size="small" src={item.logo} />
-                            {/*<Link to="/dashboard/monitor_device">{item.title}</Link>*/}
                           </div>
                         )}
                        // description={item.description}
@@ -271,7 +268,6 @@ export default class Data_list extends PureComponent {
                         title={(
                           <div className={styles.cardTitle}>
                             <Avatar size="small" src={item.logo} />
-                            {/*<Link to="/dashboard/monitor_device">{item.title}</Link>*/}
                           </div>
                         )}
                        // description={item.description}
@@ -314,58 +310,16 @@ export default class Data_list extends PureComponent {
             >
               <List loading={activitiesLoading} size="large">
                 <div className={styles.activitiesList}>
-                 {/*<Link to="/dashboard/analysis">{this.renderActivities()} </Link>*/}
-                       {this.renderActivities()} 
+                  {this.renderActivities()} 
                 </div>
               </List>
             </Card>
-          </Col>
-          
-      {/*   <Col xl={8} lg={24} md={24} sm={24} xs={24}>
-            <Card
-              style={{ marginBottom: 24 }}
-              title="快速开始 / 便捷导航"
-              bordered={false}
-              bodyStyle={{ padding: 0 }}
-            >
-              <EditableLinkGroup
-                onAdd={() => {}}
-                links={links}
-                linkElement={Link}
-              />
-            </Card>
-            <Card
-              style={{ marginBottom: 24 }}
-              bordered={false}
-              title="XX 指数"
-              loading={radarData.length === 0}
-            >
-              <div className={styles.chart}>
-                <Radar hasLegend height={343} data={radarData} />
-              </div>
-            </Card>
-            <Card
-              bodyStyle={{ paddingTop: 12, paddingBottom: 12 }}
-              bordered={false}
-              title="团队"
-            >
-              <div className={styles.members}>
-                <Row gutter={48}>
-                  {
-                    members.map(item => (
-                      <Col span={12} key={`members-item-${item.id}`}>
-                        <Link to={item.link}>
-                          <Avatar src={item.logo} size="small" />
-                          <span className={styles.member}>{item.title}</span>
-                        </Link>
-                      </Col>
-                    ))
-                  }
-                </Row>
-              </div>
-            </Card>
-                </Col>*/}
+            </Col>*/}
+          <Card>
+              内容待完善
+          </Card>
         </Row>
+            
     );
   }
 }
