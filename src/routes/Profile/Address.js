@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Table, Button, Input, message, Popconfirm, Divider, Card, Icon, Row, Col, } from 'antd';
+import {  Button, Input, Card, Icon, Row, Col, } from 'antd';
 
 
 export default class Address extends PureComponent {
@@ -13,54 +13,9 @@ export default class Address extends PureComponent {
   }
   //这里是创建一个对象，将Address实例化，从而可以进行操作;
   //这样的话数据是过来了，但是如何得到自己想要的结果呢。
-  /*componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps) {
-      this.setState({
-        data: nextProps.value,
-      });
-    }
-  }*/
   getRowByKey(key, newData) {
     return (newData || this.state.data).filter(item => item.key === key)[0];
   }
-  /*index = 0;
-  cacheOriginData = {};*/
-  /*toggleEditable=(e, key) => {
-    e.preventDefault();
-    const newData = this.state.data.map(item => ({ ...item }));
-    const target = this.getRowByKey(key, newData);
-    if (target) {
-      // 进入编辑状态时保存原始数据
-      if (!target.editable) {
-        this.cacheOriginData[key] = { ...target };
-      }
-      target.editable = !target.editable;
-      this.setState({ data: newData });
-    }
-  }*/
-  /*remove(key) {
-    const newData = this.state.data.filter(item => item.key !== key);
-    this.setState({ data: newData });
-    this.props.onChange(newData);
-  }*/
-  /*newMember = () => {
-    const newData = this.state.data.map(item => ({ ...item }));
-    newData.push({
-      key: `NEW_TEMP_ID_${this.index}`,
-      workId: '',
-      name: '',
-      department: '',
-      editable: true,
-      isNew: true,
-    });
-    this.index += 1;
-    this.setState({ data: newData });
-  }*/
-  /*handleKeyPress(e, key) {
-    if (e.key === 'Enter') {
-      this.saveRow(e, key);
-    }
-  }*/
 
   handleFieldChange(e, fieldName, key) {
     const newData = this.state.data.map(item => ({ ...item }));
@@ -82,14 +37,6 @@ export default class Address extends PureComponent {
         return;
       }
       const target = this.getRowByKey(key) || {};
-      /*if (!target.workId || !target.name || !target.department) {
-        message.error('请填写完整成员信息。');
-        e.target.focus();
-        this.setState({
-          loading: false,
-        });
-        return;
-      }*/
       delete target.isNew;
       const newData=this.state.data;
       const getData =this.props.value.map(item => ({ ...item }));
@@ -103,23 +50,14 @@ export default class Address extends PureComponent {
       });
     }, 100);
   }
-  /*cancel(e, key) {
-    this.clickedCancel = true;
-    e.preventDefault();
-    const newData = this.state.data.map(item => ({ ...item }));
-    const target = this.getRowByKey(key, newData);
-    if (this.cacheOriginData[key]) {
-      Object.assign(target, this.cacheOriginData[key]);
-      target.editable = false;
-      delete this.cacheOriginData[key];
-    }
-    this.setState({ data: newData });
-    this.clickedCancel = false;
-  }*/
+
   render() {
     const { data={} }=this.state;
     return (
       <Fragment>
+        {JSON.stringify(data) !== '{}'
+        &&
+        <div>
         {data.map((item) => {
             return (
                 <Card 
@@ -195,6 +133,8 @@ export default class Address extends PureComponent {
                 </Card> 
             );           
         })}
+        </div>
+        }
       </Fragment>
     );
   }
