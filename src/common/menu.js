@@ -3,16 +3,6 @@ const menuData = [{
   icon: 'dashboard',
   path: 'dashboard/device',
   },
-  /*{
-   name: '数据浏览',
-   icon: 'database',
-   path: 'dashboard/analysis',
-  },
-  {
-   name: '文件查看',
-   icon: 'folder',
-   path: '/dashboard/monitor',
-  },*/
   {
   name: ' 群组管理',
   icon: 'team',
@@ -26,14 +16,14 @@ const menuData = [{
         name: '朋友',
         path: 'friend_list',
       },
-      /*{
+      {
         name: '数据',
         path: 'data_list',
      },
      {
         name: '文件',
         path: 'file_list',
-     }*/
+     }
     ],
   
 }, {
@@ -48,13 +38,13 @@ const menuData = [{
     name: '修改',
     path: 'set_up',
   },
-  /*{
+  {
     name: '踪迹',
-    path: 'basic',
+    path: 'trace',
   }, {
     name: '财务',
-    path: 'advanced',
-  }*/],
+    path: 'finance',
+  }],
 }, 
 {
   name: '使用文档',
