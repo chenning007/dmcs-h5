@@ -67,16 +67,13 @@ export default class Basic_profiles extends PureComponent {
     fileList.forEach((file) => {
       formData.append('file', file);
     });//生成formData
-    
-    formData.append('file1','caizj15');
-    formData.append('file2','luwanping_15');
 
-    console.log(formData.has('file'));
-    console.log(formData.get('file'));
-    fileList.forEach((file) =>{
-      console.log(file);
-    }
-    );
+    //console.log(formData.has('file'));
+    //console.log(formData.get('file'));
+    //fileList.forEach((file) =>{
+    //  console.log(file);
+    //}
+    //);
     this.setState({
       uploading: true,
     });
@@ -104,7 +101,7 @@ export default class Basic_profiles extends PureComponent {
         message.error('upload failed.');
       },
     });*/
-    fetch(url, {
+    fetch('api/v1/user/image', {
       body: formData,
       method: "POST",
       catch: false,
