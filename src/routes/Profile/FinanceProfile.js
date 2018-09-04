@@ -142,7 +142,7 @@ const columns = [{
 @connect(state => ({
   profile: state.profile,
 }))
-export default class AdvancedProfile extends Component {
+export default class FinanceProfile extends Component {
   state = {
     operationkey: 'tab1',
     stepDirection: 'horizontal',
@@ -219,6 +219,9 @@ export default class AdvancedProfile extends Component {
         >
           {contentList[this.state.operationkey]}
             </Card>*/}
+        <Card>
+          内容待完善
+        </Card>
       </div>
     );
   }

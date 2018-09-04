@@ -17,10 +17,10 @@ export default class Profile extends Component {
         dispatch(routerRedux.push(`${match.url}/set_up`))
         break;
       case 'basic':
-        dispatch(routerRedux.push(`${match.url}/basic`));
+        dispatch(routerRedux.push(`${match.url}/trace`));
         break;
       case 'advanced':
-        dispatch(routerRedux.push(`${match.url}/advanced`));
+        dispatch(routerRedux.push(`${match.url}/finance`));
         break;
       default:
         break;
