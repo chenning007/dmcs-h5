@@ -23,6 +23,11 @@ const menuData = [{
      {
         name: '文件',
         path: 'file_list',
+     },
+     {
+        name: '管理',
+        authority: 'admin', //权限设置管理
+        path: 'manage_list',
      }
     ],
   

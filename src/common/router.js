@@ -140,6 +140,10 @@ export const getRouterData = (app) => {
     '/list/search/file_list': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/File_list')),
     },
+    '/list/search/manage_list':{
+      component: dynamicWrapper(app, ['list'],() => import('../routes/List/Manage_list')),
+      authority: 'admin',
+    },
     '/list/table_friend': {
       component: dynamicWrapper(app,[], () => import('../routes/List/Table_friend')),
     },
