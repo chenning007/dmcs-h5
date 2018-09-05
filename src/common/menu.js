@@ -49,7 +49,7 @@ const menuData = [{
 {
   name: '网站维护',
   icon: '',
-  path: 'authority/show',
+  path: 'authority/manage_list',
   //authority: ['admin'],
 },
 
