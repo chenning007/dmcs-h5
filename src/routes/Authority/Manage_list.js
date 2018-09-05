@@ -48,7 +48,7 @@ export default class Manage_list extends PureComponent {
                 grid={{ gutter: 20, column:1}}
                 itemLayout='horizontal' dataSource={source_data}
                 renderItem={item => (
-                    <List.Item>
+                    <List.Item key={item.id}>
                         <Card style={{textAlign: 'center'}}>
                         < Button type='primary' block='true' onClick={() => this.set_condition(item.id)} 
                           disabled={this.judge_button('admin',item.id)}
