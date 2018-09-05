@@ -108,7 +108,7 @@ export default class Basic_profiles extends PureComponent {
       processData: false,
       contentType: false,
       dataType: 'json',
-  })
+    })
       .then(res => {
           console.log(res);
       })
