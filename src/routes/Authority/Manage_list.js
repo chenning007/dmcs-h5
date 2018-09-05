@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import {Card, List, Button, Icon, Row, Col} from 'antd';
 import {connect} from 'dva';
+import { routerRedux, Route, Switch } from 'dva/router';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 const source_data = [
@@ -30,8 +31,23 @@ export default class Manage_list extends PureComponent {
             bu_status: false,
         });
     }
-    set_condition (condition){
-        this.setState({condition: condition});
+    set_condition = (condition) => {
+        //这里需要完成路由操作；
+        //只需要完成路由操作
+        const { dispatch } = this.props;
+        this.setState({condition:condition});
+        if(condition && condition <10 ){
+            dispatch(routerRedux.push({
+                pathname: `manage_file`,
+                state: {
+                    id: source_data[condition-1].id,
+                    title: source_data[condition-1].title,
+                }
+            }));
+        } //跳转到文档上传页面当中
+        if(condition===10){
+            dispatch(routerRedux.push(`manage_group`));
+        } //跳转到权限管理页面当中
     }
     judge_button (user , rank) {
         return false;

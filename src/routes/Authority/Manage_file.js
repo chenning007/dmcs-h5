@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {Card, List, Avatar, Upload, message, Icon, Form} from 'antd';
+import { routerRedux, Route, Switch } from 'dva/router';
 import reqwest from 'reqwest';
  
 const source_data = [{
@@ -34,7 +35,7 @@ const source_data = [{
     document_address:'',
     title: '',
     }
-  ];
+];
 const props = {
     name: 'file',
     action: '',
@@ -52,7 +53,7 @@ const props = {
     },
 };
 
-@connect
+@connect()
 export default class Manage_file extends PureComponent {
     state={
         data: [], 
@@ -65,12 +66,19 @@ export default class Manage_file extends PureComponent {
     }
     componentDidMount() {
         this.setState({data: source_data, loading: false});
+        if(this.props.location.state === undefined){
+           this.props.dispatch(routerRedux.push('manage_list'));
+        }
     }
     componentWillUnmount() {
        this.setState({
-           data:[],
-           loading: true,
-           file:{},
+            data: [], 
+            loading: true,
+            file: {},
+            image: {},
+            uploading: false,
+            bu_able_1: false, //是否禁止上传图片
+            bu_able_2: false, 
        });
     }
     onChangefile(key) {
@@ -140,8 +148,9 @@ export default class Manage_file extends PureComponent {
         };
         const { getFieldDecorator } = this.props.form;
         return(
-            <div>
+            <Card>
                 <List loading={this.state.loading}
+                    header={this.props.location.state !==undefined ? this.props.location.state.title:'未知'}
                     itemLayout='horizontal'
                     data={source_data}
                     renderItem={(item) => (
@@ -208,7 +217,7 @@ export default class Manage_file extends PureComponent {
                         {uploading ? 'Uploading' : 'Start Upload' }
                     </Button>  
                 </Card>
-            </div>
+            </Card>
         );
     }
 }
