@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import {Card, List, Avatar, Upload, message, Icon, Form} from 'antd';
+import {Card, List, Avatar, Upload, message, Icon, Form, Button, Input} from 'antd';
 import { routerRedux, Route, Switch } from 'dva/router';
 import reqwest from 'reqwest';
  
@@ -54,12 +54,13 @@ const props = {
 };
 
 @connect()
+@Form.create()
 export default class Manage_file extends PureComponent {
     state={
         data: [], 
         loading: true,
-        file: {},
-        image: {},
+        fileList: [],
+        imageList: [],
         uploading: false,
         bu_able_1: false, //是否禁止上传图片
         bu_able_2: false, //是否禁止上传文件
@@ -74,8 +75,8 @@ export default class Manage_file extends PureComponent {
        this.setState({
             data: [], 
             loading: true,
-            file: {},
-            image: {},
+            fileList: [],
+            imageList: [],
             uploading: false,
             bu_able_1: false, //是否禁止上传图片
             bu_able_2: false, 
@@ -88,7 +89,7 @@ export default class Manage_file extends PureComponent {
     }
 
     handleUpload = () => {
-       const { file, image } = this.state;
+       const { fileList, imageList } = this.state;
        const { form } = this.props;
        const title = form.getFieldValue('title');
        const description = form.getFieldValue('description');
@@ -96,23 +97,27 @@ export default class Manage_file extends PureComponent {
            return message.error('未完整输入文档信息!!!');
        }
        const formData = new FormData();
-       formData.append('file',file);
-       formData.append('image',image);
+       fileList.forEach((file) => {
+           formData.append('file',file);
+       })
+       imageList.forEach((file) => {
+           formData.append('image',file);
+       })
        formData.append('title',title);
        formData.append('description',description);
        
        this.setState({uploading: true,});
 
        reqwest({
-            url: '',
+            url: '/api/v1/user/image',
             method: 'post',
             processData: false,
             data: formData,
     
             success: () => {
             this.setState({
-                file: {},
-                image: {},
+                fileList: [],
+                imageList: [],
                 uploading: false,
                 bu_able_1: false,
                 bu_able_2: false,
@@ -132,38 +137,53 @@ export default class Manage_file extends PureComponent {
      */
     render() {
         const props1 = {
-            action:'',
+            action:'/api/v1/user/image',
             accept:'image/*',
+            //listType: 'picture',
             beforeUpload:(file) => {
-              this.setState({image: file, bu_able_1: true});
+                this.setState({bu_able_1:true});
+                this.setState(({imageList}) =>({
+                    imageList: [...imageList, file]
+                }));
             return false;
             },
+            fileList: this.state.imageList,
         };
         const props2 = {
-            action:'',
+            action:'/api/v1/user/image',
             beforeUpload:(file) => {
-              this.setState({file: file, bu_able_2: true});
-            return false;
+                this.setState({bu_able_2:true});
+                this.setState(({fileList})=>({
+                    fileList: [...fileList, file]
+                }));
+                return false;
             },
+            fileList: this.state.fileList,
         };
         const { getFieldDecorator } = this.props.form;
+        const { uploading } = this.state;
         return(
-            <Card>
-                <List loading={this.state.loading}
-                    header={this.props.location.state !==undefined ? this.props.location.state.title:'未知'}
-                    itemLayout='horizontal'
-                    data={source_data}
-                    renderItem={(item) => (
-                        <List.Item actions={[<Button type='danger' onClick={() =>this.onChangefile(item.id)}>删除</Button>]}>
-                            <List.Item.Meta 
-                                avatar={<Avatar src={item.image_address} size='large'/>}
-                                title={item.title}
-                            />
-                            <span style={{marginLeft:200, width:300}} ><h3>{item.description}</h3></span>
-                        </List.Item>
-                    )}
-                />
-                <Card title="上传文件">
+            <div>
+                <Card>
+                    <List 
+                        loading={this.state.loading}
+                        header={this.props.location.state !==undefined ? this.props.location.state.title:'未知'}
+                        itemLayout='horizontal'
+                        dataSource={source_data}
+                        renderItem={(item) => (
+                            <List.Item actions={[<Button type='danger' onClick={() =>this.onChangefile(item.id)}>删除</Button>]}>
+                                <span>
+                                <List.Item.Meta 
+                                    avatar={<Avatar src={item.image_address} size='large'/>}
+                                    title={item.title}
+                                />
+                                </span>
+                                <span style={{marginLeft:200, width:300}} ><h3>{item.description}</h3></span>
+                            </List.Item>
+                        )}
+                    />
+                </Card>
+                <Card style={{marginTop:28}} title="上传文件">
                     <Upload {...props1}> 
                         <Button disabled={this.state.bu_able_1}>
                             <Icon type="upload"/>
@@ -211,13 +231,13 @@ export default class Manage_file extends PureComponent {
                     <Button
                         type="primary"
                         onClick={this.handleUpload}
-                        disabled={JSON.stringify(this.state.file)==='{}' || JSON.stringify(this.state.image)==='{}'}
+                        disabled={ this.state.imageList.length === 0 || this.state.fileList.length === 0 }
                         loading={uploading}
                     >
                         {uploading ? 'Uploading' : 'Start Upload' }
                     </Button>  
                 </Card>
-            </Card>
+            </div>
         );
     }
 }
