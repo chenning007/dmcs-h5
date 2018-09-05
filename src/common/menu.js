@@ -24,11 +24,6 @@ const menuData = [{
         name: '文件',
         path: 'file_list',
      },
-     {
-        name: '管理',
-        authority: 'admin', //权限设置管理
-        path: 'manage_list',
-     }
     ],
   
 }, {
@@ -51,6 +46,13 @@ const menuData = [{
     path: 'finance',
   }],
 }, 
+{
+  name: '网站维护',
+  icon: '',
+  path: 'authority/show',
+  authority: ['admin'],
+},
+
 {
   name: '使用文档',
   icon: 'book',
