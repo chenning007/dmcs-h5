@@ -155,8 +155,11 @@ class BasicLayout extends React.PureComponent {
       this.props.dispatch({
         type: 'login/logout',
       });
+      clearAllCookie();
     }
-    clearAllCookie();
+    if (key === 'firstpage') {
+      this.props.dispatch(routerRedux.push('/user/firstpage'));
+    }
   }
   handleNoticeVisibleChange = (visible) => {
     if (visible) {
