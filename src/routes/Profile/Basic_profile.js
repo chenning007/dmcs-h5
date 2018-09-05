@@ -180,7 +180,7 @@ export default class Basic_profiles extends PureComponent {
   }
   
   render() {
-    const { currentUser, form, } = this.props;
+    const { currentUser, } = this.props;
     const { fileList, uploading } = this.state;
     /*const prop = {
       accept:'image/*',
