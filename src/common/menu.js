@@ -48,7 +48,7 @@ const menuData = [{
 }, 
 {
   name: '网站维护',
-  icon: '',
+  icon: 'setting',
   path: 'authority/manage_list',
   //authority: ['admin'],
 },
