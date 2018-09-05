@@ -242,27 +242,41 @@ export default class Pageinfo extends PureComponent {
     Content_data() {
         const { id = 1,   } = this.props.location.state === undefined ?  1 :this.props.location.state;
         switch(id){
-            case 1,3,5,7: {
-                return(
-                    <Card>
-                    内容
-                    </Card>
-                );
-                break;
+            case 1:
+            case 3:
+            case 5:
+            case 7: 
+            {
+              return(
+                  <Card>
+                  内容
+                  </Card>
+              );
+              break;
             }
-            case 8,9,10,11: {
-                return(
-                    <Card>
-                    暂无
-                    </Card>
-                );
+            case 8:
+            case 9:
+            case 10:
+            case 11: 
+            {
+              return(
+                  <Card>
+                  暂无
+                  </Card>
+              );
             }
             default: {
-                <Card>
-                    本网站由清华大学DMCS(Distributed Measurement & Control System)课题组主办，目的在于课题组的新技术推广和实质性学术交流。 清华大学DMCS课题组长期从事分布式测控系统及其相关技术研究。
-                    经过多年的坚持和努力，基于课题组曾提出的"IPT (Information Pipe Technology)"信息管道技术，研制出了IPT系列多种新技术产品，可满足多数新型分布式测控系统的设计和应用需求。在热、机、电等应用领域的分布式测控技术方面，有望探索出一条技术和市场高度相结合的科技发展道路。欢迎更多的有识之士支持或加入我们团队。
-                </Card>
+                return (
+               // {/*<Card>
+                //    本网站由清华大学DMCS(Distributed Measurement & Control System)课题组主办，目的在于课题组的新技术推广和实质性学术交流。 清华大学DMCS课题组长期从事分布式测控系统及其相关技术研究。
+                //    经过多年的坚持和努力，基于课题组曾提出的"IPT (Information Pipe Technology)"信息管道技术，研制出了IPT系列多种新技术产品，可满足多数新型分布式测控系统的设计和应用需求。在热、机、电等应用领域的分布式测控技术方面，有望探索出一条技术和市场高度相结合的科技发展道路。欢迎更多的有识之士支持或加入我们团队。
+               // </Card>*/}
+                 <div>
+                   <object style="border:0px" type="text/x-scriptlet" data="file:///home/caizj/Desktop/HTML_1234567.html" width='100%' height='30'/>
+                 </div>
+                );
                 break;
+              
             }
         }
     }
