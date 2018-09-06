@@ -1,20 +1,14 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { routerRedux, Route, Switch } from 'dva/router';
+import { routerRedux, } from 'dva/router';
 import {
-  Form, Input, DatePicker, Select, Button, Card, InputNumber, Radio, Icon, Tooltip, Cascader,
-  Row, Col, Avatar, Upload, Divider, message
-} from 'antd';
+  Form, Button, Card,  Icon, Row, Col,  Upload, message } from 'antd';
 import reqwest from 'reqwest';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import FooterToolbar from '../../components/FooterToolbar';
 
-import logo from '../../../public/title.png';
 import 'whatwg-fetch';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { TextArea } = Input;
 
 
 /**** */
@@ -78,9 +72,9 @@ export default class Basic_profiles extends PureComponent {
       uploading: true,
     });
 
-    let url= 'http://localhost:8080/dmcs/api/v1/user/image';
+    //let url= 'http://localhost:8080/dmcs/api/v1/user/image';
     
-    /*reqwest({
+    reqwest({
       url: 'api/v1/user/image',
       //enctype: 'multipart/form-data',  
       method: 'post',
@@ -100,8 +94,8 @@ export default class Basic_profiles extends PureComponent {
         });
         message.error('upload failed.');
       },
-    });*/
-    fetch('api/v1/user/image', {
+    });
+    /*fetch('api/v1/user/image', {
       body: formData,
       method: "POST",
       catch: false,
@@ -117,7 +111,7 @@ export default class Basic_profiles extends PureComponent {
       })
       .catch(err => {
           alert(err.msg);
-      }) 
+      }) */
   }
 
   renderInfo() {
