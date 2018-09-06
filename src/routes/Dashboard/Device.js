@@ -1,16 +1,11 @@
 import React, { PureComponent } from 'react';
-import moment from 'moment';
 import { connect } from 'dva';
-import { Link, routerRedux } from 'dva/router';
-import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form } from 'antd';
+import { routerRedux } from 'dva/router';
+import { Row, Col, Card,  Avatar, } from 'antd';
 
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import EditableLinkGroup from '../../components/EditableLinkGroup';
-import { Radar } from '../../components/Charts';
 
 import styles from './Device.less';
 
-const FormItem = Form.Item;
 
 @connect(state => ({
   myself_device: state.device.myself_device,
