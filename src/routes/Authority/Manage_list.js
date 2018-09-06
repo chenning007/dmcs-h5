@@ -66,7 +66,7 @@ export default class Manage_list extends PureComponent {
                 renderItem={item => (
                     <List.Item key={item.id}>
                         <Card style={{textAlign: 'center'}}>
-                        < Button type='primary' block='true' onClick={() => this.set_condition(item.id)} 
+                        < Button type='primary' block onClick={() => this.set_condition(item.id)} 
                           disabled={this.judge_button('admin',item.id)}
                         >
                             {item.title}
