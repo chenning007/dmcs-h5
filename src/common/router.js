@@ -140,17 +140,25 @@ export const getRouterData = (app) => {
     '/list/search/file_list': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/File_list')),
     },
+    '/authority/manage_list':{
+      component: dynamicWrapper(app, [],() => import('../routes/Authority/Manage_list')),
+      authority: 'admin',
+    },
+    '/authority/manage_file':{
+      component: dynamicWrapper(app, [],() => import('../routes/Authority/Manage_file')),
+      authority: 'admin',
+    },
     '/list/table_friend': {
       component: dynamicWrapper(app,[], () => import('../routes/List/Table_friend')),
     },
     '/profile': {
       component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Profile')),
     },
-    '/profile/basic': {
-      component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/BasicProfile')),
+    '/profile/trace': {
+      component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/TraceProfile')),
     },
-    '/profile/advanced': {
-      component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/AdvancedProfile')),
+    '/profile/finance': {
+      component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/FinanceProfile')),
     },
     '/profile/basic-profile': {
       component: dynamicWrapper(app, ['user'], () => import('../routes/Profile/Basic_profile')),

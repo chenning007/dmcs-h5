@@ -1,20 +1,20 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Table, Button, Input, message, Popconfirm, Divider, Switch, Icon, Avatar } from 'antd';
+import { Table, Divider, Switch, Icon, Avatar } from 'antd';
 
 
 
 /***** */
 const avatar = [
-    'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/psOgztMplJMGpVEqfcgF.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/ZpBqSxLxVEXfcUNoPKrz.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/laiEnJdGHVOhJrUShBaJ.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/UrQsqscbKEpNuJcvBZBu.png',
+    'http://localhost:80/image/BiazfanxmamNRoxxVxka.png',
+    'http://localhost:80/image/cnrhVkzwxjPwAaCfPbdc.png',
+    'http://localhost:80/image/gaOngJwsRYRaVAuXXcmB.png',
+    'http://localhost:80/image/ubnKSIfAJTxIgXOKlciN.png',
+    'http://localhost:80/image/WhxKECPNujWoWEFNdnJE.png',
+    'http://localhost:80/image/jZUIxmJycoymBprLOUbT.png',
+    'http://localhost:80/image/psOgztMplJMGpVEqfcgF.png',
+    'http://localhost:80/image/ZpBqSxLxVEXfcUNoPKrz.png',
+    'http://localhost:80/image/laiEnJdGHVOhJrUShBaJ.png',
+    'http://localhost:80/image/UrQsqscbKEpNuJcvBZBu.png',
   ];
 
 /****** */

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Card, Badge, Table, Divider } from 'antd';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import DescriptionList from '../../components/DescriptionList';
-import styles from './BasicProfile.less';
 
-const { Description } = DescriptionList;
+
 
 const progressColumns = [{
   title: '时间',
@@ -35,7 +32,7 @@ const progressColumns = [{
 @connect(state => ({
   profile: state.profile,
 }))
-export default class BasicProfile extends Component {
+export default class TraceProfile extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -158,6 +155,7 @@ export default class BasicProfile extends Component {
             dataSource={basicProgress}
             columns={progressColumns}
     />*/}
+         内容待完善
         </Card>
     );
   }

@@ -78,7 +78,8 @@ const proxy = {
   'POST /api/v1/user/login': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/user/temcheck': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/user/register':'http://127.0.0.1:8080/dmcs',
-  //'POST /api/v1/user/image': 'http://127.0.0.1:8080/dmcs',
+  'POST /api/v1/user/image': 'http://127.0.0.1:8080/dmcs',
+  'POST /api/v1/tech_document/addocument': 'http://127.0.0.1:8080/dmcs',
   'POST /api/device/addDevice': (req, res) => {
     res.send(
       {status: 'ok',}
