@@ -85,7 +85,11 @@ const proxy = {
       {status: 'ok',}
     );
   },
-
+  'GET /api/query/fake' :(req,res) => {
+     res.send({
+       status: 'ok',
+     });
+  },
   'GET /api/notices': getNotices,
   'GET /api/500': (req, res) => {
     res.status(500).send({
