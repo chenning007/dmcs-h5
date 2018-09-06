@@ -148,8 +148,9 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, [],() => import('../routes/Authority/Manage_file')),
       authority: 'admin',
     },
-    '/list/table_friend': {
-      component: dynamicWrapper(app,[], () => import('../routes/List/Table_friend')),
+    '/authority/manage_group':{
+      component: dynamicWrapper(app, ['list', 'friend', 'form'], () => import('../routes/Authority/Manage_group')),
+      authority: 'admin',
     },
     '/profile': {
       component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Profile')),
