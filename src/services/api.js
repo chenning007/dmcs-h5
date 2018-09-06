@@ -68,6 +68,15 @@ export async function queryDeviceList(params) {
   return request(`/api/fake_list?${stringify(params)}`);
 }
 
+//
+export async function queryFakeList() {
+  return request('/api/query/fake');
+}
+export async function queryActivities(){
+  return request('/api/query/fake');
+}
+//
+
 export async function accountLogin(params) {
   return request('/api/v1/user/login', {
     method: 'POST',
