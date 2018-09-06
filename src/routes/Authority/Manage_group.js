@@ -1,28 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Avatar, Input, Button, Icon, Modal, Form,  Tooltip, Table, Divider } from 'antd';
+import { Row, Col, Card, Avatar, Button, Icon, Modal, Form,  Tooltip, Table, Divider } from 'antd';
 import styles from './Manage_group.less';
 import Table_friend from './Table_group';
-const FormItem = Form.Item;
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24, offset: -10 },
-    sm: { span: 7 , offset: -10 }, 
-  },
-  wrapperCol: {
-    xs: { span: 24, offset: 3},
-    sm: { span: 12 },
-    md: { span: 10 },
-  },
-};
-
-const submitFormLayout = {
-  wrapperCol: {
-    xs: { span: 24, offset: 0 },
-    sm: { span: 10, offset: 10 },
-  },
-};
 
 const columns =  [{
   title: '朋友',
@@ -115,7 +95,7 @@ export default class Device_friend extends PureComponent {
     dispatch({
       type: 'friend/fetchList',
     });
-    //获得friend数据
+    //获得friend数据, 数据的产生在这里，把握好即可了
   }
 
   componentWillUnmount() {
@@ -130,18 +110,18 @@ export default class Device_friend extends PureComponent {
       type: 'friend/clear',
     });
   }
-submitAuthority() {
-  const { dispatch, } = this.props;
-  const { validateFieldsAndScroll } = this.props.form;
-  validateFieldsAndScroll( (error, values) => {
-    if(!error) {
-      dispatch({
-        type: 'user/submitRegularForm',
-        payload: values,
-      });
+    submitAuthority() {
+    const { dispatch, } = this.props;
+    const { validateFieldsAndScroll } = this.props.form;
+    validateFieldsAndScroll( (error, values) => {
+        if(!error) {
+        dispatch({
+            type: 'user/submitRegularForm',
+            payload: values,
+        });
+        }
+    });
     }
-  });
-}
 /**** */
   handleAddInput = (e) => {
     this.setState({
@@ -187,7 +167,6 @@ submitAuthority() {
   setModalvisible2(visible) {
     if(!visible){
       this.setState({modalVisible2: visible});
-    //this.setState({selectedRowkeys: []});
     }
     if(visible){
       this.setState({modalVisible2: visible});
@@ -257,37 +236,20 @@ submitAuthority() {
       );
     }
     else{
-      return(
-        <div>
-          <Tooltip placement='top' title='返回'>
-          <Button type='primary' onClick={() => this.resetCondition()}>
-            <Icon type="rollback" />
-          </Button>
-          </Tooltip>
-       </div>
-      );
+        return(
+            <div>
+            <Tooltip placement='top' title='返回'>
+            <Button type='primary' onClick={() => this.resetCondition()}>
+                <Icon type="rollback" />
+            </Button>
+            </Tooltip>
+        </div>
+        );
     }
   }
 
-  show_title() {
-    if(this.props.location.state !== undefined ){
-      return(
-        <div>
-          <span><Avatar src={this.props.location.state.avatar} size='large'/></span>
-          {this.props.location.state.title}
-        </div>
-      );
-    }
-    else
-      return(
-        <div>
-          <span><Avatar size= 'large' src=''/></span>
-        </div>
-      )
-  }
   
   edit_Condition(e,edit_enable) {
-    //let edit_enable = edit_enable;
     this.setState({edit_condition: edit_enable});
   }
  /**** */ 
@@ -296,7 +258,7 @@ submitAuthority() {
       list_device_friend=[],
       list_friend=[],
     } = this.props;
-    const { getFieldDecorator, validateFieldsAndScroll, getFieldValue } = this.props.form;
+    const { getFieldDecorator, } = this.props.form;
     const {content_condition, selectedRowkeys=[], modalVisible1, modalVisible2} =　this.state;
     const rowSelection = {
       selectedRowkeys,
@@ -312,14 +274,14 @@ submitAuthority() {
             <div>
               <Table columns={columns} dataSource={ list_friend } 
                 pagination={false} rowSelection={rowSelection}
+                loading = {list_friend === []}
               />
             </div>
             //这里直接显示出了人员的列表,只有在选择人数不为0或要求显示的内容不为２时，才显示出来
-            //
           }
           { (content_condition === 1)&&(selectedRowkeys.length ===0)
             &&
-            <Card /*title="权限管理"*/ bordered={false} style={{marginTop: 12}}>
+            <Card  bordered={false} style={{marginTop: 12}}>
               {getFieldDecorator('authorize', {
                 initialValue: list_device_friend,
               })(<Table_friend onChange={(e, edit_enable) => this.edit_Condition(e,edit_enable)}/>)}
@@ -335,7 +297,6 @@ submitAuthority() {
               okText='确认'
               cancelText='取消'
             >
-            {/* 利用form进行显示，不太合乎常理,form主要还是用于展示数据**/}
              <Form >　
                 {selectedRowkeys.map((item)=>{
                   let tem=item-1;
@@ -347,7 +308,7 @@ submitAuthority() {
                 })}   
               </Form>
             </Modal>
-          } {/* 插入<Modal>块*/}
+          }
           { selectedRowkeys.length === 0
             &&
             <Modal visible={modalVisible2}
@@ -377,9 +338,6 @@ submitAuthority() {
 
   render() {
     const { loading } = this.props;
-    // const {avatar_src} = this.props.location.state.avatar !==undefined ?this.props.location.state.avatar:'';
-
-    const { getFieldDecorator, } = this.props.form;
     const { selectedRowkeys, content_condition } = this.state;
 
     return (
@@ -389,9 +347,9 @@ submitAuthority() {
           <Col xl={24} lg={24} md={24} sm={24} xs={24}>
             <Card
               bodyStyle={{ padding: 0 }}
+              title="权限管理"
               bordered={false}
               className={styles.activeCard}
-              title={this.show_title()}
               loading={loading}
               extra={this.extraContent(selectedRowkeys, content_condition)}
               style={{ marginBottom: 24 }} 
@@ -399,81 +357,6 @@ submitAuthority() {
               <div className={styles.activitiesList}>
                 {this.renderActivities()} 
               </div>
-            </Card>
-            <Card 
-                bordered={true}
-                title={this.show_title()}
-                style={{ marginBottom: 36 }}
-            >
-              <Row>
-                <Col span={12}>
-                  <Form
-                    //onSubmit={this.handleSubmit}
-                    hideRequiredMark
-                    style={{ marginTop: 8 }}
-                  >  
-                    <FormItem
-                      {...formItemLayout}
-                      label="设备id"
-                    >
-                      {getFieldDecorator('id', {
-                      initialValue: "2015000000",
-                      rules: [{
-                          required: false, 
-                        }],
-                      })(
-                          <Input  size="large" placeholder="例如: 2015000000" disabled
-                          />
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="名称"
-                    >
-                    {getFieldDecorator('number', {
-                      initialValue: "conditionar",
-                      rules: [{
-                        required: false, 
-                      }],
-                    })(
-                        <Input  size="large" placeholder="例如: 2015000000" disabled
-                        />
-                      )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="日期"
-                    >
-                    {getFieldDecorator('date', {
-                      initialValue: "2017-08-01",
-                      rules: [{
-                        required: false, 
-                      }],
-                    })(
-                        <Input  size="large" placeholder="例如: 2015000000" disabled
-                        />
-                      )}
-                    </FormItem>  
-                    <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-                      <Button type="primary" htmlType="submit" /*loading={submitting}*/>
-                        保存
-                      </Button>
-                    </FormItem>           
-                  </Form>
-                </Col>
-              </Row>
-            </Card>
-            <Card 
-              style={{ marginBottom: 36 , textAlign: 'center' }}
-            >
-              <Button type="danger" htmlType="submit" size="large"/*loading={submitting}*/>
-                  权限转让
-              </Button> 
-            </Card>
-            <Card style={{ textAlign: 'center' }}>
-              <Button type="danger" htmlType="submit" size="large"/*loading={submitting}*/>
-                  删除并退出
-                </Button>   
             </Card>
           </Col>    
         } 
