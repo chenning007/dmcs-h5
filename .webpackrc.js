@@ -20,6 +20,11 @@ export default {
       "target":"http://127.0.0.1:8080/dmcs",
       "changeOrigin":true,
       "pathRewrite":{"^api/v1/user/image":""}
+    },
+    "/api/v1/tech_document/addocument":{
+      "target":"http://127.0.0.1:8080/dmcs",
+      "changeOrigin":true,
+      "pathRewrite":{"^api/v1/tech_document/addocument":""}
     }
   },
   //
