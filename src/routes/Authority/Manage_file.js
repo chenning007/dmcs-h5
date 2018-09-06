@@ -109,7 +109,7 @@ export default class Manage_file extends PureComponent {
        this.setState({uploading: true,});
 
        reqwest({
-            url: '/api/v1/user/image',
+            url: '/api/v1/tech_document/addocument',
             method: 'post',
             processData: false,
             data: formData,
@@ -137,7 +137,7 @@ export default class Manage_file extends PureComponent {
      */
     render() {
         const props1 = {
-            action:'/api/v1/user/image',
+            action:'/api/v1/tech_document/addocument',
             accept:'image/*',
             //listType: 'picture',
             beforeUpload:(file) => {
@@ -150,7 +150,7 @@ export default class Manage_file extends PureComponent {
             fileList: this.state.imageList,
         };
         const props2 = {
-            action:'/api/v1/user/image',
+            action:'/api/v1/tech_document/addocument',
             beforeUpload:(file) => {
                 this.setState({bu_able_2:true});
                 this.setState(({fileList})=>({
