@@ -93,6 +93,9 @@ export default class Manage_file extends PureComponent {
        const { form } = this.props;
        const title = form.getFieldValue('title');
        const description = form.getFieldValue('description');
+       if(this.props.location.state===undefined){
+           return message.error('页面模式载入出现错误!!!');
+       }
        if(!title || !description) {
            return message.error('未完整输入文档信息!!!');
        }
@@ -103,9 +106,10 @@ export default class Manage_file extends PureComponent {
        imageList.forEach((file) => {
            formData.append('image',file);
        })
+       let id = this.props.location.state.id;
        formData.append('title',title);
        formData.append('description',description);
-       
+       formData.append('identityNumber',id);
        this.setState({uploading: true,});
 
        reqwest({
