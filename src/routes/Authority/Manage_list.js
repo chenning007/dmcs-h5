@@ -76,7 +76,10 @@ export default class Manage_list extends PureComponent {
                 )}
             />
             <Card style={{textAlign: 'center'}}>
-               <Button type='primary'size='large' disabled={this.judge_button('admin', 10)}>
+               <Button type='primary'size='large' 
+                   onClick={() => this.set_condition(10)}
+                   disabled={this.judge_button('admin', 10)}
+                >
                   进入权限管理
                </Button> 
             </Card>
