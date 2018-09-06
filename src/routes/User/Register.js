@@ -47,12 +47,15 @@ export default class Register extends Component {
         }
       }));
       }
+      else {
+        this.props.register.status = '';
+      }
     }
     if (nextProps.register.status === 'error') {
       this.setState({register_status: false,});
     }
   }
-
+  
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -80,20 +83,6 @@ export default class Register extends Component {
     }
     return 'pool';
   };
-  /*******
-   * 
-   * onLinktodevice = (email) => {
-    const {dispatch}=this.props;
-    dispatch(routerRedux.push({
-      pathname: '/dashboard/monitor_dgo/monitor_device',
-      state: { 
-        email: email,  
-      },
-    })
-    );
-  }
-  ****
-   */
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields({ force: true }, (err, values) => {
