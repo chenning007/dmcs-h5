@@ -101,3 +101,28 @@ export async function register(params) {
 export async function queryNotices() {
   return request('/api/notices');
 }
+
+export async function queryadminuser(params) {
+  return request('/api/v1/admin/getAdminuser',{
+    method: 'POST',
+    body: params,
+  });
+}
+export async function deleteadminuser(params) {
+  return request('/api/v1/admin/deleteAdminuser',{
+    method: 'POST',
+    body: params,
+  });
+}
+export async function addAdminuser(params) {
+  return request('/api/v1/admin/addAdminuser',{
+    method: 'POST',
+    body: params,
+  });
+}
+export async function changeauthority(params) {
+  return request('/api/v1/admin/changeAuthority',{
+    method: 'POST',
+    body: params,
+  });
+}
