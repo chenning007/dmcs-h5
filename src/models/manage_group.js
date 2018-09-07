@@ -3,8 +3,8 @@ export default {
     namespace: 'manage_group',
 
     state: {
-        adminusers : {},
-        loading: true,
+        adminusers : [],
+        loading: false,
         AdminUser : {},
     },
   
@@ -14,7 +14,7 @@ export default {
                type: 'changLoading',
                payload: true,
             });
-           const reponse = yield call( queryadminuser,payload );
+           const response = yield call( queryadminuser,payload );
             yield put({
                type: 'changeadminuser',
                payload: response,
@@ -32,7 +32,7 @@ export default {
                 type: 'changeLoading',
                 payload: true,
             });
-            const reponse = yield call(deleteadminuser,payload);
+            const response = yield call(deleteadminuser,payload);
             yield put ({
                 type: 'save',
                 payload: response,
@@ -48,7 +48,7 @@ export default {
                 type: 'changeLoadin',
                 payload: true,
             })
-            const reponse  = yield call(addAdminuser,payload);
+            const response  = yield call(addAdminuser,payload);
             yield put ({
                 type: 'save',
                 payload: response,
@@ -79,7 +79,7 @@ export default {
     reducers: {
         clear() {
             return {
-                adminusers: {},
+                adminusers: [],
                 loading: true,
             }
         },
@@ -92,7 +92,7 @@ export default {
         changeadminuser (state, {payload}) {
             return{
                 ...state,
-                adminusers: payload.data==undefined? {}:payload.data,
+                adminusers: payload.data === undefined? []:payload.data,
                 loading: false,
             };
         },
