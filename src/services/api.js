@@ -5,8 +5,8 @@ export async function queryProjectNotice() {
   return request('/api/project/notice');
 }
 ////
-export async function queryFriend() {
-  return request('/api/friends');
+export async function queryFriend(params) {
+  return request('/api/v1/user/');
 }
 //////
 export async function queryRule(params) {

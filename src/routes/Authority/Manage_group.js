@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {routerRedux } from 'dva/router'
-import { Row, Col, Card, Avatar, Button, Icon, Modal, Form,  Tooltip, Table, Divider } from 'antd';
+import { Row, Col, Card, Avatar, Button, Icon, Modal, Form,  Tooltip, Table, Divider, message } from 'antd';
 import styles from './Manage_group.less';
 import Table_friend from './Table_group';
 import { getAuthority } from '../../utils/authority';
@@ -43,7 +43,7 @@ const columns1 =  [{
   render: text => <Avatar src={text}/>,
 },{
   title: '',
-  dataIndex: 'userName',
+  dataIndex: 'username',
   key: 'userName',
   width:'6%'
 }, {
@@ -71,6 +71,7 @@ const columns1 =  [{
 
 @connect(state => ({
   list_device_friend: state.friend.list_device_friend,
+  list_friend: state.friend.list_friend,
   adminusers: state.manage_group.adminusers,
   currentUser: state.login.currentUser,
 }))
@@ -83,6 +84,7 @@ export default class Manage_group extends PureComponent {
     modalVisible1: false,  //用于显示删除的信息
     modalVisible2: false,  //用于显示提示的信息
     edit_condition: false,
+    resetrender: false,
   }
   onSelectedChange = (selectedRowkeys) => {
     this.setState({selectedRowkeys: selectedRowkeys});
@@ -105,6 +107,12 @@ export default class Manage_group extends PureComponent {
           Userid:currentUser.userid,
         },
       });
+      dispatch({
+        type: 'friend/fetchList',
+        payload: {
+          Userid: currentUser.userid,
+        }
+      })
     }
     //获得admin的数据, 数据的产生在这里，把握好即可了,一旦出现错误很容易发生异常
   }
@@ -115,6 +123,11 @@ export default class Manage_group extends PureComponent {
       type: 'manage_group/clear', 
     });
   }
+  
+  componentWillReceiveProps(nextProps){
+    this.setState({resetrender: !this.state.resetrender});
+  }
+
 
   submitAuthority() {
     const { dispatch, } = this.props;
@@ -155,6 +168,35 @@ export default class Manage_group extends PureComponent {
     this.setState({content_condition: content_condition});
   }
   
+  deleteAdmin(selectedRowkeys) {
+    const { dispatch, currentUser={} } = this.props;
+    let userids = [];
+    let i =0;
+    for(;i<selectedRowkeys.length;i++){
+      userids.push({
+         userid:selectedRowkeys[i]
+      });
+    };
+    if(JSON.stringify(currentUser)!=='{}') {
+      dispatch({
+        type:'manage_group/deleteAdminuser',
+        payload: {
+          userids,
+          Userid: currentUser.userid,
+        }
+      });
+      this.setState({modalVisible1: false});
+      this.setState({
+        content_condition: 0,
+        selectedRowkeys: [],
+        modalVisible1: false,
+        modalVisible2: false,
+      });
+    }
+    else{
+      message.error("用户信息缺失，请重新刷新页面");
+    }
+  }
 
   setModalvisible1(visible) {
     if(!visible){
@@ -263,6 +305,7 @@ export default class Manage_group extends PureComponent {
   renderActivities() {
     const {
       list_device_friend=[],
+      list_friend = [],
       adminusers=[],
     } = this.props;
     const { getFieldDecorator, } = this.props.form;
@@ -301,7 +344,7 @@ export default class Manage_group extends PureComponent {
             <Modal
               title='删除下列人员'
               visible={modalVisible1} //删除人员时
-              onOk={()=>this.setModalvisible1(false)}
+              onOk={()=>this.deleteAdmin(selectedRowkeys)}
               onCancel={()=>this.setModalvisible1(false)}
               okText='确认'
               cancelText='取消'
@@ -336,8 +379,10 @@ export default class Manage_group extends PureComponent {
        extra={this.extraContent_3(selectedRowkeys.length)}
       >
         <div style={{padding:10 }}>
-          <Table columns={columns1} dataSource={ adminusers } 
-          pagination={false} rowSelection={rowSelection}/>
+          <Table columns={columns} dataSource={ list_friend } 
+          pagination={false} rowSelection={rowSelection}
+          rowKey='userid'
+          />
         </div>
       </Card>
       );
