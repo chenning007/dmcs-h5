@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
+import {routerRedux } from 'dva/router'
 import { Row, Col, Card, Avatar, Button, Icon, Modal, Form,  Tooltip, Table, Divider } from 'antd';
 import styles from './Manage_group.less';
 import Table_friend from './Table_group';
+import { getAuthority } from '../../utils/authority';
 
 const columns =  [{
   title: '朋友',
@@ -90,6 +92,14 @@ export default class Device_friend extends PureComponent {
   onSelectedChange = (selectedRowkeys) => {
     this.setState({selectedRowkeys: selectedRowkeys});
   }
+  //对权限进行判断
+  componentWillMount() {
+    const { dispatch } = this.props;
+    if(getAuthority()!='admin'){
+      dispatch(routerRedux.push('/exception/403'));
+    }
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -100,17 +110,17 @@ export default class Device_friend extends PureComponent {
 
   componentWillUnmount() {
     const { dispatch } = this.props;
-    this.setState({
+    /*this.setState({
       content_condition: 0,
       selectedRowkeys: [],
       modalVisible1: false,
       modalVisible2: false,
-    });
+    });*/
     dispatch({
       type: 'friend/clear',
     });
   }
-    submitAuthority() {
+  submitAuthority() {
     const { dispatch, } = this.props;
     const { validateFieldsAndScroll } = this.props.form;
     validateFieldsAndScroll( (error, values) => {
@@ -121,7 +131,7 @@ export default class Device_friend extends PureComponent {
         });
         }
     });
-    }
+  }
 /**** */
   handleAddInput = (e) => {
     this.setState({

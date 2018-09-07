@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import {Card, List, Button, Icon, Row, Col} from 'antd';
 import {connect} from 'dva';
-import { routerRedux, Route, Switch } from 'dva/router';
+import { routerRedux, } from 'dva/router';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import { getAuthority } from '../../utils/authority';
 
 const source_data = [
     { id:1, title: 'DMCS简介-管理'},
@@ -23,6 +24,15 @@ export default class Manage_list extends PureComponent {
         loading: false,
         bu_status: false,
     }
+
+    componentWillMount() {
+        const { dispatch } = this.props;
+        let authority =getAuthority();
+        if(authority!='admin'){
+          dispatch(routerRedux.push('/exception/403'));
+        }
+    }//对权限进行判断
+
     componentWillUnmount() {
         this.setState({
             condition: 0,

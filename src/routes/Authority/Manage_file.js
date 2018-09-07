@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {Card, List, Avatar, Upload, message, Icon, Form, Button, Input} from 'antd';
-import { routerRedux, Route, Switch } from 'dva/router';
+import { routerRedux,} from 'dva/router';
 import reqwest from 'reqwest';
+import { getAuthority } from '../../utils/authority';
  
 const source_data = [{
     id: 1, 
@@ -65,6 +66,14 @@ export default class Manage_file extends PureComponent {
         bu_able_1: false, //是否禁止上传图片
         bu_able_2: false, //是否禁止上传文件
     }
+
+    componentWillMount() {
+        const { dispatch } = this.props;
+        if(getAuthority()!='admin'){
+          dispatch(routerRedux.push('/exception/403'));
+        }
+    }
+
     componentDidMount() {
         this.setState({data: source_data, loading: false});
         if(this.props.location.state === undefined){
