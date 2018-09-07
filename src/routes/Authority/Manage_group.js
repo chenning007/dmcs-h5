@@ -7,26 +7,21 @@ import Table_friend from './Table_group';
 import { getAuthority } from '../../utils/authority';
 
 const columns =  [{
-  title: '朋友',
+  title: '管理员',
   dataIndex: 'avatar',
   key: 'avatar',
-  width: '4%',
+  width: '10%',
   render: text => <Avatar src={text}/>,
 },{
-  title: '',
-  dataIndex: 'userName',
-  key: 'userName',
-  width:'6%'
+  title: '姓名',
+  dataIndex: 'username',
+  key: 'username',
+  width:'20%'
 }, {
   title: '用户号',
-  dataIndex: 'useridNumber',
-  key: 'useridNumber',
+  dataIndex: 'userid',
+  key: 'userid',
   width: '20',
-}, {
-  title: '姓名',
-  key: 'userTitle',
-  width: '20%',
-  dataIndex: 'userTitle',
 }, {
   title: '联系方式',
   dataIndex: 'userTelephone',
@@ -76,12 +71,12 @@ const columns1 =  [{
 
 @connect(state => ({
   list_device_friend: state.friend.list_device_friend,
-  list_friend: state.friend.list_friend,
-  loading: state.friend.loading,
+  adminusers: state.manage_group.adminusers,
+  currentUser: state.login.currentUser,
 }))
 
 @Form.create()
-export default class Device_friend extends PureComponent {
+export default class Manage_group extends PureComponent {
   state={ /********* ***********/
     content_condition: 0,  //用于设置content部分的内容,其中1时权限管理，2时添加人员,0为正常状态/******************* *********/
     selectedRowkeys: [],   //用于列表的选择，可以通过该部分信息得到权限情况
@@ -94,33 +89,33 @@ export default class Device_friend extends PureComponent {
   }
   //对权限进行判断
   componentWillMount() {
-    const { dispatch } = this.props;
+    const { dispatch,} = this.props;
     let authority =getAuthority();
     if(authority!='admin'){
       dispatch(routerRedux.push('/exception/403'));
     }
-  }
+  }//对于这些情况，还是需要进行处理
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'friend/fetchList',
-    });
-    //获得friend数据, 数据的产生在这里，把握好即可了
+    const { dispatch, currentUser = {} } = this.props;
+    if(JSON.stringify(currentUser) !== '{}'){
+      dispatch({
+        type: 'manage_group/getadminuser',
+        payload: {
+          Userid:currentUser.userid,
+        },
+      });
+    }
+    //获得admin的数据, 数据的产生在这里，把握好即可了,一旦出现错误很容易发生异常
   }
 
   componentWillUnmount() {
     const { dispatch } = this.props;
-    /*this.setState({
-      content_condition: 0,
-      selectedRowkeys: [],
-      modalVisible1: false,
-      modalVisible2: false,
-    });*/
     dispatch({
-      type: 'friend/clear',
+      type: 'manage_group/clear', 
     });
   }
+
   submitAuthority() {
     const { dispatch, } = this.props;
     const { validateFieldsAndScroll } = this.props.form;
@@ -263,11 +258,12 @@ export default class Device_friend extends PureComponent {
   edit_Condition(e,edit_enable) {
     this.setState({edit_condition: edit_enable});
   }
+  //从这里可以获取人员列表的信息;
  /**** */ 
   renderActivities() {
     const {
       list_device_friend=[],
-      list_friend=[],
+      adminusers=[],
     } = this.props;
     const { getFieldDecorator, } = this.props.form;
     const {content_condition, selectedRowkeys=[], modalVisible1, modalVisible2} =　this.state;
@@ -276,16 +272,17 @@ export default class Device_friend extends PureComponent {
       onChange: this.onSelectedChange,
       hideDefaultSelections: true,
     }
-    if(content_condition!==2)      //３时显示朋友列表,在此状态，显示正常模式＋权限管理模式＋删除模式
+    if(content_condition!==2)      //2时显示朋友列表,在此状态，显示正常模式＋权限管理模式＋删除模式
     {
       return (
         <div style={{padding: 10}}>
           { ((content_condition === 0)||(selectedRowkeys.length !==0))
             &&
             <div>
-              <Table columns={columns} dataSource={ list_friend } 
+              <Table columns={columns} dataSource={ adminusers } 
                 pagination={false} rowSelection={rowSelection}
-                loading = {list_friend === []}
+                loading = {adminusers === [] ? true : false}
+                rowKey='userid'
               />
             </div>
             //这里直接显示出了人员的列表,只有在选择人数不为0或要求显示的内容不为２时，才显示出来
@@ -297,6 +294,7 @@ export default class Device_friend extends PureComponent {
                 initialValue: list_device_friend,
               })(<Table_friend onChange={(e, edit_enable) => this.edit_Condition(e,edit_enable)}/>)}
             </Card>
+            //此时显示权限情况
           }
           {(selectedRowkeys.length > 0)&&(content_condition===0)
             &&
@@ -310,10 +308,9 @@ export default class Device_friend extends PureComponent {
             >
              <Form >　
                 {selectedRowkeys.map((item)=>{
-                  let tem=item-1;
                   return(
                     <Form.Item key={item}>
-                      <span>{(list_friend[tem]).useridNumber}</span>
+                      <span>{item}</span>
                     </Form.Item>
                   );
                 })}   
@@ -339,7 +336,7 @@ export default class Device_friend extends PureComponent {
        extra={this.extraContent_3(selectedRowkeys.length)}
       >
         <div style={{padding:10 }}>
-          <Table columns={columns1} dataSource={ list_friend } 
+          <Table columns={columns1} dataSource={ adminusers } 
           pagination={false} rowSelection={rowSelection}/>
         </div>
       </Card>
@@ -348,7 +345,6 @@ export default class Device_friend extends PureComponent {
   }
 
   render() {
-    const { loading } = this.props;
     const { selectedRowkeys, content_condition } = this.state;
 
     return (
@@ -361,7 +357,7 @@ export default class Device_friend extends PureComponent {
               title="权限管理"
               bordered={false}
               className={styles.activeCard}
-              loading={loading}
+              //loading={loading}
               extra={this.extraContent(selectedRowkeys, content_condition)}
               style={{ marginBottom: 24 }} 
             > 
