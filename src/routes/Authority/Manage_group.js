@@ -95,7 +95,8 @@ export default class Device_friend extends PureComponent {
   //对权限进行判断
   componentWillMount() {
     const { dispatch } = this.props;
-    if(getAuthority()!='admin'){
+    let authority =getAuthority();
+    if(authority!='admin'){
       dispatch(routerRedux.push('/exception/403'));
     }
   }

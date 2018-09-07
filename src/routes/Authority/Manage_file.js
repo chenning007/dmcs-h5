@@ -69,7 +69,8 @@ export default class Manage_file extends PureComponent {
 
     componentWillMount() {
         const { dispatch } = this.props;
-        if(getAuthority()!='admin'){
+        let authority =getAuthority();
+        if( authority !='admin' ){
           dispatch(routerRedux.push('/exception/403'));
         }
     }
