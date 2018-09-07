@@ -34,7 +34,7 @@ export default {
             });
             const response = yield call(deleteadminuser,payload);
             yield put ({
-                type: 'save',
+                type: 'changeadminuser',
                 payload: response,
             })
             yield put({
