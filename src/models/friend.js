@@ -11,12 +11,12 @@ export default {
   },  
 
   effects: {
-    *fetchList(_, { call, put }) {
+    *fetchList({payload}, { call, put }) {
       yield put({
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryFriend);
+      const response = yield call(queryFriend,payload);
       yield put({
         type: 'save',
         payload: { 
