@@ -50,7 +50,7 @@ const menuData = [{
   name: '网站维护',
   icon: 'setting',
   path: 'authority/manage_list',
-  authority: ['admin'],
+  authority: ['admin','host'],
 },
 
 {
