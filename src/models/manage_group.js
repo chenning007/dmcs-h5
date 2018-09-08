@@ -1,4 +1,5 @@
 import { queryadminuser, deleteadminuser, addAdminuser, changeauthority } from '../services/api'
+import { routerRedux } from 'dva/router';
 export default {
     namespace: 'manage_group',
 
