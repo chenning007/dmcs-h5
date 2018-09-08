@@ -85,9 +85,14 @@ export default class Manage_group extends PureComponent {
     modalVisible2: false,  //用于显示提示的信息
     edit_condition: false,
     resetrender: false,
+    selectedUser: [], //显示朋友列表
   }
   onSelectedChange = (selectedRowkeys) => {
     this.setState({selectedRowkeys: selectedRowkeys});
+  }
+
+  onSelecteduser = (selectedRowkeys) => {
+    this.setState({selectedUser: selectedRowkeys})
   }
   //对权限进行判断
   componentWillMount() {
@@ -153,6 +158,7 @@ export default class Manage_group extends PureComponent {
     this.setState({
       content_condition: 0,
       selectedRowkeys: [],
+      selectedUser: [],
       modalVisible1: false,
       modalVisible2: false,
       edit_condition: false,
@@ -211,7 +217,23 @@ export default class Manage_group extends PureComponent {
       this.setState({content_condition: content_condition,});
     }
   }*/
-
+  addAdmin = (selectedUser) => {
+    const {dispatch,currentUser={}} = this.props;
+    let userids=[];
+    userids.push({
+      userid: selectedUser[0]
+    })
+    if(JSON.stringify(currentUser)!='{}'){
+      dispatch({
+        type: 'manage_group/addAdminuser',
+        payload: {
+          Userid: currentUser.userid,
+          userids,
+        }
+      })
+    }
+    this.resetCondition();
+  }
 
   setModalvisible1(visible) {
     if(!visible){
@@ -291,10 +313,11 @@ export default class Manage_group extends PureComponent {
        
   } 
   extraContent_3(length){
+    const {selectedUser}=this.state;
     if(length){
       return(
         <div>
-          <Tooltip placement='top' title='加入设备绑定成员'><Button type='primary' onClick={() => this.resetCondition()}>加入成员</Button></Tooltip>
+          <Tooltip placement='top' title='加入管理员'><Button type='primary' onClick={() => this.addAdmin(selectedUser)}>加入管理员</Button></Tooltip>
         </div>
       );
     }
@@ -324,12 +347,18 @@ export default class Manage_group extends PureComponent {
       adminusers=[],
     } = this.props;
     const { getFieldDecorator, } = this.props.form;
-    const {content_condition, selectedRowkeys=[], modalVisible1, modalVisible2} =　this.state;
+    const {content_condition, selectedRowkeys=[], modalVisible1, modalVisible2, selectedUser=[]} =　this.state;
     const rowSelection = {
       selectedRowkeys,
       onChange: this.onSelectedChange,
       hideDefaultSelections: true,
-    }
+    };
+    const adduserSelction = {
+      selectedRowkeys,
+      onChange: this.onSelecteduser,
+      hideDefaultSelections:true,
+      type: 'radio',
+    };
     if(content_condition!==2)      //2时显示朋友列表,在此状态，显示正常模式＋权限管理模式＋删除模式
     {
       return (
@@ -391,11 +420,11 @@ export default class Manage_group extends PureComponent {
     if(content_condition===2){
     return (
       <Card title='朋友列表' bodyStyle={{ padding: 0 }}
-       extra={this.extraContent_3(selectedRowkeys.length)}
+       extra={this.extraContent_3(selectedUser.length)}
       >
         <div style={{padding:10 }}>
           <Table columns={columns} dataSource={ list_friend } 
-          pagination={false} rowSelection={rowSelection}
+          pagination={false} rowSelection={adduserSelction}
           rowKey='userid'
           />
         </div>
