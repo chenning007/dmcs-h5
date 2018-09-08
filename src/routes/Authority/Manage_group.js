@@ -69,6 +69,10 @@ const columns1 =  [{
   dataIndex: 'userworkPlace',
 }];
 
+function auth(a,b){
+  return a&b===b;
+}
+
 @connect(state => ({
   list_device_friend: state.friend.list_device_friend,
   list_friend: state.friend.list_friend,
@@ -86,6 +90,8 @@ export default class Manage_group extends PureComponent {
     edit_condition: false,
     resetrender: false,
     selectedUser: [], //显示朋友列表
+
+    admin_authority:[],
   }
   onSelectedChange = (selectedRowkeys) => {
     this.setState({selectedRowkeys: selectedRowkeys});
@@ -135,18 +141,7 @@ export default class Manage_group extends PureComponent {
   }
 
 
-  submitAuthority() {
-    const { dispatch, } = this.props;
-    const { validateFieldsAndScroll } = this.props.form;
-    validateFieldsAndScroll( (error, values) => {
-        if(!error) {
-        dispatch({
-            type: 'user/submitRegularForm',
-            payload: values,
-        });
-        }
-    });
-  }
+  
 /**** */
   handleAddInput = (e) => {
     this.setState({
@@ -165,10 +160,7 @@ export default class Manage_group extends PureComponent {
     });
   }
   /***** */
-  reset_submit() {
-    this.submitAuthority();
-    this.resetCondition();
-  }
+
   /***** */
 
   contentCondition = (content_condition) =>{
@@ -235,6 +227,74 @@ export default class Manage_group extends PureComponent {
     this.resetCondition();
   }
 
+  authorityShow(content_condition) {
+    const { adminusers } = this.props;
+    let Admin_authority = [];
+    if(adminusers.length>0){
+      let i =0;
+      for(;i<adminusers.length;i++)
+        Admin_authority.push({
+        key: i,
+        avatar: adminusers[i].avatar,
+        title: adminusers[i].username,
+        userid: adminusers[i].userid,
+        auth1: auth(adminusers[i].authorityNumber,1),
+        auth2: auth(adminusers[i].authorityNumber,2),
+        auth3: auth(adminusers[i].authorityNumber,4),
+        auth4: auth(adminusers[i].authorityNumber,8),
+        auth5: auth(adminusers[i].authorityNumber,16),
+        auth6: auth(adminusers[i].authorityNumber,32),
+        auth7: auth(adminusers[i].authorityNumber,64),
+        auth8: auth(adminusers[i].authorityNumber,128),
+        auth9: auth(adminusers[i].authorityNumber,256),
+      });
+      this.setState({
+        admin_authority: [...Admin_authority],
+      });
+    }
+    this.setState({content_condition:content_condition});
+  }
+
+  submitAuthority() {
+    const { dispatch, currentUser } = this.props;
+    const { validateFieldsAndScroll } = this.props.form;
+    validateFieldsAndScroll( (error, values) => {
+      if(!error && JSON.stringify(currentUser)!=='{}') {
+        let Users = [];
+        let i = 0;
+        for(;i<(values.authorize).length;i++){
+          let Auth = (values.authorize)[i]
+          Users.push({
+            userid: Auth.userid ,
+            authority: ((Auth.auth1===0? 0:1) + 
+              (Auth.auth2===0? 0:2) +
+              (Auth.auth3===0? 0:4) +
+              (Auth.auth4===0? 0:8) +
+              (Auth.auth5===0? 0:16) +
+              (Auth.auth6===0? 0:32) +
+              (Auth.auth7===0? 0:64) +
+              (Auth.auth8===0? 0:128) +
+              (Auth.auth9===0? 0:256) 
+            ),
+          });
+        }
+        dispatch({
+            type: 'user/submitRegularForm',
+            payload: {
+              Users,
+              Userid: currentUser.userid,
+            }
+        });
+        this.setState({admin_authority:[...values.authorize]});
+      }
+
+    });
+  }
+
+  reset_submit() {
+    this.submitAuthority();
+    this.resetCondition();
+  }
   setModalvisible1(visible) {
     if(!visible){
       this.setState({modalVisible1: visible});
@@ -275,7 +335,7 @@ export default class Manage_group extends PureComponent {
                   <Divider type='vertical' />
                 <Tooltip placement='top' title='删除人员'><Button type='primary' onClick={() => this.setModalvisible2(true)}>删除</Button></Tooltip>
                   <Divider type='vertical' />
-                <Tooltip placement='topRight' title='权限管理'><Button type='primary' onClick={() => this.contentCondition(1)}>权限</Button></Tooltip>
+                <Tooltip placement='topRight' title='权限管理'><Button type='primary' onClick={() => this.authorityShow(1)}>权限</Button></Tooltip>
               </span>
             </div>
         );
@@ -342,12 +402,11 @@ export default class Manage_group extends PureComponent {
  /**** */ 
   renderActivities() {
     const {
-      list_device_friend=[],
       list_friend = [],
-      adminusers=[],
+      adminusers = [],
     } = this.props;
     const { getFieldDecorator, } = this.props.form;
-    const {content_condition, selectedRowkeys=[], modalVisible1, modalVisible2, selectedUser=[]} =　this.state;
+    const {content_condition, selectedRowkeys=[], modalVisible1, modalVisible2, selectedUser=[], admin_authority=[]} =　this.state;
     const rowSelection = {
       selectedRowkeys,
       onChange: this.onSelectedChange,
@@ -378,7 +437,7 @@ export default class Manage_group extends PureComponent {
             &&
             <Card  bordered={false} style={{marginTop: 12}}>
               {getFieldDecorator('authorize', {
-                initialValue: list_device_friend,
+                initialValue: admin_authority,
               })(<Table_friend onChange={(e, edit_enable) => this.edit_Condition(e,edit_enable)}/>)}
             </Card>
             //此时显示权限情况

@@ -3,7 +3,7 @@ import { Table, Divider, Switch, Icon, Avatar } from 'antd';
 
 
 
-/***** */
+/****** */
 const avatar = [
     'http://localhost:80/image/BiazfanxmamNRoxxVxka.png',
     'http://localhost:80/image/cnrhVkzwxjPwAaCfPbdc.png',
@@ -16,9 +16,8 @@ const avatar = [
     'http://localhost:80/image/laiEnJdGHVOhJrUShBaJ.png',
     'http://localhost:80/image/UrQsqscbKEpNuJcvBZBu.png',
   ];
-
 /****** */
-/***** **/
+/****** */
   const Data1 = [];
   for (let i = 0; i < 100; i++) {
     Data1.push({
@@ -101,7 +100,7 @@ export default class Table_friend extends PureComponent{
             loading: false,
           });
         }, 500);
-      }
+    }
     cancel(e, key) {
         this.clickedCancel = true;
         e.preventDefault();
@@ -131,7 +130,7 @@ export default class Table_friend extends PureComponent{
             { title: '朋友', width: 60, dataIndex: 'avatar', key: 'avatar', fixed: 'left',
               render: text =>  <Avatar src={text}/>,
             },
-            { title: '', width: 100, dataIndex: 'userTitle', key: 'userTitle', fixed: 'left'  },
+            { title: '', width: 100, dataIndex: 'username', key: 'username', fixed: 'left'  },
             { title: '权限1', dataIndex: 'auth1', key:'1', width: 150, 
               render: (auth1,record) =>
               <span style={{paddingLeft: 8}}>
@@ -282,6 +281,7 @@ export default class Table_friend extends PureComponent{
                 columns={columns} 
                 dataSource={data} 
                 scroll={{ x:1660, y:500}}
+                rowKey='key'
                />
             </Fragment>
         );
