@@ -35,42 +35,9 @@ const columns =  [{
   dataIndex: 'userworkPlace',
 }];
 
-const columns1 =  [{
-  title: '朋友',
-  dataIndex: 'avatar',
-  key: 'avatar',
-  width: '4%',
-  render: text => <Avatar src={text}/>,
-},{
-  title: '',
-  dataIndex: 'username',
-  key: 'userName',
-  width:'6%'
-}, {
-  title: '用户号',
-  dataIndex: 'useridNumber',
-  key: 'useridNumber',
-  width: '20',
-}, {
-  title: '姓名',
-  key: 'userTitle',
-  width: '20%',
-  dataIndex: 'userTitle',
-}, {
-  title: '联系方式',
-  dataIndex: 'userTelephone',
-  key: 'userTelephone',
-  width: '20',
-},
-{
-  title: '单位',
-  key: 'userworkPlace',
-  width: '30%',
-  dataIndex: 'userworkPlace',
-}];
 
 function auth(a,b){
-  return a&b===b;
+  return (a&b)===b;
 }
 
 @connect(state => ({
@@ -104,7 +71,7 @@ export default class Manage_group extends PureComponent {
   componentWillMount() {
     const { dispatch,} = this.props;
     let authority =getAuthority();
-    if(authority!='admin'){
+    if(authority!=='admin'&&authority!=='host'){
       dispatch(routerRedux.push('/exception/403'));
     }
   }//对于这些情况，还是需要进行处理
@@ -230,27 +197,29 @@ export default class Manage_group extends PureComponent {
   authorityShow(content_condition) {
     const { adminusers } = this.props;
     let Admin_authority = [];
-    if(adminusers.length>0){
-      let i =0;
-      for(;i<adminusers.length;i++)
-        Admin_authority.push({
-        key: i,
-        avatar: adminusers[i].avatar,
-        title: adminusers[i].username,
-        userid: adminusers[i].userid,
-        auth1: auth(adminusers[i].authorityNumber,1),
-        auth2: auth(adminusers[i].authorityNumber,2),
-        auth3: auth(adminusers[i].authorityNumber,4),
-        auth4: auth(adminusers[i].authorityNumber,8),
-        auth5: auth(adminusers[i].authorityNumber,16),
-        auth6: auth(adminusers[i].authorityNumber,32),
-        auth7: auth(adminusers[i].authorityNumber,64),
-        auth8: auth(adminusers[i].authorityNumber,128),
-        auth9: auth(adminusers[i].authorityNumber,256),
-      });
-      this.setState({
-        admin_authority: [...Admin_authority],
-      });
+    if(this.state.admin_authority.length === 0){
+      if(adminusers.length>0) {
+        let i =0;
+        for(;i<adminusers.length;i++)
+          Admin_authority.push({
+          key: i,
+          avatar: adminusers[i].avatar,
+          title: adminusers[i].username,
+          userid: adminusers[i].userid,
+          auth1: auth(adminusers[i].authorityNumber,1),
+          auth2: auth(adminusers[i].authorityNumber,2),
+          auth3: auth(adminusers[i].authorityNumber,4),
+          auth4: auth(adminusers[i].authorityNumber,8),
+          auth5: auth(adminusers[i].authorityNumber,16),
+          auth6: auth(adminusers[i].authorityNumber,32),
+          auth7: auth(adminusers[i].authorityNumber,64),
+          auth8: auth(adminusers[i].authorityNumber,128),
+          auth9: auth(adminusers[i].authorityNumber,256),
+        });
+        this.setState({
+          admin_authority: [...Admin_authority],
+        });
+      }
     }
     this.setState({content_condition:content_condition});
   }
@@ -279,7 +248,7 @@ export default class Manage_group extends PureComponent {
           });
         }
         dispatch({
-            type: 'user/submitRegularForm',
+            type: 'manage_group/changeAuthority',
             payload: {
               Users,
               Userid: currentUser.userid,

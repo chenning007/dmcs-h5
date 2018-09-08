@@ -76,7 +76,6 @@ export default class Table_friend extends PureComponent{
     
     //
     edit(e, key) {
-        let edit_enable = true;
         this.toggleEditable(e,key);
         //this.props.callbackParent(edit_enable);
     }
