@@ -5,9 +5,6 @@ export async function queryProjectNotice() {
   return request('/api/project/notice');
 }
 ////
-export async function queryFriend(params) {
-  return request('/api/v1/user/');
-}
 //////
 export async function queryRule(params) {
   return request(`/api/rule?${stringify(params)}`);
@@ -122,6 +119,13 @@ export async function addAdminuser(params) {
 }
 export async function changeauthority(params) {
   return request('/api/v1/admin/changeAuthority',{
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function queryFriend(params) {
+  return request('/api/v1/user/getuser',{
     method: 'POST',
     body: params,
   });

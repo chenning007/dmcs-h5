@@ -107,12 +107,13 @@ export default class Manage_group extends PureComponent {
           Userid:currentUser.userid,
         },
       });
+      
       dispatch({
-        type: 'friend/fetchList',
+        type: 'friend/getUser',
         payload: {
           Userid: currentUser.userid,
         }
-      })
+      });
     }
     //获得admin的数据, 数据的产生在这里，把握好即可了,一旦出现错误很容易发生异常
   }
@@ -197,6 +198,20 @@ export default class Manage_group extends PureComponent {
       message.error("用户信息缺失，请重新刷新页面");
     }
   }
+
+  /*getUser =(content_condition) =>{
+    const {dispatch, currentUser={}}  =  this.props;
+    if(JSON.stringify(currentUser)!='{}'){
+      dispatch({
+        type: 'friend/getUser',
+        payload: {
+          Userid: currentUser.userid,
+        }
+      });
+      this.setState({content_condition: content_condition,});
+    }
+  }*/
+
 
   setModalvisible1(visible) {
     if(!visible){

@@ -45,7 +45,7 @@ export default {
         /*****添加用户 */
         *addAdminuser({payload}, {call,put}) {
             yield put({
-                type: 'changeLoadin',
+                type: 'changeLoading',
                 payload: true,
             })
             const response  = yield call(addAdminuser,payload);
