@@ -1,4 +1,4 @@
-import { queryadminuser, deleteadminuser, addAdminuser, changeauthority } from '../services/api'
+import { queryadminuser, deleteadminuser, addAdminuser, changeauthority, getselfUser } from '../services/api'
 import { routerRedux } from 'dva/router';
 export default {
     namespace: 'manage_group',
@@ -73,6 +73,21 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             })
+        },
+        *getselfuser({payload}, {call, put }){
+            yield put({
+                type: 'changeLoading',
+                payload: true,
+            })
+            const response = yield call (getselfUser, payload);
+            yield put({
+                type: 'saveself',
+                payload: response,
+            });
+            yield put({
+                type: 'changeLoading',
+                payload: false,
+            })
         }
 
     },
@@ -82,6 +97,7 @@ export default {
             return {
                 adminusers: [],
                 loading: true,
+                AdminUser: {},
             }
         },
         changeLoading (state, action) {
@@ -103,7 +119,12 @@ export default {
                 ...payload,
             } ;  
         },
-
+        saveself (state,{payload}) {
+            return {
+                ...state,
+                AdminUser : payload.data === undefined? {}:payload.data,
+            }
+        }
 
     },
 };
