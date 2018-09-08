@@ -2,6 +2,7 @@ import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
 import { getMenuData } from './menu';
+import manage_group from '../models/manage_group';
 
 let routerDataCache;
 
@@ -141,16 +142,16 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/File_list')),
     },
     '/authority/manage_list':{
-      component: dynamicWrapper(app, [],() => import('../routes/Authority/Manage_list')),
-      authority: 'admin',
+      component: dynamicWrapper(app, ['manage_group','login'],() => import('../routes/Authority/Manage_list')),
+      authority: 'admin'||'host',
     },
     '/authority/manage_file':{
-      component: dynamicWrapper(app, [],() => import('../routes/Authority/Manage_file')),
-      authority: 'admin',
+      component: dynamicWrapper(app, ['manage_group'],() => import('../routes/Authority/Manage_file')),
+      authority: 'admin'||'host',
     },
     '/authority/manage_group':{
       component: dynamicWrapper(app, ['list', 'friend', 'form','manage_group', 'login'], () => import('../routes/Authority/Manage_group')),
-      authority: 'admin',
+      authority: 'admin'||'host',
     },
     '/profile': {
       component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Profile')),
