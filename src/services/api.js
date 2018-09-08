@@ -130,3 +130,10 @@ export async function queryFriend(params) {
     body: params,
   });
 }
+
+export async function getselfUser(params) {
+  return request('/api/v1/admin/getSelfuser',{
+    method: 'POST',
+    body: params,
+  }) 
+}
