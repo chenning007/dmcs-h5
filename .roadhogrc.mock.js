@@ -84,6 +84,7 @@ const proxy = {
   'POST /api/v1/admin/deleteAdminuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/addAdminuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/changeAuthority': 'http://127.0.0.1:8080/dmcs',
+  'POST /api/v1/admin/getSelfuser':'http://127.0.0.1:8080/dmcs',
   //'POST /api/v1/user/image': 'http://127.0.0.1:8080/dmcs',
   //'POST /api/v1/tech_document/addocument': 'http://127.0.0.1:8080/dmcs',
   'POST /api/device/addDevice': (req, res) => {
