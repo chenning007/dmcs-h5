@@ -4,7 +4,20 @@ import {Card, List, Avatar, Upload, message, Icon, Form, Button, Input} from 'an
 import { routerRedux,} from 'dva/router';
 import reqwest from 'reqwest';
 import { getAuthority } from '../../utils/authority';
+import { cookieToJson } from '../../utils/cookieToJson';
  
+const source_title = [
+    { id:1, title: 'DMCS简介-管理'},
+    { id:2, title: '解决方案-管理'},
+    { id:3, title: '科研成果-管理'},
+    { id:4, title: '设计案例-管理'},
+    { id:5, title: '合作方式-管理'},
+    { id:6, title: '软件下载-管理'},
+    { id:7, title: '资料下载-管理'},
+    { id:8, title: '合作规则-管理'},
+    { id:9, title: '合作留言-管理'},
+]
+
 const source_data = [{
     id: 1, 
     image_address: 'http://localhost:80/image/firstpage/shili1.png',
@@ -37,24 +50,11 @@ const source_data = [{
     title: '',
     }
 ];
-const props = {
-    name: 'file',
-    action: '',
-    onChange(info) {
-       const status = info.file.status;
-       if(status !=='uploading'){
-           console.log(info.file, info.fileList);
-       }
-       if(status === 'done'){
-           message.success(`${info.file.name} file uploaded successfully.`);
-       }
-       else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-       }
-    },
-};
 
-@connect()
+@connect({
+    tem_id: state.tem_store.tem_id,
+    document: state.document,
+})
 @Form.create()
 export default class Manage_file extends PureComponent {
     state={
@@ -65,45 +65,67 @@ export default class Manage_file extends PureComponent {
         uploading: false,
         bu_able_1: false, //是否禁止上传图片
         bu_able_2: false, //是否禁止上传文件
+        documents:[],
     }
 
     componentWillMount() {
         const { dispatch } = this.props;
         let authority =getAuthority();
-        if( authority!=='admin'&&authority!=='host' ){
-          dispatch(routerRedux.push('/exception/403'));
-        }
+        let cookie = cookieToJson();
+        if( (authority!=='admin'&&authority!=='host')||cookie.admin_token===undefined){
+            dispatch(routerRedux.push('/exception/403'));
+            message.error('权限错误或身份无法验证');
+        }    
     }
 
     componentDidMount() {
-        this.setState({data: source_data, loading: false});
-        if(this.props.location.state === undefined){
-           this.props.dispatch(routerRedux.push('manage_list'));
+        const{tem_id, dispatch}=this.props;
+        if(tem_id===undefined) {
+           dispatch(routerRedux.push(`manage_list`));
+           message.error('权限验证错误, 无法访问该页面');
+        }
+        if(tem_id!==undefined) {
+            dispatch({
+                type: 'document/getDocument',
+            })
         }
     }
+
     componentWillUnmount() {
-       this.setState({
-            data: [], 
-            loading: true,
-            fileList: [],
-            imageList: [],
-            uploading: false,
-            bu_able_1: false, //是否禁止上传图片
-            bu_able_2: false, 
-       });
+        const {dispatch} = this.props;
+        dispatch({
+            type:'tem_store/clear',
+        })
+        dispatch({
+            type:'document/clear',
+        })
     }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.document.tech_document!==this.state.document){
+            this.setState({documents: [...nextProps.document.tech_document]});
+        }
+    }
+
     onChangefile(key) {
-       const {dispatch} = this.props;
-       /**完成链接操作, 根据key信息反馈到后台，从而删除信息 */
-       /**此外需要对data进行操作，将data更新状态，不应该与后台重新访问 */
+       const {dispatch, tem_id} = this.props;
+       let cookie = cookieToJson();
+       dispatch({
+           type:'document/deleteDocument',
+           payload: {
+               cookie,
+               authority: tem_id,
+               documentId: key,
+           }
+       })
     }
 
     handleUpload = () => {
-       const { fileList, imageList } = this.state;
-       const { form } = this.props;
+       const { fileList, imageList, } = this.state;
+       const { form, tem_id } = this.props;
        const title = form.getFieldValue('title');
        const description = form.getFieldValue('description');
-       if(this.props.location.state===undefined){
+       if(tem_id === undefined){
            return message.error('页面模式载入出现错误!!!');
        }
        if(!title || !description) {
@@ -117,9 +139,11 @@ export default class Manage_file extends PureComponent {
            formData.append('image',file);
        })
        let id = this.props.location.state.id;
+       let cookie = cookieToJson();
        formData.append('title',title);
        formData.append('description',description);
        formData.append('identityNumber',id);
+       formData.append('cookie',cookie);
        this.setState({uploading: true,});
 
        reqwest({
@@ -128,15 +152,16 @@ export default class Manage_file extends PureComponent {
             processData: false,
             data: formData,
     
-            success: () => {
-            this.setState({
-                fileList: [],
-                imageList: [],
-                uploading: false,
-                bu_able_1: false,
-                bu_able_2: false,
-            });
-            message.success('upload successfully.');
+            success: (resp) => {
+                this.setState({
+                    fileList: [],
+                    imageList: [],
+                    uploading: false,
+                    bu_able_1: false,
+                    bu_able_2: false,
+                });
+                console.log(resp);
+                message.success('upload successfully.');
             },
             error: () => {
                 this.setState({
