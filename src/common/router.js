@@ -142,11 +142,11 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/File_list')),
     },
     '/authority/manage_list':{
-      component: dynamicWrapper(app, ['manage_group','login'],() => import('../routes/Authority/Manage_list')),
+      component: dynamicWrapper(app, ['manage_group','login', 'tem_store'],() => import('../routes/Authority/Manage_list')),
       authority: 'admin'||'host',
     },
     '/authority/manage_file':{
-      component: dynamicWrapper(app, ['manage_group'],() => import('../routes/Authority/Manage_file')),
+      component: dynamicWrapper(app, ['manage_group', 'tem_store'],() => import('../routes/Authority/Manage_file')),
       authority: 'admin'||'host',
     },
     '/authority/manage_group':{
