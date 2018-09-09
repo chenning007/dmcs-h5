@@ -2,9 +2,7 @@ const path = require('path');
 
 export default {
   entry: 'src/index.js',
-  extraBabelPlugins: [
-    ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }]
-  ],
+  extraBabelPlugins: [['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }]],
   env: {
     development: {
       extraBabelPlugins: ['dva-hmr'],
@@ -15,17 +13,17 @@ export default {
     rollbar: 'rollbar',
   },
   //
-  proxy:{
-    "/api/v1/user/image":{
-      "target":"http://127.0.0.1:8080/dmcs",
-      "changeOrigin":true,
-      "pathRewrite":{"^api/v1/user/image":""}
+  proxy: {
+    '/api/v1/user/image': {
+      target: 'http://127.0.0.1:8080/dmcs',
+      changeOrigin: true,
+      pathRewrite: { '^api/v1/user/image': '' },
     },
-    "/api/v1/tech_document/addocument":{
-      "target":"http://127.0.0.1:8080/dmcs",
-      "changeOrigin":true,
-      "pathRewrite":{"^api/v1/tech_document/addocument":""}
-    }
+    '/api/v1/admin/addocument': {
+      target: 'http://127.0.0.1:8080/dmcs',
+      changeOrigin: true,
+      pathRewrite: { '^api/v1/tech_document/addocument': '' },
+    },
   },
   //
   alias: {
