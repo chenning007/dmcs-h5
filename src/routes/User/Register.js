@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux, Link } from 'dva/router';
-import { Form, Input, Button, Select, Row, Col, Popover, Progress } from 'antd';
+import { Form, Input, Button, Select, Popover, Progress } from 'antd';
 import styles from './Register.less';
 import logo from '../../assets/logo.svg';
-
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -39,23 +38,24 @@ export default class Register extends Component {
   componentWillReceiveProps(nextProps) {
     const { getFieldValue } = this.props.form;
     if (nextProps.register.status === 'ok') {
-      if(getFieldValue('mail')) {
-        this.props.dispatch(routerRedux.push({
-        pathname: '/user/register-result',
-        state:{
-          email: getFieldValue('mail'),
-        }
-      }));
-      }
-      else {
+      if (getFieldValue('mail')) {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/user/register-result',
+            state: {
+              email: getFieldValue('mail'),
+            },
+          })
+        );
+      } else {
         this.props.register.status = '';
       }
     }
     if (nextProps.register.status === 'error') {
-      this.setState({register_status: false,});
+      this.setState({ register_status: false });
     }
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -83,7 +83,7 @@ export default class Register extends Component {
     }
     return 'pool';
   };
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields({ force: true }, (err, values) => {
       if (!err) {
@@ -98,7 +98,7 @@ export default class Register extends Component {
     });
   };
 
-  handleConfirmBlur = (e) => {
+  handleConfirmBlur = e => {
     const { value } = e.target;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
@@ -140,7 +140,7 @@ export default class Register extends Component {
     }
   };
 
-  changePrefix = (value) => {
+  changePrefix = value => {
     this.setState({
       prefix: value,
     });
@@ -168,7 +168,7 @@ export default class Register extends Component {
     const { getFieldDecorator } = form;
     const { count, prefix } = this.state;
     return (
-      <div style={{paddingTop:110 ,paddingRight:0 ,paddingBottom:144 ,paddingLeft:0}}>
+      <div style={{ paddingTop: 110, paddingRight: 0, paddingBottom: 144, paddingLeft: 0 }}>
         <div className={styles.top}>
           <div className={styles.header}>
             <Link to="/user/firstpage">
@@ -182,20 +182,21 @@ export default class Register extends Component {
           <h3>注册</h3>
           <Form onSubmit={this.handleSubmit}>
             <FormItem>
-              <Popover 
+              <Popover
                 content={<b>"用户名已存在"</b>}
                 overlayStyle={{ width: 120 }}
                 placement="right"
                 visible={!this.state.register_status}
               >
-              {getFieldDecorator('username', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入用户名！',
-                  },
-                ],
-              })(<Input size="large" placeholder="用户名,可由字母与数字组成" />)} {/* 这里有必要加入用户名校验措施*/}
+                {getFieldDecorator('username', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入用户名！',
+                    },
+                  ],
+                })(<Input size="large" placeholder="用户名,可由字母与数字组成" />)}{' '}
+                {/* 这里有必要加入用户名校验措施*/}
               </Popover>
             </FormItem>
             <FormItem>
@@ -206,11 +207,14 @@ export default class Register extends Component {
                     message: '请输入性别！',
                   },
                 ],
-              })( <Select placeholder="性别" style={{width:'20%'}}>
-                    <Option value="man">男</Option>
-                    <Option value="woman">女</Option>
-                    <Option value="man_woman">无</Option>
-                  </Select>)} {/* 这里有必要加入用户名校验措施*/}
+              })(
+                <Select placeholder="性别" style={{ width: '20%' }}>
+                  <Option value="man">男</Option>
+                  <Option value="woman">女</Option>
+                  <Option value="man_woman">无</Option>
+                </Select>
+              )}{' '}
+              {/* 这里有必要加入用户名校验措施*/}
             </FormItem>
             <FormItem>
               {getFieldDecorator('mail', {
@@ -290,13 +294,7 @@ export default class Register extends Component {
                       message: '手机号格式错误！',
                     },
                   ],
-                })(
-                  <Input
-                    size="large"
-                    style={{ width: '80%' }}
-                    placeholder="11位手机号"
-                  />
-                )}
+                })(<Input size="large" style={{ width: '80%' }} placeholder="11位手机号" />)}
               </InputGroup>
             </FormItem>
 
