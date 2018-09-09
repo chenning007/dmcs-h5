@@ -138,8 +138,11 @@ export async function getselfUser(params) {
   }) 
 }
 
-export async function getdocument() {
-  return request('api/v1/admin/getdocument');
+export async function getdocument(params) {
+  return request('/api/v1/admin/getdocument',{
+    method: 'POST',
+    body: params,
+  });
 }
 
 export async function deletedocument(params) {
