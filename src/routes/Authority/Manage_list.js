@@ -53,7 +53,7 @@ export default class Manage_list extends PureComponent {
                 })
             }
             else{
-                dispatch(routerRedux.push('/'));
+                dispatch(routerRedux.push('/exception/403'));
                 message.error('无法验证身份');
             }
         } 
@@ -78,13 +78,11 @@ export default class Manage_list extends PureComponent {
         const { dispatch } = this.props;
         this.setState({condition:condition});
         if(condition && condition <10 ){
-            dispatch(routerRedux.push({
-                pathname: `manage_file`,
-                state: {
-                    id: source_data[condition-1].id,
-                    title: source_data[condition-1].title,
-                }
-            }));
+            dispatch({
+                type: 'tem_store/addid',
+                payload: source_data[condition-1].id,
+            })    
+            dispatch(routerRedux.push(`manage_file`));
         } //跳转到文档上传页面当中
         if(condition===10){
             dispatch(routerRedux.push(`manage_group`));
