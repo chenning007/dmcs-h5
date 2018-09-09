@@ -9,9 +9,9 @@ import { getProfileAdvancedData } from './mock/profile';
 import { getNotices } from './mock/notices';
 import { format, delay } from 'roadhog-api-doc';
 
-import { currentUser } from  './mock/user' ;
+import { currentUser } from './mock/user';
 import { get_Friend } from './mock/friend';
-import { getDeviceList } from './mock/device'
+import { getDeviceList } from './mock/device';
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
 
@@ -36,7 +36,7 @@ const proxy = {
     res.send({ message: 'Ok' });
   },
   'GET /api/tags': mockjs.mock({
-    'list|100': [{ name: '@city', 'value|1-100': 150, 'type|0-2': 1 }]
+    'list|100': [{ name: '@city', 'value|1-100': 150, 'type|0-2': 1 }],
   }),
   'GET /api/fake_list': getDeviceList,
   ////
@@ -74,62 +74,63 @@ const proxy = {
 
   /*'POST /api/v1/user/register': (req, res) => {
     res.send({ status: 'ok', currentAuthority: 'user' });
-  }, */ 
+  }, */
+
   'POST /api/v1/user/login': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/user/temcheck': 'http://127.0.0.1:8080/dmcs',
-  'POST /api/v1/user/register':'http://127.0.0.1:8080/dmcs',
-  'POST /api/v1/user/getuser':'http://127.0.0.1:8080/dmcs',
+  'POST /api/v1/user/register': 'http://127.0.0.1:8080/dmcs',
+  'POST /api/v1/user/getuser': 'http://127.0.0.1:8080/dmcs',
 
   'POST /api/v1/admin/getAdminuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/deleteAdminuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/addAdminuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/changeAuthority': 'http://127.0.0.1:8080/dmcs',
-  'POST /api/v1/admin/getSelfuser':'http://127.0.0.1:8080/dmcs',
+  'POST /api/v1/admin/getSelfuser': 'http://127.0.0.1:8080/dmcs',
+  'POST /api/v1/admin/getdocument': 'http://127.0.0.1:8080/dmcs',
+  'POST /api/v1/admin/deletedocument': 'http://127.0.0.1:8080/dmcs',
+
   //'POST /api/v1/user/image': 'http://127.0.0.1:8080/dmcs',
   //'POST /api/v1/tech_document/addocument': 'http://127.0.0.1:8080/dmcs',
   'POST /api/device/addDevice': (req, res) => {
-    res.send(
-      {status: 'ok',}
-    );
+    res.send({ status: 'ok' });
   },
-  'GET /api/query/fake' :(req,res) => {
-     res.send({
-       status: 'ok',
-     });
+  'GET /api/query/fake': (req, res) => {
+    res.send({
+      status: 'ok',
+    });
   },
   'GET /api/notices': getNotices,
   'GET /api/500': (req, res) => {
     res.status(500).send({
-      "timestamp": 1513932555104,
-      "status": 500,
-      "error": "error",
-      "message": "error",
-      "path": "/base/category/list"
+      timestamp: 1513932555104,
+      status: 500,
+      error: 'error',
+      message: 'error',
+      path: '/base/category/list',
     });
   },
   'GET /api/404': (req, res) => {
     res.status(404).send({
-      "timestamp": 1513932643431,
-      "status": 404,
-      "error": "Not Found",
-      "message": "No message available",
-      "path": "/base/category/list/2121212"
+      timestamp: 1513932643431,
+      status: 404,
+      error: 'Not Found',
+      message: 'No message available',
+      path: '/base/category/list/2121212',
     });
   },
   'GET /api/403': (req, res) => {
     res.status(403).send({
-      "timestamp": 1513932555104,
-      "status": 403,
-      "error": "Unauthorized",
-      "message": "Unauthorized",
-      "path": "/base/category/list"
+      timestamp: 1513932555104,
+      status: 403,
+      error: 'Unauthorized',
+      message: 'Unauthorized',
+      path: '/base/category/list',
     });
   },
 };
 
-export default noProxy ? {} : delay(proxy, 1000);
+export default (noProxy ? {} : delay(proxy, 1000));
 
 /*export default {
   'POST /api/(.*)': 'http://localhost:8080/dmcs/api/',
 };*/
-
