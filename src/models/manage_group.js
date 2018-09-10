@@ -1,4 +1,5 @@
 import { queryadminuser, deleteadminuser, addAdminuser, changeauthority, getselfUser } from '../services/api'
+import {message} from 'antd';
 import { routerRedux } from 'dva/router';
 export default {
     namespace: 'manage_group',
@@ -84,10 +85,10 @@ export default {
                 type: 'saveself',
                 payload: response,
             });
-            yield put({
-                type: 'changeLoading',
-                payload: false,
-            })
+            if(response.status==='error'){
+                yield put(routerRedux.push('/exception/403'));
+                message.error('身份获取错误');
+            }
         }
 
     },
