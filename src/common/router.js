@@ -146,7 +146,7 @@ export const getRouterData = (app) => {
       authority: 'admin'||'host',
     },
     '/authority/manage_file':{
-      component: dynamicWrapper(app, ['manage_group', 'tem_store'],() => import('../routes/Authority/Manage_file')),
+      component: dynamicWrapper(app, ['manage_group', 'tem_store', 'document'],() => import('../routes/Authority/Manage_file')),
       authority: 'admin'||'host',
     },
     '/authority/manage_group':{
