@@ -119,7 +119,7 @@ class BasicLayout extends React.PureComponent {
       if(this.props.currentUser.username==undefined||this.props.currentUser.username==null){
         this.props.dispatch ({
           type: 'login/temcheck',
-          payload: cookie,
+          payload :cookie,
         });
       }
     }

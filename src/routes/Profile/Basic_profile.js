@@ -27,6 +27,7 @@ export default class Basic_profiles extends PureComponent {
   state = {
     fileList: [],
     uploading: false,
+    currentuser: {},
   }
   
   onChangestate = (avatar_src) => {
@@ -52,11 +53,13 @@ export default class Basic_profiles extends PureComponent {
       processData: false,
       data: formData,
 
-      success: () => {
+      success: (resp) => {
         this.setState({
           fileList: [],
           uploading: false,
+          currentuser: resp.data,
         });
+        console.log(resp);
         message.success('upload successfully.');
       },
       error: () => {
@@ -128,10 +131,11 @@ export default class Basic_profiles extends PureComponent {
   }
   
   render() {
-    const { currentUser, } = this.props;
+    const currentUser = (JSON.stringify(this.state.currentuser)==='{}'? this.props.currentUser:this.state.currentuser);
     const {  uploading } = this.state;
     const props = {
       action:'/api/v1/user/image',
+      accept: 'image/*',
       beforeUpload:(file) => {
         this.setState(({fileList})=>({
         fileList: [...fileList, file],
@@ -156,7 +160,7 @@ export default class Basic_profiles extends PureComponent {
               // title='个人头像'
               >
                 <div className='image'> 
-                  <img src={currentUser.avatar} alt="头像" width="80%" />
+                  <img src={currentUser.avatar? currentUser.avatar:'http://39.104.208.4:80/image/ZiESqWwCXBRQoaPONSJe.png'} alt="image" width="80%" />
                 </div>
                 <div 
                  className='headimage'
