@@ -115,11 +115,13 @@ class BasicLayout extends React.PureComponent {
     if( JSON.stringify(cookie)==='{}'){
       this.props.dispatch(routerRedux.push('/user/login'));
     }
-    if(this.props.currentUser.username==undefined||this.props.currentUser.username==null){
-      this.props.dispatch ({
-        type: 'login/temcheck',
-        payload: cookie,
-      });
+    if(JSON.stringify(cookie)!=='{}'){
+      if(this.props.currentUser.username==undefined||this.props.currentUser.username==null){
+        this.props.dispatch ({
+          type: 'login/temcheck',
+          payload: cookie,
+        });
+      }
     }
   }
   componentWillUnmount() {
