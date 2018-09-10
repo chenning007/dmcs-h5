@@ -56,10 +56,10 @@ const source_data = [
   },
 ];
 
-@connect({
+@connect(state => ({
   tem_id: state.tem_store.tem_id,
   document: state.document,
-})
+}))
 @Form.create()
 export default class Manage_file extends PureComponent {
   state = {
@@ -86,7 +86,7 @@ export default class Manage_file extends PureComponent {
   componentDidMount() {
     const { tem_id, dispatch } = this.props;
     if (tem_id === undefined) {
-      dispatch(routerRedux.push(`manage_list`));
+      dispatch(routerRedux.push('/authority/manage_list'));
       message.error('权限验证错误, 无法访问该页面');
     }
     if (tem_id !== undefined) {
@@ -110,8 +110,9 @@ export default class Manage_file extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.document.tech_document !== this.state.document) {
+    if (nextProps.document.tech_document.length > this.state.documents.length) {
       this.setState({ documents: [...nextProps.document.tech_document] });
+      this.setState({loading: false});
     }
   }
 
@@ -130,10 +131,11 @@ export default class Manage_file extends PureComponent {
 
   handleUpload = () => {
     const { fileList, imageList } = this.state;
-    const { form, tem_id } = this.props;
+    const { form, tem_id, dispatch } = this.props;
     const title = form.getFieldValue('title');
     const description = form.getFieldValue('description');
     if (tem_id === undefined) {
+      dispatch(routerRedux.push('/authority/manage_list'))
       return message.error('页面模式载入出现错误!!!');
     }
     if (!title || !description) {
@@ -150,11 +152,11 @@ export default class Manage_file extends PureComponent {
     formData.append('title', title);
     formData.append('description', description);
     formData.append('identityNumber', tem_id);
-    formData.append('cookie', cookie);
+    //formData.append('cookie', cookie);
     this.setState({ uploading: true });
 
     reqwest({
-      url: '/api/v1/tech_document/addocument',
+      url: '/api/v1/admin/addocument',
       method: 'post',
       processData: false,
       data: formData,
@@ -167,7 +169,9 @@ export default class Manage_file extends PureComponent {
           bu_able_1: false,
           bu_able_2: false,
         });
-        console.log(resp);
+        this.setState({
+          documents: resp.data,
+        })
         message.success('upload successfully.');
       },
       error: () => {
@@ -183,7 +187,7 @@ export default class Manage_file extends PureComponent {
    */
   render() {
     const props1 = {
-      action: '/api/v1/tech_document/addocument',
+      action: '/api/v1/admin/addocument',
       accept: 'image/*',
       //listType: 'picture',
       beforeUpload: file => {
@@ -206,18 +210,19 @@ export default class Manage_file extends PureComponent {
       },
       fileList: this.state.fileList,
     };
+    const { tem_id } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { uploading } = this.state;
+    const { uploading, documents } = this.state;
     return (
       <div>
         <Card>
           <List
             loading={this.state.loading}
             header={
-              this.props.location.state !== undefined ? this.props.location.state.title : '未知'
+              tem_id===undefined? '未知': source_title[tem_id-1].title
             }
             itemLayout="horizontal"
-            dataSource={source_data}
+            dataSource={documents}
             renderItem={item => (
               <List.Item
                 actions={[
