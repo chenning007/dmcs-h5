@@ -16,15 +16,15 @@ export default class Login extends Component {
   state = {
     count: 0,
     type: 'account',
-  }
+  };
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
-  onSwitch = (type) => {
+  onSwitch = type => {
     this.setState({ type });
-  }
+  };
 
   /*onGetCaptcha = () => {
     let count = 59;
@@ -38,40 +38,31 @@ export default class Login extends Component {
     }, 1000);
   }*/
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields({ force: true },
-      (err, values) => {
-        if (!err) {
-          this.props.dispatch({
-            type: 'login/login',
-            payload: {
-              ...values,
-              type: this.state.type,
-            },
-          });
-        }
+    this.props.form.validateFields({ force: true }, (err, values) => {
+      if (!err) {
+        this.props.dispatch({
+          type: 'login/login',
+          payload: {
+            ...values,
+            type: this.state.type,
+          },
+        });
       }
-    );
-  }
+    });
+  };
 
-  renderMessage = (message) => {
-    return (
-      <Alert
-        style={{ marginBottom: 24 }}
-        message={message}
-        type="error"
-        showIcon
-      />
-    );
-  }
+  renderMessage = message => {
+    return <Alert style={{ marginBottom: 24 }} message={message} type="error" showIcon />;
+  };
 
   render() {
     const { form, login } = this.props;
     const { getFieldDecorator } = form;
     const { type } = this.state;
     return (
-      <div style={{paddingTop:110 ,paddingRight:0 ,paddingBottom:144 ,paddingLeft:0}}/*className={styles.container}*/>
+      <div className={styles.container}>
         <div className={styles.top}>
           <div className={styles.header}>
             <Link to="/user/firstpage">
@@ -83,19 +74,25 @@ export default class Login extends Component {
         </div>
         <div className={styles.main}>
           <Form onSubmit={this.handleSubmit}>
-            <Tabs animated={false} className={styles.tabs} activeKey={type} onChange={this.onSwitch}>
+            <Tabs
+              animated={false}
+              className={styles.tabs}
+              activeKey={type}
+              onChange={this.onSwitch}
+            >
               <TabPane tab="账户密码登录" key="account">
-                {
-                  login.status === 'error' &&
+                {login.status === 'error' &&
                   login.type === 'account' &&
                   login.submitting === false &&
-                  this.renderMessage('账户或密码错误')
-                }
+                  this.renderMessage('账户或密码错误')}
                 <FormItem>
                   {getFieldDecorator('username', {
-                    rules: [{
-                      required: type === 'account', message: '请输入用户名/手机/邮箱！',
-                    }],
+                    rules: [
+                      {
+                        required: type === 'account',
+                        message: '请输入用户名/手机/邮箱！',
+                      },
+                    ],
                   })(
                     <Input
                       size="large"
@@ -106,9 +103,12 @@ export default class Login extends Component {
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator('password', {
-                    rules: [{
-                      required: type === 'account', message: '请输入密码！',
-                    }],
+                    rules: [
+                      {
+                        required: type === 'account',
+                        message: '请输入密码！',
+                      },
+                    ],
                   })(
                     <Input
                       size="large"
@@ -123,17 +123,25 @@ export default class Login extends Component {
               {getFieldDecorator('remember', {
                 valuePropName: 'checked',
                 initialValue: true,
-              })(
-                <Checkbox className={styles.autoLogin}>自动登录</Checkbox>
-              )}
-              <a className={styles.forgot} href="">忘记密码</a>
-              <Button size="large" loading={login.submitting} className={styles.submit} type="primary" htmlType="submit">
+              })(<Checkbox className={styles.autoLogin}>自动登录</Checkbox>)}
+              <a className={styles.forgot} href="">
+                忘记密码
+              </a>
+              <Button
+                size="large"
+                loading={login.submitting}
+                className={styles.submit}
+                type="primary"
+                htmlType="submit"
+              >
                 登录
               </Button>
             </FormItem>
           </Form>
           <div className={styles.other}>
-            <Link className={styles.register} to="/user/register">注册账户</Link>
+            <Link className={styles.register} to="/user/register">
+              注册账户
+            </Link>
           </div>
         </div>
       </div>
