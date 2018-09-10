@@ -7,10 +7,10 @@ export default {
     },
 
     effects: {
-        *addid(_,{put}){
+        *addid( { payload },{put}){
             yield put({
                 type: 'Addid',
-                payload: false,
+                payload: payload,
             })
         }
 
