@@ -7,7 +7,7 @@ export default {
   },
 
   effects: {
-    *getDocument(payload, { call, put }) {
+    *getDocument({ payload }, { call, put }) {
       yield put({
         type: 'changeLoading',
         payload: true,
@@ -43,7 +43,7 @@ export default {
   reducers: {
     clear() {
       return {
-        loading: fasle,
+        loading: false,
         tech_document: [],
       };
     },
@@ -59,5 +59,11 @@ export default {
         tech_document: payload.data === undefined ? tech_document : payload.data,
       };
     },
+    changeLoading(state, action){
+      return {
+        ...state,
+        ...action,
+      }
+    }
   },
 };
