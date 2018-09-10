@@ -12,29 +12,29 @@ const titles = [
   '测温计',
 ];
 const avatars = [
-  'http://localhost:80/image/WdGqmHpayyMjiEhcKoVE.png', // Alipay/
-  'http://localhost:80/image/zOsKZmFRdUtvpqCImOVY.png', // Angular
-  'http://localhost:80/image/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
-  'http://localhost:80/image/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
-  'http://localhost:80/image/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
-  'http://localhost:80/image/kZzEzemZyKLKFsojXItE.png', // React
-  'http://localhost:80/image/ComBAopevLwENQdKWiIn.png', // Vue
-  'http://localhost:80/image/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
+  'http://39.104.208.4/image/WdGqmHpayyMjiEhcKoVE.png', // Alipay/
+  'http://39.104.208.4/image/zOsKZmFRdUtvpqCImOVY.png', // Angular
+  'http://39.104.208.4/image/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
+  'http://39.104.208.4/image/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
+  'http://39.104.208.4/image/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
+  'http://39.104.208.4/image/kZzEzemZyKLKFsojXItE.png', // React
+  'http://39.104.208.4/image/ComBAopevLwENQdKWiIn.png', // Vue
+  'http://39.104.208.4/image/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
 ];
 const avatars1 = [
-  'http://localhost:80/image/device1.jpeg',
-  'http://localhost:80/image/device2.jpeg',
-  'http://localhost:80/image/device3.jpeg',
-  'http://localhost:80/image/device4.jpeg',
-  'http://localhost:80/image/device5.jpeg',
-  'http://localhost:80/image/device6.jpeg',
-  'http://localhost:80/image/device7.jpeg',
-  'http://localhost:80/image/device8.jpeg',
-  'http://localhost:80/image/device9.jpeg',
-  'http://localhost:80/image/device10.jpeg',
-  'http://localhost:80/image/device11.jpeg',
-  'http://localhost:80/image/device12.jpeg',
-  'http://localhost:80/image/device13.jpeg',
+  'http://39.104.208.4/image/device1.jpeg',
+  'http://39.104.208.4/image/device2.jpeg',
+  'http://39.104.208.4/image/device3.jpeg',
+  'http://39.104.208.4/image/device4.jpeg',
+  'http://39.104.208.4/image/device5.jpeg',
+  'http://39.104.208.4/image/device6.jpeg',
+  'http://39.104.208.4/image/device7.jpeg',
+  'http://39.104.208.4/image/device8.jpeg',
+  'http://39.104.208.4/image/device9.jpeg',
+  'http://39.104.208.4/image/device10.jpeg',
+  'http://39.104.208.4/image/device11.jpeg',
+  'http://39.104.208.4/image/device12.jpeg',
+  'http://39.104.208.4/image/device13.jpeg',
 ];
 const deviceNumber = [
   2018010000001,
@@ -63,7 +63,7 @@ const will_number = [
   2017010000013,
   2017010000014,
   2017010000015, //15
-]
+];
 const description = [
   '观测天下',
   '永远吃最新鲜的水果',
@@ -89,20 +89,9 @@ const time = [
   '2016-08-01', //12
   '2016-09-01',
   '2016-10-01',
-  '2016-11-01',//15
+  '2016-11-01', //15
 ];
-const secret = [
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'k',
-];
+const secret = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k'];
 //但是这里没有显示出来设备的具体的信息
 
 export function deviceList(count) {
@@ -110,7 +99,7 @@ export function deviceList(count) {
   for (let i = 0; i < count; i += 1) {
     list.push({
       key: i,
-      deviceNumber: deviceNumber[i%  9],
+      deviceNumber: deviceNumber[i % 9],
       title: titles[i % 8],
       avatar: avatars[i % 8],
       description: description[i % 8],
@@ -124,10 +113,10 @@ export function will_deviceList(count) {
   for (let i = 0; i < count; i += 1) {
     list.push({
       key: i,
-      deviceNumber: will_number[i%  10],
+      deviceNumber: will_number[i % 10],
       defaulttitle: titles[i % 10],
       defaultavatar: avatars1[i % 10],
-      secret: secret[i %10],
+      secret: secret[i % 10],
     });
   }
   return list;
@@ -142,11 +131,11 @@ export function getDeviceList(req, res, u) {
   const count = 8;
 
   const result = {
-      myself_device: deviceList(count),
-      public_device: [],
-      device_will: will_deviceList(10),
-      loading: true,
-    };
+    myself_device: deviceList(count),
+    public_device: [],
+    device_will: will_deviceList(10),
+    loading: true,
+  };
   if (res && res.json) {
     res.json(result);
   } else {

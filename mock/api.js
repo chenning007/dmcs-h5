@@ -14,34 +14,34 @@ const titles = [
   'Webpack',
 ];
 const avatars = [
-  'http://localhost:80/image/WdGqmHpayyMjiEhcKoVE.png', // Alipay
-  'http://localhost:80/image/zOsKZmFRdUtvpqCImOVY.png', // Angular
-  'http://localhost:80/image/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
-  'http://localhost:80/image/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
-  'http://localhost:80/image/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
-  'http://localhost:80/image/kZzEzemZyKLKFsojXItE.png', // React
-  'http://localhost:80/image/ComBAopevLwENQdKWiIn.png', // Vue
-  'http://localhost:80/image/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
+  'http://39.104.208.4/image/WdGqmHpayyMjiEhcKoVE.png', // Alipay
+  'http://39.104.208.4/image/zOsKZmFRdUtvpqCImOVY.png', // Angular
+  'http://39.104.208.4/image/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
+  'http://39.104.208.4/image/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
+  'http://39.104.208.4/image/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
+  'http://39.104.208.4/image/kZzEzemZyKLKFsojXItE.png', // React
+  'http://39.104.208.4/image/ComBAopevLwENQdKWiIn.png', // Vue
+  'http://39.104.208.4/image/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
 ];
 
 const avatars2 = [
-  'http://localhost:80/image/BiazfanxmamNRoxxVxka.png',
-  'http://localhost:80/image/cnrhVkzwxjPwAaCfPbdc.png',
-  'http://localhost:80/image/gaOngJwsRYRaVAuXXcmB.png',
-  'http://localhost:80/image/ubnKSIfAJTxIgXOKlciN.png',
-  'http://localhost:80/image/WhxKECPNujWoWEFNdnJE.png',
-  'http://localhost:80/image/jZUIxmJycoymBprLOUbT.png',
-  'http://localhost:80/image/psOgztMplJMGpVEqfcgF.png',
-  'http://localhost:80/image/ZpBqSxLxVEXfcUNoPKrz.png',
-  'http://localhost:80/image/laiEnJdGHVOhJrUShBaJ.png',
-  'http://localhost:80/image/UrQsqscbKEpNuJcvBZBu.png',
+  'http://39.104.208.4/image/BiazfanxmamNRoxxVxka.png',
+  'http://39.104.208.4/image/cnrhVkzwxjPwAaCfPbdc.png',
+  'http://39.104.208.4/image/gaOngJwsRYRaVAuXXcmB.png',
+  'http://39.104.208.4/image/ubnKSIfAJTxIgXOKlciN.png',
+  'http://39.104.208.4/image/WhxKECPNujWoWEFNdnJE.png',
+  'http://39.104.208.4/image/jZUIxmJycoymBprLOUbT.png',
+  'http://39.104.208.4/image/psOgztMplJMGpVEqfcgF.png',
+  'http://39.104.208.4/image/ZpBqSxLxVEXfcUNoPKrz.png',
+  'http://39.104.208.4/image/laiEnJdGHVOhJrUShBaJ.png',
+  'http://39.104.208.4/image/UrQsqscbKEpNuJcvBZBu.png',
 ];
 
 const covers = [
-  'http://localhost:80/image/uMfMFlvUuceEyPpotzlq.png',
-  'http://localhost:80/image/iZBVOIhGJiAnhplqjvZW.png',
-  'http://localhost:80/image/uVZonEtjWwmUZPBQfycs.png',
-  'http://localhost:80/image/gLaIAoVWTtLbBWZNYEMg.png',
+  'http://39.104.208.4/image/uMfMFlvUuceEyPpotzlq.png',
+  'http://39.104.208.4/image/iZBVOIhGJiAnhplqjvZW.png',
+  'http://39.104.208.4/image/uVZonEtjWwmUZPBQfycs.png',
+  'http://39.104.208.4/image/gLaIAoVWTtLbBWZNYEMg.png',
 ];
 const desc = [
   '那是一种内在的东西， 他们到达不了，也无法触及的',
@@ -77,27 +77,29 @@ export function fakeList(count) {
       percent: Math.ceil(Math.random() * 50) + 50,
       logo: avatars[i % 8],
       href: 'https://ant.design',
-      updatedAt: new Date(new Date().getTime() - (1000 * 60 * 60 * 2 * i)),
-      createdAt: new Date(new Date().getTime() - (1000 * 60 * 60 * 2 * i)),
+      updatedAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i),
+      createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i),
       subDescription: desc[i % 5],
-      description: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
+      description:
+        '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
       activeUser: Math.ceil(Math.random() * 100000) + 100000,
       newUser: Math.ceil(Math.random() * 1000) + 1000,
       star: Math.ceil(Math.random() * 100) + 100,
       like: Math.ceil(Math.random() * 100) + 100,
       message: Math.ceil(Math.random() * 10) + 10,
-      content: '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
+      content:
+        '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
       members: [
         {
-          avatar: 'http://localhost:80/image/ZiESqWwCXBRQoaPONSJe.png',
+          avatar: 'http://39.104.208.4/image/ZiESqWwCXBRQoaPONSJe.png',
           name: '曲丽丽',
         },
         {
-          avatar: 'http://localhost:80/image/tBOxZPlITHqwlGjsJWaF.png',
+          avatar: 'http://39.104.208.4/image/tBOxZPlITHqwlGjsJWaF.png',
           name: '王昭君',
         },
         {
-          avatar: 'http://localhost:80/image/sBxjgqiuHMGRkIjqlQCd.png',
+          avatar: 'http://39.104.208.4/image/sBxjgqiuHMGRkIjqlQCd.png',
           name: '董娜娜',
         },
       ],
@@ -115,7 +117,7 @@ export function getFakeList(req, res, u) {
 
   const params = getUrlParams(url);
 
-  const count = (params.count * 1) || 20;
+  const count = params.count * 1 || 20;
 
   const result = fakeList(count);
 
@@ -206,13 +208,13 @@ export const getNotice = [
     member: '一起来跑步',
     href: '',
     memberLink: '',
-  }
+  },
 ];
 
 export const getActivities = [
   {
     id: 'trend-1',
-    title: '曲丽丽' ,
+    title: '曲丽丽',
     logo: avatars2[0],
     description: '高逼格设计天团',
     updatedAt: new Date(),
@@ -220,9 +222,9 @@ export const getActivities = [
     href: '',
     memberLink: '',
   },
-  { 
+  {
     id: 'trend-2',
-    title: '付小小' ,
+    title: '付小小',
     logo: avatars2[1],
     description: '高逼格设计天团',
     updatedAt: new Date(),
@@ -230,9 +232,9 @@ export const getActivities = [
     href: '',
     memberLink: '',
   },
-  { 
+  {
     id: 'trend-3',
-    title: '林东东' ,
+    title: '林东东',
     logo: avatars2[2],
     description: '中二少女团',
     updatedAt: new Date(),
@@ -240,9 +242,9 @@ export const getActivities = [
     href: '',
     memberLink: '',
   },
-  { 
+  {
     id: 'trend-4',
-    title: '周星星' ,
+    title: '周星星',
     logo: avatars2[4],
     description: '5 月日常迭代',
     updatedAt: new Date(),
@@ -252,7 +254,7 @@ export const getActivities = [
   },
   {
     id: 'trend-5',
-    title: '朱偏右' ,
+    title: '朱偏右',
     logo: avatars2[3],
     description: '工程效能',
     updatedAt: new Date(),
@@ -262,7 +264,7 @@ export const getActivities = [
   },
   {
     id: 'trend-6',
-    title: '乐哥' ,
+    title: '乐哥',
     logo: avatars2[5],
     description: '程序员日常',
     updatedAt: new Date(),
@@ -379,35 +381,40 @@ export const list_people = [
     userName: 'John',
     userTelephone: '15701575451',
     userworkPlace: '清华大学',
-  }, {
+  },
+  {
     key: '2',
     avatar: avatars2[2],
     useridNumber: '123457',
     userName: 'Jim',
     userTelephone: '15701575452',
     userworkPlace: '清华大学',
-  }, {
+  },
+  {
     key: '3',
     avatar: avatars2[3],
     useridNumber: '123458',
     userName: 'Sara',
     userTelephone: '15701575453',
     userworkPlace: '清华大学',
-  },{
+  },
+  {
     key: '4',
     avatar: avatars2[4],
     useridNumber: '123459',
-    userName: '茅军', 
+    userName: '茅军',
     userTelephone: '15701575454',
     userworkPlace: '清华大学',
-  },{
+  },
+  {
     key: '5',
     avatar: avatars2[5],
     useridNumber: '123459',
     userName: '刘军',
     userTelephone: '15701575455',
     userworkPlace: '清华大学',
-  },{
+  },
+  {
     key: '6',
     avatar: avatars2[6],
     useridNumber: '123451',
@@ -421,8 +428,8 @@ export const get_Friend = {
   list_activities: get_Activities,
   list_people: list_people,
   loading,
-  loading1, 
-}
+  loading1,
+};
 
 export default {
   getNotice,

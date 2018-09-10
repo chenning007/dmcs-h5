@@ -1,9 +1,9 @@
 export const imgMap = {
-  user: 'http://localhost:80/image/UjusLxePxWGkttaqqmUI.png',
-  a: 'http://localhost:80/image/ZrkcSjizAKNWwJTwcadT.png',
-  b: 'http://localhost:80/image/KYlwHMeomKQbhJDRUVvt.png',
-  c: 'http://localhost:80/image/gabvleTstEvzkbQRfjxu.png',
-  d: 'http://localhost:80/image/jvpNzacxUYLlNsHTtrAD.png',
+  user: 'http://39.104.208.4/image/UjusLxePxWGkttaqqmUI.png',
+  a: 'http://39.104.208.4/image/ZrkcSjizAKNWwJTwcadT.png',
+  b: 'http://39.104.208.4/image/KYlwHMeomKQbhJDRUVvt.png',
+  c: 'http://39.104.208.4/image/gabvleTstEvzkbQRfjxu.png',
+  d: 'http://39.104.208.4/image/jvpNzacxUYLlNsHTtrAD.png',
 };
 
 // refers: https://www.sitepoint.com/get-url-parameters-with-javascript/
@@ -17,11 +17,11 @@ export function getUrlParams(url) {
     for (let i = 0; i < arr.length; i += 1) {
       const a = arr[i].split('=');
       let paramNum;
-      const paramName = a[0].replace(/\[\d*\]/, (v) => {
+      const paramName = a[0].replace(/\[\d*\]/, v => {
         paramNum = v.slice(1, -1);
         return '';
       });
-      const paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+      const paramValue = typeof a[1] === 'undefined' ? true : a[1];
       if (obj[paramName]) {
         if (typeof obj[paramName] === 'string') {
           obj[paramName] = d([obj[paramName]]);
