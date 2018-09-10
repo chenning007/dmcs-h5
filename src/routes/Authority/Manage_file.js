@@ -117,7 +117,7 @@ export default class Manage_file extends PureComponent {
     }
     if( (nextProps.document.tech_document.length < this.state.documents.length)&&(this.state.add_delete)) {
       this.setState({ documents: [...nextProps.document.tech_document] });
-      this.setState({loading: false});
+      this.setState({loading: false, add_delete:false,});
     }
   }
 
@@ -132,7 +132,7 @@ export default class Manage_file extends PureComponent {
         documentId: key,
       },
     });
-    this.setState({add_delete:true});
+    this.setState({add_delete:true, loading: true});
   }
 
   handleUpload = () => {
@@ -154,7 +154,6 @@ export default class Manage_file extends PureComponent {
     imageList.forEach(file => {
       formData.append('image', file);
     });
-    let cookie = cookieToJson();
     formData.append('title', title);
     formData.append('description', description);
     formData.append('identityNumber', tem_id);
@@ -175,6 +174,7 @@ export default class Manage_file extends PureComponent {
           bu_able_1: false,
           bu_able_2: false,
           add_delete:false,
+          loading: false,
         });
         this.setState({
           documents: resp.data,
