@@ -235,15 +235,15 @@ export default class Manage_group extends PureComponent {
           let Auth = (values.authorize)[i]
           Users.push({
             userid: Auth.userid ,
-            authority: ((Auth.auth1===0? 0:1) + 
-              (Auth.auth2===0? 0:2) +
-              (Auth.auth3===0? 0:4) +
-              (Auth.auth4===0? 0:8) +
-              (Auth.auth5===0? 0:16) +
-              (Auth.auth6===0? 0:32) +
-              (Auth.auth7===0? 0:64) +
-              (Auth.auth8===0? 0:128) +
-              (Auth.auth9===0? 0:256) 
+            authority: ((!Auth.auth1? 0:1) + 
+              (!Auth.auth2? 0:2) +
+              (!Auth.auth3? 0:4) +
+              (!Auth.auth4? 0:8) +
+              (!Auth.auth5? 0:16) +
+              (!Auth.auth6? 0:32) +
+              (!Auth.auth7? 0:64) +
+              (!Auth.auth8? 0:128) +
+              (!Auth.auth9? 0:256) 
             ),
           });
         }
