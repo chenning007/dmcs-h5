@@ -1,18 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { enquireScreen } from 'enquire-js';
-import { routerRedux, Route, Switch } from 'dva/router';
-import { Row, Col, Card, Table, Icon, Divider, Menu, Dropdown, Button, Input, List } from 'antd';
+import { routerRedux, } from 'dva/router';
+import { Row, Col, Card, Icon, Divider, Menu,Button, Input,} from 'antd';
 import { Layout } from 'antd';
 import styles from './FirstPage.less';
-const { Header, Footer, Sider, Content} = Layout ;
-const {Meta} = Card;
+const { Header,Content} = Layout ;
 
-const data2 = [];
-const data3 = [];
-const data4 = [];
-const data5 = [];
-const data6 = [];
 const Search = Input.Search;
 
 let isMobile;
@@ -203,7 +197,7 @@ export default class PageList extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
-                <img style={{marginLeft:-56,}} src="http://localhost:80/image/firstpage/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://39.104.208.4/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -245,7 +239,7 @@ export default class PageList extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
-                <img style={{marginLeft:-56,}} src="http://localhost:80/image/firstpage/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://39.104.208.4/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -324,7 +318,7 @@ export default class PageList extends PureComponent {
                                 <Card bordered={false}/>
                             </Col>
                             <Col xl={20} lg={12} md={12} sm={24} xs={24}>
-                                <img src="http://localhost:80/image/firstpage/background.png" style={{width:'100%'}}/>
+                                <img src="http://39.104.208.4/image/firstpage/background.png" style={{width:'100%'}}/>
                                 {this.Position()}
                                 {this.Content(this.state.keynum)}
                             </Col>

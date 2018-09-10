@@ -1,30 +1,30 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { enquireScreen } from 'enquire-js';
-import { routerRedux, Route, Switch } from 'dva/router';
+import { routerRedux,  } from 'dva/router';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, List, Carousel } from 'antd';
 import { Layout } from 'antd';
 import styles from './FirstPage.less';
-const { Header, Footer, Sider, Content} = Layout ;
+const { Header, Content} = Layout ;
 const {Meta} = Card;
 
 const design_exam = [{
   key: 1, 
-  src: 'http://localhost:80/image/firstpage/shili1.png',
+  src: 'http://39.104.208.4/image/firstpage/shili1.png',
   description: 'IPT70135/6/7测控节点电路封装盒',},{
   key: 2,
-  src: 'http://localhost:80/image/firstpage/shili2.png',
+  src: 'http://39.104.208.4/image/firstpage/shili2.png',
   description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换',},{
   key: 3,
-  src: 'http://localhost:80/image/firstpage/shili3.png',
+  src: 'http://39.104.208.4/image/firstpage/shili3.png',
   description: 'IPT12105 IPCAN总线供电转换模块',
   },{
   key: 4,
-  src: 'http://localhost:80/image/firstpage/shili4.png',
+  src: 'http://39.104.208.4/image/firstpage/shili4.png',
   description: 'IPT22105/22106 IPCAN电源转换节点', 
   },/*{
   key: 5,
-  src: 'http://localhost:80/image/firstpage/shili5.png',  
+  src: 'http://39.104.208.4/image/firstpage/shili5.png',  
   description: 'IPT70540 PCB表贴植锡丝印台',
   }*/
 ];
@@ -35,7 +35,7 @@ const Search = Input.Search;
 
 const img_data = [{
   id: 2,
-  img_src: 'http://localhost:80/image/firstpage/u108.png',
+  img_src: 'http://39.104.208.4/image/firstpage/u108.png',
   title: 'IOT',
   description: 'IOT',
   mode:'1',
@@ -43,7 +43,7 @@ const img_data = [{
   author: 'caizj15',
 },{
   id: 3,
-  img_src: 'http://localhost:80/image/firstpage/figure2.png',
+  img_src: 'http://39.104.208.4/image/firstpage/figure2.png',
   title: 'IOT',
   description: 'IOT',
   mode:'1',
@@ -51,7 +51,7 @@ const img_data = [{
   author: 'caizj15',
 },{
   id: 5,
-  img_src: 'http://localhost:80/image/firstpage/figure3.png',
+  img_src: 'http://39.104.208.4/image/firstpage/figure3.png',
   title: 'IOT',
   description: 'IOT',
   mode:'1',
@@ -59,7 +59,7 @@ const img_data = [{
   author: 'caizj15',
 },{
   id: 7,
-  img_src: 'http://localhost:80/image/firstpage/figure4.png',
+  img_src: 'http://39.104.208.4/image/firstpage/figure4.png',
   title: 'IOT',
   description: 'IOT',
   mode:'1',
@@ -67,7 +67,7 @@ const img_data = [{
   author: 'caizj15',
 },{
   id: 8,
-  img_src: 'http://localhost:80/image/firstpage/shili1.png',
+  img_src: 'http://39.104.208.4/image/firstpage/shili1.png',
   title: 'IPT70135',
   description: 'IPT70135/6/7测控节点电路封装盒',
   mode:'5',
@@ -75,7 +75,7 @@ const img_data = [{
   author: 'caizj15',
 },{
   id: 9,
-  img_src: 'http://localhost:80/image/firstpage/shili2.png',
+  img_src: 'http://39.104.208.4/image/firstpage/shili2.png',
   title: 'IPT10533',
   description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换',
   mode:'5',
@@ -83,7 +83,7 @@ const img_data = [{
   author: 'caizj15',
 },{
   id: 10,
-  img_src: 'http://localhost:80/image/firstpage/shili3.png',
+  img_src: 'http://39.104.208.4/image/firstpage/shili3.png',
   title: 'IPT12105',
   description: 'IPT12105 IPCAN总线供电转换模块',
   mode:'5',
@@ -91,7 +91,7 @@ const img_data = [{
   author: 'caizj15',
 },{
   id: 11,
-  img_src: 'http://localhost:80/image/firstpage/shili4.png',
+  img_src: 'http://39.104.208.4/image/firstpage/shili4.png',
   title: 'IPT22105',
   description: 'IPT22105/22106 IPCAN电源转换节点',
   mode:'5',
@@ -263,7 +263,7 @@ export default class FirstPage extends PureComponent {
       return(
         <Layout>
           <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
-            <img style={{marginLeft:-56,}} src="http://localhost:80/image/firstpage/u110.png" alt='logo'/>
+            <img style={{marginLeft:-56,}} src="http://39.104.208.4/image/firstpage/u110.png" alt='logo'/>
             <div style={{float: 'right'}} >
               <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
               <Divider type='vertical'/>
@@ -305,7 +305,7 @@ export default class FirstPage extends PureComponent {
       return(
         <Layout>
           <Header style={{position: 'fixed', marginTop:0 ,width:'120%',zIndex:1 , background:'#ffffff'}}>  
-            <img style={{marginLeft:-56,}} src="http://localhost:80/image/firstpage/u110.png" alt='logo'/>
+            <img style={{marginLeft:-56,}} src="http://39.104.208.4/image/firstpage/u110.png" alt='logo'/>
             <div style={{float: 'right'}} >
               <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
               <Divider type='vertical'/>
@@ -404,7 +404,7 @@ export default class FirstPage extends PureComponent {
               <div style={{background:'#ffffff'}}>
                 <div style={{marginBottom: 8, marginTop: 12 }}>
                   <span style={{fontSize:28}}> 
-                    <img style={{ width:'2%'}} src="http://localhost:80/image/firstpage/u2327.png"/>
+                    <img style={{ width:'2%'}} src="http://39.104.208.4/image/firstpage/u2327.png"/>
                     &nbsp;&nbsp;解决方案
                   </span>
                   <span style={{float:'right', marginRight: 16, marginTop:8}}>
@@ -435,7 +435,7 @@ export default class FirstPage extends PureComponent {
               <div style={{ background:'#f0f2f5'}}>
                 <div style={{marginBottom: 8, marginTop: 16 }}>
                   <span style={{fontSize:28,}}>
-                    <img style={{ width:'2%'}} src="http://localhost:80/image/firstpage/u26.png"/>
+                    <img style={{ width:'2%'}} src="http://39.104.208.4/image/firstpage/u26.png"/>
                     &nbsp;&nbsp;科研成果
                   </span>
                   <span style={{float:'right', marginRight: 16, marginTop:8}}>
@@ -465,7 +465,7 @@ export default class FirstPage extends PureComponent {
               <div style={{ background:'#ffffff'}}>
                 <div style={{marginBottom: 8, marginTop: 16, marginTop:8 }}>
                   <span style={{fontSize:28,}}>
-                    <img src="http://localhost:80/image/firstpage/u26.png"/>
+                    <img src="http://39.104.208.4/image/firstpage/u26.png"/>
                     &nbsp;&nbsp;合作方式
                   </span>
                   <span style={{float:'right', marginRight: 16, marginTop:8}}>
@@ -492,27 +492,6 @@ export default class FirstPage extends PureComponent {
                   <Col xl={2} lg={12} md={12} sm={24} xs={24}/>
                 </Row>
               </div>
-              {/*<div style={{ background:'#f0f2f5'}}>
-                <div style={{fontSize:28,marginBottom: 8, marginTop: 16 }}>
-                  <img src="http://47.92.126.195:80/image/u34.png"/>
-                  &nbsp;&nbsp;合作方式
-                </div>
-                <Row>
-                  <Col xl={2} lg={12} md={12} sm={24} xs={24} />
-                  <Col xl={20} lg={12} md={12} sm={24} xs={24}>
-                    <List 
-                    grid={{ gutter: 16, column: 4 }}
-                    dataSource={design_exam}
-                    renderItem={item => (
-                    <List.Item key={item.key}>
-                      <Card cover={<img alt='cover' src={item.src}/>}>
-                        <Meta description={item.description}/>
-                      </Card>
-                    </List.Item>)}
-                    />
-                  </Col>
-                </Row>
-              </div>*/}
             </div>
           </Content>
         </Layout>  

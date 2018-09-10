@@ -156,7 +156,7 @@ export default class Pageinfo extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
-                <img style={{marginLeft:-56,}} src="http://localhost:80/image/firstpage/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://39.104.208.4/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -198,7 +198,7 @@ export default class Pageinfo extends PureComponent {
           return(
             <Layout>
               <Header style={{position: 'fixed', marginTop:0 ,width:'100%',zIndex:1 , background:'#ffffff'}}>  
-                <img style={{marginLeft:-56,}} src="http://localhost:80/image/firstpage/u110.png" alt='logo'/>
+                <img style={{marginLeft:-56,}} src="http://39.104.208.4/image/firstpage/u110.png" alt='logo'/>
                 <div style={{float: 'right'}} >
                   <Button type='primary' onClick={()=>this.changeRouterLogin()}>登录</Button>
                   <Divider type='vertical'/>
@@ -272,7 +272,7 @@ export default class Pageinfo extends PureComponent {
                 //    经过多年的坚持和努力，基于课题组曾提出的"IPT (Information Pipe Technology)"信息管道技术，研制出了IPT系列多种新技术产品，可满足多数新型分布式测控系统的设计和应用需求。在热、机、电等应用领域的分布式测控技术方面，有望探索出一条技术和市场高度相结合的科技发展道路。欢迎更多的有识之士支持或加入我们团队。
                // </Card>*/}
                  <div>
-                   <iframe name='content_frame' src="http://localhost:80/image/1.html" style={{width:'100%',height: 200, border:0}} frameBorder='no' scrolling='no'/>
+                   <iframe name='content_frame' src="http://39.104.208.4/image/1.html" style={{width:'100%',height: 200, border:0}} frameBorder='no' scrolling='no'/>
                  </div>
                 );
                 break;
@@ -324,7 +324,7 @@ export default class Pageinfo extends PureComponent {
                               <Card bordered={false}/>
                           </Col>
                           <Col xl={20} lg={12} md={12} sm={24} xs={24}>
-                              <img src="http://localhost:80/image/firstpage/background.png" style={{width:'100%'}}/>
+                              <img src="http://39.104.208.4/image/firstpage/background.png" style={{width:'100%'}}/>
                               {this.Position()}
                               {this.Content_data()}
                           </Col>
