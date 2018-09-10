@@ -1,50 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Table, Divider, Switch, Icon, Avatar } from 'antd';
 
-
-
-/****** */
-const avatar = [
-    'http://localhost:80/image/BiazfanxmamNRoxxVxka.png',
-    'http://localhost:80/image/cnrhVkzwxjPwAaCfPbdc.png',
-    'http://localhost:80/image/gaOngJwsRYRaVAuXXcmB.png',
-    'http://localhost:80/image/ubnKSIfAJTxIgXOKlciN.png',
-    'http://localhost:80/image/WhxKECPNujWoWEFNdnJE.png',
-    'http://localhost:80/image/jZUIxmJycoymBprLOUbT.png',
-    'http://localhost:80/image/psOgztMplJMGpVEqfcgF.png',
-    'http://localhost:80/image/ZpBqSxLxVEXfcUNoPKrz.png',
-    'http://localhost:80/image/laiEnJdGHVOhJrUShBaJ.png',
-    'http://localhost:80/image/UrQsqscbKEpNuJcvBZBu.png',
-  ];
-/****** */
-/****** */
-  const Data1 = [];
-  for (let i = 0; i < 100; i++) {
-    Data1.push({
-      key: i,
-      avatar: avatar[i % 10],
-      userName: `Edrward ${i}`,
-      auth1: true,
-      auth2: true,
-      auth3: true,
-      auth4: true,
-      auth5: false,
-      auth6: true,
-      auth7: false,
-      auth8: true,
-      auth9: false,
-    });
-  }
-  
- 
-/******* */
-
-/****** */
-
-
-
-/****** */
-
 export default class Table_friend extends PureComponent{
     constructor(props) {
         super(props);

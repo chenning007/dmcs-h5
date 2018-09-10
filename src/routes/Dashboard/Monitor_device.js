@@ -1,21 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Tooltip, Input, Avatar, Button, Slider, InputNumber, Icon, Menu, Dropdown, Divider, Form, Modal, Select } from 'antd';
-import numeral from 'numeral';
-
-import { Pie, WaterWave, Gauge, TagCloud } from '../../components/Charts';
-import NumberInfo from '../../components/NumberInfo';
-import CountDown from '../../components/CountDown';
-import ActiveChart from '../../components/ActiveChart';
+import { Card, Avatar, Button, Slider, InputNumber, Icon, Menu, Dropdown, Divider, Form, Modal, Select } from 'antd';
+import { Gauge,} from '../../components/Charts';
 import Dragger from '../../components/Dragger';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-
-
-import styles from './Monitor_device.less';
-
 import './Monitor_device.less';
 
-const targetTime = new Date().getTime() + 3900000;
 const { Option } = Select;
 const FormItem = Form.Item;
 /******* */

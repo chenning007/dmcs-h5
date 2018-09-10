@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Avatar, List, Tooltip, Dropdown, Menu, Table, } from 'antd';
+import { Row, Col, Card,  Table, } from 'antd';
 
 /* eslint react/no-array-index-key: 0 */
 const R_endpoint= [
