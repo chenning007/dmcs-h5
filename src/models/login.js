@@ -47,25 +47,28 @@ export default {
         yield put(routerRedux.push('/user/update-result'));
       }
     },
-    *logout(_, { put, select }) {
-      try {
+    *logout(_, { put, }) {
+      //try {
         // get location pathname
-        const urlParams = new URL(window.location.href);
-        const pathname = yield select(state => state.routing.location.pathname);
+      //  const urlParams = new URL(window.location.href);
+      //  const pathname = yield select(state => state.routing.location.pathname);
         // add the parameters in the url
-        urlParams.searchParams.set('redirect', pathname);
-        window.history.replaceState(null, 'login', urlParams.href);
-      } finally {
+      //  urlParams.searchParams.set('redirect', pathname);
+      //  window.history.replaceState(null, 'login', urlParams.href);
+     // } finally {
+      //  yield put({
+      //    type: 'changeLoginStatus',
+      //    payload: {
+      //      status: false,
+      //      currentAuthority: 'guest',
+       //   },
+      //  });
         yield put({
-          type: 'changeLoginStatus',
-          payload: {
-            status: false,
-            currentAuthority: 'guest',
-          },
-        });
+          type:'clear',
+        })
         reloadAuthorized();
         yield put(routerRedux.push('/user/login'));
-      }
+      //}
     },
   },
 
@@ -100,6 +103,13 @@ export default {
       return {
         ...state,
       };
+    },
+    clear(){
+      return {
+        status: undefined,
+        currentUser:{},
+        submitting: false,
+      }
     }
   },
 };
