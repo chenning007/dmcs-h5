@@ -111,15 +111,15 @@ class BasicLayout extends React.PureComponent {
         isMobile: mobile,
       });
     });
+    let cookie = cookieToJson();
+    if( JSON.stringify(cookie)==='{}'){
+      this.props.dispatch(routerRedux.push('/user/login'));
+    }
     if(this.props.currentUser.username==undefined||this.props.currentUser.username==null){
       this.props.dispatch ({
         type: 'login/temcheck',
-        payload: cookieToJson(),
+        payload: cookie,
       });
-    }
-    var Cookie = document.cookie;
-    if( Cookie===null||Cookie===""||Cookie==={}){
-      this.props.dispatch(routerRedux.push('/user/login'));
     }
   }
   componentWillUnmount() {
