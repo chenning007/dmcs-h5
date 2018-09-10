@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Card,} from 'antd';
 import { TimelineChart, } from '../../components/Charts';
-import styles from './Analysis.less';
+import styles from './monitor_graph.less';
 
 
 const rankingListData = [];
