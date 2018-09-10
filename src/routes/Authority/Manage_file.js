@@ -64,6 +64,7 @@ const source_data = [
 export default class Manage_file extends PureComponent {
   state = {
     data: [],
+    add_delete:false, //判断上传还是删除操作
     loading: true,
     fileList: [],
     imageList: [],
@@ -110,7 +111,11 @@ export default class Manage_file extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.document.tech_document.length > this.state.documents.length) {
+    if ( (nextProps.document.tech_document.length > this.state.documents.length) ) {
+      this.setState({ documents: [...nextProps.document.tech_document] });
+      this.setState({loading: false});
+    }
+    if( (nextProps.document.tech_document.length < this.state.documents.length)&&(this.state.add_delete)) {
       this.setState({ documents: [...nextProps.document.tech_document] });
       this.setState({loading: false});
     }
@@ -127,6 +132,7 @@ export default class Manage_file extends PureComponent {
         documentId: key,
       },
     });
+    this.setState({add_delete:true});
   }
 
   handleUpload = () => {
@@ -168,6 +174,7 @@ export default class Manage_file extends PureComponent {
           uploading: false,
           bu_able_1: false,
           bu_able_2: false,
+          add_delete:false,
         });
         this.setState({
           documents: resp.data,
