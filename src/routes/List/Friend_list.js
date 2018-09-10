@@ -1,15 +1,8 @@
 import React, { PureComponent } from 'react';
-import moment from 'moment';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-import { Row, Col, Card, List, Avatar, Input, Button, Icon, Modal, Form, Popconfirm, Table, Divider } from 'antd';
-
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import EditableLinkGroup from '../../components/EditableLinkGroup';
+import { Row, Col, Card, Avatar, Button, Table, Divider } from 'antd';
 
 import styles from './Friend_list.less';
-
-const FormItem = Form.Item;
 
 /**** */
 const columns =  [{

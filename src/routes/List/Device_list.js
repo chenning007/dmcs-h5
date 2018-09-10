@@ -229,30 +229,6 @@ condition_step = (condition,current,length) =>{
       );
   }
 }
-
-/*reset_push(key) {
-  const {myself_device = [],device_will=[]} =this.props;
-  const newData = mysel_device.map(item =>({...item}));
-  const temp = device_will[key];
-  newData.push({
-    key:newData.length,
-    deviceNumber: temp.deviceNumber,
-    title: temp.defaulttitle,
-    avatar: temp.defaultavatar,
-    description: null,
-    time: getNowFormatDate(),
-  })
-  this.setState({
-    current: 0,
-    condition: 0,
-    change_remove: 0,
-    modalVisible: false,
-    device_myself: newData,
-  });
-  message.success('修改成功');
-
-}*/
-/******* */
   renderDevice(){
     const {  myself_device = [], device_will= [],loading  } = this.props;
     const {condition, current, change_remove, modalVisible, selectedRowkeys,}=this.state;
