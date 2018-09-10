@@ -65,7 +65,7 @@ export default class Manage_list extends PureComponent {
         }
     }
     componentWillReceiveProps(nextProps) {
-        if(JSON.stringify(nextProps.manage_group.AdminUser)!='{}'){
+        if(JSON.stringify(nextProps.manage_group.AdminUser)!=='{}'){
             this.setState({User:true});
         }
     }
@@ -82,16 +82,16 @@ export default class Manage_list extends PureComponent {
                 type: 'tem_store/addid',
                 payload: source_data[condition-1].id,
             })    
-            dispatch(routerRedux.push(`manage_file`));
+            dispatch(routerRedux.push('/authority/manage_file'));
         } //跳转到文档上传页面当中
         if(condition===10){
-            dispatch(routerRedux.push(`manage_group`));
+            dispatch(routerRedux.push('/authority/manage_group'));
         } //跳转到权限管理页面当中
     }
     judge_button =(id) => {
         const  { manage_group } =this.props;
         if(id<10){
-            if(JSON.stringify(manage_group.AdminUser)!=='{}')//判断某一位的值的情况
+            if(JSON.stringify(manage_group.AdminUser)!=='{}'&&manage_group.AdminUser!==null)//判断某一位的值的情况
             return (manage_group.AdminUser.authorityNumber&Math.pow(2,id-1)) !== Math.pow(2,id-1);
             return true;
         }
