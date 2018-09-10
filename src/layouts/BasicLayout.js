@@ -113,7 +113,7 @@ class BasicLayout extends React.PureComponent {
     });
     let cookie = cookieToJson();
     if( JSON.stringify(cookie)==='{}'){
-      this.props.dispatch(routerRedux.push('/user/login'));
+      this.props.dispatch(routerRedux.push('/user/firstpage'));
     }
     if(JSON.stringify(cookie)!=='{}'){
       if(this.props.currentUser.username==undefined||this.props.currentUser.username==null){
