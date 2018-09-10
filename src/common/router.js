@@ -2,7 +2,6 @@ import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
 import { getMenuData } from './menu';
-import manage_group from '../models/manage_group';
 
 let routerDataCache;
 
@@ -75,12 +74,6 @@ export const getRouterData = (app) => {
   const routerConfig = {
     '/': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
-    },
-    '/dashboard/analysis': {
-      component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
-    },
-    '/dashboard/monitor': {
-      component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor')),
     },
     '/dashboard/device': {
       component: dynamicWrapper(app, ['device','user'], () => import('../routes/Dashboard/Device')),
