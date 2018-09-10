@@ -1,6 +1,5 @@
 import fetch from 'dva/fetch';
 import { notification } from 'antd';
-import token from './token';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据',
@@ -32,12 +31,8 @@ function checkStatus(response) {
   error.name = response.status;
   error.response = response;
   throw error;
-};
-
-function buildAuthorization  ()  {
-  const tokenVal = token.get();
-  return (token !== '') ? `Bearer ${tokenVal}` : '';
 }
+
 /**
  * Requests a URL, returning a promise.
  *
@@ -61,7 +56,7 @@ export default function request(url, options) {
 
   return fetch(url, newOptions)
     .then(checkStatus)
-    .then((response) => {
+    .then(response => {
       if (newOptions.method === 'DELETE' || response.status === 204) {
         return response.text();
       }
