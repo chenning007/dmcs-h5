@@ -6,30 +6,9 @@ import {
 import reqwest from 'reqwest';
 import FooterToolbar from '../../components/FooterToolbar';
 
-import 'whatwg-fetch';
 
 const FormItem = Form.Item;
 
-
-/**** */
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 12, offset: -10 },
-    sm: { span: 7 , offset: -10 }, 
-  },
-  wrapperCol: {
-    xs: { span: 12, offset: 3},
-    sm: { span: 12 },
-    md: { span: 10 },
-  },
-};
-
-const submitFormLayout = {
-  wrapperCol: {
-    xs: { span: 24, offset: 0 },
-    sm: { span: 10, offset: 10 },
-  },
-};
 
 function eng_chi (sex) {
   switch(sex){
@@ -60,23 +39,15 @@ export default class Basic_profiles extends PureComponent {
     const formData = new FormData();
     fileList.forEach((file) => {
       formData.append('file', file);
-    });//生成formData
+    });
 
-    //console.log(formData.has('file'));
-    //console.log(formData.get('file'));
-    //fileList.forEach((file) =>{
-    //  console.log(file);
-    //}
-    //);
     this.setState({
       uploading: true,
     });
 
-    //let url= 'http://localhost:8080/dmcs/api/v1/user/image';
     
     reqwest({
-      url: 'api/v1/user/image',
-      //enctype: 'multipart/form-data',  
+      url: 'api/v1/user/image', 
       method: 'post',
       processData: false,
       data: formData,
@@ -95,23 +66,6 @@ export default class Basic_profiles extends PureComponent {
         message.error('upload failed.');
       },
     });
-    /*fetch('api/v1/user/image', {
-      body: formData,
-      method: "POST",
-      catch: false,
-      processData: false,
-      contentType: false,
-      dataType: 'json',
-    })
-      .then(res => {
-          console.log(res);
-      })
-      .then(data => {
-
-      })
-      .catch(err => {
-          alert(err.msg);
-      }) */
   }
 
   renderInfo() {
@@ -175,32 +129,7 @@ export default class Basic_profiles extends PureComponent {
   
   render() {
     const { currentUser, } = this.props;
-    const { fileList, uploading } = this.state;
-    /*const prop = {
-      accept:'image/*',
-      listType:'text',
-      name: 'image',  //名字要跟后台对应
-      action: "api/v1/user/image",
-      headers: {
-        authorization: 'authorization-text',
-      },
-      onChange: this.handlechange,
-      // headers:{'Content-Type':'multipart/form-data'},
-      /*onChange(info) {
-        let file = info.fileList[0];
-        const fileSize = (file.size / (1024 * 1024)).toFixed(2);  //获得文件大小
-        const name = file.name;  //获得文件名
-        if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
-          that.props.getSize(fileSize,name)  //传给父级
-        }
-        if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-      },*/
-    /*};*/
+    const {  uploading } = this.state;
     const props = {
       action:'/api/v1/user/image',
       beforeUpload:(file) => {
