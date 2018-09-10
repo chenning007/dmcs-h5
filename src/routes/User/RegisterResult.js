@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'antd';
 import {connect} from 'dva';
-import { Link,routerRedux } from 'dva/router';
+import { Link,  } from 'dva/router';
 import Result from '../../components/Result';
 import styles from './RegisterResult.less';
 import logo from '../../assets/logo.svg';
@@ -9,7 +9,7 @@ import logo from '../../assets/logo.svg';
 
 const actions = (
   <div className={styles.actions}>
-    <a href="#/user/login"><Button size="large" type="primary">重新登录</Button></a>
+    <Link to="/user/login"><Button size="large" type="primary">重新登录</Button></Link>
     <Link to="/user/firstpage"><Button size="large">返回首页</Button></Link>
   </div>
 );
@@ -20,9 +20,6 @@ export default class RegisterResult extends Component {
     if(this.props.location.state!== undefined){
       return (<div className={styles.title}>你的账户：{this.props.location.state.email} 注册成功</div>);
     }
-    /*else {
-      this.props.dispatch(routerRedux.push('register'))
-    }*/
 
   }
   render() { 

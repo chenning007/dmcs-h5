@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import { Button } from 'antd';
-import { Link, Route, Redirect, Switch, routerRedux } from 'dva/router';
+import { Link, } from 'dva/router';
 import Result from '../../components/Result';
 import styles from './RegisterResult.less';
 import logo from '../../assets/logo.svg';
-
-const title = <div className={styles.title}>你的账户：AntDesign@example.com 注册成功</div>;
 
 const actions = (
   <div className={styles.actions}>
@@ -16,12 +14,6 @@ const actions = (
 
 
 export default class UpdateResult extends Component { 
-  show_title() {
-    if(this.props.location.state!== undefined){
-      return (<div className={styles.title}>你的账户：{this.props.location.state.email} 注册成功</div>);
-    }
-    return title;
-  }
   render() { 
     return (
     <div style={{paddingTop:110 ,paddingRight:0 ,paddingBottom:144 ,paddingLeft:0}}>
