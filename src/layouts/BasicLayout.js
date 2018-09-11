@@ -16,6 +16,7 @@ import { getMenuData } from '../common/menu';
 import logo from '../assets/image1.png';
 
 import Authorized from '../utils/Authorized';
+import { cookieToJson } from '../utils/cookieToJson';
 
 const { AuthorizedRoute } = Authorized;
 
@@ -75,19 +76,6 @@ function clearAllCookie() {
     for(var i = keys.length; i--;)
       document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
   }
-}
-
-function cookieToJson() {
-  //将string的cookie转换为可以识别的键对组合;
-  let cookieArr = document.cookie.split(";");
-  var cookieObj = cookieArr.reduce((pre, next) => {
-    const key = next.split('=')[0];
-    const val = next.split('=')[1];
-    pre[key] = val;
-    return pre;  
-}, {});
-
-  return cookieObj;
 }
 
 class BasicLayout extends React.PureComponent {
