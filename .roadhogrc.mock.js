@@ -80,6 +80,7 @@ const proxy = {
   'POST /api/v1/user/temcheck': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/user/register': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/user/getuser': 'http://127.0.0.1:8080/dmcs',
+  'GET  /api/v1/user/logout' : 'http://127.0.0.1:8080/dmcs',
 
   'POST /api/v1/admin/getAdminuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/deleteAdminuser': 'http://127.0.0.1:8080/dmcs',
