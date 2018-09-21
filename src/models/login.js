@@ -1,16 +1,15 @@
 import { routerRedux } from 'dva/router';
-import { accountLogin, accountTemcheck } from '../services/api';
-
+import { accountLogin, accountTemcheck, logout } from '../services/api';
+import { message } from 'antd';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
-
 
 export default {
   namespace: 'login',
 
   state: {
     status: undefined,
-    currentUser:{},
+    currentUser: {},
     submitting: false,
   },
 
@@ -29,8 +28,11 @@ export default {
         reloadAuthorized();
         yield put(routerRedux.push('/'));
       }
+      if (response.status === 'error') {
+        message.error(response.msg);
+      }
     },
-    *temcheck({ payload }, { call, put}){
+    *temcheck({ payload }, { call, put }) {
       yield put({
         type: 'save',
         payload: true,
@@ -40,41 +42,26 @@ export default {
         type: 'changeTemcheck',
         payload: response,
       });
-      if(response.status === 'ok'){
+      if (response.status === 'ok') {
         reloadAuthorized();
       }
-      if(response.status === 'error'){
+      if (response.status === 'error') {
         yield put(routerRedux.push('/user/update-result'));
       }
     },
-    *logout(_, { put, }) {
-      //try {
-        // get location pathname
-      //  const urlParams = new URL(window.location.href);
-      //  const pathname = yield select(state => state.routing.location.pathname);
-        // add the parameters in the url
-      //  urlParams.searchParams.set('redirect', pathname);
-      //  window.history.replaceState(null, 'login', urlParams.href);
-     // } finally {
-      //  yield put({
-      //    type: 'changeLoginStatus',
-      //    payload: {
-      //      status: false,
-      //      currentAuthority: 'guest',
-       //   },
-      //  });
-        yield put({
-          type:'clear',
-        })
-        reloadAuthorized();
-        yield put(routerRedux.push('/user/login'));
-      //}
+    *logout(_, { call, put }) {
+      yield put({
+        type: 'clear',
+      });
+      yield call(logout);
+      reloadAuthorized();
+      yield put(routerRedux.push('/user/login'));
     },
   },
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.data==undefined ? 'guest' : payload.data.currentAuthority);
+      setAuthority(payload.data == undefined ? 'guest' : payload.data.currentAuthority);
       return {
         ...state,
         status: payload.status,
@@ -84,12 +71,12 @@ export default {
       };
     },
     changeTemcheck(state, { payload }) {
-      setAuthority(payload.data==undefined ? 'guest' : payload.data.currentAuthority);
+      setAuthority(payload.data == undefined ? 'guest' : payload.data.currentAuthority);
       return {
         ...state,
         status: payload.status,
         type: payload.type,
-        currentUser: payload.data==undefined ? {} : payload.data,
+        currentUser: payload.data == undefined ? {} : payload.data,
         submitting: false,
       };
     },
@@ -102,14 +89,15 @@ export default {
     save(state, { payload }) {
       return {
         ...state,
+        ...payload,
       };
     },
-    clear(){
+    clear() {
       return {
         status: undefined,
-        currentUser:{},
+        currentUser: {},
         submitting: false,
-      }
-    }
+      };
+    },
   },
 };
