@@ -69,7 +69,7 @@ export async function queryDeviceList(params) {
 export async function queryFakeList() {
   return request('/api/query/fake');
 }
-export async function queryActivities(){
+export async function queryActivities() {
   return request('/api/query/fake');
 }
 //
@@ -82,7 +82,7 @@ export async function accountLogin(params) {
 }
 
 export async function accountTemcheck(params) {
-  return request('api/v1/user/temcheck',{
+  return request('api/v1/user/temcheck', {
     method: 'POST',
     body: params,
   });
@@ -100,54 +100,57 @@ export async function queryNotices() {
 }
 
 export async function queryadminuser(params) {
-  return request('/api/v1/admin/getAdminuser',{
+  return request('/api/v1/admin/getAdminuser', {
     method: 'POST',
     body: params,
   });
 }
 export async function deleteadminuser(params) {
-  return request('/api/v1/admin/deleteAdminuser',{
+  return request('/api/v1/admin/deleteAdminuser', {
     method: 'POST',
     body: params,
   });
 }
 export async function addAdminuser(params) {
-  return request('/api/v1/admin/addAdminuser',{
+  return request('/api/v1/admin/addAdminuser', {
     method: 'POST',
     body: params,
   });
 }
 export async function changeauthority(params) {
-  return request('/api/v1/admin/changeAuthority',{
+  return request('/api/v1/admin/changeAuthority', {
     method: 'POST',
     body: params,
   });
 }
 
 export async function queryFriend(params) {
-  return request('/api/v1/user/getuser',{
+  return request('/api/v1/user/getuser', {
     method: 'POST',
     body: params,
   });
 }
 
 export async function getselfUser(params) {
-  return request('/api/v1/admin/getSelfuser',{
+  return request('/api/v1/admin/getSelfuser', {
     method: 'POST',
     body: params,
-  }) 
+  });
 }
 
 export async function getdocument(params) {
-  return request('/api/v1/admin/getdocument',{
+  return request('/api/v1/admin/getdocument', {
     method: 'POST',
     body: params,
   });
 }
 
 export async function deletedocument(params) {
-  return request('/api/v1/admin/deletedocument',{
+  return request('/api/v1/admin/deletedocument', {
     method: 'POST',
     body: params,
-  })
+  });
+}
+export async function logout() {
+  return request('/api/v1/user/logout');
 }
