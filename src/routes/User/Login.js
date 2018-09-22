@@ -24,9 +24,13 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.search !== null && this.props.location.search !== undefined) {
+    if (
+      this.props.location.search !== null &&
+      this.props.location.search !== undefined &&
+      this.props.location.search !== ''
+    ) {
       var verify = urlArgs(this.props.location).verify;
-      if (verify !== undefined) {
+      if (verify !== undefined && verify !== {}) {
         this.props.dispatch({
           type: 'login/verify',
           payload: { verify },
