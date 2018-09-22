@@ -151,6 +151,14 @@ export async function deletedocument(params) {
     body: params,
   });
 }
+
 export async function logout() {
   return request('/api/v1/user/logout');
+}
+
+export async function verifyaccount(params) {
+  return request(`/api/v1/user/verifyaccount`, {
+    method: 'POST',
+    body: params,
+  });
 }
