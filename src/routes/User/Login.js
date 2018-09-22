@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Form, Input, Tabs, Button, Icon, Checkbox, Alert } from 'antd';
+import { urlArgs } from '../../utils/searchToJson';
 import styles from './Login.less';
 import logo from '../../assets/logo.svg';
 
@@ -22,10 +23,21 @@ export default class Login extends Component {
     clearInterval(this.interval);
   }
 
+  componentDidMount() {
+    if (this.props.location.search !== null && this.props.location.search !== undefined) {
+      var verify = urlArgs(this.props.location).verify;
+      if (verify !== undefined) {
+        this.props.dispatch({
+          type: 'login/verify',
+          payload: { verify },
+        });
+      }
+    }
+  }
+
   onSwitch = type => {
     this.setState({ type });
   };
-
 
   handleSubmit = e => {
     e.preventDefault();
