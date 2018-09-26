@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'antd';
 import {connect} from 'dva';
-import { Link,  } from 'dva/router';
+import { Link, routerRedux,  } from 'dva/router';
 import Result from '../../components/Result';
 import styles from './RegisterResult.less';
 import logo from '../../assets/logo.svg';
@@ -16,6 +16,23 @@ const actions = (
 
 @connect()
 export default class RegisterResult extends Component { 
+  
+  componentWillMount(){
+    const { dispatch } = this.props;
+    if(this.props.location.state!==undefined){
+      dispatch({
+        type: 'login/motivate',
+        payload: {
+          username: this.props.location.state.username,
+          email: this.props.location.state.email
+        }
+      });
+    }
+    else {
+      dispatch(routerRedux.push('/user/register'));
+    }
+  }
+
   show_title() {
     if(this.props.location.state!== undefined){
       return (<div className={styles.title}>你的账户：{this.props.location.state.email} 注册成功</div>);
