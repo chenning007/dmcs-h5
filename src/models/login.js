@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { accountLogin, accountTemcheck, logout, verifyaccount } from '../services/api';
+import { accountLogin, accountTemcheck, logout, verifyaccount, motivate } from '../services/api';
 import { message } from 'antd';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
@@ -56,6 +56,16 @@ export default {
       yield call(logout);
       reloadAuthorized();
       yield put(routerRedux.push('/user/login'));
+    },
+    *motivate({ payload }, { call, put }) {
+      yield put({
+        type: 'save',
+        payload: true,
+      });
+      const response = yield call(motivate , payload);
+       if(response.status === 'ok'){
+         message.success('激活邮件已发送');
+       }
     },
     *verify({ payload }, { call, put }) {
       yield put({
