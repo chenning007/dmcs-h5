@@ -157,7 +157,14 @@ export async function logout() {
 }
 
 export async function verifyaccount(params) {
-  return request(`/api/v1/user/verifyaccount`, {
+  return request('/api/v1/user/verifyaccount', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function motivate(params) {
+  return request('/api/v1/user/motivate', {
     method: 'POST',
     body: params,
   });
