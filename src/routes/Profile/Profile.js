@@ -33,17 +33,13 @@ export default class Profile extends Component {
       tab: '信息',
     },
     {
-        key: 'set_up',
-        tab: '修改',
-      },
+      key: 'set_up',
+      tab: '修改',
+    },
     {
       key: 'basic',
       tab: '踪迹',
-    }, 
-    //{
-    //  key: 'applications',
-    //  tab: '应用',
-    //}, 
+    },  
     {
       key: 'advanced',
       tab: '财产',
@@ -66,8 +62,6 @@ export default class Profile extends Component {
 
     return (
       <PageHeaderLayout
-       // title="搜索列表"
-       // content={mainSearch}
         tabList={tabList}
         activeTabKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
