@@ -25,7 +25,7 @@ const passwordProgressMap = {
 };
 
 @connect(state => ({
-  currentUser: state.user.currentUser,
+  currentUser: state.login.currentUser,
   submitting: state.user.regularFormSubmitting,
 }))
 @Form.create()
