@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { routerRedux, Route, Switch } from 'dva/router';
 import { connect } from 'dva';
+import { Card } from 'antd';  
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getRoutes } from '../../utils/utils';
+import { getAuthority } from '../../utils/authority';
 
 @connect()
 export default class List extends Component {
@@ -48,6 +50,7 @@ export default class List extends Component {
 
     const { match, routerData, location } = this.props;
     const routes = getRoutes(match.path, routerData);
+    let authority = getAuthority();
 
     return (
       <PageHeaderLayout
@@ -55,6 +58,8 @@ export default class List extends Component {
         activeTabKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
       >
+      { authority === 'host' || authority ==='admin' || authority ==='user'
+        &&
         <Switch>
           {
             routes.map(item =>
@@ -69,6 +74,14 @@ export default class List extends Component {
             )
           }
         </Switch>
+      }
+      { authority ==='guest'
+        &&
+        <Card>
+          邮箱未激活，功能暂时无法使用。
+          如需激活或重新设置邮箱，请到“个人管理”进行激活邮件重发送或邮箱设置
+        </Card>
+      }
       </PageHeaderLayout>
     );
   }
