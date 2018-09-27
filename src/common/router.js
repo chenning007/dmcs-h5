@@ -165,16 +165,16 @@ export const getRouterData = app => {
       authority: 'admin' || 'host',
     },
     '/profile': {
-      component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/Profile')),
+      component: dynamicWrapper(app, ['login'], () => import('../routes/Profile/Profile')),
     },
     '/profile/trace': {
-      component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/TraceProfile')),
+      component: dynamicWrapper(app, [], () => import('../routes/Profile/TraceProfile')),
     },
     '/profile/finance': {
-      component: dynamicWrapper(app, ['profile'], () => import('../routes/Profile/FinanceProfile')),
+      component: dynamicWrapper(app, [], () => import('../routes/Profile/FinanceProfile')),
     },
     '/profile/basic-profile': {
-      component: dynamicWrapper(app, ['user'], () => import('../routes/Profile/Basic_profile')),
+      component: dynamicWrapper(app, ['login'], () => import('../routes/Profile/Basic_profile')),
     },
     '/profile/set_up': {
       component: dynamicWrapper(app, ['user', 'form'], () => import('../routes/Profile/Set_up')),
