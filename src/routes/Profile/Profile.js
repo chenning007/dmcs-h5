@@ -85,9 +85,7 @@ export default class Profile extends Component {
         activeTabKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
       >
-        {authority === 'amdin' ||
-          authority === 'host' ||
-          (authority === 'user' && (
+        {(authority === 'amdin' || authority === 'host' || authority === 'user' )&& (
             <Switch>
               {routes.map(item => (
                 <Route
@@ -98,7 +96,7 @@ export default class Profile extends Component {
                 />
               ))}
             </Switch>
-          ))}
+          )}
         {authority === 'guest' && (
           <Card>
             邮箱尚未激活，暂时无法使用其它功能
