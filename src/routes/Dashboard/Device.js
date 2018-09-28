@@ -68,9 +68,9 @@ export default class Device extends PureComponent {
             如需激活或重新设置邮箱，请到“个人管理”进行激活邮件重发送或邮箱设置
           </Card>
         }
-        { authority ==='user' || authority === 'admin' || authority ==='host'
+        { (authority ==='user' || authority === 'admin' || authority ==='host')
           &&
-          <Row gutter={24}>
+          (<Row gutter={24}>
             <Col xl={24} lg={24} md={24} sm={24} xs={24}>
               <Card
                 className={styles.projectList}
@@ -112,7 +112,7 @@ export default class Device extends PureComponent {
                 loading={loading}
               />
             </Col>
-          </Row>
+          </Row>)
         }
       </div>
     );
