@@ -1,6 +1,7 @@
 import { query as queryUsers, queryCurrent, } from '../services/user';
 import { message } from 'antd';
-import { fakeSubmitForm } from '../services/api';
+import { updateUser } from '../services/api';
+import { routerRedux } from 'dva/router';
 
 export default {
   namespace: 'user',
@@ -21,15 +22,24 @@ export default {
     },
     *submitRegularForm({ payload }, { call, put }) {
       yield put({
-        type: 'changeRegularFormSubmitting',
+        type: 'changLoading',
         payload: true,
       });
-      const response = yield call(fakeSubmitForm, payload);
+      const response = yield call(updateUser, payload);
       yield put({
         type: 'changeRegularFormSubmitting',
         payload: response,
       });
-      message.success('提交成功');
+      if(response.status ==='ok'){
+        yield put({
+          type: 'changeState',
+          payload: false,
+        });
+        message.success('更新成功');
+      }
+      if(response.status === 'error'){
+        message.error('更新失败');
+      }
     },
   },
 //action包含的内容
@@ -40,6 +50,13 @@ export default {
         ...state,
         loading: action.payload,
       };
+    },
+    changeState(state,action) {
+      routerRedux.push('/profile/basic-profile');
+      return {
+        ...state,
+        loading: action.payload,
+      }
     },
     saveCurrentUser(state, action) {
       return {
@@ -57,11 +74,7 @@ export default {
     changeRegularFormSubmitting(state, { payload }) {
       return {
         ...state,
-        status: {
-          ...state.status,
-          ...payload,
-        },
-        regularFormSubmitting: ((state.status === 'ok') ? true : false),
+        regularFormSubmitting: ((payload.status === 'ok') ? true : false),
       };
     },
   },
