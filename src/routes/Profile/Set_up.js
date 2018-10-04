@@ -30,21 +30,8 @@ const passwordProgressMap = {
 }))
 @Form.create()
 export default class Basic_form extends PureComponent {
-  handleSubmit = (e) => {
-    const { currentUser } = this.props;
-    //e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.dispatch({
-          type: 'user/submitRegularForm',
-          payload: {
-            values,
-            currentUser,
-          }   
-        });
-      }
-    });
-  }
+
+
   state = {
     condition: 0,
     current: 0,
@@ -53,13 +40,18 @@ export default class Basic_form extends PureComponent {
     help: '',
   };
 
-  componentWillUnmount() {
-    this.setState({
-      current: 0,
-      condition: 0,
-      choice: 1,
-      visible: false,
-      help: '',
+
+  handleSubmit = (e) => {
+
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        this.props.dispatch({
+          type: 'user/submitRegularForm',
+          payload: {
+            ...values,
+          }   
+        });
+      }
     });
   }
 
@@ -139,6 +131,7 @@ renderPasswordProgress = () => {
 };
 
 /**   */
+/*****choice & condition */
 
   onChangeUserName = (e) => {
     this.setState({ data: e.target.value });
@@ -276,7 +269,7 @@ renderPasswordProgress = () => {
                     label=' '
                   >
                     <Button type='primary' size='large' style={{marginRight: 128}}
-                     htmlType="submit" loading={submitting}
+                      htmlType="submit" loading={submitting}
                     >
                       提交
                     </Button>
@@ -302,8 +295,23 @@ renderPasswordProgress = () => {
                     wrapperCol={{span: 8, offset: 2}}
                     label={<b>真实姓名:</b>}
                   >
-                    {getFieldDecorator('userName', {
+                    {getFieldDecorator('realname', {
                         initialValue: currentUser.realname ? currentUser.realname : '待补充' ,
+                        rules: [{ 
+                          required: false, 
+                        }],
+                      })(
+                        <Input />
+                      )}
+                  </Form.Item>
+                  <Form.Item
+                    colon={false}
+                    labelCol={{span: 4, offset: 0}}
+                    wrapperCol={{span: 8, offset: 2}}
+                    label={<b>工作单位:</b>}
+                  >
+                    {getFieldDecorator('userworkplace', {
+                        initialValue: currentUser.userworkPlace ? currentUser.userworkPlace : '待补充' ,
                         rules: [{ 
                           required: false, 
                         }],
@@ -317,7 +325,7 @@ renderPasswordProgress = () => {
                     wrapperCol={{span: 8, offset: 2}}
                     label={<b>身份证号:</b>}
                   >
-                    {getFieldDecorator('useridNumber', {
+                    {getFieldDecorator('useridnumber', {
                         initialValue: currentUser.useridNumber ? currentUser.useridNumber : '待补充' ,
                         rules: [{ 
                           required: false, 
@@ -336,7 +344,7 @@ renderPasswordProgress = () => {
                     wrapperCol={{span: 8, offset: 2}}
                     label={<b>邮箱:</b>}
                   >
-                    {getFieldDecorator('userEmail', {
+                    {getFieldDecorator('useremail', {
                         initialValue: currentUser.userEmail ? currentUser.userEmail : '待补充' ,
                         rules: [{ 
                           required: true,
@@ -350,29 +358,9 @@ renderPasswordProgress = () => {
                     colon={false}
                     labelCol={{span: 4, offset: 0}}
                     wrapperCol={{span: 8, offset: 2}}
-                    label={<b>备注邮箱:</b>}
-                  >
-                    <span>
-                      {getFieldDecorator('userEmail_1', {
-                          initialValue: currentUser.userEmail_1 ? currentUser.userEmail_1 : '待补充' ,
-                          rules: [{ 
-                            required: false,
-                          }],
-                        })(
-                          <Input />
-                        )}
-                    </span>
-                    <span>
-                      <h4>(备注邮箱可提高账户的安全性)</h4>
-                    </span>
-                  </Form.Item>
-                  <Form.Item 
-                    colon={false}
-                    labelCol={{span: 4, offset: 0}}
-                    wrapperCol={{span: 8, offset: 2}}
                     label={<b>手机:</b>}
                   >
-                    {getFieldDecorator('userTelephone', {
+                    {getFieldDecorator('usertelephone', {
                         initialValue: currentUser.userTelephone ? currentUser.userTelephone : '待补充' ,
                         rules: [{ 
                           required: true,
@@ -389,7 +377,7 @@ renderPasswordProgress = () => {
                     label={<b>备注手机:</b>}
                   >
                     <span>  
-                      {getFieldDecorator('userTelephone_1', {
+                      {getFieldDecorator('usertelephone_1', {
                           initialValue: currentUser.userTelephone_1 ? currentUser.userTelephone_1 : '待补充' ,
                           rules: [{ 
                             required: false,
@@ -409,7 +397,7 @@ renderPasswordProgress = () => {
                     wrapperCol={{span: 8, offset: 2}}
                     label={<b>微信号:</b>}
                   >
-                    {getFieldDecorator('userWeixin', {
+                    {getFieldDecorator('userweixin', {
                         initialValue: currentUser.userWeixin ? currentUser.userWeixin : '待补充' ,
                         rules: [{ 
                           required:false,
@@ -425,7 +413,7 @@ renderPasswordProgress = () => {
                     wrapperCol={{span: 8, offset: 2}}
                     label={<b>QQ号:</b>}
                   >
-                    {getFieldDecorator('userQq', {
+                    {getFieldDecorator('userqq', {
                         initialValue: currentUser.userQq ? currentUser.userQq : '待补充' ,
                         rules: [{ 
                           required:false,
