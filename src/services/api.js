@@ -169,3 +169,10 @@ export async function motivate(params) {
     body: params,
   });
 }
+
+export async function updateUser(params) {
+  return request('/api/v1/user/updateuser', {
+    method: 'POST',
+    body: params,
+  });
+}
