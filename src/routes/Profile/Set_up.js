@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Input, Button, Card, Row, Col, Divider,  message, Form, Popover, Progress
+  Input, Button, Card, Row, Col, Divider,  message, Form, Popover, Progress, Cascader
 } from 'antd';
 
 import Address from './Address';
 import styles from './set_up.less';
+
+import options from '../../../public/area.json';
 
 /** */
 
@@ -24,6 +26,19 @@ const passwordProgressMap = {
   pool: 'exception',
 };
 
+const displayRender = (labels, selectedOptions) => labels.map((label, i) => {
+  const option = selectedOptions[i];
+  if (i === labels.length - 1) {
+    return (
+      <span key={option.value}>
+        {label} (<a onClick={e => handleAreaClick(e, label, option)}>{option.code}</a>)
+      </span>
+    );
+  }
+  return <span key={option.value}>{label} / </span>;
+});
+ 
+
 @connect(state => ({
   currentUser: state.login.currentUser,
   submitting: state.user.regularFormSubmitting,
@@ -38,6 +53,9 @@ export default class Basic_form extends PureComponent {
     choice: 1,
     visible: false,
     help: '',
+    proviance: null,
+    city: null,
+    area: null,
   };
 
 
@@ -157,6 +175,176 @@ renderPasswordProgress = () => {
    });
    message.success('修改成功');
   }
+
+
+  handleAddress(value,handleAddress) {
+    console.log(value);
+    console.log(handleAddress);
+    if(value !== undefined && value.size > 0){
+      if(handleAddress.size===2){
+        this.setState({ 
+          city:(handleAddress[0]).label,
+          area:(handleAddress[1]).label,
+        });
+      }
+      if(handleAddress.size===3){
+        this.setState({ 
+          proviance:(handleAddress[0]).label,
+          city:(handleAddress[1]).label,
+          area:(handleAddress[2]).label,
+        });
+      }
+    }
+  }
+
+  choiceChange_3() {
+    const { currentUser={}, submitting } = this.props;
+    const {getFieldDecorator} = this.props.form;
+
+    if(currentUser.address ===undefined || currentUser.address === null || currentUser.address.length === 0 ){
+      return (
+        <Card
+          style={{marginLeft: 24}}
+          bordered={true}
+        >
+          <Form 
+            style={{ marginTop: 16 }}
+            onSubmit={this.handleSubmit}
+          >
+            <Form.Item
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label={<b>称&nbsp;&nbsp;&nbsp;呼:</b>}
+            >
+              {getFieldDecorator('title', {
+                rules: [{ 
+                  required: true,
+                  message: '填入地址称呼，例如家...' 
+                }],
+              })(
+                <Input placeholder='填入地址称呼，例如家'/>
+              )}
+            </Form.Item>
+            <Form.Item
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label={<b>收货人:</b>}
+            >
+              {getFieldDecorator('name', {
+                rules: [{ 
+                  required: true,
+                  message: '填入姓名', 
+                }],
+              })(
+                <Input placeholder='填入真实姓名'/>
+              )}
+            </Form.Item>
+            <Form.Item
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label={<b>所在地区:</b>}
+              required='true'
+            >
+              < Cascader 
+                options =  {options}
+                onChange = {(value,selectedOptions) => this.handleAddress(value,selectedOptions)}
+                placeholder = '选择地区'
+              /> 
+            </Form.Item>
+            <Form.Item
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label={<b>详细地址:</b>}
+            >
+              {getFieldDecorator('place', {
+                rules: [{ 
+                  required: true,
+                  message: '填入详细地址', 
+                }],
+              })(
+                <Input placeholder='填入详细地址'/>
+              )}
+            </Form.Item>
+            <Form.Item
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label={<b>手机:</b>}
+            >
+              {getFieldDecorator('mobilephone', {
+                rules: [{ 
+                  required: true,
+                  message: '填入手机号码', 
+                }],
+              })(
+                <Input placeholder='填入手机号码'/>
+              )}
+            </Form.Item>
+            <Form.Item
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label={<b>固定电话:</b>}
+            >
+              {getFieldDecorator('fixedphone', {
+                rules: [{ 
+                  required: false, 
+                }],
+              })(
+                <Input placeholder='填入固定电话'/>
+              )}
+            </Form.Item>
+            <Form.Item
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label={<b>邮箱地址:</b>}
+            >
+              {getFieldDecorator('email', {
+                rules: [{ 
+                  required: false,
+                }],
+              })(
+                <Input placeholder='填入邮箱地址'/>
+              )}
+            </Form.Item>
+            <Form.Item
+              colon={false}
+              labelCol={{span: 4, offset: 0}}
+              wrapperCol={{span: 8, offset: 2}}
+              label=' '
+            >
+              <Button type='primary' size='large' style={{marginRight: 128}}
+                htmlType="submit" loading={submitting}
+              >
+                提交
+              </Button>
+            </Form.Item> 
+          </Form>
+        </Card>
+      );
+    }
+    if(currentUser.address!==undefined && currentUser.address !==null ) {
+      return (
+        <Card
+        style={{marginLeft: 24}}
+        bordered={true}
+        > 
+          { getFieldDecorator('address', {
+              initialValue: currentUser.address ,
+            })(<Address />)}
+          < Button type='primary' size='large' style={{marginRight: 128}}
+            htmlType="submit" loading={submitting} onClick={() => this.handleSubmit()}>
+            提交
+          </Button>
+        </Card>   
+      );
+    }
+  }
   
   render() {
     const { submitting, form, currentUser={} } = this.props;
@@ -186,7 +374,7 @@ renderPasswordProgress = () => {
             </Card>
           </Col>
           <Col xl={20} lg={24} md={24} sm={24} xs={24}>
-  {/*修改密码*/}
+            {/*修改密码*/}
             { choice ===1
               &&
               <Card 
@@ -442,24 +630,9 @@ renderPasswordProgress = () => {
               /**直接通过三个地址循环进行遍历即可 */
               /*** */
               &&
-              <Card
-                style={{marginLeft: 24}}
-                bordered={true}
-              >
-                <Row >
-                  <Col span={4}/>
-                    <Col span={16}>  
-                      { getFieldDecorator('address', {
-                          initialValue: currentUser.address ,
-                        })(<Address />)}
-                      < Button type='primary' size='large' style={{marginRight: 128}}
-                        htmlType="submit" loading={submitting} onClick={() => this.handleSubmit()}>
-                        提交
-                      </Button>
-                    </Col>
-                  <Col span={4}/>
-                </Row>
-              </Card> 
+              <div>
+                {this.choiceChange_3()}
+              </div> 
             }
           </Col>
         </Row>
