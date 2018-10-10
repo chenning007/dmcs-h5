@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, List, Avatar, Upload, message, Icon, Form, Button, Input } from 'antd';
+import { Card,  Upload, message, Icon, Form, Button, Input } from 'antd';
 import { routerRedux } from 'dva/router';
 import reqwest from 'reqwest';
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
-
-const source_title = [
+/*const source_title = [
   { id: 1, title: 'DMCS简介-管理' },
   { id: 2, title: '解决方案-管理' },
   { id: 3, title: '科研成果-管理' },
@@ -16,9 +15,9 @@ const source_title = [
   { id: 7, title: '资料下载-管理' },
   { id: 8, title: '合作规则-管理' },
   { id: 9, title: '合作留言-管理' },
-];
+];*/
 
-const source_data = [
+/*const source_data = [
   {
     id: 1,
     image_address: 'http://39.104.208.4/image/firstpage/shili1.png',
@@ -54,24 +53,24 @@ const source_data = [
     document_address: '',
     title: '',
   },
-];
+];*/
 
 @connect(state => ({
   tem_id: state.tem_store.tem_id,
   document: state.document,
+  loading: state.document.loading,
 }))
 @Form.create()
 export default class Manage_file extends PureComponent {
   state = {
-    data: [],
-    add_delete:false, //判断上传还是删除操作
-    loading: true,
     fileList: [],
     imageList: [],
     uploading: false,
     bu_able_1: false, //是否禁止上传图片
     bu_able_2: false, //是否禁止上传文件
     documents: [],
+    files: [],
+    images:[],
   };
 
   componentWillMount() {
@@ -84,21 +83,7 @@ export default class Manage_file extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    const { tem_id, dispatch } = this.props;
-    if (tem_id === undefined) {
-      dispatch(routerRedux.push('/authority/manage_list'));
-      message.error('权限验证错误, 无法访问该页面');
-    }
-    if (tem_id !== undefined) {
-      dispatch({
-        type: 'document/getDocument',
-        payload: {
-          authority: tem_id,
-        },
-      });
-    }
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {
     const { dispatch } = this.props;
@@ -110,7 +95,7 @@ export default class Manage_file extends PureComponent {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  /*componentWillReceiveProps(nextProps) {
     if ( (nextProps.document.tech_document.length > this.state.documents.length) ) {
       this.setState({ documents: [...nextProps.document.tech_document] });
       this.setState({loading: false});
@@ -119,9 +104,9 @@ export default class Manage_file extends PureComponent {
       this.setState({ documents: [...nextProps.document.tech_document] });
       this.setState({loading: false, add_delete:false,});
     }
-  }
+  }*/
 
-  onChangefile(key) {
+  /*onChangefile(key) {
     const { dispatch, tem_id } = this.props;
     let cookie = cookieToJson();
     dispatch({
@@ -133,7 +118,7 @@ export default class Manage_file extends PureComponent {
       },
     });
     this.setState({add_delete:true, loading: true});
-  }
+  }*/
 
   handleUpload = () => {
     const { fileList, imageList } = this.state;
@@ -173,8 +158,6 @@ export default class Manage_file extends PureComponent {
           uploading: false,
           bu_able_1: false,
           bu_able_2: false,
-          add_delete:false,
-          loading: false,
         });
         this.setState({
           documents: resp.data,
@@ -189,6 +172,20 @@ export default class Manage_file extends PureComponent {
       },
     });
   };
+
+  DeleteFile = (fileid) =>{
+    console.log(fileid);
+  }
+
+  ToFile_Image = (type) => {
+    const {dispatch} = this.props;
+    if(type==='file'){
+      dispatch(routerRedux.push('/authority/filelist'));
+    }
+    if(type==='image'){
+      dispatch(routerRedux.push('/authority/filelist'));
+    }
+  }
   /**
    *
    */
@@ -196,7 +193,6 @@ export default class Manage_file extends PureComponent {
     const props1 = {
       action: '/api/v1/admin/addocument',
       accept: 'image/*',
-      //listType: 'picture',
       beforeUpload: file => {
         this.setState({ bu_able_1: true });
         this.setState(({ imageList }) => ({
@@ -208,6 +204,8 @@ export default class Manage_file extends PureComponent {
     };
     const props2 = {
       action: '/api/v1/tech_document/addocument',
+      accept: 'text/html, .pdf',
+     // accept:'.pdf',
       beforeUpload: file => {
         this.setState({ bu_able_2: true });
         this.setState(({ fileList }) => ({
@@ -217,12 +215,12 @@ export default class Manage_file extends PureComponent {
       },
       fileList: this.state.fileList,
     };
-    const { tem_id } = this.props;
+    const {files=[],images=[]} = this.state;
     const { getFieldDecorator } = this.props.form;
-    const { uploading, documents } = this.state;
+    const { uploading} = this.state;
     return (
       <div>
-        <Card>
+        {/*<Card>
           <List
             loading={this.state.loading}
             header={
@@ -250,16 +248,10 @@ export default class Manage_file extends PureComponent {
               </List.Item>
             )}
           />
-        </Card>
-        <Card style={{ marginTop: 28 }} title="上传文件">
-          <Upload {...props1}>
-            <Button disabled={this.state.bu_able_1}>
-              <Icon type="upload" />
-              上传图片
-            </Button>
-          </Upload>
+        </Card>*/}
+        <Card title="上传文件">
           <Upload {...props2}>
-            <Button disabled={this.state.bu_able_2}>
+            <Button disabled={this.state.bu_able_2||this.state.bu_able_1}>
               <Icon type="upload" />
               上传文件
             </Button>
@@ -271,14 +263,14 @@ export default class Manage_file extends PureComponent {
               wrapperCol={{ span: 8, offset: 2 }}
               label={<b>标题:</b>}
             >
-              {getFieldDecorator('title', {
+              {getFieldDecorator('filename', {
                 rules: [
                   {
                     required: true,
                     message: '输入文档标题',
                   },
                 ],
-              })(<Input />)}
+              })(<Input placeholder="输入文档标题"/>)}
             </Form.Item>
             <Form.Item
               colon={false}
@@ -286,23 +278,119 @@ export default class Manage_file extends PureComponent {
               wrapperCol={{ span: 8, offset: 2 }}
               label={<b>描述:</b>}
             >
-              {getFieldDecorator('description', {
+              {getFieldDecorator('filedescription', {
                 rules: [
                   {
                     required: true,
-                    message: '简要描述内容',
+                    message: '输入描述内容',
                   },
                 ],
-              })(<Input />)}
+              })(<Input placeholder="简要描述文档内容"/>)}
             </Form.Item>
           </Form>
           <Button
             type="primary"
             onClick={this.handleUpload}
-            disabled={this.state.imageList.length === 0 || this.state.fileList.length === 0}
+            disabled={this.state.fileList.length === 0}
             loading={uploading}
           >
-            {uploading ? 'Uploading' : 'Start Upload'}
+            {uploading ? '上传' : '开始上传'}
+          </Button>
+        </Card>
+        <Card style={{marginTop:12}} title="图片上传" >
+          <Upload {...props1}>
+            <Button disabled={this.state.bu_able_2||this.state.bu_able_1}>
+              <Icon type="upload" />
+              上传图片
+            </Button>
+          </Upload>
+          <Form>
+            <Form.Item 
+              colon={false}
+              labelCol={{ span: 4, offset: 0 }}
+              wrapperCol={{ span: 8, offset: 2 }}
+              label={<b>标题:</b>}
+            >
+              {getFieldDecorator('imagename', {
+                rules: [
+                  {
+                    required: true,
+                    message: '输入图片标题',
+                  },
+                ],
+              })(<Input placeholder="输入图片标题"/>)}
+            </Form.Item>
+            <Form.Item
+              colon={false}
+              labelCol={{ span: 4, offset: 0 }}
+              wrapperCol={{ span: 8, offset: 2 }}
+              label={<b>描述:</b>}
+            >
+              {getFieldDecorator('imagedescription', {
+                rules: [
+                  {
+                    required: true,
+                    message: '输入图片描述内容',
+                  },
+                ],
+              })(<Input placeholder="简要描述图片内容"/>)}
+            </Form.Item>
+            <Button
+              type="primary"
+              onClick={this.handleUpload}
+              disabled={this.state.imageList.length === 0}
+              loading={uploading}
+            >
+              {uploading ? '上传' : '开始上传'}
+            </Button>
+          </Form>
+        </Card>
+        {/*<Card style={{marginTop:12}} title="查看文件">
+          {files.map(item =>(
+            <Card.Grid style={{width:'20%'}} key={item.fileid}>
+              <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                <Card.Meta 
+                  title={<a href={httpAddress+item.filesrc} >{item.filename}</a>}
+                  description={<a href={httpAddress+item.filesrc}>{item.filedescription}</a>}
+                />
+              </Card>
+            </Card.Grid>
+          ))}
+          </Card>*/}
+          
+          {/*<List 
+            itemLayout='vertical'
+            pagination
+            dataSource={files}
+            renderItem={item => (
+              <List.Item key={item.fileid} 
+                actions={[<Button type='danger' onClick={() => this.DeleteFile(item.fileid) }>删除</Button>]}
+              >
+                <List.Item.Meta 
+                  title= {<a href={httpAddress+item.filesrc} >{item.filename}</a>}
+                  description={<a href={httpAddress+item.filesrc}>{item.filedescription}</a>}
+                />
+              </List.Item>
+            )}
+          >
+
+            </List>*/}
+        <Card style={{marginTop:12, textAlign: 'center' }}>
+          <Button
+            type="primary"
+            block
+            onClick={() => this.ToFile_Image('file')}
+          >
+            查看文件
+          </Button>
+        </Card>
+        <Card style={{marginTop:12, textAlign: 'center' }}>
+          <Button
+            type="primary"
+            block
+            onClick={() => this.ToFile_Image('image')}
+          >
+            查看图片
           </Button>
         </Card>
       </div>
