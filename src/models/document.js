@@ -4,6 +4,8 @@ export default {
   state: {
     tech_document: [],
     loading: false,
+    files: [],
+    images:[],
   },
 
   effects: {
@@ -45,6 +47,8 @@ export default {
       return {
         loading: false,
         tech_document: [],
+        images:[],
+        files:[],
       };
     },
     changeTech_document(state, { payload }) {
