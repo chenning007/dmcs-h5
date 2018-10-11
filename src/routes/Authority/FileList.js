@@ -42,7 +42,7 @@ export default class FileList extends PureComponent {
       break;
     }
     dispatch({
-      type: 'document/getFile',
+      type: 'document/deleteFile',
       payload: {
         fileid: fileid,
       },
