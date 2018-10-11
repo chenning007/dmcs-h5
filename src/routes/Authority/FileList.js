@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, List } from 'antd';
+import { Card, List,Icon,Button } from 'antd';
 import { routerRedux } from 'dva/router';
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
@@ -49,11 +49,17 @@ export default class FileList extends PureComponent {
     });
     this.setState({ files: [...Files], loading: false });
   }
+
+  ReturnRouter(){
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push('/authority/manage_file'));
+  }
+
   render() {
     const { files = [], loading } = this.state;
 
     return (
-      <Card>
+      <Card title='上传文件' extra={<Button type='primary' onClick={() =>this.ReturnRouter()}><Icon type="rollback" /></Button>}>
         <List
           itemLayout="vertical"
           pagination
