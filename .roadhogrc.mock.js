@@ -85,19 +85,19 @@ const proxy = {
   'POST /api/v1/user/motivate': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/user/updateuser': 'http://127.0.0.1:8080/dmcs',
 
-
   'POST /api/v1/admin/getAdminuser': 'http://127.0.0.1:8080/dmcs',
-  'POST /api/v1/admin/deleteAdminuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/addAdminuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/changeAuthority': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/getSelfuser': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/getdocument': 'http://127.0.0.1:8080/dmcs',
   'POST /api/v1/admin/deletedocument': 'http://127.0.0.1:8080/dmcs',
 
+  'POST /api/v1/file/deleteFile': 'http://127.0.0.1:8080/dmcs',
+
   'POST /api/device/addDevice': res => {
     res.send({ status: 'ok' });
   },
-  'GET /api/query/fake': (req, res) => {
+  'GET /api/query/fake': res => {
     res.send({
       status: 'ok',
     });
