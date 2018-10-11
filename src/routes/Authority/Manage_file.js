@@ -56,9 +56,7 @@ import { cookieToJson } from '../../utils/cookieToJson';
 ];*/
 
 @connect(state => ({
-  tem_id: state.tem_store.tem_id,
   document: state.document,
-  loading: state.document.loading,
 }))
 @Form.create()
 export default class Manage_file extends PureComponent {
@@ -68,9 +66,6 @@ export default class Manage_file extends PureComponent {
     uploading: false,
     bu_able_1: false, //是否禁止上传图片
     bu_able_2: false, //是否禁止上传文件
-    documents: [],
-    files: [],
-    images:[],
   };
 
   componentWillMount() {
@@ -83,13 +78,16 @@ export default class Manage_file extends PureComponent {
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    /*const{ dispatch } = this.props;
+    dispatch({
+      type:'document/getFile',
+
+    })*/
+  }
 
   componentWillUnmount() {
     const { dispatch } = this.props;
-    dispatch({
-      type: 'tem_store/clear',
-    });
     dispatch({
       type: 'document/clear',
     });
@@ -120,33 +118,43 @@ export default class Manage_file extends PureComponent {
     this.setState({add_delete:true, loading: true});
   }*/
 
-  handleUpload = () => {
+  handleUpload = (type) => {
     const { fileList, imageList } = this.state;
-    const { form, tem_id, dispatch } = this.props;
-    const title = form.getFieldValue('title');
-    const description = form.getFieldValue('description');
-    if (tem_id === undefined) {
-      dispatch(routerRedux.push('/authority/manage_list'))
-      return message.error('页面模式载入出现错误!!!');
+    const { form } = this.props;
+    let title=null;
+    let description =null;
+
+    if(type==='file'){
+      title = form.getFieldValue('filename');
+      description = form.getFieldValue('filedescription');
     }
+
+    if(type==='image'){
+      title = form.getFieldValue('imagename');
+      description = form.getFieldValue('imagedescription');
+    }
+
     if (!title || !description) {
       return message.error('未完整输入文档信息!!!');
     }
+
     const formData = new FormData();
-    fileList.forEach(file => {
-      formData.append('file', file);
-    });
-    imageList.forEach(file => {
-      formData.append('image', file);
-    });
+    if(type==='file'){
+      fileList.forEach(file => {
+        formData.append('file', file);
+      });
+    }
+    if(type==='image'){
+      imageList.forEach(file => {
+        formData.append('file', file);
+      });
+    }
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('identityNumber', tem_id);
-    //formData.append('cookie', cookie);
     this.setState({ uploading: true });
 
     reqwest({
-      url: '/api/v1/admin/addocument',
+      url: '/api/v1/file/addFile',  
       method: 'post',
       processData: false,
       data: formData,
@@ -159,9 +167,6 @@ export default class Manage_file extends PureComponent {
           bu_able_1: false,
           bu_able_2: false,
         });
-        this.setState({
-          documents: resp.data,
-        })
         message.success('upload successfully.');
       },
       error: () => {
@@ -183,7 +188,7 @@ export default class Manage_file extends PureComponent {
       dispatch(routerRedux.push('/authority/filelist'));
     }
     if(type==='image'){
-      dispatch(routerRedux.push('/authority/filelist'));
+      dispatch(routerRedux.push('/authority/imagelist'));
     }
   }
   /**
@@ -205,7 +210,6 @@ export default class Manage_file extends PureComponent {
     const props2 = {
       action: '/api/v1/tech_document/addocument',
       accept: 'text/html, .pdf',
-     // accept:'.pdf',
       beforeUpload: file => {
         this.setState({ bu_able_2: true });
         this.setState(({ fileList }) => ({
@@ -215,7 +219,6 @@ export default class Manage_file extends PureComponent {
       },
       fileList: this.state.fileList,
     };
-    const {files=[],images=[]} = this.state;
     const { getFieldDecorator } = this.props.form;
     const { uploading} = this.state;
     return (
@@ -290,7 +293,7 @@ export default class Manage_file extends PureComponent {
           </Form>
           <Button
             type="primary"
-            onClick={this.handleUpload}
+            onClick={() => this.handleUpload('file')}
             disabled={this.state.fileList.length === 0}
             loading={uploading}
           >
@@ -337,7 +340,7 @@ export default class Manage_file extends PureComponent {
             </Form.Item>
             <Button
               type="primary"
-              onClick={this.handleUpload}
+              onClick={() => this.handleUpload('image')}
               disabled={this.state.imageList.length === 0}
               loading={uploading}
             >
