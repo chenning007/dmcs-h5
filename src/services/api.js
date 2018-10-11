@@ -177,3 +177,11 @@ export async function DeleteFile(params) {
     body: params,
   });
 }
+
+export async function GetFileList(){
+  return request('/api/v1/file/getFilelist');
+}
+
+export async function GetImageList(){
+  return request('/api/v1/file/getImagelist');
+}
