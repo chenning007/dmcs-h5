@@ -1,4 +1,6 @@
-import { getdocument, deletedocument } from '../services/api';
+import { message } from 'antd';
+import { getdocument, DeleteFile } from '../services/api';
+
 export default {
   namespace: 'document',
   state: {
@@ -25,21 +27,20 @@ export default {
       });
     },
 
-    *deleteDocument({ payload }, { call, put }) {
+    *deleteFile({ payload }, { call, put }){
       yield put({
         type: 'changeLoading',
-        payload: true,
+        payload:true,
       });
-      const response = yield call(deletedocument, payload);
-      yield put({
-        type: 'deleteTech_document',
-        payload: response,
-      });
+      const response = yield call(DeleteFile, payload);
       yield put({
         type: 'changeLoading',
-        payload: true,
-      });
-    },
+        payload:false,
+      })
+      if(response.status==='ok'){
+        message.success('修改成功');
+      }
+    }
   },
 
   reducers: {
@@ -56,17 +57,6 @@ export default {
         ...state,
         tech_document: payload.data === undefined ? [] : [...payload.data],
       };
-    },
-    deleteTech_document(state, { payload }) {
-      if (payload.status === 'ok')
-        return {
-          ...state,
-          tech_document: payload.data === undefined ? tech_document : [...payload.data],
-        };
-      if (payload.status === 'error')
-        return {
-          ...state,
-        };
     },
     changeLoading(state, action) {
       return {
