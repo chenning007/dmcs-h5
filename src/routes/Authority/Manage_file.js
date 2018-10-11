@@ -79,11 +79,16 @@ export default class Manage_file extends PureComponent {
   }
 
   componentDidMount() {
-    /*const{ dispatch } = this.props;
+    const{ dispatch } = this.props;
     dispatch({
-      type:'document/getFile',
-
-    })*/
+      type:'document/getFilelist',
+    });
+    dispatch({
+      type:'document/getImagelist',
+    });
+    dispatch({
+      type:'document/getFileToken',
+    });
   }
 
   componentWillUnmount() {
