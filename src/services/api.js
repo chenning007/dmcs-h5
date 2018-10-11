@@ -145,12 +145,6 @@ export async function getdocument(params) {
   });
 }
 
-export async function deletedocument(params) {
-  return request('/api/v1/admin/deletedocument', {
-    method: 'POST',
-    body: params,
-  });
-}
 
 export async function logout() {
   return request('/api/v1/user/logout');
@@ -172,6 +166,13 @@ export async function motivate(params) {
 
 export async function updateUser(params) {
   return request('/api/v1/user/updateuser', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function DeleteFile(params) {
+  return request('/api/v1/file/deleteFile', {
     method: 'POST',
     body: params,
   });
