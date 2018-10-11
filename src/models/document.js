@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { getdocument, DeleteFile } from '../services/api';
+import { getdocument, DeleteFile, GetFileList, GetImageList } from '../services/api';
 
 export default {
   namespace: 'document',
@@ -11,23 +11,7 @@ export default {
   },
 
   effects: {
-    *getDocument({ payload }, { call, put }) {
-      yield put({
-        type: 'changeLoading',
-        payload: true,
-      });
-      const response = yield call(getdocument, payload);
-      yield put({
-        type: 'changeTech_document',
-        payload: response,
-      });
-      yield put({
-        type: 'changeLoading',
-        payload: false,
-      });
-    },
-
-    *deleteFile({ payload }, { call, put }){
+    *deleteFile({ payload }, { call, put }) {
       yield put({
         type: 'changeLoading',
         payload:true,
@@ -40,6 +24,43 @@ export default {
       if(response.status==='ok'){
         message.success('修改成功');
       }
+    },
+    *getFilelist(_,{call, put}) {
+      yield put({
+        type: 'changeLoading',
+        payload:true,
+      });
+      const response =yield call(GetFileList);
+      yield put({
+        type: 'saveFileList',
+        payload:response,
+      });
+      if(response.status==='error'){
+        message.error('获取信息失败');
+      }
+      yield put({
+        type:'changeLoading',
+        payload:false,
+      })
+    },
+
+    *getImagelist(_,{call,put}) {
+      yield put({
+        type: 'changeLoading',
+        payload:true,
+      });
+      const response =yield call(GetImageList);
+      yield put({
+        type: 'saveImageList',
+        payload:response,
+      });
+      if(response.status==='error'){
+        message.error('获取信息失败');
+      }
+      yield put({
+        type:'changeLoading',
+        payload:false,
+      })
     }
   },
 
@@ -52,17 +73,23 @@ export default {
         files:[],
       };
     },
-    changeTech_document(state, { payload }) {
-      return {
-        ...state,
-        tech_document: payload.data === undefined ? [] : [...payload.data],
-      };
-    },
     changeLoading(state, action) {
       return {
         ...state,
         ...action,
       };
     },
+    saveFileList(state,{ payload }){
+      return {
+        ...state,
+        files:( payload.status==='ok' && payload.data!=='undefined') ? payload.data:files, 
+      }
+    },
+    saveImageList(state,{payload}){
+      return {
+        ...state,
+        images:( payload.status==='ok' && payload.data!=='undefined') ? payload.data:images,
+      }
+    }
   },
 };
