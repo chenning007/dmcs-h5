@@ -84,9 +84,9 @@ export default class FileList extends PureComponent {
               ]}
             >
               <List.Item.Meta
-                title={<a href={httpAddress + item.filesrc}>{item.filename}</a>}
+                title={<a href={httpAddress + item.filesrc} target='_blank'>{item.filename}</a>}
               />
-              <div>{<a href={httpAddress + item.filesrc}>{item.filedescription}</a>}</div>
+              <div>{<a href={httpAddress + item.filesrc} target='_blank'>{item.filedescription}</a>}</div>
             </List.Item>
           )}
         />
