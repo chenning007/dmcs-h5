@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { getdocument, DeleteFile, GetFileList, GetImageList } from '../services/api';
+import { GetFileToken, DeleteFile, GetFileList, GetImageList } from '../services/api';
 
 export default {
   namespace: 'document',
@@ -25,6 +25,7 @@ export default {
         message.success('修改成功');
       }
     },
+
     *getFilelist(_,{call, put}) {
       yield put({
         type: 'changeLoading',
@@ -43,7 +44,6 @@ export default {
         payload:false,
       })
     },
-
     *getImagelist(_,{call,put}) {
       yield put({
         type: 'changeLoading',
@@ -61,6 +61,12 @@ export default {
         type:'changeLoading',
         payload:false,
       })
+    },
+    *getFileToken(_,{call}) {
+      const response = yield call(GetFileToken);
+      if(response.status==='error'){
+        message.error('令牌获取失败');
+      }
     }
   },
 
