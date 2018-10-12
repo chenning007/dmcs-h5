@@ -4,13 +4,14 @@ import { GetFileToken, DeleteFile, GetFileList, GetImageList } from '../services
 export default {
   namespace: 'document',
   state: {
-    tech_document: [],
-    loading: false,
+    fileloading: false,
+    imageloading: false,
     files: [],
     images:[],
   },
 
   effects: {
+
     *deleteFile({ payload }, { call, put }) {
       yield put({
         type: 'changeLoading',
@@ -28,7 +29,7 @@ export default {
 
     *getFilelist(_,{call, put}) {
       yield put({
-        type: 'changeLoading',
+        type: 'changeFileLoading',
         payload:true,
       });
       const response =yield call(GetFileList);
@@ -39,14 +40,16 @@ export default {
       if(response.status==='error'){
         message.error('获取信息失败');
       }
-      yield put({
-        type:'changeLoading',
-        payload:false,
-      })
+      if(response.status==='ok'){
+        yield put({
+          type:'changeFileLoading',
+          payload:false,
+        });
+      }
     },
     *getImagelist(_,{call,put}) {
       yield put({
-        type: 'changeLoading',
+        type: 'changeImageLoading',
         payload:true,
       });
       const response =yield call(GetImageList);
@@ -57,10 +60,12 @@ export default {
       if(response.status==='error'){
         message.error('获取信息失败');
       }
-      yield put({
-        type:'changeLoading',
-        payload:false,
-      })
+      if(response.status==='ok'){
+        yield put({
+          type:'changeImageLoading',
+          payload:false,
+        });
+      }
     },
     *getFileToken(_,{call}) {
       const response = yield call(GetFileToken);
@@ -73,8 +78,8 @@ export default {
   reducers: {
     clear() {
       return {
-        loading: false,
-        tech_document: [],
+        fileloading: false,
+        imageloading: false,
         images:[],
         files:[],
       };
@@ -84,6 +89,18 @@ export default {
         ...state,
         ...action,
       };
+    },
+    changeFileLoading(state,action) {
+      return {
+        ...state,
+        fileloading: action.payload,
+      };
+    },
+    changeImageLoading(state,action) {
+      return {
+        ...state,
+        imageloading: action.payload,
+      }
     },
     saveFileList(state,{ payload }){
       return {
