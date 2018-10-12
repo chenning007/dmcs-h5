@@ -93,6 +93,9 @@ const proxy = {
   'POST /api/v1/admin/deletedocument': 'http://127.0.0.1:8080/dmcs',
 
   'POST /api/v1/file/deleteFile': 'http://127.0.0.1:8080/dmcs',
+  'GET /api/v1/file/getFilelist': 'http://127.0.0.1:8080/dmcs',
+  'GET /api/v1/file/getImagelist': 'httP://127.0.0.1:8080/dmcs',
+  'GET /api/v1/file/getFileToken': 'http://127.0.0.1:8080/dmcs',
 
   'POST /api/device/addDevice': res => {
     res.send({ status: 'ok' });
