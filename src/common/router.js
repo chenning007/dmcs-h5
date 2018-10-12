@@ -170,6 +170,12 @@ export const getRouterData = app => {
       ),
       authority: 'admin' || 'host',
     },
+    '/authority/filewindow': {
+      component: dynamicWrapper(app, ['document', 'tem_store'], () =>
+        import('../routes/Authority/FileWindow')
+      ),
+      authority: 'admin' || 'host',
+    },
     '/authority/manage_group': {
       component: dynamicWrapper(app, ['list', 'friend', 'form', 'manage_group', 'login'], () =>
         import('../routes/Authority/Manage_group')
