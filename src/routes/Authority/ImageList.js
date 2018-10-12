@@ -4,15 +4,17 @@ import { Card, List, Icon, Button  } from 'antd';
 import { routerRedux } from 'dva/router';
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
-import httpAddress from '../../../public/constant';
+import {httpAddress} from '../../../public/constant';
 
 @connect(state => ({
   images: state.document.images,
+  document:state.document,
 }))
 export default class ImageList extends PureComponent {
   state = {
     loading: true,
     images: [],
+    fuzhi: true,
   };
 
   componentWillMount() {
@@ -25,9 +27,12 @@ export default class ImageList extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    const { images = [] } = this.props;
-    this.setState({ images: [...images], loading: false });
+  componentWillReceiveProps(nextProps){
+    const {fuzhi}=this.state;
+
+    if(fuzhi && nextProps.document.images.length>0){
+      this.setState({ images: [...nextProps.document.images], loading: false,fuzhi: false });
+    }
   }
 
   DeleteFile(fileid) {
@@ -38,7 +43,7 @@ export default class ImageList extends PureComponent {
     console.log(fileid);
     Images = [...images];
     for (var i = 0; i < Images.length; i++) {
-      if (Images[i - 1].fileid === fileid) Images.splice(i, 1);
+      if (Images[i].fileid === fileid) Images.splice(i, 1);
       break;
     }
     dispatch({
@@ -61,7 +66,7 @@ export default class ImageList extends PureComponent {
     return (
       <Card title='上传图片' extra={<Button type='primary' onClick={() =>this.ReturnRouter()}><Icon type="rollback" /></Button>}>
         <List
-          itemLayout="vertical"
+          itemLayout="horizontal"
           pagination
           dataSource={images}
           loading={loading}
@@ -75,9 +80,9 @@ export default class ImageList extends PureComponent {
               ]}
             >
               <List.Item.Meta
-                title={<a href={httpAddress + item.filesrc}>{item.filename}</a>}
-                description={<a href={httpAddress + item.filesrc}>{item.filedescription}</a>}
+                title={<a href={httpAddress + item.filesrc} target='_blank'>{item.filename}</a>}
               />
+               <div>{<a href={httpAddress + item.filesrc} target='_blank'>{item.filedescription}</a>}</div>
             </List.Item>
           )}
         />
