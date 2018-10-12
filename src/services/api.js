@@ -185,3 +185,7 @@ export async function GetFileList(){
 export async function GetImageList(){
   return request('/api/v1/file/getImagelist');
 }
+
+export async function GetFileToken(){
+  return request('/api/v1/file/getFileToken');
+}
