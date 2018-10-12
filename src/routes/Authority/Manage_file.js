@@ -79,13 +79,7 @@ export default class Manage_file extends PureComponent {
   }
 
   componentDidMount() {
-    const{ dispatch } = this.props;
-    dispatch({
-      type:'document/getFilelist',
-    });
-    dispatch({
-      type:'document/getImagelist',
-    });
+    const{ dispatch } = this.props;    
     dispatch({
       type:'document/getFileToken',
     });
@@ -189,10 +183,16 @@ export default class Manage_file extends PureComponent {
 
   ToFile_Image = (type) => {
     const {dispatch} = this.props;
-    if(type==='file'){
+    if(type==='file'){  
+      dispatch({
+        type:'document/getFilelist',
+      });
       dispatch(routerRedux.push('/authority/filelist'));
     }
     if(type==='image'){
+      dispatch({
+        type:'document/getImagelist',
+      });
       dispatch(routerRedux.push('/authority/imagelist'));
     }
   }
@@ -201,7 +201,7 @@ export default class Manage_file extends PureComponent {
    */
   render() {
     const props1 = {
-      action: '/api/v1/admin/addocument',
+      action: '/api/v1/file/addFile',
       accept: 'image/*',
       beforeUpload: file => {
         this.setState({ bu_able_1: true });
@@ -213,7 +213,7 @@ export default class Manage_file extends PureComponent {
       fileList: this.state.imageList,
     };
     const props2 = {
-      action: '/api/v1/tech_document/addocument',
+      action: '/api/v1/file/addFile',
       accept: 'text/html, .pdf',
       beforeUpload: file => {
         this.setState({ bu_able_2: true });
