@@ -6,7 +6,9 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
 
-const source_data = [
+import {source_data} from '../../../public/constant';
+
+/*const source_data = [
   { id: 1, title: '文件操作-管理' },
   { id: 2, title: '文件绑定-管理' },
   { id: 3, title: '文件可视性-管理' },
@@ -16,7 +18,7 @@ const source_data = [
   { id: 7, title: '未确定-管理' },
   { id: 8, title: '未确定-管理' },
   { id: 9, title: '未确定-管理' },
-];
+];*/
 
 @connect(state => ({
   currentUser: state.login.currentUser,
@@ -67,8 +69,16 @@ export default class Manage_list extends PureComponent {
     }
   }
 
-  /*componentWillUnmount() {
-    }*/
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch({
+      type:'document/clear',
+    });
+    dispatch({
+      type:'tem_store/clear',
+    });
+  }
+
   set_condition = condition => {
     //这里需要完成路由操作；
     //只需要完成路由操作
@@ -84,7 +94,7 @@ export default class Manage_list extends PureComponent {
           dispatch(routerRedux.push('/authority/manage_file'));
           break;
         case 2:
-          dispatch(routerRedux.push('/authority/manage_file'));
+          dispatch(routerRedux.push('/authority/filewindow'));
           break;
         case 3:
           dispatch(routerRedux.push('/authority/manage_file'));
@@ -119,7 +129,7 @@ export default class Manage_list extends PureComponent {
     const { manage_group } = this.props;
     if (id < 10) {
       if (JSON.stringify(manage_group.AdminUser) !== '{}' && manage_group.AdminUser !== null)
-        //判断某一位的值的情况
+        //判断某一位的值的情况。当为1时，则判断权限正常。
         return (
           (manage_group.AdminUser.authorityNumber & Math.pow(2, id - 1)) !== Math.pow(2, id - 1)
         );
