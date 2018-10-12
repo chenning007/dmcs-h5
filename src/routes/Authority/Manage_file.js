@@ -196,6 +196,11 @@ export default class Manage_file extends PureComponent {
       dispatch(routerRedux.push('/authority/imagelist'));
     }
   }
+
+  ReturnRouter(){
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push('/authority/manage_list'));
+  }
   /**
    *
    */
@@ -228,36 +233,7 @@ export default class Manage_file extends PureComponent {
     const { uploading} = this.state;
     return (
       <div>
-        {/*<Card>
-          <List
-            loading={this.state.loading}
-            header={
-              tem_id===undefined? '未知': source_title[tem_id-1].title
-            }
-            itemLayout="horizontal"
-            dataSource={documents}
-            renderItem={item => (
-              <List.Item
-                actions={[
-                  <Button type="danger" onClick={() => this.onChangefile(item.id)}>
-                    删除
-                  </Button>,
-                ]}
-              >
-                <span>
-                  <List.Item.Meta
-                    avatar={<Avatar src={item.image_address} size="large" />}
-                    title={item.title}
-                  />
-                </span>
-                <span style={{ marginLeft: 200, width: 300 }}>
-                  <h3>{item.description}</h3>
-                </span>
-              </List.Item>
-            )}
-          />
-        </Card>*/}
-        <Card title="上传文件">
+        <Card title="上传文件" extra={<Button type='primary' onClick={() =>this.ReturnRouter()}><Icon type="rollback" /></Button>}>
           <Upload {...props2}>
             <Button disabled={this.state.bu_able_2||this.state.bu_able_1}>
               <Icon type="upload" />
@@ -353,36 +329,6 @@ export default class Manage_file extends PureComponent {
             </Button>
           </Form>
         </Card>
-        {/*<Card style={{marginTop:12}} title="查看文件">
-          {files.map(item =>(
-            <Card.Grid style={{width:'20%'}} key={item.fileid}>
-              <Card bodyStyle={{ padding: 0 }} bordered={false}>
-                <Card.Meta 
-                  title={<a href={httpAddress+item.filesrc} >{item.filename}</a>}
-                  description={<a href={httpAddress+item.filesrc}>{item.filedescription}</a>}
-                />
-              </Card>
-            </Card.Grid>
-          ))}
-          </Card>*/}
-          
-          {/*<List 
-            itemLayout='vertical'
-            pagination
-            dataSource={files}
-            renderItem={item => (
-              <List.Item key={item.fileid} 
-                actions={[<Button type='danger' onClick={() => this.DeleteFile(item.fileid) }>删除</Button>]}
-              >
-                <List.Item.Meta 
-                  title= {<a href={httpAddress+item.filesrc} >{item.filename}</a>}
-                  description={<a href={httpAddress+item.filesrc}>{item.filedescription}</a>}
-                />
-              </List.Item>
-            )}
-          >
-
-            </List>*/}
         <Card style={{marginTop:12, textAlign: 'center' }}>
           <Button
             type="primary"
