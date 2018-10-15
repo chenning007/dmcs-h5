@@ -6,35 +6,32 @@ import { routerRedux } from 'dva/router';
 import { getAuthority } from '../../utils/authority';
 import { httpAddress } from '../../../public/constant';
 
-
 const Option = Select.Option;
-
-
 
 @connect(state => ({
   files: state.document.files,
   images: state.document.images,
   fileloading: state.document.fileloading,
   imageloading: state.document.imageloading,
-  tem_id: state.tem_store.tem_id,
+  temid: state.tem_store.temid,
 }))
 export default class FileWindow extends PureComponent {
-
-  state={
+  state = {
     fileid: undefined,
     imageid: undefined,
-    file_image: undefined,
-  }
+    fileimage: undefined,
+  };
 
   componentWillMount() {
-    const { tem_id, dispatch } = this.props;
-    let authority = getAuthority();
+    const { temid, dispatch } = this.props;
+    const authority = getAuthority();
     if (authority !== 'admin' && authority !== 'host') {
       dispatch(routerRedux.push('/exception/403'));
-    } else if (tem_id !== 2) {
+    } else if (temid !== 2) {
       dispatch(routerRedux.push('/authority/manage_list'));
     }
   }
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -44,6 +41,7 @@ export default class FileWindow extends PureComponent {
       type: 'document/getImagelist',
     });
   }
+
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
@@ -56,32 +54,26 @@ export default class FileWindow extends PureComponent {
     dispatch(routerRedux.push('/authority/manage_list'));
   }
 
-  handleFileChange = (value) =>{
-    console.log("filevalue: "+value);
-    this.setState({fileid: value, file_image: undefined});
-
-    const { fileid=undefined,imageid=undefined } = this.state;
-    if(fileid!== undefined && imageid!== undefined) {
-      let fileImage = "file"+ fileid + "image"+imageid;
-      this.setState({ file_image: fileImage, fileid: undefined, imageid: undefined });
+  bandFileWindow() {
+    const { imageid, fileid } = this.state;
+    if (imageid !== undefined && fileid !== undefined) {
+      const fileWindow = `file${fileid}image${imageid}`;
+      this.setState({ fileimage: fileWindow, imageid: undefined, fileid: undefined });
     }
   }
 
-  handleImageChange = (value) =>{
-    console.log("imagevalue: "+value);
-    this.setState({imageid: value, file_image: undefined});
-    console.log(this.state.imageid);
-    const { fileid,imageid} = this.state;
-    if(fileid!== undefined && imageid!== undefined) {
-      let fileImage = "file"+ fileid + "image"+imageid;
-      this.setState({ file_image: fileImage,fileid: undefined,imageid: undefined });
-    }
+  imageChange(value) {
+    this.setState({ imageid: value, fileimage: undefined });
+  }
+
+  handleFileChange(value) {
+    this.setState({ fileid: value, fileimage: undefined });
   }
 
   render() {
     const { files = [], images = [], fileloading, imageloading } = this.props;
 
-    const {file_image=undefined} = this.state;
+    const { fileimage = undefined } = this.state;
     return (
       <div>
         <Card
@@ -101,14 +93,14 @@ export default class FileWindow extends PureComponent {
               <List.Item key={item.fileid}>
                 <List.Item.Meta
                   title={
-                    <a href={httpAddress + item.filesrc} target="_blank">
+                    <a href={httpAddress + item.filesrc} target="_blank" rel="noopener noreferrer">
                       {item.filename}
                     </a>
                   }
                 />
                 <div>
                   {
-                    <a href={httpAddress + item.filesrc} target="_blank">
+                    <a href={httpAddress + item.filesrc} target="_blank" rel="noopener noreferrer">
                       {item.filedescription}
                     </a>
                   }
@@ -127,14 +119,14 @@ export default class FileWindow extends PureComponent {
               <List.Item key={item.fileid}>
                 <List.Item.Meta
                   title={
-                    <a href={httpAddress + item.filesrc} target="_blank">
+                    <a href={httpAddress + item.filesrc} target="_blank" rel="noopener noreferrer">
                       {item.filename}
                     </a>
                   }
                 />
                 <div>
                   {
-                    <a href={httpAddress + item.filesrc} target="_blank">
+                    <a href={httpAddress + item.filesrc} target="_blank" rel="noopener noreferrer">
                       {item.filedescription}
                     </a>
                   }
@@ -143,28 +135,41 @@ export default class FileWindow extends PureComponent {
             )}
           />
         </Card>
-        <Card title="文件与窗口绑定" style={{marginTop:12}}>
-          <Input.Group style={{width:'80%'}}>
-            <Select placeholder="选择文件"onChange={this.handleFileChange} style={{width:'35%'}}>
+        <Card title="文件与窗口绑定" style={{ marginTop: 12 }}>
+          <Input.Group style={{ width: '70%' }}>
+            <Select placeholder="选择文件" style={{ width: '50%' }}>
               {files.map(item => (
-                <Option value={item.fileid} key={item.fileid}>
-                  文件编号：{item.fileid}
+                <Option
+                  value={item.fileid}
+                  key={item.fileid}
+                  onClick={() => this.handleFileChange(item.fileid)}
+                >
+                  文件编号：
+                  {item.fileid}
                 </Option>
               ))}
             </Select>
-            <Select placeholder="选择图片" onChange={this.handleImageChange} style={{width:'35%'}}>
+            <Select placeholder="选择图片" style={{ width: '50%' }}>
               {images.map(item => (
-                <Option value={item.fileid} key={item.fileid}>
-                  图像编号:{item.fileid}
+                <Option
+                  value={item.fileid}
+                  key={item.fileid}
+                  onClick={() => this.imageChange(item.fileid)}
+                >
+                  图像编号:
+                  {item.fileid}
                 </Option>
               ))}
             </Select>
-            <Input style={{width:'30%'}}
-              disabled
-              defaultValue={file_image!==undefined ? file_image : null}
-            />
           </Input.Group>
-        
+          <Input
+            style={{ width: '30%' }}
+            disabled
+            defaultValue={fileimage !== undefined ? fileimage : null}
+          />
+          <Button type="primary" onClick={() => this.bandFileWindow()}>
+            文件绑定
+          </Button>
         </Card>
       </div>
     );
