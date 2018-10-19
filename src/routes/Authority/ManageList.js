@@ -80,7 +80,7 @@ export default class ManageList extends PureComponent {
     // 这里需要完成路由操作；
     // 只需要完成路由操作
     const { dispatch } = this.props;
-    this.setState(condition);
+    this.setState({ condition });
     if (condition && condition < 10) {
       dispatch({
         type: 'tem_store/addid',
