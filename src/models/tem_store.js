@@ -1,35 +1,32 @@
 export default {
-    namespace: 'tem_store',
+  namespace: 'tem_store',
 
-    state: {
-        tem_src: undefined,
-        tem_id: undefined,
+  state: {
+    temsrc: undefined,
+    temid: undefined,
+  },
+
+  effects: {
+    *addid({ payload }, { put }) {
+      yield put({
+        type: 'Addid',
+        payload: payload.id,
+      });
     },
+  },
 
-    effects: {
-        *addid( { payload },{put}){
-            yield put({
-                type: 'Addid',
-                payload: payload,
-            })
-        }
-
+  reducers: {
+    clear() {
+      return {
+        temsrc: undefined,
+        temid: undefined,
+      };
     },
-
-    reducers: {
-        clear(){
-            return {
-                tem_src: undefined,
-                tem_id: undefined,
-            }
-        },
-        Addid(state, action){
-            return {
-                ...state,
-                tem_id: action.payload,
-            }
-        },
-    }
-
-
-}
+    Addid(state, action) {
+      return {
+        ...state,
+        temid: action.payload,
+      };
+    },
+  },
+};
