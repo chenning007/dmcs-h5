@@ -148,7 +148,7 @@ export const getRouterData = app => {
     },
     '/authority/manage_list': {
       component: dynamicWrapper(app, ['manage_group', 'login', 'tem_store'], () =>
-        import('../routes/Authority/Manage_list')
+        import('../routes/Authority/ManageList')
       ),
       authority: 'admin' || 'host',
     },
@@ -159,15 +159,11 @@ export const getRouterData = app => {
       authority: 'admin' || 'host',
     },
     '/authority/filelist': {
-      component: dynamicWrapper(app, ['document'], () =>
-        import('../routes/Authority/FileList')
-      ),
+      component: dynamicWrapper(app, ['document'], () => import('../routes/Authority/FileList')),
       authority: 'admin' || 'host',
     },
     '/authority/imagelist': {
-      component: dynamicWrapper(app, ['document'], () =>
-        import('../routes/Authority/ImageList')
-      ),
+      component: dynamicWrapper(app, ['document'], () => import('../routes/Authority/ImageList')),
       authority: 'admin' || 'host',
     },
     '/authority/filewindow': {
