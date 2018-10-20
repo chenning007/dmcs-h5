@@ -61,6 +61,7 @@ module.exports = {
     'no-restricted-globals': [0],
     'require-yield': [1],
     'prefer-destructuring': ['error', { object: false, array: false }],
+    'no-extend-native': [0],
   },
   parserOptions: {
     ecmaFeatures: {
