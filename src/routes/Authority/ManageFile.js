@@ -208,11 +208,12 @@ export default class ManageFile extends PureComponent {
       accept: 'image/*',
       onRemove: file => {
         this.setState(() => {
-          const index = filesList.indexOf(file);
-          const newFileList = filesList.slice();
+          const index = imagesList.indexOf(file);
+          const newFileList = imagesList.slice();
           newFileList.splice(index, 1);
           return {
-            filesList: newFileList,
+            imagesList: newFileList,
+            buAble1: false,
           };
         });
       },
@@ -228,7 +229,17 @@ export default class ManageFile extends PureComponent {
     const props2 = {
       action: '/api/v1/file/addFile',
       accept: 'text/html, .pdf',
-
+      onRemove: file => {
+        this.setState(() => {
+          const index = filesList.indexOf(file);
+          const newFileList = filesList.slice();
+          newFileList.splice(index, 1);
+          return {
+            filesList: newFileList,
+            buAble2: false,
+          };
+        });
+      },
       beforeUpload: file => {
         this.setState({ buAble2: true });
         this.setState({
