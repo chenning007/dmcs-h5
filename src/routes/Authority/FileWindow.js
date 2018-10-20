@@ -77,7 +77,7 @@ export default class FileWindow extends PureComponent {
     return (
       <div>
         <Card
-          title="上传文件"
+          title="文件"
           extra={
             <Button type="primary" onClick={() => this.ReturnRouter()}>
               <Icon type="rollback" />
@@ -109,7 +109,7 @@ export default class FileWindow extends PureComponent {
             )}
           />
         </Card>
-        <Card title="上传图片" style={{ marginTop: 12 }}>
+        <Card title="图片" style={{ marginTop: 12 }}>
           <List
             itemLayout="horizontal"
             pagination
