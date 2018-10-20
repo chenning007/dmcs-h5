@@ -4,6 +4,7 @@ import { Card, Table, Icon, Button, message } from 'antd';
 import { routerRedux } from 'dva/router';
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
+import { getSmpFormatDateByLong } from '../../utils/getFormDate';
 import { httpAddress } from '../../../public/constant';
 
 @connect(state => ({
@@ -84,12 +85,24 @@ export default class FileList extends PureComponent {
         render: text => <span style={{ textAlign: 'center' }}>{text}</span>,
       },
       {
+        title: '添加时间',
+        key: 'insertTime ',
+        dataIndex: 'insertTime',
+        render: text => {
+          if (text !== null) {
+            return <span>{getSmpFormatDateByLong(text, false)}</span>;
+          } else {
+            return <div />;
+          }
+        },
+      },
+      {
         title: '查看文件',
         key: 'filesrc',
         dataIndex: 'filesrc',
         render: text => (
           <a href={httpAddress + text} target="_blank" rel="noopener noreferrer">
-            {text}
+            点击查看
           </a>
         ),
       },
