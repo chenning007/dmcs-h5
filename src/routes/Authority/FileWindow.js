@@ -1,25 +1,20 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, List, Button, Icon, Select, Input } from 'antd';
+import { Card, Button, Icon, Radio, Menu, Dropdown, Table } from 'antd';
 import { routerRedux } from 'dva/router';
-
 import { getAuthority } from '../../utils/authority';
 import { httpAddress } from '../../../public/constant';
 
-const Option = Select.Option;
+// const columns = [{ title: '编号' }];
 
 @connect(state => ({
-  files: state.document.files,
-  images: state.document.images,
-  fileloading: state.document.fileloading,
-  imageloading: state.document.imageloading,
   temid: state.tem_store.temid,
+  fileImages: state.document.fileImages,
+  loading: state.document.loading,
 }))
 export default class FileWindow extends PureComponent {
   state = {
-    fileid: undefined,
-    imageid: undefined,
-    fileimage: undefined,
+    valueSelect: 'a',
   };
 
   componentWillMount() {
@@ -49,127 +44,109 @@ export default class FileWindow extends PureComponent {
     });
   }
 
+  /* DeleteFileWindow(createid) {
+    this.setState({createid});
+    console.log(`${createid}`);
+  } */
+
+  handlMenuClick = e => {
+    const key = e.key;
+    this.setState({ valueSelect: key });
+    this.GetFileImage();
+  };
+
+  handleRadio = e => {
+    this.setState({ valueSelect: e.target.value });
+    this.GetFileImage();
+  };
+
+  /* 添加选择按钮 */
+  /* 注意到setState()在handleRadio函数中可能不同步 */
   ReturnRouter() {
     const { dispatch } = this.props;
     dispatch(routerRedux.push('/authority/manage_list'));
   }
 
-  bandFileWindow() {
-    const { imageid, fileid } = this.state;
-    if (imageid !== undefined && fileid !== undefined) {
-      const fileWindow = `file${fileid}image${imageid}`;
-      this.setState({ fileimage: fileWindow, imageid: undefined, fileid: undefined });
-    }
-  }
-
-  imageChange(value) {
-    this.setState({ imageid: value, fileimage: undefined });
-  }
-
-  handleFileChange(value) {
-    this.setState({ fileid: value, fileimage: undefined });
+  GetFileImage() {
+    const { dispatch } = this.props;
+    const { valueSelect } = this.state;
+    dispatch({
+      type: 'document/getFileImage',
+      payload: {
+        module: valueSelect,
+      },
+    });
   }
 
   render() {
-    const { files = [], images = [], fileloading, imageloading } = this.props;
+    const { valueSelect } = this.state;
+    const { fileImages, loading } = this.props;
+    const columns = [
+      { title: '编号', key: 'fileimage', dataIndex: 'fileimage' },
+      {
+        title: '文件名',
+        key: 'filename',
+        dataIndex: 'filename',
+        render: (text, record) => (
+          <a href={httpAddress + record.filesrc} target="_blank" rel="noopener noreferrer">
+            {text}
+          </a>
+        ),
+      },
+      {
+        title: '图片名',
+        key: 'imagename',
+        dataIndex: 'imagename',
+        render: (text, record) => (
+          <a href={httpAddress + record.imagesrc} target="_blank" rel="noopener noreferrer">
+            {text}
+          </a>
+        ),
+      },
+      { title: '可视性', key: 'viewed', dataIndex: 'viewed' },
+      {
+        title: '操作',
+        key: 'action',
+        dataIndex: 'action',
+        render: () => <Button type="danger">删除</Button>,
+      },
+    ];
 
-    const { fileimage = undefined } = this.state;
+    const menu = (
+      <Menu onClick={this.handleMenuClick}>
+        <Menu.Item key="aa">模块1</Menu.Item>
+        <Menu.Item key="ab">模块2</Menu.Item>
+        <Menu.Item key="ac">模块3</Menu.Item>
+        <Menu.Item key="ad">模块4</Menu.Item>
+      </Menu>
+    );
+
     return (
       <div>
         <Card
-          title="文件"
+          title="文件绑定"
           extra={
             <Button type="primary" onClick={() => this.ReturnRouter()}>
               <Icon type="rollback" />
             </Button>
           }
         >
-          <List
-            itemLayout="horizontal"
-            pagination
-            dataSource={files}
-            loading={fileloading}
-            renderItem={item => (
-              <List.Item key={item.fileid}>
-                <List.Item.Meta
-                  title={
-                    <a href={httpAddress + item.filesrc} target="_blank" rel="noopener noreferrer">
-                      {item.filename}
-                    </a>
-                  }
-                />
-                <div>
-                  {
-                    <a href={httpAddress + item.filesrc} target="_blank" rel="noopener noreferrer">
-                      {item.filedescription}
-                    </a>
-                  }
-                </div>
-              </List.Item>
-            )}
-          />
+          <Radio.Group value={valueSelect} onChange={this.handleRadio} size="large">
+            <Dropdown overlay={menu}>
+              <Radio.Button>首页窗口</Radio.Button>
+            </Dropdown>
+            <Radio.Button value="b">第二窗口 </Radio.Button>
+            <Radio.Button value="c">第三窗口 </Radio.Button>
+            <Radio.Button value="d">第四窗口 </Radio.Button>
+            <Radio.Button value="e">第五窗口 </Radio.Button>
+            <Radio.Button value="f">第六窗口 </Radio.Button>
+            <Radio.Button value="g">第七窗口 </Radio.Button>
+            <Radio.Button value="h">第八窗口 </Radio.Button>
+            <Radio.Button value="i">第九窗口 </Radio.Button>
+          </Radio.Group>
         </Card>
-        <Card title="图片" style={{ marginTop: 12 }}>
-          <List
-            itemLayout="horizontal"
-            pagination
-            dataSource={images}
-            loading={imageloading}
-            renderItem={item => (
-              <List.Item key={item.fileid}>
-                <List.Item.Meta
-                  title={
-                    <a href={httpAddress + item.filesrc} target="_blank" rel="noopener noreferrer">
-                      {item.filename}
-                    </a>
-                  }
-                />
-                <div>
-                  {
-                    <a href={httpAddress + item.filesrc} target="_blank" rel="noopener noreferrer">
-                      {item.filedescription}
-                    </a>
-                  }
-                </div>
-              </List.Item>
-            )}
-          />
-        </Card>
-        <Card title="文件与窗口绑定" style={{ marginTop: 12 }}>
-          <Input.Group style={{ width: '70%' }}>
-            <Select placeholder="选择文件" style={{ width: '50%' }}>
-              {files.map(item => (
-                <Option
-                  value={item.fileid}
-                  key={item.fileid}
-                  onClick={() => this.handleFileChange(item.fileid)}
-                >
-                  文件编号：
-                  {item.fileid}
-                </Option>
-              ))}
-            </Select>
-            <Select placeholder="选择图片" style={{ width: '50%' }}>
-              {images.map(item => (
-                <Option
-                  value={item.fileid}
-                  key={item.fileid}
-                  onClick={() => this.imageChange(item.fileid)}
-                >
-                  图像编号:
-                  {item.fileid}
-                </Option>
-              ))}
-            </Select>
-          </Input.Group>
-          <Input
-            style={{ width: '30%' }}
-            disabled
-            defaultValue={fileimage !== undefined ? fileimage : null}
-          />
-          <Button type="primary" onClick={() => this.bandFileWindow()}>
-            文件绑定
-          </Button>
+        <Card style={{ marginTop: 4 }}>
+          <Table columns={columns} dataSource={fileImages} loading={loading} rowKey="createid" />
         </Card>
       </div>
     );
