@@ -36,7 +36,7 @@ export default {
       const response = yield call(GetFileList);
       yield put({
         type: 'saveFileList',
-        payload: response,
+        payload: response.status === 'ok' && response.data !== 'undefined' ? response.data : [],
       });
       if (response.status === 'error') {
         message.error('获取信息失败');
@@ -56,7 +56,7 @@ export default {
       const response = yield call(GetImageList);
       yield put({
         type: 'saveImageList',
-        payload: response,
+        payload: response.status === 'ok' && response.data !== 'undefined' ? response.data : [],
       });
       if (response.status === 'error') {
         message.error('获取信息失败');
@@ -76,7 +76,7 @@ export default {
       const response = yield call(GetFileImage, payload);
       yield put({
         type: 'saveFileImage',
-        payload: response,
+        payload: response.status === 'ok' && response.data !== 'undefined' ? response.data : [],
       });
       yield put({
         type: 'changeFileImageLoading',
@@ -126,23 +126,22 @@ export default {
         loading: action.payload,
       };
     },
-    saveFileList(state, { payload }) {
+    saveFileList(state, action) {
       return {
         ...state,
-        files: payload.status === 'ok' && payload.data !== 'undefined' ? payload.data : files,
+        files: action.payload,
       };
     },
-    saveImageList(state, { payload }) {
+    saveImageList(state, action) {
       return {
         ...state,
-        images: payload.status === 'ok' && payload.data !== 'undefined' ? payload.data : images,
+        images: action.payload,
       };
     },
-    saveFileImage(state, { payload }) {
+    saveFileImage(state, action) {
       return {
         ...state,
-        fileImages:
-          payload.status === 'ok' && payload.data !== 'undefined' ? payload.data : fileImages,
+        fileImages: action.payload,
       };
     },
   },
