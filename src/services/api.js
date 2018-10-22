@@ -4,8 +4,10 @@ import request from '../utils/request';
 export async function queryProjectNotice() {
   return request('/api/project/notice');
 }
-////
-//////
+
+// //
+// // //
+
 export async function queryRule(params) {
   return request(`/api/rule?${stringify(params)}`);
 }
@@ -145,7 +147,6 @@ export async function getdocument(params) {
   });
 }
 
-
 export async function logout() {
   return request('/api/v1/user/logout');
 }
@@ -178,14 +179,21 @@ export async function DeleteFile(params) {
   });
 }
 
-export async function GetFileList(){
+export async function GetFileList() {
   return request('/api/v1/file/getFilelist');
 }
 
-export async function GetImageList(){
+export async function GetImageList() {
   return request('/api/v1/file/getImagelist');
 }
 
-export async function GetFileToken(){
+export async function GetFileToken() {
   return request('/api/v1/file/getFileToken');
+}
+
+export async function GetFileImage(params) {
+  return request('/api/v1/file/getFileImage', {
+    method: 'POST',
+    body: params,
+  });
 }
