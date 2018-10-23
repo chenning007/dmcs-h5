@@ -1,5 +1,12 @@
 import { message } from 'antd';
-import { GetFileToken, DeleteFile, GetFileList, GetImageList, GetFileImage } from '../services/api';
+import {
+  GetFileToken,
+  DeleteFile,
+  GetFileList,
+  GetImageList,
+  GetFileImage,
+  AddFileImage,
+} from '../services/api';
 
 export default {
   namespace: 'document',
@@ -88,6 +95,21 @@ export default {
       if (response.status === 'error') {
         message.error('令牌获取失败');
       }
+    },
+    *addFileImage({ payload }, { call, put }) {
+      yield put({
+        type: 'changeFileImageLoading',
+        payload: true,
+      });
+      const response = yield call(AddFileImage, payload);
+      yield put({
+        type: 'saveFileImage',
+        payload: response.status === 'ok' && response.data !== 'undefined' ? response.data : [],
+      });
+      yield put({
+        type: 'changeFileImageLoading',
+        payload: false,
+      });
     },
   },
 
