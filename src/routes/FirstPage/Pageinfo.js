@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, Layout } from 'antd';
 import { enquireScreen } from 'enquire-js';
-import { routerRedux } from 'dva/router';
+import { routerRedux, Link } from 'dva/router';
 
 const { Header, Content } = Layout;
 const Search = Input.Search;
@@ -34,7 +34,9 @@ function KeytoName(key) {
   }
 }
 
-@connect()
+@connect(state => ({
+  currentUser: state.login.currentUser,
+}))
 export default class Pageinfo extends PureComponent {
   state = { screenMobile: undefined };
 
@@ -184,6 +186,36 @@ export default class Pageinfo extends PureComponent {
     }
   }
 
+  ButtonContent() {
+    const { currentUser } = this.props;
+    if (currentUser === undefined || JSON.stringify(currentUser) === '{}') {
+      return (
+        <div>
+          <Button type="primary" onClick={() => this.changeRouterLogin()}>
+            登录
+          </Button>
+          <Divider type="vertical" />
+          <Button type="primary" onClick={() => this.changeRouterRegister()}>
+            注册
+          </Button>
+          <Search
+            placeholder="input search text"
+            style={{ width: '40%', marginRight: 120, paddingLeft: 12 }}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Link to="/dashboard/device">
+            <Button type="primary">用户管理</Button>
+          </Link>
+          <Search placeholder="input search text" style={{ width: '40%', marginLeft: 120 }} />
+        </div>
+      );
+    }
+  }
+
   Header() {
     const { screenMobile } = this.state;
     const { location } = this.props;
@@ -205,16 +237,7 @@ export default class Pageinfo extends PureComponent {
               src="http://39.104.208.4/image/firstpage/u110.png"
               alt="logo"
             />
-            <div style={{ float: 'right' }}>
-              <Button type="primary" onClick={() => this.changeRouterLogin()}>
-                登录
-              </Button>
-              <Divider type="vertical" />
-              <Button type="primary" onClick={() => this.changeRouterRegister()}>
-                注册
-              </Button>
-              <Search placeholder="input search text" style={{ width: '40%', marginLeft: 120 }} />
-            </div>
+            <div style={{ float: 'right', marginRight: 240 }}>{this.ButtonContent()}</div>
           </Header>
 
           <Header
@@ -292,16 +315,7 @@ export default class Pageinfo extends PureComponent {
               src="http://39.104.208.4/image/firstpage/u110.png"
               alt="logo"
             />
-            <div style={{ float: 'right' }}>
-              <Button type="primary" onClick={() => this.changeRouterLogin()}>
-                登录
-              </Button>
-              <Divider type="vertical" />
-              <Button type="primary" onClick={() => this.changeRouterRegister()}>
-                注册
-              </Button>
-              <Search placeholder="input search text" style={{ width: '40%', marginLeft: 120 }} />
-            </div>
+            <div style={{ float: 'right' }}>{this.ButtonContent()}</div>
           </Header>
 
           <Header
