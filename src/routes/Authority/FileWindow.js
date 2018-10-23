@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Button, Icon, Radio, Menu, Dropdown, Table } from 'antd';
+import { Card, Button, Icon, Radio, Menu, Dropdown, Table, Avatar } from 'antd';
 import { routerRedux } from 'dva/router';
 import { getAuthority } from '../../utils/authority';
 import { httpAddress } from '../../../public/constant';
@@ -11,10 +11,17 @@ import { httpAddress } from '../../../public/constant';
   temid: state.tem_store.temid,
   fileImages: state.document.fileImages,
   loading: state.document.loading,
+  fileloading: state.document.fileloading,
+  imageloading: state.document.imageloading,
+  files: state.document.files,
+  images: state.document.images,
 }))
 export default class FileWindow extends PureComponent {
   state = {
     valueSelect: 'a',
+    showList: false, // 为false的时候则显示module形式对应的table.如果为true则进行文件的添加操作
+    selectFileRowkeys: [],
+    selectImageRowkeys: [],
   };
 
   componentWillMount() {
@@ -51,17 +58,26 @@ export default class FileWindow extends PureComponent {
 
   handlMenuClick = e => {
     const key = e.key;
-    this.setState({ valueSelect: key });
+    this.setState({ valueSelect: key, showList: false });
     this.GetFileImage();
   };
 
   handleRadio = e => {
-    this.setState({ valueSelect: e.target.value });
+    this.setState({ valueSelect: e.target.value, showList: false });
     this.GetFileImage();
   };
 
   /* 添加选择按钮 */
   /* 注意到setState()在handleRadio函数中可能不同步 */
+
+  onSelectedFileChange = selectedRowkeys => {
+    this.setState({ selectFileRowkeys: [...selectedRowkeys] });
+  };
+
+  onSelectedImageChange = selectedRowkeys => {
+    this.setState({ selectImageRowkeys: [...selectedRowkeys] });
+  };
+
   ReturnRouter() {
     const { dispatch } = this.props;
     dispatch(routerRedux.push('/authority/manage_list'));
@@ -78,9 +94,13 @@ export default class FileWindow extends PureComponent {
     });
   }
 
+  HandleFileWindow() {
+    this.setState({ showList: true });
+  }
+
   render() {
-    const { valueSelect } = this.state;
-    const { fileImages, loading } = this.props;
+    const { valueSelect, showList, selectFileRowkeys, selectImageRowkeys } = this.state;
+    const { fileImages, loading, fileloading, imageloading, files, images } = this.props;
     const columns = [
       { title: '编号', key: 'fileimage', dataIndex: 'fileimage' },
       {
@@ -111,6 +131,56 @@ export default class FileWindow extends PureComponent {
         render: () => <Button type="danger">删除</Button>,
       },
     ];
+
+    const fileColumns = [
+      { title: '文件名称', key: 'filename', dataIndex: 'filename' },
+      { title: '文件编号', key: 'fileid', dataIndex: 'fileid' },
+      { title: '文件简介', key: 'filedescription', dataIndex: 'filedescription' },
+      {
+        title: '查看文件',
+        key: 'filesrc',
+        dataIndex: 'filesrc',
+        render: text => (
+          <a href={httpAddress + text} target="_blank" rel="noopener noreferrer">
+            点击查看
+          </a>
+        ),
+      },
+    ];
+
+    const imageColumns = [
+      {
+        key: 'avatar',
+        dataIndex: 'filesrc',
+        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
+      },
+      { title: '文件名称', key: 'filename', dataIndex: 'filename' },
+      { title: '文件编号', key: 'fileid', dataIndex: 'fileid' },
+      { title: '文件简介', key: 'filedescription', dataIndex: 'filedescription' },
+      {
+        title: '查看图片',
+        key: 'filesrc',
+        dataIndex: 'filesrc',
+        render: text => (
+          <a href={httpAddress + text} target="_blank" rel="noopener noreferrer">
+            点击查看
+          </a>
+        ),
+      },
+    ];
+
+    const fileRowSelection = {
+      selectFileRowkeys,
+      onChange: this.onSelectedFileChange,
+      hideDefaultSelections: true,
+      type: 'radio',
+    };
+    const imageRowSelection = {
+      selectImageRowkeys,
+      onChange: this.onSelectedImageChange,
+      hideDefaultSelections: true,
+      type: 'radio',
+    };
 
     const menu = (
       <Menu onClick={this.handleMenuClick}>
@@ -145,9 +215,47 @@ export default class FileWindow extends PureComponent {
             <Radio.Button value="i">第九窗口 </Radio.Button>
           </Radio.Group>
         </Card>
-        <Card style={{ marginTop: 4 }}>
-          <Table columns={columns} dataSource={fileImages} loading={loading} rowKey="createid" />
-        </Card>
+        <div>
+          {showList === false && (
+            <Card style={{ marginTop: 4 }}>
+              <Table
+                columns={columns}
+                dataSource={fileImages}
+                loading={loading}
+                rowKey="createid"
+              />
+              <Button
+                type="primary"
+                style={{ marginTop: 8 }}
+                onClick={() => this.HandleFileWindow()}
+              >
+                添加
+              </Button>
+            </Card>
+          )}
+          {showList === true && (
+            <div>
+              <Card style={{ marginTop: 4 }} title="选择文件">
+                <Table
+                  columns={fileColumns}
+                  dataSource={files}
+                  loading={fileloading}
+                  rowKey="fileid"
+                  rowSelection={fileRowSelection}
+                />
+              </Card>
+              <Card style={{ marginTop: 4 }} title="选择图片">
+                <Table
+                  columns={imageColumns}
+                  dataSource={images}
+                  loading={imageloading}
+                  rowKey="fileid"
+                  rowSelection={imageRowSelection}
+                />
+              </Card>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
