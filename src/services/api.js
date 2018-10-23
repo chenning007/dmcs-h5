@@ -197,3 +197,10 @@ export async function GetFileImage(params) {
     body: params,
   });
 }
+
+export async function AddFileImage(params) {
+  return request('/api/v1/file/addFileImage', {
+    method: 'POST',
+    body: params,
+  });
+}
