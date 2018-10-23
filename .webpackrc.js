@@ -119,6 +119,11 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^api/v1/file/getFileImage': '' },
     },
+    '/api/v1/file/addFileImage': {
+      target: 'http://127.0.0.1:8080/dmcs',
+      changeOrigin: true,
+      pathRewrite: { '^api/v1/file/addFileImage': '' },
+    },
   },
   //
   alias: {
