@@ -15,23 +15,15 @@ const { TabPane } = Tabs;
 @Form.create()
 export default class Login extends Component {
   state = {
-    count: 0,
     type: 'account',
   };
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
   componentDidMount() {
-    if (
-      this.props.location.search !== null &&
-      this.props.location.search !== undefined &&
-      this.props.location.search !== ''
-    ) {
-      var verify = urlArgs(this.props.location).verify;
+    const { location, dispatch } = this.props;
+    if (location.search !== null && location.search !== undefined && location.search !== '') {
+      const verify = urlArgs(location).verify;
       if (verify !== undefined && verify !== {}) {
-        this.props.dispatch({
+        dispatch({
           type: 'login/verify',
           payload: { verify },
         });
@@ -39,19 +31,25 @@ export default class Login extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   onSwitch = type => {
     this.setState({ type });
   };
 
   handleSubmit = e => {
+    const { form, dispatch } = this.props;
+    const { type } = this.state;
     e.preventDefault();
-    this.props.form.validateFields({ force: true }, (err, values) => {
+    form.validateFields({ force: true }, (err, values) => {
       if (!err) {
-        this.props.dispatch({
+        dispatch({
           type: 'login/login',
           payload: {
             ...values,
-            type: this.state.type,
+            type,
           },
         });
       }
@@ -147,6 +145,7 @@ export default class Login extends Component {
             <Link className={styles.register} to="/user/register">
               注册账户
             </Link>
+            <Link to="/user/firstpage">返回首页</Link>
           </div>
         </div>
       </div>
