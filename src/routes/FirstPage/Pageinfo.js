@@ -38,7 +38,7 @@ function KeytoName(key) {
   currentUser: state.login.currentUser,
 }))
 export default class Pageinfo extends PureComponent {
-  state = { screenMobile: undefined };
+  state = { screenMobile: false };
 
   componentDidMount() {
     enquireScreen(mobile => {
@@ -46,10 +46,6 @@ export default class Pageinfo extends PureComponent {
         screenMobile: mobile,
       });
     });
-  }
-
-  componentWillUnmount() {
-    this.setState({ screenMobile: undefined });
   }
 
   MenuKey = e => {
@@ -298,7 +294,7 @@ export default class Pageinfo extends PureComponent {
         </Layout>
       );
     }
-    if (screenMobile === undefined) {
+    if (screenMobile === undefined || screenMobile === false) {
       return (
         <Layout>
           <Header

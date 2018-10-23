@@ -119,7 +119,6 @@ export default class FirstPage extends PureComponent {
   state = { isMobile: false };
 
   componentDidMount() {
-    // const { dispatch } = this.props;
     enquireScreen(mobile => {
       this.setState({
         isMobile: mobile,
@@ -410,7 +409,7 @@ export default class FirstPage extends PureComponent {
         </Layout>
       );
     }
-    if (isMobile === undefined) {
+    if (isMobile === false || isMobile === undefined) {
       return (
         <Layout>
           <Header

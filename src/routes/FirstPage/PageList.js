@@ -260,7 +260,7 @@ export default class PageList extends PureComponent {
         </Layout>
       );
     }
-    if (isMobile === undefined) {
+    if (isMobile === undefined || isMobile === false) {
       return (
         <Layout>
           <Header
