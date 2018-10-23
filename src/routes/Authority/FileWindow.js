@@ -1,11 +1,31 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Button, Icon, Radio, Menu, Dropdown, Table, Avatar } from 'antd';
+import { Card, Button, Icon, Radio, Menu, Dropdown, Table, Avatar, Tooltip, message } from 'antd';
 import { routerRedux } from 'dva/router';
 import { getAuthority } from '../../utils/authority';
 import { httpAddress } from '../../../public/constant';
 
 // const columns = [{ title: '编号' }];
+
+function checkValueExist(value) {
+  switch (value) {
+    case 'aa':
+    case 'ab':
+    case 'ac':
+    case 'ad':
+    case 'b':
+    case 'c':
+    case 'd':
+    case 'e':
+    case 'f':
+    case 'g':
+    case 'h':
+    case 'i':
+      return 1;
+    default:
+      return 0;
+  }
+}
 
 @connect(state => ({
   temid: state.tem_store.temid,
@@ -56,15 +76,25 @@ export default class FileWindow extends PureComponent {
     console.log(`${createid}`);
   } */
 
-  handlMenuClick = e => {
+  handleMenuClick = e => {
     const key = e.key;
-    this.setState({ valueSelect: key, showList: false });
-    this.GetFileImage();
+    this.setState({
+      valueSelect: key,
+      showList: false,
+      selectFileRowkeys: [],
+      selectImageRowkeys: [],
+    });
+    this.GetFileImage(key);
   };
 
   handleRadio = e => {
-    this.setState({ valueSelect: e.target.value, showList: false });
-    this.GetFileImage();
+    this.setState({
+      valueSelect: e.target.value,
+      showList: false,
+      selectFileRowkeys: [],
+      selectImageRowkeys: [],
+    });
+    this.GetFileImage(e.target.value);
   };
 
   /* 添加选择按钮 */
@@ -78,24 +108,79 @@ export default class FileWindow extends PureComponent {
     this.setState({ selectImageRowkeys: [...selectedRowkeys] });
   };
 
+  showTitle() {
+    const { valueSelect } = this.state;
+
+    switch (valueSelect) {
+      case 'aa':
+        return '第一窗口/第一模块';
+      case 'ab':
+        return '第一窗口/第二模块';
+      case 'ac':
+        return '第一窗口/第三模块';
+      case 'ad':
+        return '第一窗口/第四模块';
+      case 'b':
+        return '第二窗口';
+      case 'c':
+        return '第三窗口';
+      case 'd':
+        return '第四窗口';
+      case 'e':
+        return '第五窗口';
+      case 'f':
+        return '第六窗口';
+      case 'g':
+        return '第七窗口';
+      case 'h':
+        return '第八窗口';
+      case 'i':
+        return '第九窗口';
+      default:
+        return '请选择窗口及模块';
+    }
+  }
+
   ReturnRouter() {
     const { dispatch } = this.props;
     dispatch(routerRedux.push('/authority/manage_list'));
   }
 
-  GetFileImage() {
+  GetFileImage(valueSelect) {
     const { dispatch } = this.props;
-    const { valueSelect } = this.state;
-    dispatch({
-      type: 'document/getFileImage',
-      payload: {
-        module: valueSelect,
-      },
-    });
+    if (checkValueExist(valueSelect) === 1)
+      dispatch({
+        type: 'document/getFileImage',
+        payload: {
+          module: valueSelect,
+        },
+      });
   }
 
   HandleFileWindow() {
-    this.setState({ showList: true });
+    const { valueSelect } = this.state;
+    if (checkValueExist(valueSelect) === 1) this.setState({ showList: true });
+    else {
+      message.error('选择窗口');
+    }
+  }
+
+  AddFileImage() {
+    const { selectFileRowkeys, selectImageRowkeys, valueSelect } = this.state;
+    const { dispatch } = this.props;
+    const fileid = selectFileRowkeys[0];
+    const imageid = selectImageRowkeys[0];
+    if (fileid !== undefined && imageid !== undefined && valueSelect !== undefined) {
+      dispatch({
+        type: 'document/addFileImage',
+        payload: {
+          valueSelect,
+          fileid,
+          imageid,
+        },
+      });
+      this.setState({ selectFileRowkeys: [], selectImageRowkeys: [], showList: false });
+    }
   }
 
   render() {
@@ -217,7 +302,7 @@ export default class FileWindow extends PureComponent {
         </Card>
         <div>
           {showList === false && (
-            <Card style={{ marginTop: 4 }}>
+            <Card style={{ marginTop: 4 }} title={this.showTitle(valueSelect)}>
               <Table
                 columns={columns}
                 dataSource={fileImages}
@@ -235,7 +320,21 @@ export default class FileWindow extends PureComponent {
           )}
           {showList === true && (
             <div>
-              <Card style={{ marginTop: 4 }} title="选择文件">
+              <Card
+                style={{ marginTop: 4 }}
+                title="选择文件"
+                extra={
+                  <Tooltip title="选择文件和图片">
+                    <Button
+                      type="primary"
+                      disabled={selectFileRowkeys.length === 0 || selectImageRowkeys.length === 0}
+                      onClick={() => this.AddFileImage()}
+                    >
+                      添加
+                    </Button>
+                  </Tooltip>
+                }
+              >
                 <Table
                   columns={fileColumns}
                   dataSource={files}
