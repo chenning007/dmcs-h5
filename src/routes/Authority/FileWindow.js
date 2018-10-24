@@ -181,11 +181,29 @@ export default class FileWindow extends PureComponent {
     }
   }
 
+  DeleteFileImage(record) {
+    const { valueSelect } = this.state;
+    const { dispatch } = this.props;
+    if (record.createid !== undefined) {
+      dispatch({
+        type: 'document/deleteFileImage',
+        payload: {
+          createid: record.createid,
+          valueSelect,
+        },
+      });
+    }
+  }
+
   render() {
     const { valueSelect, showList, selectFileRowkeys, selectImageRowkeys } = this.state;
     const { fileImages, loading, fileloading, imageloading, files, images } = this.props;
     const columns = [
-      { title: '编号', key: 'fileimage', dataIndex: 'fileimage' },
+      {
+        title: '编号',
+        key: 'fileimage',
+        dataIndex: 'fileimage',
+      },
       {
         title: '文件名',
         key: 'filename',
@@ -211,7 +229,11 @@ export default class FileWindow extends PureComponent {
         title: '操作',
         key: 'action',
         dataIndex: 'action',
-        render: () => <Button type="danger">删除</Button>,
+        render: (_, record) => (
+          <Button type="danger" onClick={() => this.DeleteFileImage(record)}>
+            删除
+          </Button>
+        ),
       },
     ];
 
