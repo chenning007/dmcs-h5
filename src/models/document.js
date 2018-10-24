@@ -42,7 +42,7 @@ export default {
       });
       const response = yield call(DeleteFileImage, payload);
       yield put({
-        type: 'saveFileImage1',
+        type: 'saveFileImage',
         payload: response,
       });
       yield put({
@@ -98,10 +98,7 @@ export default {
       const response = yield call(GetFileImage, payload);
       yield put({
         type: 'saveFileImage',
-        payload:
-          response.status === 'ok' && response.data !== 'undefined'
-            ? response.data
-            : this.state.fileImages,
+        payload: response,
       });
       yield put({
         type: 'changeFileImageLoading',
@@ -122,7 +119,7 @@ export default {
       const response = yield call(AddFileImage, payload);
       yield put({
         type: 'saveFileImage',
-        payload: response.status === 'ok' && response.data !== 'undefined' ? response.data : [],
+        payload: response,
       });
       yield put({
         type: 'changeFileImageLoading',
@@ -179,17 +176,11 @@ export default {
       };
     },
     saveFileImage(state, action) {
-      return {
-        ...state,
-        fileImages: action.payload,
-      };
-    },
-    saveFileImage1(state, action) {
       const { payload } = action;
       return {
         ...state,
         fileImages:
-          payload.status === 'ok' && payload.datat !== undefined ? payload.data : state.fileImages,
+          payload.status === 'ok' && payload.data !== undefined ? payload.data : state.fileImages,
       };
     },
   },
