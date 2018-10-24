@@ -54,6 +54,11 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^api/v1/user/updateuser': '' },
     },
+    '/api/v1/user/image': {
+      target: 'http://127.0.0.1:8080/dmcs',
+      changeOrigin: true,
+      pathRewrite: { '^api/v1/user/image': '' },
+    },
     '/api/v1/admin/getAdminuser': {
       target: 'http://127.0.0.1:8080/dmcs',
       changeOrigin: true,
@@ -74,16 +79,6 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^api/v1/admin/getSelfuser': '' },
     },
-    '/api/v1/admin/getdocument': {
-      target: 'http://127.0.0.1:8080/dmcs',
-      changeOrigin: true,
-      pathRewrite: { '^api/v1/admin/getdocument': '' },
-    },
-    '/api/v1/admin/deletedocument': {
-      target: 'http://127.0.0.1:8080/dmcs',
-      changeOrigin: true,
-      pathRewrite: { '^api/v1/admin/deletedocument': '' },
-    },
     '/api/v1/file/deleteFile': {
       target: 'http://127.0.0.1:8080/dmcs',
       changeOrigin: true,
@@ -103,11 +98,6 @@ export default {
       target: 'http://127.0.0.1:8080/dmcs',
       changeOrigin: true,
       pathRewrite: { '^api/v1/file/getFileToken': '' },
-    },
-    '/api/v1/user/image': {
-      target: 'http://127.0.0.1:8080/dmcs',
-      changeOrigin: true,
-      pathRewrite: { '^api/v1/user/image': '' },
     },
     '/api/v1/file/addFile': {
       target: 'http://127.0.0.1:8080/dmcs',
