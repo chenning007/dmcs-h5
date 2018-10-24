@@ -5,8 +5,6 @@ import { routerRedux } from 'dva/router';
 import { getAuthority } from '../../utils/authority';
 import { httpAddress } from '../../../public/constant';
 
-// const columns = [{ title: '编号' }];
-
 function checkValueExist(value) {
   switch (value) {
     case 'aa':
