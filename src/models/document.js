@@ -6,6 +6,7 @@ import {
   GetImageList,
   GetFileImage,
   AddFileImage,
+  DeleteFileImage,
 } from '../services/api';
 
 export default {
@@ -34,7 +35,24 @@ export default {
         message.success('修改成功');
       }
     },
-
+    *deleteFileImage({ payload }, { call, put }) {
+      yield put({
+        type: 'changeFileImageLoading',
+        payload: true,
+      });
+      const response = yield call(DeleteFileImage, payload);
+      yield put({
+        type: 'saveFileImage',
+        payload:
+          response.status === 'ok' && response.data !== 'undefined'
+            ? response.data
+            : this.state.fileImages,
+      });
+      yield put({
+        type: 'changeFileImageLoading',
+        payload: true,
+      });
+    },
     *getFilelist(_, { call, put }) {
       yield put({
         type: 'changeFileLoading',
