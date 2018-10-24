@@ -77,8 +77,6 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['device', 'user'], () =>
         import('../routes/Dashboard/Device')
       ),
-      // hideInBreadcrumb: true,
-      // name: '工作台',
     },
     '/dashboard/graph': {
       component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Graph')),
