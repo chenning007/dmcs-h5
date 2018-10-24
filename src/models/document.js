@@ -101,7 +101,10 @@ export default {
       const response = yield call(GetFileImage, payload);
       yield put({
         type: 'saveFileImage',
-        payload: response.status === 'ok' && response.data !== 'undefined' ? response.data : [],
+        payload:
+          response.status === 'ok' && response.data !== 'undefined'
+            ? response.data
+            : this.state.fileImages,
       });
       yield put({
         type: 'changeFileImageLoading',
