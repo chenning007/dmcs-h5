@@ -204,3 +204,10 @@ export async function AddFileImage(params) {
     body: params,
   });
 }
+
+export async function DeleteFileImage(params) {
+  return request('api/v1/file/deleteFileImage', {
+    method: 'POST',
+    body: params,
+  });
+}
