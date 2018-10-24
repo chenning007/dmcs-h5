@@ -1,6 +1,3 @@
-import { queryNotices } from '../services/api';
-
-
 export default {
   namespace: 'global',
 
@@ -11,7 +8,7 @@ export default {
   },
 
   effects: {
-    *fetchNotices(_, { call, put }) {
+    /* *fetchNotices(_, { call, put }) {
       yield put({
         type: 'changeNoticeLoading',
         payload: true,
@@ -25,7 +22,7 @@ export default {
         type: 'user/changeNotifyCount',
         payload: data.length,
       });
-    },
+    }, */
     *clearNotices({ payload }, { put, select }) {
       yield put({
         type: 'saveClearedNotices',
