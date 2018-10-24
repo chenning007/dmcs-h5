@@ -42,15 +42,12 @@ export default {
       });
       const response = yield call(DeleteFileImage, payload);
       yield put({
-        type: 'saveFileImage',
-        payload:
-          response.status === 'ok' && response.data !== 'undefined'
-            ? response.data
-            : this.state.fileImages,
+        type: 'saveFileImage1',
+        payload: response,
       });
       yield put({
         type: 'changeFileImageLoading',
-        payload: true,
+        payload: false,
       });
     },
     *getFilelist(_, { call, put }) {
@@ -185,6 +182,14 @@ export default {
       return {
         ...state,
         fileImages: action.payload,
+      };
+    },
+    saveFileImage1(state, action) {
+      const { payload } = action;
+      return {
+        ...state,
+        fileImages:
+          payload.status === 'ok' && payload.datat !== undefined ? payload.data : state.fileImages,
       };
     },
   },
