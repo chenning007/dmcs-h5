@@ -1,4 +1,3 @@
-import { getUrlParams } from './utils';
 const titles = [
   '电视',
   '冰箱',
@@ -47,7 +46,7 @@ const deviceNumber = [
   2018010000008,
   2018010000009,
 ];
-const will_number = [
+const willNumber = [
   2017010000001,
   2017010000002,
   2017010000003,
@@ -62,7 +61,7 @@ const will_number = [
   2017010000012,
   2017010000013,
   2017010000014,
-  2017010000015, //15
+  2017010000015, // 15
 ];
 const description = [
   '观测天下',
@@ -86,13 +85,13 @@ const time = [
   '2016-05-01',
   '2016-06-01',
   '2016-07-01',
-  '2016-08-01', //12
+  '2016-08-01', // 12
   '2016-09-01',
   '2016-10-01',
-  '2016-11-01', //15
+  '2016-11-01', // 15
 ];
 const secret = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k'];
-//但是这里没有显示出来设备的具体的信息
+// 但是这里没有显示出来设备的具体的信息
 
 export function deviceList(count) {
   const list = [];
@@ -108,12 +107,12 @@ export function deviceList(count) {
   }
   return list;
 }
-export function will_deviceList(count) {
+export function willDeviceList(count) {
   const list = [];
   for (let i = 0; i < count; i += 1) {
     list.push({
       key: i,
-      deviceNumber: will_number[i % 10],
+      deviceNumber: willNumber[i % 10],
       defaulttitle: titles[i % 10],
       defaultavatar: avatars1[i % 10],
       secret: secret[i % 10],
@@ -126,14 +125,13 @@ export function getDeviceList(req, res, u) {
   if (!url || Object.prototype.toString.call(url) !== '[object String]') {
     url = req.url; // eslint-disable-line
   }
-  const params = getUrlParams(url);
 
   const count = 8;
 
   const result = {
-    myself_device: deviceList(count),
+    myselfDevice: deviceList(count),
     public_device: [],
-    device_will: will_deviceList(10),
+    device_will: willDeviceList(10),
     loading: true,
   };
   if (res && res.json) {
