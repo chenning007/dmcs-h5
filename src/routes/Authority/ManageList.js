@@ -112,25 +112,25 @@ export default class ManageList extends PureComponent {
     if (JSON.stringify(AdminUser) !== '{}' && AdminUser !== null) {
       switch (id) {
         case 1:
-          return AdminUser.auth1 === true;
+          return AdminUser.auth1 === 'true';
         case 2:
-          return AdminUser.auth2 === true;
+          return AdminUser.auth2 === 'true';
         case 3:
-          return AdminUser.auth3 === true;
+          return AdminUser.auth3 === 'true';
         case 4:
-          return AdminUser.auth4 === true;
+          return AdminUser.auth4 === 'true';
         case 5:
-          return AdminUser.auth5 === true;
+          return AdminUser.auth5 === 'true';
         case 6:
-          return AdminUser.auth6 === true;
+          return AdminUser.auth6 === 'true';
         case 7:
-          return AdminUser.auth7 === true;
+          return AdminUser.auth7 === 'true';
         case 8:
-          return AdminUser.auth8 === true;
+          return AdminUser.auth8 === 'true';
         case 9:
-          return AdminUser.auth9 === true;
+          return AdminUser.auth9 === 'true';
         case 10:
-          return AdminUser.auth10 === true;
+          return AdminUser.auth10 === 'true';
         default:
           return false;
       }
