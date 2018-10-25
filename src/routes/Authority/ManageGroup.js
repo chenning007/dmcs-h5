@@ -62,14 +62,12 @@ const columns = [
 @Form.create()
 export default class ManageGroup extends PureComponent {
   state = {
-    /* ******** ********** */
     contentCondition: 0, // 用于设置content部分的内容,其中1时权限管理，2时添加人员,0为正常状态/******************* *********/
     selectedRowkeys: [], // 用于列表的选择，可以通过该部分信息得到权限情况
     modalVisible1: false, // 用于显示删除的信息
     modalVisible2: false, // 用于显示提示的信息
     editCondition: false,
     selectedUser: [], // 显示朋友列表
-
     adminAuthority: [],
   };
 
@@ -80,7 +78,6 @@ export default class ManageGroup extends PureComponent {
       dispatch(routerRedux.push('/exception/403'));
     }
   }
-  // 对于这些情况，还是需要进行处理
 
   componentDidMount() {
     const { dispatch, currentUser = {} } = this.props;
@@ -99,7 +96,6 @@ export default class ManageGroup extends PureComponent {
         },
       });
     }
-    // 获得admin的数据, 数据的产生在这里，把握好即可了,一旦出现错误很容易发生异常
   }
 
   componentWillUnmount() {
@@ -209,7 +205,7 @@ export default class ManageGroup extends PureComponent {
     const Authority = [];
 
     if (adminAuthority.length === 0) {
-      if (adminusers.length > 0) {
+      if (JSON.stringify(adminusers) !== '[]') {
         let i = 0;
         for (; i < adminusers.length; i += 1)
           Authority.push({
@@ -217,15 +213,15 @@ export default class ManageGroup extends PureComponent {
             avatar: adminusers[i].avatar,
             title: adminusers[i].username,
             userid: adminusers[i].userid,
-            auth1: adminusers[i].auth1 === true ? 1 : 0,
-            auth2: adminusers[i].auth2 === true ? 1 : 0,
-            auth3: adminusers[i].auth3 === true ? 1 : 0,
-            auth4: adminusers[i].auth4 === true ? 1 : 0,
-            auth5: adminusers[i].auth5 === true ? 1 : 0,
-            auth6: adminusers[i].auth6 === true ? 1 : 0,
-            auth7: adminusers[i].auth7 === true ? 1 : 0,
-            auth8: adminusers[i].auth8 === true ? 1 : 0,
-            auth9: adminusers[i].auth9 === true ? 1 : 0,
+            auth1: adminusers[i].auth1 === 'true',
+            auth2: adminusers[i].auth2 === 'true',
+            auth3: adminusers[i].auth3 === 'true',
+            auth4: adminusers[i].auth4 === 'true',
+            auth5: adminusers[i].auth5 === 'true',
+            auth6: adminusers[i].auth6 === 'true',
+            auth7: adminusers[i].auth7 === 'true',
+            auth8: adminusers[i].auth8 === 'true',
+            auth9: adminusers[i].auth9 === 'true',
           });
         this.setState({
           adminAuthority: [...Authority],
@@ -248,16 +244,15 @@ export default class ManageGroup extends PureComponent {
           const Auth = values.authorize[i];
           Users.push({
             userid: Auth.userid,
-            auth1: Auth.auth1,
-            auth2: Auth.auth2,
-            auth3: Auth.auth3,
-            auth4: Auth.auth4,
-            auth5: Auth.auth5,
-            auth6: Auth.auth6,
-            auth7: Auth.auth7,
-            auth8: Auth.auth8,
-            auth9: Auth.auth9,
-            auth10: Auth.auth10,
+            auth1: Auth.auth1 ? 'true' : 'false',
+            auth2: Auth.auth2 ? 'true' : 'false',
+            auth3: Auth.auth3 ? 'true' : 'false',
+            auth4: Auth.auth4 ? 'true' : 'false',
+            auth5: Auth.auth5 ? 'true' : 'false',
+            auth6: Auth.auth6 ? 'true' : 'false',
+            auth7: Auth.auth7 ? 'true' : 'false',
+            auth8: Auth.auth8 ? 'true' : 'false',
+            auth9: Auth.auth9 ? 'true' : 'false',
           });
         }
         dispatch({
