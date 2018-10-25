@@ -5,18 +5,18 @@ export default {
 
   state: {
     list_device_friend: [],
-    list_friend: [],
+    listFriend: [],
     loading: false,
     loading1: false,
-  },  
+  },
 
   effects: {
-    *fetchList({payload}, { call, put }) {
+    *fetchList({ payload }, { call, put }) {
       yield put({
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryFriend,payload);
+      const response = yield call(queryFriend, payload);
       yield put({
         type: 'getUser',
         payload: response,
@@ -26,29 +26,28 @@ export default {
         payload: false,
       });
     },
-    *getUser({payload},{ call, put }) {
+    *getUser({ payload }, { call, put }) {
       yield put({
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryFriend,payload);
+      const response = yield call(queryFriend, payload);
       yield put({
-        type:'getuser',
+        type: 'getuser',
         payload: response,
       });
       yield put({
         type: 'changeLoading',
         payload: false,
       });
-    }
-    
+    },
   },
-  
+
   reducers: {
-    getuser(state, { payload } ) {
+    getuser(state, { payload }) {
       return {
         ...state,
-        list_friend: payload.data ===undefined? []: payload.data,
+        listFriend: payload.data === undefined ? [] : payload.data,
       };
     },
     save(state, { payload }) {
@@ -59,8 +58,8 @@ export default {
     },
     clear() {
       return {
-        list_friend: [],
-        list_device_friend: [], 
+        listFriend: [],
+        list_device_friend: [],
       };
     },
     changeLoading(state, action) {
@@ -73,7 +72,7 @@ export default {
       return {
         ...state,
         loading1: action.payload,
-      }
+      };
     },
   },
 };
