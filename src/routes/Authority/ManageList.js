@@ -1,24 +1,13 @@
 import React, { PureComponent } from 'react';
-import { Card, List, Button, Icon, Row, Col, message } from 'antd';
+import { Card, Button, Icon, Row, Col, message, Avatar } from 'antd';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
-
 import { sourceData } from '../../../public/constant';
 
-/* const source_data = [
-  { id: 1, title: '文件操作-管理' },
-  { id: 2, title: '文件绑定-管理' },
-  { id: 3, title: '文件可视性-管理' },
-  { id: 4, title: '窗口设计-管理' },
-  { id: 5, title: '网站公告-管理' },
-  { id: 6, title: '未确定-管理' },
-  { id: 7, title: '未确定-管理' },
-  { id: 8, title: '未确定-管理' },
-  { id: 9, title: '未确定-管理' },
-]; */
+import styles from './ManageList.less';
 
 @connect(state => ({
   currentUser: state.login.currentUser,
@@ -60,11 +49,6 @@ export default class ManageList extends PureComponent {
       });
     }
   }
-  /* componentWillReceiveProps(nextProps) {
-    if (JSON.stringify(nextProps.manage_group.AdminUser) !== '{}') {
-      this.setState({ User: true });
-    }
-  } */
 
   componentWillUnmount() {
     const { dispatch } = this.props;
@@ -84,7 +68,7 @@ export default class ManageList extends PureComponent {
     if (condition && condition < 10) {
       dispatch({
         type: 'tem_store/addid',
-        payload: { id: sourceData[condition - 1].id },
+        payload: { id: sourceData[condition].id },
       });
       switch (condition) {
         case 1:
@@ -125,55 +109,72 @@ export default class ManageList extends PureComponent {
 
   judgeButton = id => {
     const { AdminUser } = this.props;
-    if (id < 10) {
-      if (JSON.stringify(AdminUser) !== '{}' && AdminUser !== null)
-        // 判断某一位的值的情况。当为1时，则判断权限正常。
-        return (AdminUser.authorityNumber & (2 ** (id - 1))) !== 2 ** (id - 1);
-      return true;
+    if (JSON.stringify(AdminUser) !== '{}' && AdminUser !== null) {
+      switch (id) {
+        case 1:
+          return AdminUser.auth1 === true;
+        case 2:
+          return AdminUser.auth2 === true;
+        case 3:
+          return AdminUser.auth3 === true;
+        case 4:
+          return AdminUser.auth4 === true;
+        case 5:
+          return AdminUser.auth5 === true;
+        case 6:
+          return AdminUser.auth6 === true;
+        case 7:
+          return AdminUser.auth7 === true;
+        case 8:
+          return AdminUser.auth8 === true;
+        case 9:
+          return AdminUser.auth9 === true;
+        case 10:
+          return AdminUser.auth10 === true;
+        default:
+          return false;
+      }
     }
-    if (id === 10) {
-      const authority = getAuthority();
-      if (authority !== 'host') return true;
-      if (authority === 'host') return false;
-    }
+    return false;
   };
 
   showContent() {
     const { condition, loading } = this.state;
     if (condition === 0) {
       return (
-        <Row>
-          <Col xl={2} lg={24} md={24} sm={24} xs={24} />
-          <Col xl={20} lg={24} md={24} sm={24} xs={24}>
-            <List
+        <Row gutter={24}>
+          <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+            <Card
+              className={styles.projectList}
+              bordered={false}
               loading={loading}
-              grid={{ gutter: 20, column: 1 }}
-              itemLayout="horizontal"
-              dataSource={sourceData}
-              renderItem={item => (
-                <List.Item key={item.id}>
-                  <Card style={{ textAlign: 'center' }}>
-                    <Button
-                      type="primary"
-                      block
-                      onClick={() => this.setCondition(item.id)}
-                      disabled={this.judgeButton(item.id)}
-                    >
-                      {item.title}
-                    </Button>
-                  </Card>
-                </List.Item>
-              )}
-            />
-            <Card style={{ textAlign: 'center' }}>
-              <Button
-                type="primary"
-                size="large"
-                onClick={() => this.setCondition(10)}
-                disabled={this.judgeButton(10)}
-              >
-                进入权限管理
-              </Button>
+              bodyStyle={{ padding: 0 }}
+            >
+              {sourceData.map(item => (
+                <div key={item.id}>
+                  {this.judgeButton(item.id) === true && (
+                    <Card.Grid className={styles.projectGrid} key={item.id}>
+                      <Card
+                        bodyStyle={{ textAlign: 'center', padding: 0 }}
+                        bordered={false}
+                        onClick={() => this.setCondition(item.id)}
+                      >
+                        <Card.Meta
+                          style={{ padding: 0 }}
+                          title={
+                            <div className={styles.cardTitle}>
+                              <Avatar size="large" icon={item.icon} style={item.color} />
+                            </div>
+                          }
+                        />
+                        <div style={{ paddingTop: 10 }}>
+                          <b>{item.title}</b>
+                        </div>
+                      </Card>
+                    </Card.Grid>
+                  )}
+                </div>
+              ))}
             </Card>
           </Col>
         </Row>
