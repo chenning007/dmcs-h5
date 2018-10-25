@@ -12,11 +12,11 @@ import styles from './ManageList.less';
 @connect(state => ({
   currentUser: state.login.currentUser,
   AdminUser: state.manage_group.AdminUser,
+  loading: state.manage_group.loading,
 }))
 export default class ManageList extends PureComponent {
   state = {
     condition: 0,
-    loading: false,
   };
 
   componentWillMount() {
@@ -139,7 +139,8 @@ export default class ManageList extends PureComponent {
   };
 
   showContent() {
-    const { condition, loading } = this.state;
+    const { loading } = this.props;
+    const { condition } = this.state;
     if (condition === 0) {
       return (
         <Row gutter={24}>
