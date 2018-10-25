@@ -79,6 +79,11 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^api/v1/admin/getSelfuser': '' },
     },
+    '/api/v1/admin/deleteAdminuser': {
+      target: 'http://127.0.0.1:8080/dmcs',
+      changeOrigin: true,
+      pathRewrite: { '^api/v1/admin/deleteAdminuser': '' },
+    },
     '/api/v1/file/deleteFile': {
       target: 'http://127.0.0.1:8080/dmcs',
       changeOrigin: true,
