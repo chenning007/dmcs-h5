@@ -5,7 +5,7 @@ export default {
 
   state: {
     device_will: [],
-    myself_device: [],
+    myselfDevice: [],
     public_device: [],
     loading: false,
   },
@@ -19,25 +19,10 @@ export default {
       const response = yield call(queryDeviceList, payload);
       yield put({
         type: 'save',
-        payload: { 
-          myself_device: Array.isArray(response.myself_device) ? response.myself_device : [],
+        payload: {
+          myselfDevice: Array.isArray(response.myselfDevice) ? response.myselfDevice : [],
           device_will: Array.isArray(response.device_will) ? response.device_will : [],
-        }
-      });
-      yield put({
-        type: 'changeLoading',
-        payload: false,
-      });
-    },
-    *appendFetch({ payload }, { call, put }) {
-      yield put({
-        type: 'changeLoading',
-        payload: true,
-      });
-      const response = yield call(queryFakeList, payload);
-      yield put({
-        type: 'appendList',
-        payload: Array.isArray(response) ? response : [],
+        },
       });
       yield put({
         type: 'changeLoading',
@@ -48,21 +33,9 @@ export default {
 
   reducers: {
     save(state, { payload }) {
-      return{
+      return {
         ...state,
         ...payload,
-      };
-    },
-    queryList(state, action) {
-      return {
-        ...state,
-        list: action.payload,
-      };
-    },
-    appendList(state, action) {
-      return {
-        ...state,
-        list: state.list.concat(action.payload),
       };
     },
     changeLoading(state, action) {
@@ -73,7 +46,7 @@ export default {
     },
     clear() {
       return {
-        myself_device: [],
+        myselfDevice: [],
         public_device: [],
         device_will: [],
         loading: false,
