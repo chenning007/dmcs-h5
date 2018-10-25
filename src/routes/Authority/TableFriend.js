@@ -81,7 +81,7 @@ export default class TableFriend extends PureComponent {
   // 这里已经对newData进行了直接的操作
 
   handleFieldChange(e, fieldName, key) {
-    const { data } = this.props;
+    const { data } = this.state;
     const newData = data.map(item => ({ ...item }));
     const target = this.getRowByKey(key, newData);
     if (target) {
