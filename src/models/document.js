@@ -7,6 +7,7 @@ import {
   GetFileImage,
   AddFileImage,
   DeleteFileImage,
+  GetCommonFileImage,
 } from '../services/api';
 
 export default {
@@ -96,6 +97,21 @@ export default {
         payload: true,
       });
       const response = yield call(GetFileImage, payload);
+      yield put({
+        type: 'saveFileImage',
+        payload: response,
+      });
+      yield put({
+        type: 'changeFileImageLoading',
+        payload: false,
+      });
+    },
+    *getCommonFileImage(_, { call, put }) {
+      yield put({
+        type: 'changeFileImageLoading',
+        payload: true,
+      });
+      const response = yield call(GetCommonFileImage);
       yield put({
         type: 'saveFileImage',
         payload: response,
