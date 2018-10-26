@@ -4,7 +4,6 @@ export default {
   namespace: 'friend',
 
   state: {
-    list_device_friend: [],
     listFriend: [],
     loading: false,
     loading1: false,
@@ -33,7 +32,7 @@ export default {
       });
       const response = yield call(queryFriend, payload);
       yield put({
-        type: 'getuser',
+        type: 'getAdminuser',
         payload: response,
       });
       yield put({
@@ -44,10 +43,10 @@ export default {
   },
 
   reducers: {
-    getuser(state, { payload }) {
+    getAdminuser(state, { payload }) {
       return {
         ...state,
-        listFriend: payload.data === undefined ? [] : payload.data,
+        listFriend: payload.data === undefined ? state.listFriend : payload.data,
       };
     },
     save(state, { payload }) {
@@ -59,7 +58,8 @@ export default {
     clear() {
       return {
         listFriend: [],
-        list_device_friend: [],
+        loading: false,
+        loading1: false,
       };
     },
     changeLoading(state, action) {
