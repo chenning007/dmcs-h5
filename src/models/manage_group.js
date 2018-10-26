@@ -59,7 +59,7 @@ export default {
       });
       const response = yield call(addAdminuser, payload);
       yield put({
-        type: 'save',
+        type: 'changeadminuser',
         payload: response,
       });
       yield put({
@@ -74,7 +74,7 @@ export default {
       });
       const response = yield call(changeauthority, payload);
       yield put({
-        type: 'save',
+        type: 'changeadminuser',
         payload: response,
       });
       yield put({
@@ -120,7 +120,7 @@ export default {
     changeadminuser(state, { payload }) {
       return {
         ...state,
-        adminusers: payload.data === undefined ? [] : payload.data,
+        adminusers: payload.data === undefined ? state.adminusers : payload.data,
         loading: false,
       };
     },
@@ -133,7 +133,7 @@ export default {
     saveself(state, { payload }) {
       return {
         ...state,
-        AdminUser: payload.data === undefined ? {} : payload.data,
+        AdminUser: payload.data === undefined ? state.AdminUser : payload.data,
       };
     },
   },
