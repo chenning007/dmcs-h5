@@ -1,15 +1,16 @@
 export const httpAddress = 'http://39.104.208.4';
 
 export const sourceData = [
-  { id: 1, title: '文件操作-管理' },
-  { id: 2, title: '文件绑定-管理' },
-  { id: 3, title: '文件可视性-管理' },
-  { id: 4, title: '窗口设计-管理' },
-  { id: 5, title: '网站公告-管理' },
-  { id: 6, title: '未确定-管理' },
-  { id: 7, title: '未确定-管理' },
-  { id: 8, title: '未确定-管理' },
-  { id: 9, title: '未确定-管理' },
+  { id: 10, title: '权限维护', icon: 'lock', color: { backgroundColor: '#008000' } },
+  { id: 1, title: '文件操作', icon: 'file', color: { backgroundColor: '#008000' } },
+  { id: 2, title: '窗口绑定', icon: 'select', color: { backgroundColor: '#008000' } },
+  { id: 3, title: '显示管理', icon: 'appstore', color: { backgroundColor: '#008000' } },
+  { id: 4, title: '栏目维护', icon: 'layout', color: { backgroundColor: '#008000' } },
+  { id: 5, title: '公告内容', icon: 'profile', color: { backgroundColor: '#008000' } },
+  { id: 6, title: '待定', icon: 'question-circle', color: { backgroundColor: '#ffff00' } },
+  { id: 7, title: '待定', icon: 'question-circle', color: { backgroundColor: '#ffff00' } },
+  { id: 8, title: '待定', icon: 'question-circle', color: { backgroundColor: '#ffff00' } },
+  { id: 9, title: '待定', icon: 'question-circle', color: { backgroundColor: '#ffff00' } },
 ];
 
 export default {
