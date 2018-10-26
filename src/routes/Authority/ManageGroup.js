@@ -54,10 +54,11 @@ const columns = [
 ];
 
 @connect(state => ({
-  list_device_friend: state.friend.list_device_friend,
   listFriend: state.friend.listFriend,
   adminusers: state.manage_group.adminusers,
   currentUser: state.login.currentUser,
+  loading: state.manage_group.loading,
+  fileloding: state.friend.loading,
 }))
 @Form.create()
 export default class ManageGroup extends PureComponent {
@@ -374,7 +375,7 @@ export default class ManageGroup extends PureComponent {
   /* *** */
 
   renderActivities() {
-    const { listFriend = [], adminusers = [], form } = this.props;
+    const { listFriend = [], adminusers = [], form, loading, fileloding } = this.props;
     const { getFieldDecorator } = form;
     const {
       contentCondition,
@@ -406,7 +407,7 @@ export default class ManageGroup extends PureComponent {
                 dataSource={adminusers}
                 pagination={false}
                 rowSelection={rowSelection}
-                loading={adminusers === []}
+                loading={loading}
                 rowKey="userid"
               />
             </div>
@@ -415,7 +416,7 @@ export default class ManageGroup extends PureComponent {
           }
           {contentCondition === 1 &&
             selectedRowkeys.length === 0 && (
-              <Card bordered={false} style={{ marginTop: 12 }}>
+              <Card bordered={false} style={{ marginTop: 12 }} loading={loading}>
                 {getFieldDecorator('authorize', {
                   initialValue: adminAuthority,
                 })(<TableFriend onChange={(e, editEnable) => this.editCondition(e, editEnable)} />)}
@@ -469,6 +470,7 @@ export default class ManageGroup extends PureComponent {
               pagination={false}
               rowSelection={adduserSelction}
               rowKey="userid"
+              loading={fileloding}
             />
           </div>
         </Card>
