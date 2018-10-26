@@ -198,6 +198,10 @@ export async function GetFileImage(params) {
   });
 }
 
+export async function GetCommonFileImage() {
+  return request('/api/v1/file/getCommonFileImage');
+}
+
 export async function AddFileImage(params) {
   return request('/api/v1/file/addFileImage', {
     method: 'POST',
