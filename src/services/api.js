@@ -202,15 +202,15 @@ export async function GetCommonFileImage() {
   return request('/api/v1/file/getCommonFileImage');
 }
 
-export async function AddFileImage(params) {
-  return request('/api/v1/file/addFileImage', {
+export async function UpdateFileImage(params) {
+  return request('/api/v1/file/updateFileImage', {
     method: 'POST',
     body: params,
   });
 }
 
 export async function DeleteFileImage(params) {
-  return request('api/v1/file/deleteFileImage', {
+  return request('/api/v1/file/deleteFileImage', {
     method: 'POST',
     body: params,
   });
