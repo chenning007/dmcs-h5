@@ -5,7 +5,7 @@ import {
   GetFileList,
   GetImageList,
   GetFileImage,
-  AddFileImage,
+  UpdateFileImage,
   DeleteFileImage,
   GetCommonFileImage,
 } from '../services/api';
@@ -109,16 +109,16 @@ export default {
     },
     *getFileImage({ payload }, { call, put }) {
       yield put({
-        type: 'changeFileImageLoading',
+        type: 'changeFileLoading', // 借用files变量，从而避免重新声明变量
         payload: true,
       });
       const response = yield call(GetFileImage, payload);
       yield put({
-        type: 'saveFileImage',
+        type: 'saveFileList',
         payload: response,
       });
       yield put({
-        type: 'changeFileImageLoading',
+        type: 'changeFileLoading',
         payload: false,
       });
     },
@@ -143,18 +143,18 @@ export default {
         message.error('令牌获取失败');
       }
     },
-    *addFileImage({ payload }, { call, put }) {
+    *updateFileImage({ payload }, { call, put }) {
       yield put({
-        type: 'changeFileImageLoading',
+        type: 'changeFileLoading',
         payload: true,
       });
-      const response = yield call(AddFileImage, payload);
+      const response = yield call(UpdateFileImage, payload); // 绑定窗口，从窗口上解绑
       yield put({
-        type: 'saveFileImage',
+        type: 'saveFileList',
         payload: response,
       });
       yield put({
-        type: 'changeFileImageLoading',
+        type: 'changeFileLoading',
         payload: false,
       });
     },
@@ -198,22 +198,20 @@ export default {
     saveFileList(state, { payload }) {
       return {
         ...state,
-        files: payload.status === 'ok' && payload.data !== 'undefined' ? payload.data : state.files,
+        files: payload.status === 'ok' ? payload.data : state.files,
       };
     },
     saveImageList(state, { payload }) {
       return {
         ...state,
-        images:
-          payload.status === 'ok' && payload.data !== 'undefined' ? payload.data : state.images,
+        images: payload.status === 'ok' ? payload.data : state.images,
       };
     },
     saveFileImage(state, action) {
       const { payload } = action;
       return {
         ...state,
-        fileImages:
-          payload.status === 'ok' && payload.data !== undefined ? payload.data : state.fileImages,
+        fileImages: payload.status === 'ok' ? payload.data : state.fileImages,
       };
     },
   },
