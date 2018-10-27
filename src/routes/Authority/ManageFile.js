@@ -351,6 +351,11 @@ export default class ManageFile extends PureComponent {
         render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
       },
       {
+        title: '简介',
+        key: 'fileimagedescrip',
+        dataIndex: 'fileimagedescrip',
+      },
+      {
         title: '查看文件',
         key: 'filename',
         dataIndex: 'filename',
@@ -370,7 +375,6 @@ export default class ManageFile extends PureComponent {
           </a>
         ),
       },
-      { title: '可视性', key: 'viewed', dataIndex: 'viewed' },
       {
         title: '操作',
         key: 'action',
