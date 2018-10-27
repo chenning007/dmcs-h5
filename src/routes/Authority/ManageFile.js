@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Upload, message, Icon, Form, Button, Input, Menu } from 'antd';
+import { Card, Upload, message, Icon, Form, Button, Input, Menu, Table, Avatar } from 'antd';
 import { routerRedux } from 'dva/router';
 import reqwest from 'reqwest';
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
+import { getSmpFormatDateByLong } from '../../utils/getFormDate';
+import { httpAddress } from '../../../public/constant';
 
 @connect(state => ({
   loding: state.document.loading,
@@ -96,11 +98,17 @@ export default class ManageFile extends PureComponent {
       description = form.getFieldValue('imagedescription');
     }
 
+    if (type === 'fileimage') {
+      title = form.getFieldValue('fileimagedescrip');
+      description = form.getFieldValue('fileimagedescrip');
+    }
+
     if (!title || !description) {
       return message.error('未完整输入文档信息!!!');
     }
 
     const formData = new FormData();
+
     if (type === 'file') {
       filesList.forEach(file => {
         formData.append('file', file);
@@ -111,12 +119,22 @@ export default class ManageFile extends PureComponent {
         formData.append('file', file);
       });
     }
+
+    if (type === 'fileimage') {
+      filesList.forEach(file => {
+        formData.append('file', file);
+      });
+      imagesList.forEach(file => {
+        formData.append('image', file);
+      });
+    }
+
     formData.append('title', title);
     formData.append('description', description);
     this.setState({ uploading: true });
 
     reqwest({
-      url: '/api/v1/file/addFile',
+      url: type === 'fileimage' ? '/api/v1/file/addFileImage' : '/api/v1/file/addFile',
       method: 'post',
       processData: false,
       data: formData,
@@ -133,7 +151,11 @@ export default class ManageFile extends PureComponent {
       },
       error: () => {
         this.setState({
+          filesList: [],
+          imagesList: [],
           uploading: false,
+          buAble1: false,
+          buAble2: false,
         });
         message.error('upload failed.');
       },
@@ -161,14 +183,49 @@ export default class ManageFile extends PureComponent {
     dispatch(routerRedux.push('/authority/manage_list'));
   }
 
+  DeleteFile(fileid) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'document/deleteFile',
+      payload: {
+        fileid,
+        type: 'file',
+      },
+    });
+  }
+
+  DeleteImage(fileid) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'document/deleteImage',
+      payload: {
+        fileid,
+        type: 'image',
+      },
+    });
+  }
+
+  DeleteFileImage(record) {
+    const { dispatch } = this.props;
+    if (record.createid !== undefined) {
+      dispatch({
+        type: 'document/deleteFileImage',
+        payload: {
+          createid: record.createid,
+        },
+      });
+    }
+  }
+
   render() {
     const { imagesList, filesList, buAble2, buAble1, contentType } = this.state;
 
+    const { files, images, fileloading, imageloading, fileImages, loading } = this.props;
     const menu = (
       <Menu onClick={this.handleMenuClick} mode="horizontal" defaultSelectedKeys={['file']}>
         <Menu.Item key="file">文件上传</Menu.Item>
         <Menu.Item key="image">图片上传</Menu.Item>
-        <Menu.Item key="fileImage">文件与图片绑定</Menu.Item>
+        <Menu.Item key="fileimage">文件与图片绑定</Menu.Item>
       </Menu>
     );
 
@@ -176,9 +233,155 @@ export default class ManageFile extends PureComponent {
       <Menu onClick={this.handleShowClick} mode="horizontal">
         <Menu.Item key="file">文件显示</Menu.Item>
         <Menu.Item key="image">图片显示</Menu.Item>
-        <Menu.Item key="fileImage">文件图片显示</Menu.Item>
+        <Menu.Item key="fileimage">文件图片显示</Menu.Item>
       </Menu>
     );
+
+    const filecolumns = [
+      {
+        title: '文件名称',
+        key: 'filename',
+        dataIndex: 'filename',
+      },
+      {
+        title: '文件编号',
+        key: 'fileid',
+        dataIndex: 'fileid',
+      },
+      {
+        title: '文件简介',
+        key: 'filedescription',
+        dataIndex: 'filedescription',
+        render: text => <span style={{ textAlign: 'center' }}>{text}</span>,
+      },
+      {
+        title: '添加时间',
+        key: 'insertTime ',
+        dataIndex: 'insertTime',
+        render: text => {
+          if (text !== null) {
+            return <span>{getSmpFormatDateByLong(text, false)}</span>;
+          } else {
+            return <div />;
+          }
+        },
+      },
+      {
+        title: '查看文件',
+        key: 'filesrc',
+        dataIndex: 'filesrc',
+        render: text => (
+          <a href={httpAddress + text} target="_blank" rel="noopener noreferrer">
+            点击查看
+          </a>
+        ),
+      },
+      {
+        title: '操作',
+        key: 'action',
+        dataIndex: 'action',
+        render: (_, record) => (
+          <Button type="danger" onClick={() => this.DeleteFile(record.fileid)}>
+            删除
+          </Button>
+        ),
+      },
+    ];
+
+    const imagecolumns = [
+      {
+        key: 'avatar',
+        dataIndex: 'filesrc',
+        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
+      },
+      {
+        title: '图片名称',
+        key: 'filename',
+        dataIndex: 'filename',
+      },
+      {
+        title: '图片编号',
+        key: 'fileid',
+        dataIndex: 'fileid',
+      },
+      {
+        title: '图片简介',
+        key: 'filedescription',
+        dataIndex: 'filedescription',
+        render: text => <span style={{ textAlign: 'center' }}>{text}</span>,
+      },
+      {
+        title: '添加时间',
+        key: 'insertTime ',
+        dataIndex: 'insertTime',
+        render: text => {
+          if (text !== null) {
+            return <span>{getSmpFormatDateByLong(text, false)}</span>;
+          } else {
+            return <div />;
+          }
+        },
+      },
+      {
+        title: '图片查看',
+        key: 'filesrc',
+        dataIndex: 'filesrc',
+        render: text => (
+          <a href={httpAddress + text} target="_blank" rel="noopener noreferrer">
+            点击查看
+          </a>
+        ),
+      },
+      {
+        title: '操作',
+        key: 'action',
+        dataIndex: 'action',
+        render: (_, record) => (
+          <Button type="danger" onClick={() => this.DeleteImage(record.fileid)}>
+            删除
+          </Button>
+        ),
+      },
+    ];
+
+    const fileimagecolumns = [
+      {
+        key: 'avatar',
+        dataIndex: 'imagesrc',
+        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
+      },
+      {
+        title: '查看文件',
+        key: 'filename',
+        dataIndex: 'filename',
+        render: (text, record) => (
+          <a href={httpAddress + record.filesrc} target="_blank" rel="noopener noreferrer">
+            {text}
+          </a>
+        ),
+      },
+      {
+        title: '查看图片',
+        key: 'imagename',
+        dataIndex: 'imagename',
+        render: (text, record) => (
+          <a href={httpAddress + record.imagesrc} target="_blank" rel="noopener noreferrer">
+            {text}
+          </a>
+        ),
+      },
+      { title: '可视性', key: 'viewed', dataIndex: 'viewed' },
+      {
+        title: '操作',
+        key: 'action',
+        dataIndex: 'action',
+        render: (_, record) => (
+          <Button type="danger" onClick={() => this.DeleteFileImage(record)}>
+            删除
+          </Button>
+        ),
+      },
+    ];
 
     const props1 = {
       action: '/api/v1/file/addFile',
@@ -339,9 +542,69 @@ export default class ManageFile extends PureComponent {
               </Form>
             </div>
           )}
+          {contentType === 'fileimage' && (
+            <div>
+              <Upload {...props2}>
+                <Button disabled={buAble2}>
+                  <Icon type="upload" />
+                  上传文件
+                </Button>
+              </Upload>
+              <Upload {...props1}>
+                <Button disabled={buAble1}>
+                  <Icon type="upload" />
+                  上传图片
+                </Button>
+              </Upload>
+              <Form>
+                <Form.Item
+                  colon={false}
+                  labelCol={{ span: 4, offset: 0 }}
+                  wrapperCol={{ span: 8, offset: 2 }}
+                  label={<b>标题:</b>}
+                >
+                  {getFieldDecorator('fileimagedescrip', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '绑定关系说明',
+                      },
+                    ],
+                  })(<Input placeholder="文件与图片关系说明" />)}
+                </Form.Item>
+                <Button
+                  type="primary"
+                  onClick={() => this.handleUpload('fileimage')}
+                  disabled={imagesList.length === 0 || filesList.length === 0}
+                  loading={uploading}
+                >
+                  {uploading ? '上传' : '开始上传'}
+                </Button>
+              </Form>
+            </div>
+          )}
         </Card>
         <Card style={{ marginTop: 12 }} title={showMenu}>
           {showType === 'nofile' && <span>选择显示的内容</span>}
+          {showType === 'file' && (
+            <Table columns={filecolumns} dataSource={files} loading={fileloading} rowKey="fileid" />
+          )}
+          {showType === 'image' && (
+            <Table
+              columns={imagecolumns}
+              dataSource={images}
+              loading={imageloading}
+              rowKey="fileid"
+            />
+          )}
+          {showType === 'fileimage' && (
+            <Table
+              columns={fileimagecolumns}
+              dataSource={fileImages}
+              loading={loading}
+              rowKey="createid"
+            />
+          )}
         </Card>
       </div>
     );
