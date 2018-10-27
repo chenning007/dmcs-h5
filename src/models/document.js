@@ -24,17 +24,33 @@ export default {
   effects: {
     *deleteFile({ payload }, { call, put }) {
       yield put({
-        type: 'changeLoading',
+        type: 'changeFileLoading',
         payload: true,
       });
       const response = yield call(DeleteFile, payload);
       yield put({
-        type: 'changeLoading',
+        type: 'saveFileList',
+        payload: response,
+      });
+      yield put({
+        type: 'changeFileLoading',
         payload: false,
       });
-      if (response.status === 'ok') {
-        message.success('修改成功');
-      }
+    },
+    *deleteImage({ payload }, { call, put }) {
+      yield put({
+        type: 'changeImageLoading',
+        payload: true,
+      });
+      const response = yield call(DeleteFile, payload);
+      yield put({
+        type: 'saveImageList',
+        payload: response,
+      });
+      yield put({
+        type: 'changeImageLoading',
+        payload: false,
+      });
     },
     *deleteFileImage({ payload }, { call, put }) {
       yield put({
@@ -59,7 +75,7 @@ export default {
       const response = yield call(GetFileList);
       yield put({
         type: 'saveFileList',
-        payload: response.status === 'ok' && response.data !== 'undefined' ? response.data : [],
+        payload: response,
       });
       if (response.status === 'error') {
         message.error('获取信息失败');
@@ -79,7 +95,7 @@ export default {
       const response = yield call(GetImageList);
       yield put({
         type: 'saveImageList',
-        payload: response.status === 'ok' && response.data !== 'undefined' ? response.data : [],
+        payload: response,
       });
       if (response.status === 'error') {
         message.error('获取信息失败');
@@ -179,16 +195,17 @@ export default {
         loading: action.payload,
       };
     },
-    saveFileList(state, action) {
+    saveFileList(state, { payload }) {
       return {
         ...state,
-        files: action.payload,
+        files: payload.status === 'ok' && payload.data !== 'undefined' ? payload.data : state.files,
       };
     },
-    saveImageList(state, action) {
+    saveImageList(state, { payload }) {
       return {
         ...state,
-        images: action.payload,
+        images:
+          payload.status === 'ok' && payload.data !== 'undefined' ? payload.data : state.images,
       };
     },
     saveFileImage(state, action) {
