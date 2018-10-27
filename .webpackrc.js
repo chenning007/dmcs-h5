@@ -124,10 +124,15 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^api/v1/file/addFileImage': '' },
     },
-    'api/v1/file/deleteFileImage': {
+    '/api/v1/file/deleteFileImage': {
       target: 'http://127.0.0.1:8080/dmcs',
       changeOrigin: true,
       pathRewrite: { '^api/v1/file/deleteFileImage': '' },
+    },
+    '/api/v1/file/updateFileImage': {
+      target: 'http://127.0.0.1:8080/dmcs',
+      changeOrigin: true,
+      pathRewrite: { '^api/v1/file/updateFileImage': '' },
     },
   },
   //
