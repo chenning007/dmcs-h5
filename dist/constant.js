@@ -1,4 +1,4 @@
-export const httpAddress = 'http://39.104.208.4';
+export const httpAddress = 'http://127.0.0.1:80'; // http://39.104.208.4
 
 export const sourceData = [
   { id: 10, title: '权限维护', icon: 'lock', color: { backgroundColor: '#008000' } },
