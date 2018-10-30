@@ -78,7 +78,7 @@ export default class ManageList extends PureComponent {
           dispatch(routerRedux.push('/authority/filewindow'));
           break;
         case 3:
-          dispatch(routerRedux.push('/authority/manage_file'));
+          dispatch(routerRedux.push('/authority/viewcontrol'));
           break;
         case 4:
           dispatch(routerRedux.push('/authority/manage_file'));
