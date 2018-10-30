@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Menu, Radio, Dropdown, Button, Avatar, Table } from 'antd';
+import { Card, Menu, Radio, Dropdown, Button, Tooltip, Icon, Form } from 'antd';
 import { routerRedux } from 'dva/router';
+import FileView from './FileView';
 import { getAuthority } from '../../utils/authority';
-import { httpAddress } from '../../../public/constant';
 
 function checkValueExist(value) {
   switch (value) {
@@ -30,7 +30,8 @@ function checkValueExist(value) {
   files: state.document.files,
   fileloading: state.document.fileloading,
 }))
-export default class ViewControl extends PureComponent {
+@Form.create()
+export default class ViewedControl extends PureComponent {
   state = {
     valueSelect: 'a',
   };
@@ -40,7 +41,7 @@ export default class ViewControl extends PureComponent {
     const authority = getAuthority();
     if (authority !== 'admin' && authority !== 'host') {
       dispatch(routerRedux.push('/exception/403'));
-    } else if (temid !== 2) {
+    } else if (temid !== 3) {
       dispatch(routerRedux.push('/authority/manage_list'));
     }
   }
@@ -59,6 +60,14 @@ export default class ViewControl extends PureComponent {
     this.GetFileImage(e.target.value);
   };
 
+  handleMenuClick = e => {
+    const key = e.key;
+    this.setState({
+      valueSelect: key,
+    });
+    this.GetFileImage(key);
+  };
+
   GetFileImage(valueSelect) {
     const { dispatch } = this.props;
     if (checkValueExist(valueSelect) === 1)
@@ -68,6 +77,11 @@ export default class ViewControl extends PureComponent {
           module: valueSelect,
         },
       });
+  }
+
+  ReturnRouter() {
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push('/authority/manage_list'));
   }
 
   showTitle() {
@@ -105,7 +119,8 @@ export default class ViewControl extends PureComponent {
 
   render() {
     const { valueSelect } = this.state;
-    const { fileloading, files } = this.props;
+    const { fileloading, files, form } = this.props;
+    const { getFieldDecorator } = form;
     const menu = (
       <Menu onClick={this.handleMenuClick}>
         <Menu.Item key="aa">模块1</Menu.Item>
@@ -115,57 +130,18 @@ export default class ViewControl extends PureComponent {
       </Menu>
     );
 
-    const fileimagecolumns = [
-      {
-        key: 'avatar',
-        dataIndex: 'imagesrc',
-        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
-      },
-      {
-        title: '简介',
-        key: 'fileimagedescrip',
-        dataIndex: 'fileimagedescrip',
-      },
-      {
-        title: '文件名',
-        key: 'filename',
-        dataIndex: 'filename',
-        render: (text, record) => (
-          <a href={httpAddress + record.filesrc} target="_blank" rel="noopener noreferrer">
-            {text}
-          </a>
-        ),
-      },
-      {
-        title: '图片名',
-        key: 'imagename',
-        dataIndex: 'imagename',
-        render: (text, record) => (
-          <a href={httpAddress + record.imagesrc} target="_blank" rel="noopener noreferrer">
-            {text}
-          </a>
-        ),
-      },
-      {
-        title: '可视性',
-        key: 'viewed',
-        dataIndex: 'viewed',
-      },
-      {
-        title: '操作',
-        key: 'action',
-        dataIndex: 'action',
-        render: (_, record) => (
-          <Button type="danger" onClick={() => this.DeleteFileImage(record)}>
-            删除
-          </Button>
-        ),
-      },
-    ];
-
     return (
       <div>
-        <Card>
+        <Card
+          title="文件可视性"
+          extra={
+            <Tooltip placement="top" title="返回">
+              <Button type="primary" onClick={() => this.ReturnRouter()}>
+                <Icon type="rollback" />
+              </Button>
+            </Tooltip>
+          }
+        >
           <Radio.Group value={valueSelect} onChange={this.handleRadio} size="large">
             <Dropdown overlay={menu}>
               <Radio.Button>首页窗口</Radio.Button>
@@ -180,13 +156,10 @@ export default class ViewControl extends PureComponent {
             <Radio.Button value="i">第九窗口 </Radio.Button>
           </Radio.Group>
         </Card>
-        <Card style={{ marginTop: 4 }} title={this.showTitle(valueSelect)}>
-          <Table
-            columns={fileimagecolumns}
-            dataSource={files}
-            loading={fileloading}
-            rowKey="createid"
-          />
+        <Card style={{ marginTop: 4 }} loading={fileloading} title={this.showTitle(valueSelect)}>
+          {getFieldDecorator('fileview', {
+            initialValue: files,
+          })(<FileView />)}
         </Card>
       </div>
     );
