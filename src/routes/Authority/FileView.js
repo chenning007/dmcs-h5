@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Table, Avatar, Button, Icon, Tooltip } from 'antd';
+import { Table, Avatar, Button, Icon, Tooltip, Switch } from 'antd';
 
 import { httpAddress } from '../../../public/constant';
 
@@ -13,6 +13,11 @@ export default class FileView extends PureComponent {
     };
   }
 
+  getRowByKey(key, newData) {
+    const { data } = this.state;
+    return (newData || data).filter(item => item.key === key)[0];
+  }
+
   // 这里还需要对数组进行重排才可以
 
   handleUp(record) {
@@ -22,9 +27,15 @@ export default class FileView extends PureComponent {
     if (data.length !== undefined && data.length !== null && data.length > 0) {
       if (record.orderid !== 1 && record.orderid !== 0) {
         const id = record.orderid;
-        newData[id - 2].orderid = id;
-        newData[id - 1].orderid = id - 1;
-        this.setState({ data: newData });
+        const fileWindow = { ...newData[id - 1] };
+
+        newData[id - 1] = newData[id - 2];
+        newData[id - 2] = fileWindow;
+
+        newData[id - 1].orderid += 1;
+        newData[id - 2].orderid -= 1;
+
+        this.setState({ data: [...newData] });
       }
     }
   }
@@ -36,10 +47,26 @@ export default class FileView extends PureComponent {
     if (data.length !== undefined && data.length !== null && data.length > 0) {
       if (record.orderid !== data.length) {
         const id = record.orderid;
-        newData[id - 1].orderid = id + 1;
-        newData[id].orderid = id;
-        this.setState({ data: newData });
+        const fileWindow = { ...newData[id - 1] };
+
+        newData[id - 1] = newData[id];
+        newData[id] = fileWindow;
+
+        newData[id - 1].orderid -= 1;
+        newData[id].orderid += 1;
+
+        this.setState({ data: [...newData] });
       }
+    }
+  }
+
+  handleChangeView(e, fieldName, key) {
+    const { data } = this.state;
+    const newData = data.map(item => ({ ...item }));
+    const target = this.getRowByKey(key, newData);
+    if (target) {
+      target[fieldName] = e ? 'true' : 'false';
+      this.setState({ data: newData });
     }
   }
 
@@ -85,6 +112,16 @@ export default class FileView extends PureComponent {
         key: 'viewed',
         width: '15%',
         dataIndex: 'viewed',
+        render: (view, record) => (
+          <span>
+            <Switch
+              checkedChildren={<Icon type="check" />}
+              defaultChecked={view !== 'false'}
+              unCheckedChildren={<Icon type="cross" />}
+              onChange={e => this.handleChangeView(e, 'viewed', record.key)}
+            />
+          </span>
+        ),
       },
       {
         title: '排序',
