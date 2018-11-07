@@ -134,6 +134,11 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^api/v1/file/updateFileImage': '' },
     },
+    '/api/v1/file/updaFIOrdVie': {
+      target: 'http://127.0.0.1:8080/dmcs',
+      changeOrigin: true,
+      pathRewrite: { '^api/v1/file/updaFIOrdVie': '' },
+    },
   },
   //
   alias: {
