@@ -15,12 +15,13 @@ export default class FileView extends PureComponent {
 
   getRowByKey(key, newData) {
     const { data } = this.state;
-    return (newData || data).filter(item => item.key === key)[0];
+    return (newData || data).filter(item => item.createid === key)[0];
   }
 
   // 这里还需要对数组进行重排才可以
 
   handleUp(record) {
+    const { onChange } = this.props;
     const { data = [] } = this.state;
     const newData = data.map(item => ({ ...item }));
 
@@ -34,13 +35,15 @@ export default class FileView extends PureComponent {
 
         newData[id - 1].orderid += 1;
         newData[id - 2].orderid -= 1;
-
         this.setState({ data: [...newData] });
+        const editEnable = true;
+        onChange(newData, editEnable);
       }
     }
   }
 
   handleDown(record) {
+    const { onChange } = this.props;
     const { data = [] } = this.state;
     const newData = data.map(item => ({ ...item }));
 
@@ -56,17 +59,24 @@ export default class FileView extends PureComponent {
         newData[id].orderid += 1;
 
         this.setState({ data: [...newData] });
+
+        const editEnable = true;
+        onChange(newData, editEnable); // 数据传递的父组件中
       }
     }
   }
 
   handleChangeView(e, fieldName, key) {
+    const { onChange } = this.props;
     const { data } = this.state;
     const newData = data.map(item => ({ ...item }));
     const target = this.getRowByKey(key, newData);
     if (target) {
       target[fieldName] = e ? 'true' : 'false';
       this.setState({ data: newData });
+
+      const editEnable = true;
+      onChange(newData, editEnable); // 数据传递的父组件中
     }
   }
 
@@ -118,7 +128,7 @@ export default class FileView extends PureComponent {
               checkedChildren={<Icon type="check" />}
               defaultChecked={view !== 'false'}
               unCheckedChildren={<Icon type="cross" />}
-              onChange={e => this.handleChangeView(e, 'viewed', record.key)}
+              onChange={e => this.handleChangeView(e, 'viewed', record.createid)}
             />
           </span>
         ),
@@ -147,17 +157,17 @@ export default class FileView extends PureComponent {
           </div>
         ),
       },
-      {
+      /* {
         title: '操作',
         key: 'action',
         width: '20%',
         dataIndex: 'action',
         render: (_, record) => (
           <Button type="danger" onClick={() => this.DeleteFileImage(record)}>
-            删除
+          保存
           </Button>
         ),
-      },
+      }, */
     ];
     return (
       <Fragment>
