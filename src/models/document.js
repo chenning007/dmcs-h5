@@ -8,6 +8,7 @@ import {
   UpdateFileImage,
   DeleteFileImage,
   GetCommonFileImage,
+  UpdaFIOrdVie,
 } from '../services/api';
 
 export default {
@@ -158,6 +159,24 @@ export default {
         payload: false,
       });
     },
+    *updaFIOrdVie({ payload }, { call, put }) {
+      yield put({
+        type: 'changeFileLoading',
+        payload: true,
+      });
+      const response = yield call(UpdaFIOrdVie, payload);
+      yield put({
+        type: 'saveFileList',
+        payload: response,
+      });
+      if (response.status === 'ok') {
+        message.success('保存成功');
+      }
+      yield put({
+        type: 'changeFileLoading',
+        payload: false,
+      });
+    },
   },
 
   reducers: {
@@ -198,20 +217,22 @@ export default {
     saveFileList(state, { payload }) {
       return {
         ...state,
-        files: payload.status === 'ok' ? payload.data : state.files,
+        files: payload.status === 'ok' ? (payload.data === null ? [] : payload.data) : state.files,
       };
     },
     saveImageList(state, { payload }) {
       return {
         ...state,
-        images: payload.status === 'ok' ? payload.data : state.images,
+        images:
+          payload.status === 'ok' ? (payload.data === null ? [] : payload.data) : state.images,
       };
     },
     saveFileImage(state, action) {
       const { payload } = action;
       return {
         ...state,
-        fileImages: payload.status === 'ok' ? payload.data : state.fileImages,
+        fileImages:
+          payload.status === 'ok' ? (payload.data === null ? [] : payload.data) : state.fileImages,
       };
     },
   },
