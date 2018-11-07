@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Menu, Radio, Dropdown, Button, Tooltip, Icon, Form } from 'antd';
+import { Card, Menu, Radio, Dropdown, Button, Tooltip, Icon, Form, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
 import FileView from './FileView';
 import { getAuthority } from '../../utils/authority';
 
-function checkValueExist(value) {
+/* function checkValueExist(value) {
   switch (value) {
     case 'aa':
     case 'ab':
@@ -23,7 +23,7 @@ function checkValueExist(value) {
     default:
       return 0;
   }
-}
+} */
 
 @connect(state => ({
   temid: state.tem_store.temid,
@@ -34,6 +34,7 @@ function checkValueExist(value) {
 export default class ViewedControl extends PureComponent {
   state = {
     valueSelect: 'a',
+    editEnable: false,
   };
 
   componentWillMount() {
@@ -68,15 +69,42 @@ export default class ViewedControl extends PureComponent {
     this.GetFileImage(key);
   };
 
+  cancelChange() {
+    this.setState({ valueSelect: 'a', editEnable: false });
+    this.GetFileImage('a');
+  }
+
+  submitChange() {
+    const { dispatch, form } = this.props;
+    const { valueSelect } = this.state;
+
+    const { validateFieldsAndScroll } = form;
+    validateFieldsAndScroll((error, values) => {
+      if (!error) {
+        dispatch({
+          type: 'document/updaFIOrdVie',
+          payload: {
+            fileImages: values.fileview,
+            module: valueSelect,
+          },
+        });
+      }
+    });
+    this.setState({ editEnable: false });
+  }
+
   GetFileImage(valueSelect) {
     const { dispatch } = this.props;
-    if (checkValueExist(valueSelect) === 1)
-      dispatch({
-        type: 'document/getFileImage',
-        payload: {
-          module: valueSelect,
-        },
-      });
+    dispatch({
+      type: 'document/getFileImage',
+      payload: {
+        module: valueSelect,
+      },
+    });
+  }
+
+  editState(e, editEnable) {
+    this.setState({ editEnable });
   }
 
   ReturnRouter() {
@@ -114,6 +142,29 @@ export default class ViewedControl extends PureComponent {
         return '第九窗口';
       default:
         return '请选择窗口及模块';
+    }
+  }
+
+  editExtra() {
+    const { editEnable } = this.state;
+    if (editEnable) {
+      return (
+        <div>
+          <Tooltip placement="topRight" title="保存编辑内容">
+            <Button type="primary" onClick={() => this.submitChange()}>
+              保存
+            </Button>
+          </Tooltip>
+          <Divider type="vertical" />
+          <Tooltip placement="topRight" title="不保存已编辑内容">
+            <Button type="primary" onClick={() => this.cancelChange()}>
+              取消
+            </Button>
+          </Tooltip>
+        </div>
+      );
+    } else {
+      return <div />;
     }
   }
 
@@ -156,10 +207,15 @@ export default class ViewedControl extends PureComponent {
             <Radio.Button value="i">第九窗口 </Radio.Button>
           </Radio.Group>
         </Card>
-        <Card style={{ marginTop: 4 }} loading={fileloading} title={this.showTitle(valueSelect)}>
+        <Card
+          style={{ marginTop: 4 }}
+          loading={fileloading}
+          title={this.showTitle(valueSelect)}
+          extra={this.editExtra()}
+        >
           {getFieldDecorator('fileview', {
             initialValue: files,
-          })(<FileView />)}
+          })(<FileView onChange={(e, editEnable) => this.editState(e, editEnable)} />)}
         </Card>
       </div>
     );
