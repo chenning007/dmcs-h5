@@ -215,3 +215,10 @@ export async function DeleteFileImage(params) {
     body: params,
   });
 }
+
+export async function UpdaFIOrdVie(params) {
+  return request('/api/v1/file/updaFIOrdVie', {
+    method: 'POST',
+    body: params,
+  });
+}
