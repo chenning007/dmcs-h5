@@ -95,13 +95,13 @@ export default class TableFriend extends PureComponent {
     const columns = [
       {
         title: '朋友',
-        width: 60,
+        width: 80,
         dataIndex: 'avatar',
         key: 'avatar',
         fixed: 'left',
         render: text => <Avatar src={text} />,
       },
-      { title: '', width: 100, dataIndex: 'username', key: 'username', fixed: 'left' },
+      { title: '姓名', width: 100, dataIndex: 'username', key: 'username', fixed: 'left' },
       {
         title: '权限1',
         dataIndex: 'auth1',
