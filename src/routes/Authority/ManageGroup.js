@@ -212,7 +212,7 @@ export default class ManageGroup extends PureComponent {
           Authority.push({
             key: i,
             avatar: adminusers[i].avatar,
-            title: adminusers[i].username,
+            username: adminusers[i].username,
             userid: adminusers[i].userid,
             auth1: adminusers[i].auth1 === 'true',
             auth2: adminusers[i].auth2 === 'true',
