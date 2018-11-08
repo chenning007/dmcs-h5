@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, List, Carousel, Layout } from 'antd';
-// import { Layout } from 'antd';
+
 const { Header, Content } = Layout;
 const { Meta } = Card;
 
@@ -398,9 +398,6 @@ export default class FirstPage extends PureComponent {
                   </Menu.Item>
                   <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="9">
                     合作规则
-                  </Menu.Item>
-                  <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="10">
-                    合作留言
                   </Menu.Item>
                 </Menu.SubMenu>
               </Menu>
