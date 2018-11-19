@@ -458,9 +458,7 @@ export default class Pageinfo extends PureComponent {
         <Content style={{ marginTop: 128, width: '100%' /* textAlign: 'center' */ }}>
           <div style={{ zIndex: 0, background: '#f0f2f5' }}>
             <Row>
-              <Col xl={2} lg={12} md={12} sm={24} xs={24}>
-                <Card bordered={false} />
-              </Col>
+              <Col xl={2} lg={12} md={12} sm={24} xs={24} />
               <Col xl={20} lg={12} md={12} sm={24} xs={24}>
                 <img
                   src="http://39.104.208.4/image/firstpage/background.png"
