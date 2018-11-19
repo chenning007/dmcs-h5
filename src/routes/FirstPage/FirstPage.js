@@ -528,12 +528,14 @@ export default class FirstPage extends PureComponent {
                 onClick={() => this.Linkpage(imgData[2].id, imgData[2].mode)}
                 alt="img"
               />
-              <img
-                src={imgData[3].img_src}
-                style={{ width: '100%' }}
-                onClick={() => this.Linkpage(imgData[3].id, imgData[3].mode)}
-                alt="img"
-              />
+              {
+                <img
+                  src={imgData[3].img_src}
+                  style={{ width: '100%' }}
+                  onClick={() => this.Linkpage(imgData[3].id, imgData[3].mode)}
+                  alt="img"
+                />
+              }
             </Carousel>
             <div style={{ zIndex: 0 }}>
               <div style={{ background: '#f0f2f5' }}>
@@ -550,9 +552,7 @@ export default class FirstPage extends PureComponent {
                   </span>
                 </div>
                 <Row>
-                  <Col xl={2} lg={12} md={12} sm={24} xs={24}>
-                    <Card bordered={false} />
-                  </Col>
+                  <Col xl={2} lg={12} md={12} sm={24} xs={24} />
                   <Col xl={20} lg={12} md={12} sm={24} xs={24}>
                     <List
                       grid={{ gutter: 16, lg: 4, md: 2, sm: 1, xs: 1 }}
