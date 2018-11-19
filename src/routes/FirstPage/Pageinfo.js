@@ -301,7 +301,7 @@ export default class Pageinfo extends PureComponent {
             style={{
               position: 'fixed',
               marginTop: 0,
-              width: '100%',
+              width: '120%',
               zIndex: 1,
               background: '#ffffff',
             }}
@@ -311,7 +311,7 @@ export default class Pageinfo extends PureComponent {
               src="http://39.104.208.4/image/firstpage/u110.png"
               alt="logo"
             />
-            <div style={{ float: 'right' }}>{this.ButtonContent()}</div>
+            <div style={{ float: 'right', marginRight: 240 }}>{this.ButtonContent()}</div>
           </Header>
 
           <Header
