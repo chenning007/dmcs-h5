@@ -267,7 +267,7 @@ export default class PageList extends PureComponent {
             style={{
               position: 'fixed',
               marginTop: 0,
-              width: '100%',
+              width: '120%',
               zIndex: 1,
               background: '#ffffff',
             }}
