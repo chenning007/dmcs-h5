@@ -5,26 +5,6 @@ import { routerRedux } from 'dva/router';
 import FileView from './FileView';
 import { getAuthority } from '../../utils/authority';
 
-/* function checkValueExist(value) {
-  switch (value) {
-    case 'aa':
-    case 'ab':
-    case 'ac':
-    case 'ad':
-    case 'b':
-    case 'c':
-    case 'd':
-    case 'e':
-    case 'f':
-    case 'g':
-    case 'h':
-    case 'i':
-      return 1;
-    default:
-      return 0;
-  }
-} */
-
 @connect(state => ({
   temid: state.tem_store.temid,
   files: state.document.files,
