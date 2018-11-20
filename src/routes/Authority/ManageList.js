@@ -84,7 +84,7 @@ export default class ManageList extends PureComponent {
           dispatch(routerRedux.push('/authority/manage_file'));
           break;
         case 5:
-          dispatch(routerRedux.push('/authority/manage_file'));
+          dispatch(routerRedux.push('/authority/webinfo'));
           break;
         case 6:
           dispatch(routerRedux.push('/authority/manage_file'));
