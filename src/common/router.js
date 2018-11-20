@@ -169,7 +169,7 @@ export const getRouterData = app => {
       authority: 'admin' || 'host',
     },
     '/authority/viewcontrol': {
-      component: dynamicWrapper(app, ['document', 'tem_store'], () =>
+      component: dynamicWrapper(app, ['document', 'tem_store', 'system'], () =>
         import('../routes/Authority/ViewedControl')
       ),
       authority: 'admin' || 'host',
