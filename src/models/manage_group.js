@@ -28,8 +28,6 @@ export default {
         type: 'changeadminuser',
         payload: response,
       });
-      /* *****这里需要对reponse状态做出判断 */
-      /* ****这是最后的妥善处理情况 */
       yield put({
         type: 'changLoading',
         payload: false,
