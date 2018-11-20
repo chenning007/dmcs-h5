@@ -174,6 +174,12 @@ export const getRouterData = app => {
       ),
       authority: 'admin' || 'host',
     },
+    '/authority/webinfo': {
+      component: dynamicWrapper(app, ['document', 'tem_store', 'system'], () =>
+        import('../routes/Authority/Webinfo')
+      ),
+      authority: 'admin' || 'host',
+    },
     '/profile': {
       component: dynamicWrapper(app, ['login'], () => import('../routes/Profile/Profile')),
     },
