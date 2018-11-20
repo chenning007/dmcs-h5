@@ -157,17 +157,6 @@ export default class FileView extends PureComponent {
           </div>
         ),
       },
-      /* {
-        title: '操作',
-        key: 'action',
-        width: '20%',
-        dataIndex: 'action',
-        render: (_, record) => (
-          <Button type="danger" onClick={() => this.DeleteFileImage(record)}>
-          保存
-          </Button>
-        ),
-      }, */
     ];
     return (
       <Fragment>
