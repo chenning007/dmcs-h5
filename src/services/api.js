@@ -222,3 +222,21 @@ export async function UpdaFIOrdVie(params) {
     body: params,
   });
 }
+
+export async function GetWebInfo() {
+  return request('/api/v1/system/getwebinfo');
+}
+
+export async function AddWebInfo(params) {
+  return request('/api/v1/system/addwebInfo', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function DeleteWebInfo(params) {
+  return request('/api/v1/system/deleteWebinfo', {
+    method: 'POST',
+    body: params,
+  });
+}
