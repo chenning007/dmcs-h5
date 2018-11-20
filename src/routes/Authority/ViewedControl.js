@@ -9,6 +9,8 @@ import { getAuthority } from '../../utils/authority';
   temid: state.tem_store.temid,
   files: state.document.files,
   fileloading: state.document.fileloading,
+  loading: state.system.loading,
+  webinfos: state.system.webinfos,
 }))
 @Form.create()
 export default class ViewedControl extends PureComponent {
@@ -25,6 +27,13 @@ export default class ViewedControl extends PureComponent {
     } else if (temid !== 3) {
       dispatch(routerRedux.push('/authority/manage_list'));
     }
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'system/getWebinfo',
+    });
   }
 
   componentWillUnmount() {
@@ -90,6 +99,14 @@ export default class ViewedControl extends PureComponent {
   ReturnRouter() {
     const { dispatch } = this.props;
     dispatch(routerRedux.push('/authority/manage_list'));
+  }
+
+  Refresh() {
+    // 重新获取网站信息
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'system/getWebinfo',
+    });
   }
 
   showTitle() {
@@ -197,6 +214,17 @@ export default class ViewedControl extends PureComponent {
             initialValue: files,
           })(<FileView onChange={(e, editEnable) => this.editState(e, editEnable)} />)}
         </Card>
+        <Card
+          title="公告可视性"
+          style={{ marginTop: 12 }}
+          extra={
+            <Tooltip placement="top" title="刷新列表数据">
+              <Button type="primary" onClick={() => this.Refresh()}>
+                <Icon type="retweet" />
+              </Button>
+            </Tooltip>
+          }
+        />
       </div>
     );
   }
