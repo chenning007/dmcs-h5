@@ -43,7 +43,9 @@ export default class Webinfo extends PureComponent {
         const inftxt = values.inftxt;
         dispatch({
           type: 'system/addWebinfo',
-          payload: inftxt,
+          payload: {
+            inftxt,
+          },
         });
       }
     });
@@ -61,7 +63,7 @@ export default class Webinfo extends PureComponent {
     const { dispatch } = this.props;
     dispatch({
       type: 'system/deleteWebinfo',
-      payload: keyid,
+      payload: { infid: keyid },
     });
   }
 
@@ -69,12 +71,13 @@ export default class Webinfo extends PureComponent {
     const { form, loading, webinfos } = this.props;
     const { getFieldDecorator } = form;
     const columns = [
-      { title: '编号', key: 'infid', dataIndex: 'infid' },
-      { title: '内容', key: 'inftxt', dataIndex: 'inftxt' },
+      { title: '编号', key: 'infid', dataIndex: 'infid', width: '10%' },
+      { title: '内容', key: 'inftxt', dataIndex: 'inftxt', width: '70%' },
       {
         title: '操作',
         key: 'action',
         dataIndex: 'action',
+        width: '20%',
         render: (_, record) => (
           <div>
             <Button type="danger" onClick={() => this.DeleteWebinfo(record.infid)}>
