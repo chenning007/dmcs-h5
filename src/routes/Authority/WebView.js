@@ -2,6 +2,8 @@ import React, { PureComponent, Fragment } from 'react';
 import { Button, Table, Icon, Divider, Switch, Input } from 'antd';
 
 export default class WebView extends PureComponent {
+  cacheOriginData = {};
+
   constructor(props) {
     super(props);
 
@@ -13,7 +15,7 @@ export default class WebView extends PureComponent {
 
   getRowByKey(key, newData) {
     const { data } = this.state;
-    return (newData || data).filter(item => item.createid === key)[0];
+    return (newData || data).filter(item => item.infid === key)[0];
   }
 
   toggleEditable = (e, key) => {
@@ -120,7 +122,7 @@ export default class WebView extends PureComponent {
               <Input
                 value={text}
                 placeholder="公告内容"
-                onChange={e => this.handleFieldChange(e, 'inftxt', record.key)}
+                onChange={e => this.handleFieldChange(e, 'inftxt', record.infid)}
               />
             );
           }
@@ -146,8 +148,8 @@ export default class WebView extends PureComponent {
       },
       {
         title: '操作',
-        key: 'action',
-        fixed: 'right',
+        key: 'operation',
+        width: '15%',
         render: (_, record) => {
           if (!!record.editable && loading) {
             return null;
@@ -155,15 +157,15 @@ export default class WebView extends PureComponent {
           if (record.editable) {
             return (
               <span>
-                <Button onClick={e => this.saveRow(e, record.key)}>保存</Button>
+                <Button onClick={e => this.saveRow(e, record.infid)}>保存</Button>
                 <Divider type="vertical" />
-                <Button onClick={e => this.cancel(e, record.key)}>取消</Button>
+                <Button onClick={e => this.cancel(e, record.infid)}>取消</Button>
               </span>
             );
           }
           return (
             <span>
-              <Button onClick={e => this.edit(e, record.key)}>编辑</Button>
+              <Button onClick={e => this.edit(e, record.infid)}>编辑</Button>
             </span>
           );
         },
