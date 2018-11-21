@@ -154,10 +154,10 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^api/v1/system/deleteWebinfo': '' },
     },
-    '/api/v1/system/changeWebInfoView': {
+    '/api/v1/system/updateWebinfo': {
       target: 'http://127.0.0.1:8080/dmcs',
       changeOrigin: true,
-      pathRewrite: { '^api/v1/system/changeWebInfoView': '' },
+      pathRewrite: { '^api/v1/system/updateWebinfo': '' },
     },
   },
   //
