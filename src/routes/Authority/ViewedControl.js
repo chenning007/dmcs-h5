@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Card, Menu, Radio, Dropdown, Button, Tooltip, Icon, Form, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
 import FileView from './FileView';
-// import WebView from './Webinfo';
+import WebView from './WebView';
 import { getAuthority } from '../../utils/authority';
 
 @connect(state => ({
@@ -224,8 +224,8 @@ export default class ViewedControl extends PureComponent {
   }
 
   render() {
-    const { valueSelect } = this.state;
-    const { fileloading, files, form /* webinfos */ } = this.props;
+    const { valueSelect, loading } = this.state;
+    const { fileloading, files, form, webinfos } = this.props;
     const { getFieldDecorator } = form;
     const menu = (
       <Menu onClick={this.handleMenuClick}>
@@ -272,16 +272,18 @@ export default class ViewedControl extends PureComponent {
             initialValue: files,
           })(<FileView onChange={(e, editEnable) => this.editState(e, editEnable)} />)}
         </Card>
-        {/* <Card
-          title="公告可视性"
-          style={{ marginTop: 12 }}
-          /* extra={ this.webinfoExtra() } 
-        >
-          {getFieldDecorator('webinfo',{
-            initialValue: webinfos,
-          })(<WebView  onChange={(e, editEnable) => this.WebinfoEdit(e, editEnable)}/>)
-          }
-        </Card> */}
+        {
+          <Card
+            title="公告可视性"
+            style={{ marginTop: 12 }}
+            loading={loading}
+            extra={this.webinfoExtra()}
+          >
+            {getFieldDecorator('webinfo', {
+              initialValue: webinfos,
+            })(<WebView onChange={(e, editEnable) => this.WebinfoEdit(e, editEnable)} />)}
+          </Card>
+        }
       </div>
     );
   }
