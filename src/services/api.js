@@ -240,3 +240,10 @@ export async function DeleteWebInfo(params) {
     body: params,
   });
 }
+
+export async function UpdateWebInfo(params) {
+  return request('/api/v1/system/updateWebinfo', {
+    method: 'POST',
+    body: params,
+  });
+}
