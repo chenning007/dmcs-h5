@@ -1,4 +1,4 @@
-import { GetWebInfo, AddWebInfo, DeleteWebInfo } from '../services/api';
+import { GetWebInfo, AddWebInfo, DeleteWebInfo, UpdateWebInfo } from '../services/api';
 
 export default {
   namespace: 'system',
@@ -45,6 +45,21 @@ export default {
         payload: true,
       });
       const response = yield call(DeleteWebInfo, payload);
+      yield put({
+        type: 'changeWebinfo',
+        payload: response,
+      });
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+    },
+    *updateWebinfo({ payload }, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = yield call(UpdateWebInfo, payload);
       yield put({
         type: 'changeWebinfo',
         payload: response,
