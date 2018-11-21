@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Card, Menu, Radio, Dropdown, Button, Tooltip, Icon, Form, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
 import FileView from './FileView';
+// import WebView from './Webinfo';
 import { getAuthority } from '../../utils/authority';
 
 @connect(state => ({
@@ -17,11 +18,14 @@ export default class ViewedControl extends PureComponent {
   state = {
     valueSelect: 'a',
     editEnable: false,
+    editWebInfo: false,
   };
 
   componentWillMount() {
     const { temid, dispatch } = this.props;
+
     const authority = getAuthority();
+
     if (authority !== 'admin' && authority !== 'host') {
       dispatch(routerRedux.push('/exception/403'));
     } else if (temid !== 3) {
@@ -63,6 +67,11 @@ export default class ViewedControl extends PureComponent {
     this.GetFileImage('a');
   }
 
+  cancelWebInfoChange() {
+    this.setState({ editWebInfo: false });
+    this.Refresh();
+  }
+
   submitChange() {
     const { dispatch, form } = this.props;
     const { valueSelect } = this.state;
@@ -82,6 +91,22 @@ export default class ViewedControl extends PureComponent {
     this.setState({ editEnable: false });
   }
 
+  submitWebInfoChange() {
+    const { dispatch, form } = this.props;
+    const { validateFieldsAndScroll } = form;
+    validateFieldsAndScroll((error, values) => {
+      if (!error) {
+        dispatch({
+          type: 'system/updateWebinfo',
+          payload: {
+            webinfos: values.webinfo,
+          },
+        });
+      }
+    });
+    this.setState({ editWebInfo: false });
+  }
+
   GetFileImage(valueSelect) {
     const { dispatch } = this.props;
     dispatch({
@@ -94,6 +119,10 @@ export default class ViewedControl extends PureComponent {
 
   editState(e, editEnable) {
     this.setState({ editEnable });
+  }
+
+  WebinfoEdit(e, editEnable) {
+    this.setState({ editWebInfo: editEnable });
   }
 
   ReturnRouter() {
@@ -165,9 +194,38 @@ export default class ViewedControl extends PureComponent {
     }
   }
 
+  webinfoExtra() {
+    const { editWebInfo } = this.state;
+    if (editWebInfo) {
+      return (
+        <div>
+          <Tooltip placement="topRight" title="保存编辑内容">
+            <Button type="primary" onClick={() => this.submitWebInfoChange()}>
+              保存
+            </Button>
+          </Tooltip>
+          <Divider type="vertical" />
+          <Tooltip placement="topRight" title="不保存已编辑内容">
+            <Button type="primary" onClick={() => this.cancelWebInfoChange()}>
+              取消
+            </Button>
+          </Tooltip>
+        </div>
+      );
+    } else {
+      return (
+        <Tooltip placement="top" title="刷新列表数据">
+          <Button type="primary" onClick={() => this.Refresh()}>
+            <Icon type="retweet" />
+          </Button>
+        </Tooltip>
+      );
+    }
+  }
+
   render() {
     const { valueSelect } = this.state;
-    const { fileloading, files, form } = this.props;
+    const { fileloading, files, form /* webinfos */ } = this.props;
     const { getFieldDecorator } = form;
     const menu = (
       <Menu onClick={this.handleMenuClick}>
@@ -214,17 +272,16 @@ export default class ViewedControl extends PureComponent {
             initialValue: files,
           })(<FileView onChange={(e, editEnable) => this.editState(e, editEnable)} />)}
         </Card>
-        <Card
+        {/* <Card
           title="公告可视性"
           style={{ marginTop: 12 }}
-          extra={
-            <Tooltip placement="top" title="刷新列表数据">
-              <Button type="primary" onClick={() => this.Refresh()}>
-                <Icon type="retweet" />
-              </Button>
-            </Tooltip>
+          /* extra={ this.webinfoExtra() } 
+        >
+          {getFieldDecorator('webinfo',{
+            initialValue: webinfos,
+          })(<WebView  onChange={(e, editEnable) => this.WebinfoEdit(e, editEnable)}/>)
           }
-        />
+        </Card> */}
       </div>
     );
   }
