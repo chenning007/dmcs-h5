@@ -224,8 +224,8 @@ export default class ViewedControl extends PureComponent {
   }
 
   render() {
-    const { valueSelect, loading } = this.state;
-    const { fileloading, files, form, webinfos } = this.props;
+    const { valueSelect } = this.state;
+    const { fileloading, files, form, webinfos, loading } = this.props;
     const { getFieldDecorator } = form;
     const menu = (
       <Menu onClick={this.handleMenuClick}>
@@ -273,15 +273,15 @@ export default class ViewedControl extends PureComponent {
           })(<FileView onChange={(e, editEnable) => this.editState(e, editEnable)} />)}
         </Card>
         {
-          <Card
-            title="公告可视性"
-            style={{ marginTop: 12 }}
-            loading={loading}
-            extra={this.webinfoExtra()}
-          >
+          <Card title="公告可视性" style={{ marginTop: 12 }} extra={this.webinfoExtra()}>
             {getFieldDecorator('webinfo', {
               initialValue: webinfos,
-            })(<WebView onChange={(e, editEnable) => this.WebinfoEdit(e, editEnable)} />)}
+            })(
+              <WebView
+                loading={loading}
+                onChange={(e, editEnable) => this.WebinfoEdit(e, editEnable)}
+              />
+            )}
           </Card>
         }
       </div>
