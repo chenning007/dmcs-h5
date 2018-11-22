@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { Card, Form, Icon, Tooltip, Button, Input, Table } from 'antd';
 import { getAuthority } from '../../utils/authority';
+import { getSmpFormatDateByLong } from '../../utils/getFormDate';
 
 @connect(state => ({
   temid: state.tem_store.temid,
@@ -72,19 +73,29 @@ export default class Webinfo extends PureComponent {
     const { getFieldDecorator } = form;
     const columns = [
       { title: '编号', key: 'infid', dataIndex: 'infid', width: '10%' },
-      { title: '内容', key: 'inftxt', dataIndex: 'inftxt', width: '70%' },
+      { title: '内容', key: 'inftxt', dataIndex: 'inftxt', width: '60%' },
+      {
+        title: '日期',
+        key: 'insertTime',
+        dataIndex: 'insertTime',
+        width: '15%',
+        render: text => {
+          if (text !== null) {
+            return <span>{getSmpFormatDateByLong(text, false)}</span>;
+          } else {
+            return <div />;
+          }
+        },
+      },
       {
         title: '操作',
         key: 'action',
         dataIndex: 'action',
-        width: '20%',
+        width: '15%',
         render: (_, record) => (
           <div>
             <Button type="danger" onClick={() => this.DeleteWebinfo(record.infid)}>
               删除
-            </Button>
-            <Button type="primary" onClick>
-              编辑
             </Button>
           </div>
         ),
@@ -135,7 +146,7 @@ export default class Webinfo extends PureComponent {
             </Tooltip>
           }
         >
-          <Table columns={columns} dataSource={webinfos} loading={loading} rowkey="infid" />
+          <Table columns={columns} dataSource={webinfos} loading={loading} rowKey="infid" />
         </Card>
       </div>
     );
