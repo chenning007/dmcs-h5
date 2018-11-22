@@ -9,7 +9,7 @@ export default class WebView extends PureComponent {
 
     this.state = {
       data: Array.isArray(props.value) ? props.value : [],
-      loading: false,
+      viewloading: false,
     };
   }
 
@@ -68,7 +68,7 @@ export default class WebView extends PureComponent {
     const { data } = this.state;
     e.persist();
     this.setState({
-      loading: true,
+      viewloading: true,
     });
     setTimeout(() => {
       if (this.clickedCancel) {
@@ -82,7 +82,7 @@ export default class WebView extends PureComponent {
       onChange(data, editEnable);
 
       this.setState({
-        loading: false,
+        viewloading: false,
       });
     }, 500);
   }
@@ -103,7 +103,8 @@ export default class WebView extends PureComponent {
   }
 
   render() {
-    const { loading, data = [] } = this.state;
+    const { loading } = this.props;
+    const { viewloading, data = [] } = this.state;
     const columns = [
       {
         title: '编号',
@@ -151,7 +152,7 @@ export default class WebView extends PureComponent {
         key: 'operation',
         width: '15%',
         render: (_, record) => {
-          if (!!record.editable && loading) {
+          if (!!record.editable && viewloading) {
             return null;
           }
           if (record.editable) {
@@ -174,7 +175,12 @@ export default class WebView extends PureComponent {
 
     return (
       <Fragment>
-        <Table loading={loading} columns={columns} dataSource={data} rowKey="infid" />
+        <Table
+          loading={viewloading || loading}
+          columns={columns}
+          dataSource={data}
+          rowKey="infid"
+        />
       </Fragment>
     );
   }
