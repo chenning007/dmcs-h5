@@ -1,5 +1,18 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Button, Table, Icon, Divider, Switch, Input } from 'antd';
+import { Button, Table, Icon, Divider, Switch, Input, message } from 'antd';
+
+function NumberInfos(data) {
+  if (!Array.isArray(data)) return 0;
+  else {
+    let num = 0;
+    const length = data.length;
+    let i = 0;
+    for (i = 0; i < length; i += 1) {
+      if (data[i].viewed === 'true') num += 1;
+    }
+    return num;
+  }
+}
 
 export default class WebView extends PureComponent {
   cacheOriginData = {};
@@ -45,11 +58,18 @@ export default class WebView extends PureComponent {
     const newData = data.map(item => ({ ...item }));
     const target = this.getRowByKey(key, newData);
     if (target) {
-      target[fieldName] = e ? 'true' : 'false';
-      this.setState({ data: newData });
+      let num = 0;
+      if (e) num = NumberInfos(data);
+      if (num < 3) {
+        target[fieldName] = e ? 'true' : 'false';
+        this.setState({ data: newData });
 
-      const editEnable = true;
-      onChange(newData, editEnable); // 数据传递的父组件中
+        const editEnable = true;
+        onChange(newData, editEnable); // 数据传递的父组件中
+      } else {
+        this.setState({ data: newData });
+        message.error('选择可视的公告已超出3条,更改将无效');
+      }
     }
   }
 
@@ -135,11 +155,11 @@ export default class WebView extends PureComponent {
         key: 'viewed',
         width: '15%',
         dataIndex: 'viewed',
-        render: (viewd, record) => (
+        render: (viewed, record) => (
           <span>
             <Switch
               checkedChildren={<Icon type="check" />}
-              defaultChecked={viewd !== 'false'}
+              defaultChecked={viewed !== 'false'}
               unCheckedChildren={<Icon type="cross" />}
               disabled={!record.editable}
               onChange={e => this.handleChangeView(e, 'viewed', record.infid)}
