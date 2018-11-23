@@ -426,8 +426,8 @@ export default class FirstPage extends PureComponent {
         <Layout>
           {/* 这里需要加入判断手机和电脑屏幕的程序* */}
           {this.Header()}
-          <Content style={{ marginTop: 128, width: '100%', textAlign: 'center' }}>
-            <Carousel autoplay>
+          <Content style={{ marginTop: 128, width: '100%' /* textAlign: 'center' */ }}>
+            <Carousel autoplay style={{ marginBottom: 12 }}>
               <img
                 src={imgData[0].img_src}
                 style={{ width: '100%' }}
@@ -455,22 +455,21 @@ export default class FirstPage extends PureComponent {
                 />
               }
             </Carousel>
-
-            <Carousel
-              style={{ marginTop: 12, fontSize: 24 /* background: '#000000' */ }}
-              autoplay
-              dots="false"
-              loading={loading}
-            >
-              {webShowInfos.map(item => (
-                <span key={item.infid}>{item.inftxt} </span>
-              ))}
-            </Carousel>
-
+            <Divider orientation="left">
+              <span style={{ fontSize: 22 }}>网站公告</span>
+            </Divider>
+            <div style={{ marginTop: 12, textAlign: 'center' }}>
+              <Carousel autoplay dots="false" loading={loading}>
+                {webShowInfos.map(item => (
+                  <span key={item.infid}> {item.inftxt} </span>
+                ))}
+              </Carousel>
+            </div>
+            <Divider />
             <div style={{ zIndex: 0 }}>
               <div style={{ background: '#f0f2f5' }}>
                 <div style={{ marginBottom: 8, marginTop: 12 }}>
-                  <span style={{ fontSize: 28 }}>
+                  <span style={{ fontSize: 28, paddingLeft: '4%' }}>
                     <Icon type="question-circle-o" />
                     &nbsp;&nbsp;设计案例
                   </span>
@@ -502,7 +501,7 @@ export default class FirstPage extends PureComponent {
 
               <div style={{ background: '#ffffff' }}>
                 <div style={{ marginBottom: 8, marginTop: 12 }}>
-                  <span style={{ fontSize: 28 }}>
+                  <span style={{ fontSize: 28, paddingLeft: '4%' }}>
                     <img
                       style={{ width: '2%' }}
                       src="http://39.104.208.4/image/firstpage/u2327.png"
@@ -538,7 +537,7 @@ export default class FirstPage extends PureComponent {
 
               <div style={{ background: '#f0f2f5' }}>
                 <div style={{ marginBottom: 8, marginTop: 16 }}>
-                  <span style={{ fontSize: 28 }}>
+                  <span style={{ fontSize: 28, paddingLeft: '4%' }}>
                     <img
                       style={{ width: '2%' }}
                       src="http://39.104.208.4/image/firstpage/u26.png"
@@ -573,7 +572,7 @@ export default class FirstPage extends PureComponent {
               </div>
               <div style={{ background: '#ffffff' }}>
                 <div style={{ marginBottom: 8, marginTop: 16 }}>
-                  <span style={{ fontSize: 28 }}>
+                  <span style={{ fontSize: 28, paddingLeft: '4%' }}>
                     <img src="http://39.104.208.4/image/firstpage/u26.png" alt="img" />
                     &nbsp;&nbsp;合作方式
                   </span>
