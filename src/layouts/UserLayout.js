@@ -34,6 +34,9 @@ class UserLayout extends React.PureComponent {
         });
       }
     }
+    dispatch({
+      type: 'system/getShowInfo',
+    });
   }
 
   getPageTitle() {
