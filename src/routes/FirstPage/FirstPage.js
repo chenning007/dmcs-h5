@@ -4,113 +4,11 @@ import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, List, Carousel, Layout } from 'antd';
 
+import { imgData, designExam } from '../../../public/constant';
+
 const { Header, Content } = Layout;
 const { Meta } = Card;
-
-const designExam = [
-  {
-    key: 1,
-    src: 'http://39.104.208.4/image/firstpage/shili1.png',
-    description: 'IPT70135/6/7测控节点电路封装盒',
-  },
-  {
-    key: 2,
-    src: 'http://39.104.208.4/image/firstpage/shili2.png',
-    description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换',
-  },
-  {
-    key: 3,
-    src: 'http://39.104.208.4/image/firstpage/shili3.png',
-    description: 'IPT12105 IPCAN总线供电转换模块',
-  },
-  {
-    key: 4,
-    src: 'http://39.104.208.4/image/firstpage/shili4.png',
-    description: 'IPT22105/22106 IPCAN电源转换节点',
-  },
-  /* {
-  key: 5,
-  src: 'http://39.104.208.4/image/firstpage/shili5.png',  
-  description: 'IPT70540 PCB表贴植锡丝印台',
-  } */
-];
-
 const Search = Input.Search;
-
-const imgData = [
-  {
-    id: 2,
-    img_src: 'http://39.104.208.4/image/firstpage/u108.png',
-    title: 'IOT',
-    description: 'IOT',
-    mode: '1',
-    time: '2018-07-08',
-    author: 'caizj15',
-  },
-  {
-    id: 3,
-    img_src: 'http://39.104.208.4/image/firstpage/figure2.png',
-    title: 'IOT',
-    description: 'IOT',
-    mode: '1',
-    time: '2018-07-08',
-    author: 'caizj15',
-  },
-  {
-    id: 5,
-    img_src: 'http://39.104.208.4/image/firstpage/figure3.png',
-    title: 'IOT',
-    description: 'IOT',
-    mode: '1',
-    time: '2018-07-08',
-    author: 'caizj15',
-  },
-  {
-    id: 7,
-    img_src: 'http://39.104.208.4/image/firstpage/figure4.png',
-    title: 'IOT',
-    description: 'IOT',
-    mode: '1',
-    time: '2018-07-08',
-    author: 'caizj15',
-  },
-  {
-    id: 8,
-    img_src: 'http://39.104.208.4/image/firstpage/shili1.png',
-    title: 'IPT70135',
-    description: 'IPT70135/6/7测控节点电路封装盒',
-    mode: '5',
-    time: '2018-07-08',
-    author: 'caizj15',
-  },
-  {
-    id: 9,
-    img_src: 'http://39.104.208.4/image/firstpage/shili2.png',
-    title: 'IPT10533',
-    description: 'IPT10533/10550 3.3V/5.0V非隔离式电源转换',
-    mode: '5',
-    time: '2018-07-08',
-    author: 'caizj15',
-  },
-  {
-    id: 10,
-    img_src: 'http://39.104.208.4/image/firstpage/shili3.png',
-    title: 'IPT12105',
-    description: 'IPT12105 IPCAN总线供电转换模块',
-    mode: '5',
-    time: '2018-07-08',
-    author: 'caizj15',
-  },
-  {
-    id: 11,
-    img_src: 'http://39.104.208.4/image/firstpage/shili4.png',
-    title: 'IPT22105',
-    description: 'IPT22105/22106 IPCAN电源转换节点',
-    mode: '5',
-    time: '2018-07-08',
-    author: 'caizj15',
-  },
-];
 
 @connect(state => ({
   currentUser: state.login.currentUser,
