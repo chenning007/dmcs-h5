@@ -273,7 +273,12 @@ export default class ViewedControl extends PureComponent {
           })(<FileView onChange={(e, editEnable) => this.editState(e, editEnable)} />)}
         </Card>
         {
-          <Card title="公告可视性" style={{ marginTop: 12 }} extra={this.webinfoExtra()}>
+          <Card
+            title="公告可视性"
+            style={{ marginTop: 12 }}
+            extra={this.webinfoExtra()}
+            loading={loading}
+          >
             {getFieldDecorator('webinfo', {
               initialValue: webinfos,
             })(
