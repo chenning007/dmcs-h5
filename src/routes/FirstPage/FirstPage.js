@@ -11,6 +11,8 @@ const { Meta } = Card;
 const Search = Input.Search;
 
 @connect(state => ({
+  loading: state.system.loading,
+  webShowInfos: state.system.webShowInfos,
   currentUser: state.login.currentUser,
 }))
 export default class FirstPage extends PureComponent {
@@ -385,6 +387,23 @@ export default class FirstPage extends PureComponent {
     }
   }
 
+  // /////////
+
+  showWebinfos() {
+    const { webShowInfos } = this.props;
+    const { isMobile } = this.state;
+    if (isMobile || !Array.isArray(webShowInfos)) return null;
+    else {
+      return (
+        <div>
+          {webShowInfos.map(item => (
+            <span>{item.inftxt}</span>
+          ))}
+        </div>
+      );
+    }
+  }
+
   /* ******** */
   Linkpage(id, mode) {
     const { dispatch } = this.props;
@@ -400,12 +419,13 @@ export default class FirstPage extends PureComponent {
   }
 
   render() {
+    const { loading, webShowInfos } = this.props;
+
     return (
       <div>
         <Layout>
           {/* 这里需要加入判断手机和电脑屏幕的程序* */}
           {this.Header()}
-
           <Content style={{ marginTop: 128, width: '100%', textAlign: 'center' }}>
             <Carousel autoplay>
               <img
@@ -435,6 +455,18 @@ export default class FirstPage extends PureComponent {
                 />
               }
             </Carousel>
+
+            <Carousel
+              style={{ marginTop: 12, fontSize: 24 /* background: '#000000' */ }}
+              autoplay
+              dots="false"
+              loading={loading}
+            >
+              {webShowInfos.map(item => (
+                <span key={item.infid}>{item.inftxt} </span>
+              ))}
+            </Carousel>
+
             <div style={{ zIndex: 0 }}>
               <div style={{ background: '#f0f2f5' }}>
                 <div style={{ marginBottom: 8, marginTop: 12 }}>
