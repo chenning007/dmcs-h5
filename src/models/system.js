@@ -1,4 +1,10 @@
-import { GetWebInfo, AddWebInfo, DeleteWebInfo, UpdateWebInfo } from '../services/api';
+import {
+  GetWebInfo,
+  AddWebInfo,
+  DeleteWebInfo,
+  UpdateWebInfo,
+  GetShowWebInfo,
+} from '../services/api';
 
 export default {
   namespace: 'system',
@@ -6,9 +12,25 @@ export default {
   state: {
     loading: false,
     webinfos: [],
+    webShowInfos: [],
   },
 
   effects: {
+    *getShowInfo(_, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        loading: false,
+      });
+      const response = yield call(GetShowWebInfo);
+      yield put({
+        type: 'changeShowWebInfo',
+        payload: response,
+      });
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+    },
     *getWebinfo(_, { call, put }) {
       yield put({
         type: 'changeLoading',
@@ -76,6 +98,7 @@ export default {
       return {
         loading: false,
         webinfos: [],
+        webShowInfos: [],
       };
     },
     changeLoading(state, action) {
@@ -89,6 +112,17 @@ export default {
         ...state,
         webinfos:
           payload.status === 'ok' ? (payload.data === null ? [] : payload.data) : state.webinfos,
+      };
+    },
+    changeShowWebInfo(state, { payload }) {
+      return {
+        ...state,
+        webShowInfos:
+          payload.status === 'ok'
+            ? payload.data === null
+              ? []
+              : payload.data
+            : state.webShowInfos,
       };
     },
   },
