@@ -1,4 +1,6 @@
-export const httpAddress = /* 'http://39.104.208.4'; */ 'http://127.0.0.1:80';
+export const httpAddress = 'http://39.104.208.4'; /* 'http://127.0.0.1:80'; */
+
+// /http://39.104.208.4/home/dmcs//image/document/
 
 export const sourceData = [
   { id: 10, title: '权限管理', icon: 'lock', color: { backgroundColor: '#008000' } },
