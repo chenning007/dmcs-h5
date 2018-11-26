@@ -6,6 +6,9 @@ export default {
   namespace: 'firstpage',
 
   state: {
+    temCreateId: 0,
+    moduleid: '1',
+
     list: [],
     pagelist: [],
     loading: false,
@@ -51,6 +54,24 @@ export default {
       yield put({
         type: 'changePageLoading',
         payload: false,
+      });
+    },
+    *setCreateid({ payload }, { put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+      yield put({
+        type: 'changeCreateId',
+        payload: payload.createid,
+      });
+      yield put({
+        type: 'changeModuleId',
+        payload: payload.moduleid,
+      });
+      yield put({
+        type: 'changeLoading',
+        payload: true,
       });
     },
   },
@@ -99,6 +120,18 @@ export default {
           ...payload,
         },
         pagelist: payload.status === 'ok' ? (payload.data === undefined ? [] : payload.data) : [],
+      };
+    },
+    changeCreateId(state, action) {
+      return {
+        ...state,
+        temCreateId: action.payload,
+      };
+    },
+    changeModuleId(state, action) {
+      return {
+        ...state,
+        moduleid: action.payload,
       };
     },
   },
