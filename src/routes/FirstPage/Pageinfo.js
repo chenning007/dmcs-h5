@@ -10,6 +10,10 @@ const Search = Input.Search;
 
 @connect(state => ({
   currentUser: state.login.currentUser,
+  pagelist: state.firstpage.pagelist,
+  createid: state.firstpage.temCreateId,
+  loading: state.firstpage.loading,
+  moduleid: state.firstpage.moduleid,
 }))
 export default class Pageinfo extends PureComponent {
   state = { screenMobile: false };
@@ -26,6 +30,11 @@ export default class Pageinfo extends PureComponent {
     this.setState = () => {
       return null;
     };
+  }
+
+  getRowByKey() {
+    const { pagelist, temCreateId } = this.props;
+    return pagelist.filter(item => item.createid === temCreateId)[0];
   }
 
   MenuKey = e => {
@@ -183,8 +192,8 @@ export default class Pageinfo extends PureComponent {
 
   Header() {
     const { screenMobile } = this.state;
-    const { location } = this.props;
-    const { key = '1' } = location.state === undefined ? '1' : location.state;
+    const { moduleid = '1' } = this.props;
+
     if (screenMobile === true) {
       return (
         <Layout>
@@ -218,7 +227,7 @@ export default class Pageinfo extends PureComponent {
               <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={[key]}
+                defaultSelectedKeys={[moduleid]}
                 style={{ lineHeight: '64px' }}
                 onClick={this.MenuKey}
               >
@@ -293,7 +302,7 @@ export default class Pageinfo extends PureComponent {
               <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={[key]}
+                defaultSelectedKeys={[moduleid]}
                 style={{ lineHeight: '64px' }}
                 onClick={this.MenuKey}
               >
@@ -371,10 +380,8 @@ export default class Pageinfo extends PureComponent {
   }
 
   Position() {
-    const { location } = this.props;
-    const { key = '1' } = location.state === undefined ? '1' : location.state;
-    const { id = 1 } = location.state === undefined ? 1 : location.state;
-    if (key === '1') {
+    const { moduleid, createid } = this.props;
+    if (moduleid === '1') {
       return (
         <div style={{ background: '#4B0082', color: '#ffffff' }}>
           <Icon type="home" style={{ marginLeft: 24, fontSize: 28 }} />
@@ -384,12 +391,12 @@ export default class Pageinfo extends PureComponent {
             &nbsp;&nbsp;
             {'>'}
             &nbsp;&nbsp;
-            {id}
+            {createid}
           </span>
         </div>
       );
     }
-    if (key !== '1') {
+    if (moduleid !== '1') {
       return (
         <div style={{ background: '#4B0082', color: '#ffffff' }}>
           <Icon type="home" style={{ marginLeft: 24, fontSize: 28 }} />
@@ -399,11 +406,11 @@ export default class Pageinfo extends PureComponent {
             &nbsp;&nbsp;
             {'>'}
             &nbsp;&nbsp;
-            <a onClick={() => this.Linkpage(key)}>{KeytoName(key)}</a>
+            <a onClick={() => this.Linkpage(moduleid)}>{KeytoName(moduleid)}</a>
             &nbsp;&nbsp;
             {'>'}
             &nbsp;&nbsp;
-            {id}
+            {createid}
           </span>
         </div>
       );
