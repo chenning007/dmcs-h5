@@ -106,6 +106,10 @@ class BasicLayout extends React.PureComponent {
     dispatch({
       type: 'user/clear',
     });
+
+    this.setState = () => {
+      return null;
+    };
   }
 
   getPageTitle() {
