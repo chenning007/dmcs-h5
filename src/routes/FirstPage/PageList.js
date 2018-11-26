@@ -79,7 +79,25 @@ export default class PageList extends PureComponent {
       default:
         break;
     }
+    dispatch({
+      type: 'firstpage/getPageList',
+      payload: {
+        valueSelect: KeytoModule(e.key),
+      },
+    });
   };
+
+  showDetailInfo(createid, keynum) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'firstpage/setCreateid',
+      payload: {
+        createid,
+        moduleid: keynum,
+      },
+    });
+    dispatch(routerRedux.push(`pageinfo`));
+  }
 
   Refresh(keynum) {
     const { dispatch } = this.props;
@@ -381,7 +399,15 @@ export default class PageList extends PureComponent {
                     dataSource={pagelist}
                     renderItem={item => (
                       <List.Item key={item.createid}>
-                        <Card cover={<img alt="cover" src={httpAddress + item.imagesrc} />}>
+                        <Card
+                          cover={
+                            <img
+                              alt="cover"
+                              src={httpAddress + item.imagesrc}
+                              onClick={() => this.showDetailInfo(item.createid, keynum)}
+                            />
+                          }
+                        >
                           <Meta description={item.fileimagedescrip} />
                         </Card>
                       </List.Item>
