@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Icon, Divider, Menu, Button, Input, Layout } from 'antd';
+import { Row, Col, Icon, Divider, Menu, Button, Input, Layout } from 'antd';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
 import { KeytoName } from '../../utils/KeyToName';
+import { httpAddress } from '../../../public/constant';
 
 const { Header, Content } = Layout;
 const Search = Input.Search;
@@ -17,6 +18,13 @@ const Search = Input.Search;
 }))
 export default class Pageinfo extends PureComponent {
   state = { screenMobile: false };
+
+  componentWillMount() {
+    const { moduleid, dispatch } = this.props;
+    if (moduleid === '1') {
+      dispatch(routerRedux.push(`firstpage`));
+    }
+  } /* 避免特殊的情况 */
 
   componentDidMount() {
     enquireScreen(mobile => {
@@ -33,8 +41,8 @@ export default class Pageinfo extends PureComponent {
   }
 
   getRowByKey() {
-    const { pagelist, temCreateId } = this.props;
-    return pagelist.filter(item => item.createid === temCreateId)[0];
+    const { pagelist, createid } = this.props;
+    return pagelist.filter(item => item.createid === createid)[0];
   }
 
   MenuKey = e => {
@@ -348,34 +356,22 @@ export default class Pageinfo extends PureComponent {
   }
 
   ContentData() {
-    const { location } = this.props;
-    const { id = 1 } = location.state === undefined ? 1 : location.state;
-    switch (id) {
-      case 1:
-      case 3:
-      case 5:
-      case 7: {
-        return <Card>内容</Card>;
-      }
-      case 8:
-      case 9:
-      case 10:
-      case 11: {
-        return <Card>暂无</Card>;
-      }
-      default: {
-        return (
-          <div>
-            <iframe
-              title="content_frame"
-              src="http://39.104.208.4/image/1.html"
-              style={{ width: '100%', height: 200, border: 0 }}
-              frameBorder="no"
-              scrolling="no"
-            />
-          </div>
-        );
-      }
+    // const { location } = this.props;
+    // const { id = 1 } = location.state === undefined ? 1 : location.state;
+    const fileWindow = this.getRowByKey();
+    if (fileWindow === undefined || fileWindow === null) return <div>数据出错</div>;
+    else {
+      return (
+        <div>
+          <iframe
+            title="content_frame"
+            src={httpAddress + fileWindow.filesrc}
+            style={{ width: '100%', height: 200, border: 0 }}
+            /* frameBorder="no"
+            scrolling="no" */
+          />
+        </div>
+      );
     }
   }
 
