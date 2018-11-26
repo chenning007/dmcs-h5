@@ -26,6 +26,12 @@ export default class FirstPage extends PureComponent {
     });
   }
 
+  componentWillUnmount() {
+    this.setState = () => {
+      return null;
+    };
+  }
+
   MenuKey = e => {
     const { dispatch } = this.props;
 
@@ -113,17 +119,6 @@ export default class FirstPage extends PureComponent {
             pathname: 'pagelist',
             state: {
               key: '9',
-            },
-          })
-        );
-        break;
-      }
-      case '10': {
-        dispatch(
-          routerRedux.push({
-            pathname: 'pagelist',
-            state: {
-              key: '10',
             },
           })
         );
@@ -374,9 +369,6 @@ export default class FirstPage extends PureComponent {
                   </Menu.Item>
                   <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="9">
                     合作规则
-                  </Menu.Item>
-                  <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="10">
-                    合作留言
                   </Menu.Item>
                 </Menu.SubMenu>
               </Menu>
