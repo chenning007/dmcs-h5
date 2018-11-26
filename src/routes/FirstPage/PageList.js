@@ -2,92 +2,44 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
-import { Row, Col, Card, Icon, Divider, Menu, Button, Input, Layout } from 'antd';
+import { Row, Col, Card, Icon, Divider, Menu, Button, Input, Layout, Tooltip } from 'antd';
+import { KeytoName, KeytoModule } from '../../utils/KeyToName';
 
 const { Header, Content } = Layout;
 const Search = Input.Search;
 
-function KeytoName(key) {
-  switch (key) {
-    case '1':
-      return '首页';
-    case '2':
-      return 'DMCS简介';
-    case '3':
-      return '解决方案';
-    case '4':
-      return '科研成果';
-    case '5':
-      return '设计案例';
-    case '6':
-      return '合作方式';
-    case '7':
-      return '软件下载';
-    case '8':
-      return '资料下载';
-    case '9':
-      return '合作规则';
-    case '10':
-      return '合作留言';
-    default:
-      return '首页';
-  }
-}
-
-function showContent(key) {
-  if (key !== undefined) {
-    /* ** */
-    switch (key) {
-      case '3': {
-        return <Card>解决方案</Card>;
-      }
-      case '4': {
-        return <Card>科研成果</Card>;
-      }
-      case '5': {
-        return <Card>设计案例</Card>;
-      }
-      case '6': {
-        return <Card>合作方式</Card>;
-      }
-      case '7': {
-        return <Card>软件下载</Card>;
-      }
-      case '8': {
-        return <Card>资料下载</Card>;
-      }
-      case '9': {
-        return <Card>合作规则</Card>;
-      }
-      case '10': {
-        return <Card>　　　合作留言</Card>;
-      }
-      default: {
-        return <Card>暂无内容</Card>;
-      }
-    }
-  } else {
-    return <Card>暂无内容</Card>;
-  }
-}
-
 @connect(state => ({
   currentUser: state.login.currentUser,
+  pagelist: state.firstpage.pagelist,
+  pagelistloading: state.firstpage.pagelistloading,
 }))
 export default class PageList extends PureComponent {
   state = { isMobile: false, keynum: '1' };
 
   componentDidMount() {
-    const { location } = this.props;
+    const { location, dispatch } = this.props;
     const { key = '1' } = location.state === undefined ? '1' : location.state;
-
     enquireScreen(mobile => {
       this.setState({
         isMobile: mobile,
       });
     });
     this.setState({ keynum: key });
+
+    dispatch({
+      type: 'firstpage/getPageList',
+      payload: {
+        valueSelect: KeytoModule(key),
+      },
+    });
   }
+
+  componentWillUnmount() {
+    this.setState = () => {
+      return null;
+    };
+  }
+
   /* ******* */
 
   MenuKey = e => {
@@ -116,8 +68,7 @@ export default class PageList extends PureComponent {
       case '6':
       case '7':
       case '8':
-      case '9':
-      case '10': {
+      case '9': {
         this.setState({ keynum: e.key });
         break;
       }
@@ -125,6 +76,16 @@ export default class PageList extends PureComponent {
         break;
     }
   };
+
+  Refresh(keynum) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'firstpage/getPageList',
+      payload: {
+        valueSelect: KeytoModule(keynum),
+      },
+    });
+  }
 
   Linkpage(key) {
     const { dispatch } = this.props;
@@ -215,7 +176,7 @@ export default class PageList extends PureComponent {
               <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={[keynum]}
+                selectedKeys={[keynum]}
                 style={{ lineHeight: '64px' }}
                 onClick={this.MenuKey}
               >
@@ -239,7 +200,7 @@ export default class PageList extends PureComponent {
                 </Menu.Item>
                 <Menu.SubMenu
                   key="sub1"
-                  title={<text style={{ textAlign: 'center', fontSize: 18 }}>更多</text>}
+                  title={<span style={{ textAlign: 'center', fontSize: 18 }}>更多</span>}
                 >
                   <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="7">
                     软件下载
@@ -249,9 +210,6 @@ export default class PageList extends PureComponent {
                   </Menu.Item>
                   <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="9">
                     合作规则
-                  </Menu.Item>
-                  <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="10">
-                    合作留言
                   </Menu.Item>
                 </Menu.SubMenu>
               </Menu>
@@ -293,7 +251,7 @@ export default class PageList extends PureComponent {
               <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={[keynum]}
+                selectedKeys={[keynum]}
                 style={{ lineHeight: '64px' }}
                 onClick={this.MenuKey}
               >
@@ -328,9 +286,6 @@ export default class PageList extends PureComponent {
                   </Menu.Item>
                   <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="9">
                     合作规则
-                  </Menu.Item>
-                  <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="10">
-                    合作留言
                   </Menu.Item>
                 </Menu.SubMenu>
               </Menu>
@@ -377,6 +332,7 @@ export default class PageList extends PureComponent {
 
   render() {
     const { keynum } = this.state;
+    const { pagelist = [] } = this.props;
     return (
       <Layout>
         {this.Header()}
@@ -392,7 +348,19 @@ export default class PageList extends PureComponent {
                   alt="img"
                 />
                 {this.Position()}
-                {showContent(keynum)}
+                <Card
+                  style={{ marginTop: 12 }}
+                  title={KeytoName(keynum)}
+                  extra={
+                    <Tooltip placement="top" title="刷新列表数据">
+                      <Button type="primary" onClick={() => this.Refresh(keynum)}>
+                        <Icon type="retweet" />
+                      </Button>
+                    </Tooltip>
+                  }
+                >
+                  {pagelist !== [] && pagelist.map(item => <Card.grid key={item.createid} />)}
+                </Card>
               </Col>
               <Col xl={2} lg={12} md={12} sm={24} xs={24} />
             </Row>
