@@ -216,13 +216,13 @@ export const getRouterData = app => {
       ),
     },
     '/user': {
-      component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
+      component: dynamicWrapper(app, ['firstpage'], () => import('../layouts/UserLayout')),
     },
     '/user/firstpage': {
-      component: dynamicWrapper(app, [], () => import('../routes/FirstPage/FirstPage')),
+      component: dynamicWrapper(app, ['firstpage'], () => import('../routes/FirstPage/FirstPage')),
     },
     '/user/pageinfo': {
-      component: dynamicWrapper(app, [], () => import('../routes/FirstPage/Pageinfo')),
+      component: dynamicWrapper(app, ['firstpage'], () => import('../routes/FirstPage/Pageinfo')),
     },
     '/user/pagelist': {
       component: dynamicWrapper(app, ['login', 'firstpage'], () =>
