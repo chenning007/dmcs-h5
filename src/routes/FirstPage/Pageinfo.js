@@ -3,36 +3,10 @@ import { connect } from 'dva';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, Layout } from 'antd';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
+import { KeytoName } from '../../utils/KeyToName';
 
 const { Header, Content } = Layout;
 const Search = Input.Search;
-
-function KeytoName(key) {
-  switch (key) {
-    case '1':
-      return '首页';
-    case '2':
-      return 'DMCS简介';
-    case '3':
-      return '解决方案';
-    case '4':
-      return '科研成果';
-    case '5':
-      return '设计案例';
-    case '6':
-      return '合作方式';
-    case '7':
-      return '软件下载';
-    case '8':
-      return '资料下载';
-    case '9':
-      return '合作规则';
-    case '10':
-      return '合作留言';
-    default:
-      return '首页';
-  }
-}
 
 @connect(state => ({
   currentUser: state.login.currentUser,
@@ -46,6 +20,12 @@ export default class Pageinfo extends PureComponent {
         screenMobile: mobile,
       });
     });
+  }
+
+  componentWillUnmount() {
+    this.setState = () => {
+      return null;
+    };
   }
 
   MenuKey = e => {
@@ -135,17 +115,6 @@ export default class Pageinfo extends PureComponent {
             pathname: 'pagelist',
             state: {
               key: '9',
-            },
-          })
-        );
-        break;
-      }
-      case '10': {
-        dispatch(
-          routerRedux.push({
-            pathname: 'pagelist',
-            state: {
-              key: '10',
             },
           })
         );
@@ -273,7 +242,7 @@ export default class Pageinfo extends PureComponent {
                 </Menu.Item>
                 <Menu.SubMenu
                   key="sub1"
-                  title={<text style={{ textAlign: 'center', fontSize: 18 }}>更多</text>}
+                  title={<span style={{ textAlign: 'center', fontSize: 18 }}>更多</span>}
                 >
                   <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="7">
                     软件下载
@@ -283,9 +252,6 @@ export default class Pageinfo extends PureComponent {
                   </Menu.Item>
                   <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="9">
                     合作规则
-                  </Menu.Item>
-                  <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="10">
-                    合作留言
                   </Menu.Item>
                 </Menu.SubMenu>
               </Menu>
@@ -363,9 +329,6 @@ export default class Pageinfo extends PureComponent {
                   <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="9">
                     合作规则
                   </Menu.Item>
-                  <Menu.Item style={{ textAlign: 'center', fontSize: 18 }} key="10">
-                    合作留言
-                  </Menu.Item>
                 </Menu.SubMenu>
               </Menu>
             </div>
@@ -393,10 +356,6 @@ export default class Pageinfo extends PureComponent {
       }
       default: {
         return (
-          // {/* <Card>
-          //    本网站由清华大学DMCS(Distributed Measurement & Control System)课题组主办，目的在于课题组的新技术推广和实质性学术交流。 清华大学DMCS课题组长期从事分布式测控系统及其相关技术研究。
-          //    经过多年的坚持和努力，基于课题组曾提出的"IPT (Information Pipe Technology)"信息管道技术，研制出了IPT系列多种新技术产品，可满足多数新型分布式测控系统的设计和应用需求。在热、机、电等应用领域的分布式测控技术方面，有望探索出一条技术和市场高度相结合的科技发展道路。欢迎更多的有识之士支持或加入我们团队。
-          // </Card> */}
           <div>
             <iframe
               title="content_frame"
