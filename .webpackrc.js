@@ -139,6 +139,11 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^api/v1/file/updaFIOrdVie': '' },
     },
+    '/api/v1/file/getPageList': {
+      target: 'http://127.0.0.1:8080/dmcs',
+      changeOrigin: true,
+      pathRewrite: { '^api/v1/file/getPageList': '' },
+    },
     '/api/v1/system/getShowWebinfo': {
       target: 'http://127.0.0.1:8080/dmcs',
       changeOrigin: true,
