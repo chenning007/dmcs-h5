@@ -225,7 +225,9 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../routes/FirstPage/Pageinfo')),
     },
     '/user/pagelist': {
-      component: dynamicWrapper(app, [], () => import('../routes/FirstPage/PageList')),
+      component: dynamicWrapper(app, ['login', 'firstpage'], () =>
+        import('../routes/FirstPage/PageList')
+      ),
     },
     '/user/login': {
       component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
