@@ -1,13 +1,15 @@
-import { query as queryUsers, queryCurrent, } from '../services/user';
 import { message } from 'antd';
-import { fakeSubmitForm } from '../services/api';
+import { queryCurrent } from '../services/user';
+import { fakeSubmitForm, GetPageList } from '../services/api';
 
 export default {
   namespace: 'firstpage',
 
   state: {
     list: [],
+    pagelist: [],
     loading: false,
+    pagelistloading: false,
     currentUser: {},
     regularFormSubmitting: false,
   },
@@ -21,7 +23,7 @@ export default {
     },
     *submitRegularForm({ payload }, { call, put }) {
       yield put({
-        type: 'changeRegularFormSubmitting',
+        type: 'changeLoading',
         payload: true,
       });
       const response = yield call(fakeSubmitForm, payload);
@@ -29,16 +31,41 @@ export default {
         type: 'changeRegularFormSubmitting',
         payload: response,
       });
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
       message.success('提交成功');
     },
+
+    *getPageList({ payload }, { call, put }) {
+      yield put({
+        type: 'changePageLoading',
+        payload: true,
+      });
+      const response = yield call(GetPageList, payload);
+      yield put({
+        type: 'changePageList',
+        payload: response,
+      });
+      yield put({
+        type: 'changePageLoading',
+        payload: false,
+      });
+    },
   },
-//action包含的内容
-//自动进行解析，能够自动进行键值匹配
+
   reducers: {
     changeLoading(state, action) {
       return {
         ...state,
         loading: action.payload,
+      };
+    },
+    changePageLoading(state, action) {
+      return {
+        ...state,
+        pagelistloading: action.payload,
       };
     },
     saveCurrentUser(state, action) {
@@ -48,7 +75,7 @@ export default {
       };
     },
     clear() {
-      return{
+      return {
         list: [],
         loading: false,
         currentUser: {},
@@ -61,7 +88,17 @@ export default {
           ...state.status,
           ...payload,
         },
-        regularFormSubmitting: ((state.status === 'ok') ? true : false),
+        regularFormSubmitting: state.status === 'ok',
+      };
+    },
+    changePageList(state, { payload }) {
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          ...payload,
+        },
+        pagelist: payload.status === 'ok' ? (payload.data === undefined ? [] : payload.data) : [],
       };
     },
   },
