@@ -2,11 +2,15 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
-import { Row, Col, Card, Icon, Divider, Menu, Button, Input, Layout, Tooltip } from 'antd';
+import { Row, Col, Card, Icon, Divider, Menu, Button, Input, Layout, Tooltip, List } from 'antd';
 import { KeytoName, KeytoModule } from '../../utils/KeyToName';
+import styles from './PageList.less';
+import { httpAddress } from '../../../public/constant';
 
 const { Header, Content } = Layout;
 const Search = Input.Search;
+
+const { Meta } = Card;
 
 @connect(state => ({
   currentUser: state.login.currentUser,
@@ -85,6 +89,16 @@ export default class PageList extends PureComponent {
         valueSelect: KeytoModule(keynum),
       },
     });
+  }
+
+  changeRouterLogin() {
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push(`login`));
+  }
+
+  changeRouterRegister() {
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push(`register`));
   }
 
   Linkpage(key) {
@@ -332,7 +346,8 @@ export default class PageList extends PureComponent {
 
   render() {
     const { keynum } = this.state;
-    const { pagelist = [] } = this.props;
+    const { pagelist = [], pagelistloading } = this.props;
+
     return (
       <Layout>
         {this.Header()}
@@ -349,8 +364,10 @@ export default class PageList extends PureComponent {
                 />
                 {this.Position()}
                 <Card
+                  className={styles.projectList}
                   style={{ marginTop: 12 }}
                   title={KeytoName(keynum)}
+                  loading={pagelistloading}
                   extra={
                     <Tooltip placement="top" title="刷新列表数据">
                       <Button type="primary" onClick={() => this.Refresh(keynum)}>
@@ -359,7 +376,17 @@ export default class PageList extends PureComponent {
                     </Tooltip>
                   }
                 >
-                  {pagelist !== [] && pagelist.map(item => <Card.grid key={item.createid} />)}
+                  <List
+                    grid={{ gutter: 16, lg: 4, md: 2, sm: 1, xs: 1 }}
+                    dataSource={pagelist}
+                    renderItem={item => (
+                      <List.Item key={item.createid}>
+                        <Card cover={<img alt="cover" src={httpAddress + item.imagesrc} />}>
+                          <Meta description={item.fileimagedescrip} />
+                        </Card>
+                      </List.Item>
+                    )}
+                  />
                 </Card>
               </Col>
               <Col xl={2} lg={12} md={12} sm={24} xs={24} />
