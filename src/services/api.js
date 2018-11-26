@@ -251,3 +251,10 @@ export async function UpdateWebInfo(params) {
 export async function GetShowWebInfo() {
   return request('/api/v1/system/getShowWebinfo');
 }
+
+export async function GetPageList(params) {
+  return request('/api/v1/file/getPageList', {
+    method: 'POST',
+    body: params,
+  });
+}
