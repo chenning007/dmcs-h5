@@ -20,7 +20,7 @@ import './Monitor_device.less';
 
 const { Option } = Select;
 const FormItem = Form.Item;
-/******* */
+/* ****** */
 const marks = {
   0: '0°C',
   26: '26°C',
