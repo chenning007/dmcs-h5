@@ -4,12 +4,12 @@ import { Row, Col, Icon, Divider, Menu, Button, Input, Layout } from 'antd';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
 import { KeytoName } from '../../utils/KeyToName';
-import { httpAddress } from '../../../public/constant';
+// import { httpAddress } from '../../../public/constant';
 
 const { Header, Content } = Layout;
 const Search = Input.Search;
 
-/* function SetHeight() {
+function SetHeight() {
   const subWeb = window.frames;
   let ifm = null;
   if (subWeb.length > 0) ifm = subWeb.frame;
@@ -23,7 +23,7 @@ const Search = Input.Search;
     ifm.style.height = 'auto'; // 关键这一句，先取消掉之前iframe设置的高度
     ifm.style.height = `${ifm.contentWindow.document.body.scrollHeight + 100}px`;
   }
-} */
+}
 
 @connect(state => ({
   currentUser: state.login.currentUser,
@@ -53,9 +53,9 @@ export default class Pageinfo extends PureComponent {
     if (moduleid === '1' && key === 1) {
       dispatch(routerRedux.push(`firstpage`));
     }
-    /* setTimeout(() => {
+    setTimeout(() => {
       SetHeight();
-    }, 100); */
+    }, 100);
   }
 
   componentWillUnmount() {
@@ -394,14 +394,14 @@ export default class Pageinfo extends PureComponent {
         <iframe
           style={{ width: '100%', overflow: 'visible' }}
           // src="../../../public/Technique_3.html"
-          // src={fileWindow.filesrc}
-          src={httpAddress + fileWindow.filesrc}
+          src={fileWindow.filesrc}
+          // src={httpAddress + fileWindow.filesrc}
           id="frame"
           title="frame"
           height="100px"
           scrolling="no"
           frameBorder="0"
-          // onLoad={SetHeight()}  // 这是为了进行简单的测试
+          onLoad={SetHeight()} // 这是为了进行简单的测试
         />
       );
     }
@@ -446,12 +446,10 @@ export default class Pageinfo extends PureComponent {
   }
 
   render() {
-    // const fileWindow = this.getRowByKey();
-    //  const { height } = this.state;
     return (
       <Layout>
         {this.Header()}
-        <Content style={{ marginTop: 128, width: '100%' /* textAlign: 'center' */ }}>
+        <Content style={{ marginTop: 128, width: '100%' }}>
           <div style={{ zIndex: 0, background: '#f0f2f5' }}>
             <Row>
               <Col xl={2} lg={12} md={12} sm={24} xs={24} />
