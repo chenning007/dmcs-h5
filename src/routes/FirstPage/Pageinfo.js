@@ -4,7 +4,7 @@ import { Row, Col, Icon, Divider, Menu, Button, Input, Layout } from 'antd';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
 import { KeytoName } from '../../utils/KeyToName';
-import { httpAddress } from '../../../public/constant';
+// import { httpAddress } from '../../../public/constant';
 
 const { Header, Content } = Layout;
 const Search = Input.Search;
@@ -26,7 +26,7 @@ function SetHeight() {
     ifm.contentWindow.document.body !== null
   ) {
     ifm.style.height = 'auto'; // 关键这一句，先取消掉之前iframe设置的高度
-    ifm.style.height = ifm.contentWindow.document.body.scrollHeight + 100;
+    ifm.style.height = `${ifm.contentWindow.document.body.scrollHeight + 100}px`;
   }
 }
 
@@ -451,7 +451,7 @@ export default class Pageinfo extends PureComponent {
   }
 
   render() {
-    const fileWindow = this.getRowByKey();
+    // const fileWindow = this.getRowByKey();
     //  const { height } = this.state;
     return (
       <Layout>
@@ -471,8 +471,8 @@ export default class Pageinfo extends PureComponent {
                   {/* this.ContentData() */}
                   <iframe
                     style={{ width: '100%', overflow: 'visible' }}
-                    // src='../../../public/Technique_3.html'
-                    src={httpAddress + fileWindow.filesrc}
+                    src="../../../public/Technique_3.html"
+                    // src={httpAddress + fileWindow.filesrc}
                     id="frame"
                     title="frame"
                     height="100px"
