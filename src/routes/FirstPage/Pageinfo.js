@@ -451,7 +451,7 @@ export default class Pageinfo extends PureComponent {
   }
 
   render() {
-    // const fileWindow = this.getRowByKey();
+    const fileWindow = this.getRowByKey();
     //  const { height } = this.state;
     return (
       <Layout>
@@ -471,8 +471,8 @@ export default class Pageinfo extends PureComponent {
                   {/* this.ContentData() */}
                   <iframe
                     style={{ width: '100%', overflow: 'visible' }}
-                    src="/Technique_3.html"
-                    // src={httpAddress + fileWindow.filesrc}
+                    // src="/Technique_3.html"
+                    src={fileWindow.filesrc}
                     id="frame"
                     title="frame"
                     height="100px"
