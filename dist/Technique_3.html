@@ -1,0 +1,314 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>IPT10533/10550性能的测试方法及测试结果 - 学术交流 - DMCS峡谷</title>
+	<meta name="generator" content="" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	</head>
+	<body>
+
+		<div class="subBanner"> 
+			<img src="templates/default/images/banner-ir.png" /> 
+		</div>
+		<div class="subnotice">
+		<strong>网站公告：</strong>
+		网站部分功能尚在完善之中，清华大学DMCS课题组感谢您的关注。
+		</div>
+		<div class="subBody">
+			<div class="subTitle"> 
+				
+			</div>
+			<div class="OneOfTwo">
+				<div class="listConts">
+					<h1 class="title">IPT10533/10550性能的测试方法及测试结果</h1>
+					<div class="info">
+					<small>更新时间：</small>
+					2015-03-03 11:01:00
+					<small>点击次数：</small>
+					1170次
+					<small>字号：</small>
+					<span class="small" title="切换到小字体">T</span>
+					|<span class="big" title="切换到大字体">T</span>	
+				</div>
+				<div id="textarea">
+					<p style="text-indent:2em;">
+						本文系统地阐述了高性能微型电源
+						<a href="productshow.php?cid=5&id=47" target="_blank">
+						<strong><u>IPT</u><u>10533/10550</u></strong>
+						</a>
+						的性能测试方法、测试实验以及具体的测试实验结果。
+					</p>
+					<p style="text-indent:2em;">
+						图1 给出了IPT10533/10550性能测试实验装置原理图。
+						IPT10533/10550输入端(Pin1、Pin2)外接直流电源，
+						输出端(Pin10、Pin7)外接阻抗可调的功率负载；
+						IPT10533/10550微型电源的输入和输出端分别接有电压表V和电流表A，
+						分别用于测量电源输入和输出端的电压和电流；
+						双踪示波器的ch1、ch2通道分别接入开关电源输出、输入端，用于记录电源的输入输出波形。
+						采用该装置可分别测量开关电源的开启电压、转换效率以及输出纹波。
+						各性能参数的具体测量方法及测试结果如下。
+					</p>
+					<p style="text-indent:2em;">
+						<img alt="" src="/uploads/image/20150401/1427865706.png" /> 
+					</p>
+					<p style="text-indent:2em;">
+						<br />
+					</p>
+					<p style="text-indent:2em;" align="center">
+						图1 IPT10533/10550性能测试实验装置原理图
+					</p>
+					<p style="text-indent:2em;">
+						1.开启电压的测试
+					</p>
+					<p style="text-indent:2em;">
+						在外部电源上电瞬间，用示波器同时记录IPT10533/10550输入电压和输出电压变换过程。输出电压从0V开始上升的瞬间所对应的输入电压瞬时值，即为开关电源的开启电压；输出电压从开启瞬间上升至额定输出值(3.3V/5.0V)时所用的时间，即为开关电源的上升时间。
+					</p>
+					<p style="text-indent:2em;">
+						图2 描述了开关电源输入点Vin接入电源瞬间，输出端Vout的电压变化曲线。由图中不难看出，当输入电压Vin&gt;7.8v的瞬间（图出红色曲线标注），输出电压Vout开启，并且Vout=3.3v以及Vout=5v两种情况下，开启电压测试结果相一致，均为7.8v。此外，Vout=3.3v时的输出电压上升时间约为15ms，Vout=5v时输出电压上升时间稍长，约为20ms。
+					</p>
+					<p>
+						<table style="width:100%;" class="ke-zeroborder" border="0">
+							<tbody>
+								<tr>
+									<td>
+										<p align="center">
+											<img alt="" src="/uploads/image/20150323/1427094476.png" /> 
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p align="center">
+											图2 &nbsp;开启电压测试实验结果
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+					<p style="text-indent:2em;">
+						2.转换效率的测试
+					</p>
+					<p style="text-indent:2em;">
+						在不同输入电压(DC9V~36V)和不同负载(0A~500mA)条件下，
+						分别测量IPT10533/10550微型电源输出的电压V2和电流A2，
+						以及输入端的电压V1和电流A1,并分别计算出其输出功率Pout和输入功率Pin，
+						Pout/Pin即为开关电源的转换效率。
+						图1所示的数字电流表在开关电源输入端采用外接方式，输出端采用内接方式，
+						以避免其分压对测量结果的影响。测试时，
+						电源输入电压为9v，12v，24v和36v等典型电压，通过调整负载，
+						使输出电流在0.05A~0.5A区间变化。
+					</p>
+					<p style="text-indent:2em;">
+						图3(a) 和图3(b) 分别给出了Vout=3.3v和Vout=5v两种情况下开关电源转换效率随输出
+						负载的变化特性曲线，两种情况下的系统转换效率随负载变化的曲线近似一致。
+						从图中曲线不难看出，随负载电流的增加，开关电源转换效率呈近似对数曲线趋势逐渐升
+						高，在输出负载为0.5A时，电源的能量转换效率达到最大，特别地，
+						当系统输入电压Vin=9v和Vin=12v时候，电源的能量转换效率可超过90%。
+						当电源负载电流恒定时，随输入电压升高，系统转换效率将下降。
+					</p>
+					<p>
+						<table style="width:100%;" class="ke-zeroborder" border="0">
+							<tbody>
+								<tr>
+									<td>
+										<p align="center">
+											<img title="" alt="" src="/uploads/image/20150323/1427094815.png" width="690" height="315" /> 
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p align="center">
+											图3&nbsp; 转换效率测试结果
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+					<p style="text-indent:2em;">
+						通过以上结果分析不难发现，在DC9V~36V的电源输入电压范围内，IPT10533/10550微型电源的输入电压越低，则其电源的能量转换效率越高。在0~500mA的输出电流允许范围内，IPT10533/10550微型电源的输出电流越大，则其电源的能量转换效率越高。
+					</p>
+					<p style="text-indent:2em;">
+						3. 输出纹波的测试<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 图4 给出了IPT10550微型电源(输出电压Vout=5v)在输出电流Iout=0.5A（满负载），且输入电压Vin分别为9v，12v，24v和36v情况下，其输出电压纹波特性曲线。不难看出，IPT10550微型电源的满载纹特性近似一致，且最大波动电压的峰峰不超过9mV。
+					</p>
+					<p>
+						<table style="width:100%;" class="ke-zeroborder" border="0">
+							<tbody>
+								<tr>
+									<td>
+										<p align="center">
+											<img alt="" src="/uploads/image/20150323/1427095747.png" /> 
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p align="center">
+											图4 &nbsp;IPT10550的满载纹波测试曲线
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+					<p style="text-indent:2em;">
+						图5分别定量地描述了IPT10533(输出电压Vout=3.3v)和IPT10550(输出电压Vout=5.0v)微型电源的满负载电压纹波峰峰值随输入电压Vin的变化关系。Vin的变化范围为9v~36v。如图5所示，随输入电压Vin升高，满负载电压纹波有变大的趋势，且IPT10533和IPT10550微型电源的满负载电压纹波峰峰值，分别不大于17mv(0.5%)和9mv(0.18%)。
+					</p>
+					<p style="text-indent:2em;">
+						<br />
+					</p>
+					<p align="center">
+						<img title="" alt="" src="/uploads/image/20150314/1426309844.jpg" width="300" height="230" /> 
+					</p>
+					<p style="text-indent:2em;" align="center">
+						图5 满载纹波随输入电压的变化关系曲线
+					</p>
+					<p style="text-indent:2em;">
+						图6 分别描述了IPT10533和IPT10550微型电源的空载电压纹波特性曲线。其中，IPT10533的空载电压纹波峰峰值Vrpl&lt;18mv，而IPT10550的空载电压纹波峰峰值Vrpl&lt;4mv。
+					</p>
+					<p>
+						<table style="width:100%;" class="ke-zeroborder" border="0">
+							<tbody>
+								<tr>
+									<td>
+										<p align="center">
+											<img title="" alt="" src="/uploads/image/20150323/1427099689.png" width="400" height="313" /> 
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p align="center">
+											图6 &nbsp;空载纹波特性曲线
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+					<p style="text-indent:2em;">
+						<br />
+					</p>
+					<p style="text-indent:2em;">
+						&nbsp;
+					</p>
+					<p class="MsoNormal">
+						<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family:Tahoma;font-size:12px;">4.</span></span><span style="font-family:Tahoma;font-size:12px;">负载调整率测试</span> 
+					</p>
+					<p class="MsoNormal">
+						<span style="font-family:Tahoma;font-size:12px;">
+						&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span>
+						<span style="font-family:Tahoma;font-size:12px;">采用</span>
+						<span style="font-family:Tahoma;font-size:12px;">Agilent U1273A</span>
+						<span style="font-family:Tahoma;font-size:12px;">
+						型高精度万用表测量不同负载电流条件下的电源输出电压。图</span>
+						<span style="font-family:Tahoma;font-size:12px;">7(a)</span>
+						<span style="font-family:Tahoma;font-size:12px;">和图</span>
+						<span style="font-family:Tahoma;font-size:12px;">7(b)</span>
+						<span style="font-family:Tahoma;font-size:12px;">分别给出了</span>
+						<span style="font-family:Tahoma;font-size:12px;">IPT10533</span>
+						<span style="font-family:Tahoma;font-size:12px;">和</span>
+						<span style="font-family:Tahoma;font-size:12px;">IPT10550</span>
+						<span style="font-family:Tahoma;font-size:12px;">
+						输出电压随负载变化曲线。当电源输出负载</span>
+						<span><span style="font-family:Tahoma;font-size:12px;">I</span>
+						<sub><span style="font-family:Tahoma;font-size:12px;">LOAD</span></sub>
+						</span><span style="font-family:Tahoma;font-size:12px;">变化范围为</span>
+						<span style="font-family:Tahoma;font-size:12px;">0(</span>
+						<span style="font-family:Tahoma;font-size:12px;">空载</span>
+						<span style="font-family:Tahoma;font-size:12px;">)</span>
+						<span style="font-family:Tahoma;font-size:12px;">≤</span>
+						<span><span style="font-family:Tahoma;font-size:12px;">I</span>
+						<sub><span style="font-family:Tahoma;font-size:12px;">LOAD</span>
+						</sub></span><span style="font-family:Tahoma;font-size:12px;">≤</span>
+						<span style="font-family:Tahoma;font-size:12px;">0.5A(</span>
+						<span style="font-family:Tahoma;font-size:12px;">满载</span>
+						<span style="font-family:Tahoma;font-size:12px;">)</span>
+						<span style="font-family:Tahoma;font-size:12px;">时，电源输出电压</span>
+						<span style="font-family:Tahoma;font-size:12px;">Vout</span>
+						<span style="font-family:Tahoma;font-size:12px;">随负载电流增大而缓慢下降。对</span>
+						<span style="font-family:Tahoma;font-size:12px;">IPT10533</span>
+						<span style="font-family:Tahoma;font-size:12px;">的随机抽样样品进行测试，其负载调整率变化范围为：</span>
+						<span style="font-family:Tahoma;font-size:12px;">0.61%~0.80%</span>
+						<span style="font-family:Tahoma;font-size:12px;">，对</span>
+						<span style="font-family:Tahoma;font-size:12px;">IPT10550</span>
+						<span style="font-family:Tahoma;font-size:12px;">的随机抽样样品进行测试，其负载调整率变化范围为：</span>
+						<span style="font-family:Tahoma;font-size:12px;">0.40%~0.90%</span>
+						<span style="font-family:Tahoma;font-size:12px;">。产品负载调整率极限估计值优于</span>
+						<span style="font-family:Tahoma;font-size:12px;">1.0%</span>
+						<span style="font-family:Tahoma;font-size:12px;">。</span> 
+					</p>
+					<p style="text-indent:2em;">
+						<br />
+					</p>
+					<p>
+						<table style="width:100%;" class="ke-zeroborder" border="0">
+							<tbody>
+								<tr>
+									<td>
+										<p align="center">
+											<img title="" alt="" 
+											src="/uploads/image/20151027/1445938817.jpg" 
+											width="690" height="315" /> 
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p align="center">
+											<span style="font-family:Tahoma;font-size:12px;">图</span>
+											<span style="font-family:Tahoma;font-size:12px;">
+											7 IPT10533/10550</span>
+											<span style="font-family:Tahoma;font-size:12px;">
+											输出电压随负载变化曲线
+											</span> 
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+					<p style="text-indent:2em;">
+						5.测试结论
+					</p>
+					<p style="text-indent:2em;">
+						经过上述测试实验及其结果分析，
+						<u>
+						<strong><a href="http://112.126.81.13/productshow.php?cid=5&id=47" 
+						target="_blank">IPT10533/10550</a></strong>
+						</u>微型电源的主要技术性能指标可概括如下：
+					</p>
+					<p style="text-indent:2em;">
+						●能量转换效率：86%~92%
+					</p>
+					<p style="text-indent:2em;">
+						●输出电压误差:≤±0.1V
+					</p>
+					<p style="text-indent:2em;">
+						●输出电压波纹：≤0.5% (@500mA)
+					</p>
+					<p style="text-indent:2em;">
+						●最大负载能力：500mA
+					</p>
+					<p style="text-indent:2em;">
+						●最大开关频率：≥1MHz
+					</p>
+					<p style="text-indent:2em;">
+						●电压输入范围：DC9V~36V
+					</p>
+					<p style="text-indent:2em;">
+						●负载调整率：优于1%(允许空载)
+					</p>
+				</div>
+			</div>
+		</div>	
+	</div>
+	</body>
+</html>
