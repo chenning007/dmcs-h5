@@ -383,7 +383,7 @@ export default class Pageinfo extends PureComponent {
 
   ContentData() {
     const fileWindow = this.getRowByKey();
-    if (fileWindow === undefined || fileWindow === null)
+    if (fileWindow === undefined || fileWindow === null|| fileWindow.filesrc===undefined)
       return (
         <div style={{ textAlign: 'center', marginTop: 40 }}>
           <Icon style={{ fontSize: '40px' }} type="loading" />
