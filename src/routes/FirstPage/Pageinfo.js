@@ -471,7 +471,7 @@ export default class Pageinfo extends PureComponent {
                   {/* this.ContentData() */}
                   <iframe
                     style={{ width: '100%', overflow: 'visible' }}
-                    src="../../../public/Technique_3.html"
+                    src="/Technique_3.html"
                     // src={httpAddress + fileWindow.filesrc}
                     id="frame"
                     title="frame"
