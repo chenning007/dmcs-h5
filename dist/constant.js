@@ -1,4 +1,4 @@
-export const httpAddress = /* 'http://39.104.208.4'; */ 'http://localhost:80';
+export const httpAddress = 'http://39.104.208.4'; /* 'http://localhost:80' */ // ;
 
 // /http://39.104.208.4/home/dmcs//image/document/
 
