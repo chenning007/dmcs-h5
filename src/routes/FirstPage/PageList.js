@@ -16,9 +16,18 @@ const { Meta } = Card;
   currentUser: state.login.currentUser,
   pagelist: state.firstpage.pagelist,
   pagelistloading: state.firstpage.pagelistloading,
+  moduleid: state.firstpage.moduleid,
 }))
 export default class PageList extends PureComponent {
   state = { isMobile: false, keynum: '1' };
+
+  componentWillMount() {
+    const { location, dispatch } = this.props;
+    const { key = '1' } = location.state === undefined ? '1' : location.state;
+    if (key === '1') {
+      dispatch(routerRedux.push(`firstpage`));
+    }
+  }
 
   componentDidMount() {
     const { location, dispatch } = this.props;
@@ -173,7 +182,9 @@ export default class PageList extends PureComponent {
   }
 
   Header() {
+    const { location } = this.props;
     const { isMobile, keynum } = this.state;
+    const { key = '1' } = location.state === undefined ? '1' : location.state;
 
     if (isMobile === true) {
       return (
@@ -208,7 +219,7 @@ export default class PageList extends PureComponent {
               <Menu
                 theme="dark"
                 mode="horizontal"
-                selectedKeys={[keynum]}
+                selectedKeys={[key !== '1' && keynum === '1' ? key : keynum]}
                 style={{ lineHeight: '64px' }}
                 onClick={this.MenuKey}
               >
@@ -283,7 +294,7 @@ export default class PageList extends PureComponent {
               <Menu
                 theme="dark"
                 mode="horizontal"
-                selectedKeys={[keynum]}
+                selectedKeys={[key !== '1' && keynum === '1' ? key : keynum]}
                 style={{ lineHeight: '64px' }}
                 onClick={this.MenuKey}
               >
