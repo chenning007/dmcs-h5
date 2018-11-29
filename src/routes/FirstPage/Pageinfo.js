@@ -9,6 +9,27 @@ import { httpAddress } from '../../../public/constant';
 const { Header, Content } = Layout;
 const Search = Input.Search;
 
+function SetHeight() {
+  /* const obj = ReactDOM.findDOMNode(this);
+  const inframeWind = obj.contentWindow || obj.contentDocument.parentWindow;
+  if(inframeWind.document.body)
+  this.setState({ height: inframeWind.document.documentElement.scrollHeight || inframeWind.document.body.scrollHeight,});
+  */
+  const subWeb = window.frames;
+  let ifm = null;
+  if (subWeb.length > 0) ifm = subWeb.frame;
+
+  if (
+    ifm !== null &&
+    ifm.contentWindow !== null &&
+    ifm.contentWindow.document !== null &&
+    ifm.contentWindow.document.body !== null
+  ) {
+    ifm.style.height = 'auto'; // 关键这一句，先取消掉之前iframe设置的高度
+    ifm.style.height = ifm.contentWindow.document.body.scrollHeight + 100;
+  }
+}
+
 @connect(state => ({
   currentUser: state.login.currentUser,
   pagelist: state.firstpage.pagelist,
@@ -17,7 +38,10 @@ const Search = Input.Search;
   moduleid: state.firstpage.moduleid,
 }))
 export default class Pageinfo extends PureComponent {
-  state = { screenMobile: false };
+  state = {
+    screenMobile: false,
+    // height: 0,
+  };
 
   componentWillMount() {
     const { moduleid, dispatch } = this.props;
@@ -32,6 +56,9 @@ export default class Pageinfo extends PureComponent {
         screenMobile: mobile,
       });
     });
+    setTimeout(() => {
+      SetHeight();
+    }, 100);
   }
 
   componentWillUnmount() {
@@ -355,25 +382,35 @@ export default class Pageinfo extends PureComponent {
     }
   }
 
-  ContentData() {
-    // const { location } = this.props;
-    // const { id = 1 } = location.state === undefined ? 1 : location.state;
+  /* SetHeight() {
+    const subframe = window.frames;
+    let iframe = null;
+    if (subframe.length > 0) {
+      iframe = subframe['frame'];
+      console.log(iframe);
+    }
+    if (
+      iframe !== null &&
+      iframe.contentDocument !== undefined &&
+      iframe.contentDocument.body !== undefined
+    ) {
+      const temHeight = iframe.contentDocument.body.scrollHeight;
+      if (temHeight !== null || temHeight !== undefined) this.setState({ height: temHeight });
+    }
+  } */
+
+  /* ContentData() {
+    const {height } = this.state;
     const fileWindow = this.getRowByKey();
     if (fileWindow === undefined || fileWindow === null) return <div>数据出错</div>;
     else {
       return (
-        <div>
-          <iframe
-            title="content_frame"
-            src={httpAddress + fileWindow.filesrc}
-            style={{ width: '100%', height: 200, border: 0 }}
-            /* frameBorder="no"
-            scrolling="no" */
-          />
-        </div>
+        <Inframe
+          src={httpAddress + fileWindow.filesrc}
+        />  
       );
     }
-  }
+  } */
 
   Position() {
     const { moduleid, createid } = this.props;
@@ -414,6 +451,8 @@ export default class Pageinfo extends PureComponent {
   }
 
   render() {
+    const fileWindow = this.getRowByKey();
+    //  const { height } = this.state;
     return (
       <Layout>
         {this.Header()}
@@ -428,7 +467,20 @@ export default class Pageinfo extends PureComponent {
                   alt="背景图片"
                 />
                 {this.Position()}
-                {this.ContentData()}
+                <div>
+                  {/* this.ContentData() */}
+                  <iframe
+                    style={{ width: '100%', overflow: 'visible' }}
+                    // src='../../../public/Technique_3.html'
+                    src={httpAddress + fileWindow.filesrc}
+                    id="frame"
+                    title="frame"
+                    height="100px"
+                    scrolling="no"
+                    frameBorder="0"
+                    onLoad={SetHeight()}
+                  />
+                </div>
               </Col>
               <Col xl={2} lg={12} md={12} sm={24} xs={24} />
             </Row>
