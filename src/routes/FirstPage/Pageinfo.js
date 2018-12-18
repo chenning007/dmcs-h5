@@ -383,7 +383,7 @@ export default class Pageinfo extends PureComponent {
 
   ContentData() {
     const fileWindow = this.getRowByKey();
-    if (fileWindow === undefined || fileWindow === null|| fileWindow.filesrc===undefined)
+    if (fileWindow === undefined || fileWindow === null || fileWindow.filesrc === undefined)
       return (
         <div style={{ textAlign: 'center', marginTop: 40 }}>
           <Icon style={{ fontSize: '40px' }} type="loading" />
@@ -393,8 +393,8 @@ export default class Pageinfo extends PureComponent {
       return (
         <iframe
           style={{ width: '100%', overflow: 'visible' }}
-          // src="../../../public/Technique_3.html"
-          src={fileWindow.filesrc}
+          src="../../../public/Technique_3.html"
+          // src={fileWindow.filesrc}
           // src={httpAddress + fileWindow.filesrc}
           id="frame"
           title="frame"
