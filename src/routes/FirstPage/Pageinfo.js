@@ -393,8 +393,8 @@ export default class Pageinfo extends PureComponent {
       return (
         <iframe
           style={{ width: '100%', overflow: 'visible' }}
-          src="../../../public/Technique_3.html"
-          // src={fileWindow.filesrc}
+          // src="../../../public/Technique_3.html"
+          src={fileWindow.filesrc}
           // src={httpAddress + fileWindow.filesrc}
           id="frame"
           title="frame"
