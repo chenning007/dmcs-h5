@@ -258,3 +258,7 @@ export async function GetPageList(params) {
     body: params,
   });
 }
+
+export async function GetFirstPage() {
+  return request('/api/v1/file/getFirstPageList');
+}
