@@ -4,7 +4,8 @@ import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, List, Carousel, Layout } from 'antd';
 
-import { imgData, designExam } from '../../../public/constant';
+import { ModuleToModuleid } from '../../utils/KeyToName';
+import { imgData /* designExam */ } from '../../../public/constant';
 
 const { Header, Content } = Layout;
 const { Meta } = Card;
@@ -14,6 +15,8 @@ const Search = Input.Search;
   loading: state.system.loading,
   webShowInfos: state.system.webShowInfos,
   currentUser: state.login.currentUser,
+  pagelistloading: state.firstpage.pagelistloading,
+  firstpagelist: state.firstpage.firstpagelist,
 }))
 export default class FirstPage extends PureComponent {
   state = { isMobile: false };
@@ -191,6 +194,12 @@ export default class FirstPage extends PureComponent {
       default:
         break;
     }
+  }
+
+  FilterData(module) {
+    const { firstpagelist } = this.props;
+
+    return firstpagelist.filter(item => item.moduleid === ModuleToModuleid(module));
   }
 
   changeRouterLogin() {
@@ -481,7 +490,7 @@ export default class FirstPage extends PureComponent {
                   <Col xl={20} lg={12} md={12} sm={24} xs={24}>
                     <List
                       grid={{ gutter: 16, lg: 4, md: 2, sm: 1, xs: 1 }}
-                      dataSource={designExam}
+                      dataSource={this.FilterData('aa')}
                       renderItem={item => (
                         <List.Item key={item.key}>
                           <Card cover={<img alt="cover" src={item.src} />}>
@@ -517,7 +526,7 @@ export default class FirstPage extends PureComponent {
                   <Col xl={20} lg={12} md={12} sm={24} xs={24}>
                     <List
                       grid={{ gutter: 16, column: 4 }}
-                      dataSource={designExam}
+                      dataSource={this.FilterData('ab')}
                       renderItem={item => (
                         <List.Item key={item.key}>
                           <Card cover={<img alt="cover" src={item.src} />}>
@@ -553,7 +562,7 @@ export default class FirstPage extends PureComponent {
                   <Col xl={20} lg={12} md={12} sm={24} xs={24}>
                     <List
                       grid={{ gutter: 16, column: 4 }}
-                      dataSource={designExam}
+                      dataSource={this.FilterData('ac')}
                       renderItem={item => (
                         <List.Item key={item.key}>
                           <Card cover={<img alt="cover" src={item.src} />}>
@@ -566,7 +575,7 @@ export default class FirstPage extends PureComponent {
                   <Col xl={2} lg={12} md={12} sm={24} xs={24} />
                 </Row>
               </div>
-              <div style={{ background: '#ffffff' }}>
+              {/* <div style={{ background: '#ffffff' }}>
                 <div style={{ marginBottom: 8, marginTop: 16 }}>
                   <span style={{ fontSize: 28, paddingLeft: '4%' }}>
                     <img src="http://39.104.208.4/image/firstpage/u26.png" alt="img" />
@@ -596,7 +605,7 @@ export default class FirstPage extends PureComponent {
                   </Col>
                   <Col xl={2} lg={12} md={12} sm={24} xs={24} />
                 </Row>
-              </div>
+              </div> */}
             </div>
           </Content>
         </Layout>
