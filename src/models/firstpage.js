@@ -1,6 +1,6 @@
 import { message } from 'antd';
 import { queryCurrent } from '../services/user';
-import { fakeSubmitForm, GetPageList } from '../services/api';
+import { fakeSubmitForm, GetPageList, GetFirstPage } from '../services/api';
 
 export default {
   namespace: 'firstpage',
@@ -11,12 +11,30 @@ export default {
 
     list: [],
     pagelist: [],
+    firstpagelist: [],
     loading: false,
     pagelistloading: false,
     currentUser: {},
     regularFormSubmitting: false,
   },
   effects: {
+    *getFirstPageList(_, { call, put }) {
+      yield put({
+        type: 'changePageLoading',
+        payload: true,
+      });
+      const response = yield call(GetFirstPage);
+
+      yield put({
+        type: 'changefirstpagelist',
+        payload: response,
+      });
+
+      yield put({
+        type: 'changePageLoading',
+        payload: false,
+      });
+    },
     *fetchCurrent(_, { call, put }) {
       const response = yield call(queryCurrent);
       yield put({
@@ -120,6 +138,17 @@ export default {
           ...payload,
         },
         pagelist: payload.status === 'ok' ? (payload.data === undefined ? [] : payload.data) : [],
+      };
+    },
+    changefirstpagelist(state, { payload }) {
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          ...payload,
+        },
+        firstpagelist:
+          payload.status === 'ok' ? (payload.data === undefined ? [] : payload.data) : [],
       };
     },
     changeCreateId(state, action) {
