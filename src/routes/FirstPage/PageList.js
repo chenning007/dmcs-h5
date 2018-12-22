@@ -5,7 +5,6 @@ import { routerRedux, Link } from 'dva/router';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, Layout, Tooltip, List } from 'antd';
 import { KeytoName, KeytoModule } from '../../utils/KeyToName';
 import styles from './PageList.less';
-import { httpAddress } from '../../../public/constant';
 
 const { Header, Content } = Layout;
 const Search = Input.Search;
@@ -414,7 +413,7 @@ export default class PageList extends PureComponent {
                           cover={
                             <img
                               alt="cover"
-                              src={httpAddress + item.imagesrc}
+                              src={item.imagesrc}
                               onClick={() => this.showDetailInfo(item.createid, keynum)}
                             />
                           }
