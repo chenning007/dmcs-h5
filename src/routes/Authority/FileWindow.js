@@ -12,6 +12,7 @@ function checkValueExist(value) {
     case 'ab':
     case 'ac':
     case 'ad':
+    case 'ae':
     case 'b':
     case 'c':
     case 'd':
