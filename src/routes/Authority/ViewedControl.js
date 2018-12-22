@@ -5,6 +5,7 @@ import { routerRedux } from 'dva/router';
 import FileView from './FileView';
 import WebView from './WebView';
 import { getAuthority } from '../../utils/authority';
+import { ShowTitle } from '../../utils/ShowTitle';
 
 @connect(state => ({
   temid: state.tem_store.temid,
@@ -138,39 +139,6 @@ export default class ViewedControl extends PureComponent {
     });
   }
 
-  showTitle() {
-    const { valueSelect } = this.state;
-
-    switch (valueSelect) {
-      case 'aa':
-        return '第一窗口/第一模块';
-      case 'ab':
-        return '第一窗口/第二模块';
-      case 'ac':
-        return '第一窗口/第三模块';
-      case 'ad':
-        return '第一窗口/第四模块';
-      case 'b':
-        return '第二窗口';
-      case 'c':
-        return '第三窗口';
-      case 'd':
-        return '第四窗口';
-      case 'e':
-        return '第五窗口';
-      case 'f':
-        return '第六窗口';
-      case 'g':
-        return '第七窗口';
-      case 'h':
-        return '第八窗口';
-      case 'i':
-        return '第九窗口';
-      default:
-        return '请选择窗口及模块';
-    }
-  }
-
   editExtra() {
     const { editEnable } = this.state;
     if (editEnable) {
@@ -229,6 +197,7 @@ export default class ViewedControl extends PureComponent {
     const { getFieldDecorator } = form;
     const menu = (
       <Menu onClick={this.handleMenuClick}>
+        <Menu.Item key="ae">模块0</Menu.Item>
         <Menu.Item key="aa">模块1</Menu.Item>
         <Menu.Item key="ab">模块2</Menu.Item>
         <Menu.Item key="ac">模块3</Menu.Item>
@@ -265,7 +234,7 @@ export default class ViewedControl extends PureComponent {
         <Card
           style={{ marginTop: 4 }}
           loading={fileloading}
-          title={this.showTitle(valueSelect)}
+          title={ShowTitle(valueSelect)}
           extra={this.editExtra()}
         >
           {getFieldDecorator('fileview', {
