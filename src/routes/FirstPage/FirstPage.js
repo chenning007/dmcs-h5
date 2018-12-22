@@ -5,7 +5,7 @@ import { routerRedux, Link } from 'dva/router';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, List, Carousel, Layout } from 'antd';
 
 import { ModuleToModuleid } from '../../utils/KeyToName';
-import { imgData /* designExam */ } from '../../../public/constant';
+import { imgData /* designExam */, httpAddress } from '../../../public/constant';
 
 const { Header, Content } = Layout;
 const { Meta } = Card;
@@ -16,7 +16,7 @@ const Search = Input.Search;
   webShowInfos: state.system.webShowInfos,
   currentUser: state.login.currentUser,
   pagelistloading: state.firstpage.pagelistloading,
-  firstpagelist: state.firstpage.firstpagelist,
+  pagelist: state.firstpage.pagelist,
 }))
 export default class FirstPage extends PureComponent {
   state = { isMobile: false };
@@ -141,7 +141,19 @@ export default class FirstPage extends PureComponent {
     dispatch(routerRedux.push(`register`));
   }
 
-  /*  ************************* */
+  showDetailInfo(createid, keynum) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'firstpage/setCreateid',
+      payload: {
+        createid,
+        moduleid: keynum,
+      },
+    });
+    dispatch(routerRedux.push(`pageinfo`));
+  }
+
+  /*  *************************  */
 
   loadmore(type) {
     const { dispatch } = this.props;
@@ -197,9 +209,9 @@ export default class FirstPage extends PureComponent {
   }
 
   FilterData(module) {
-    const { firstpagelist } = this.props;
+    const { pagelist } = this.props;
 
-    return firstpagelist.filter(item => item.moduleid === ModuleToModuleid(module));
+    return pagelist.filter(item => item.moduleid === ModuleToModuleid(module));
   }
 
   changeRouterLogin() {
@@ -492,9 +504,17 @@ export default class FirstPage extends PureComponent {
                       grid={{ gutter: 16, lg: 4, md: 2, sm: 1, xs: 1 }}
                       dataSource={this.FilterData('aa')}
                       renderItem={item => (
-                        <List.Item key={item.key}>
-                          <Card cover={<img alt="cover" src={item.src} />}>
-                            <Meta description={item.description} />
+                        <List.Item key={item.createid}>
+                          <Card
+                            cover={
+                              <img
+                                alt="cover"
+                                src={httpAddress + item.imagesrc}
+                                onClick={() => this.showDetailInfo(item.createid, '5')}
+                              />
+                            }
+                          >
+                            <Meta description={item.fileimagedescrip} />
                           </Card>
                         </List.Item>
                       )}
@@ -528,9 +548,17 @@ export default class FirstPage extends PureComponent {
                       grid={{ gutter: 16, column: 4 }}
                       dataSource={this.FilterData('ab')}
                       renderItem={item => (
-                        <List.Item key={item.key}>
-                          <Card cover={<img alt="cover" src={item.src} />}>
-                            <Meta description={item.description} />
+                        <List.Item key={item.createid}>
+                          <Card
+                            cover={
+                              <img
+                                alt="cover"
+                                src={httpAddress + item.imagesrc}
+                                onClick={() => this.showDetailInfo(item.createid, '3')}
+                              />
+                            }
+                          >
+                            <Meta description={item.fileimagedescrip} />
                           </Card>
                         </List.Item>
                       )}
@@ -564,9 +592,17 @@ export default class FirstPage extends PureComponent {
                       grid={{ gutter: 16, column: 4 }}
                       dataSource={this.FilterData('ac')}
                       renderItem={item => (
-                        <List.Item key={item.key}>
-                          <Card cover={<img alt="cover" src={item.src} />}>
-                            <Meta description={item.description} />
+                        <List.Item key={item.createid}>
+                          <Card
+                            cover={
+                              <img
+                                alt="cover"
+                                src={item.imagesrc}
+                                onClick={() => this.showDetailInfo(item.createid, '4')}
+                              />
+                            }
+                          >
+                            <Meta description={item.fileimagedescrip} />
                           </Card>
                         </List.Item>
                       )}
