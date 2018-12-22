@@ -45,3 +45,36 @@ export function KeytoModule(key) {
       return 'a';
   }
 }
+
+export function ModuleToModuleid(Module) {
+  switch (Module) {
+    case 'aa':
+      return '1010';
+    case 'ab':
+      return '1020';
+    case 'ac':
+      return '1030';
+    case 'ad':
+      return '1040';
+    case 'ae':
+      return '1050';
+    case 'b':
+      return '2000';
+    case 'c':
+      return '3000';
+    case 'd':
+      return '4000';
+    case 'e':
+      return '5000';
+    case 'f':
+      return '6000';
+    case 'g':
+      return '7000';
+    case 'h':
+      return '8000';
+    case 'i':
+      return '9000';
+    default:
+      return '0';
+  }
+}
