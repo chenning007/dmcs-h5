@@ -24,6 +24,10 @@ export default class FirstPage extends PureComponent {
         isMobile: mobile,
       });
     });
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'firstpage/getFirstPageList',
+    });
   }
 
   componentWillUnmount() {
