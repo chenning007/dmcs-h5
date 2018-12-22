@@ -5,7 +5,7 @@ import { routerRedux, Link } from 'dva/router';
 import { Row, Col, Card, Icon, Divider, Menu, Button, Input, List, Carousel, Layout } from 'antd';
 
 import { ModuleToModuleid } from '../../utils/KeyToName';
-import { imgData /* designExam */, httpAddress } from '../../../public/constant';
+// import {  /* designExam */ httpAddress } from '../../../public/constant';
 
 const { Header, Content } = Layout;
 const { Meta } = Card;
@@ -436,7 +436,7 @@ export default class FirstPage extends PureComponent {
   }
 
   render() {
-    const { loading, webShowInfos } = this.props;
+    const { loading, webShowInfos, pagelistloading } = this.props;
 
     return (
       <div>
@@ -444,8 +444,17 @@ export default class FirstPage extends PureComponent {
           {/* 这里需要加入判断手机和电脑屏幕的程序* */}
           {this.Header()}
           <Content style={{ marginTop: 128, width: '100%' /* textAlign: 'center' */ }}>
-            <Carousel autoplay style={{ marginBottom: 12 }}>
-              <img
+            <Carousel autoplay style={{ marginBottom: 12 }} loading={pagelistloading}>
+              {this.FilterData('ae').map(item => (
+                <img
+                  key={item.createid}
+                  style={{ width: '100%' }}
+                  src={item.imagesrc}
+                  alt="img"
+                  onClick={() => this.showDetailInfo(item.createid, '1')}
+                />
+              ))}
+              {/* <img
                 src={imgData[0].img_src}
                 style={{ width: '100%' }}
                 onClick={() => this.Linkpage(imgData[0].id, imgData[0].mode)}
@@ -470,7 +479,7 @@ export default class FirstPage extends PureComponent {
                   onClick={() => this.Linkpage(imgData[3].id, imgData[3].mode)}
                   alt="img"
                 />
-              }
+              } */}
             </Carousel>
             <Divider orientation="left">
               <span style={{ fontSize: 22 }}>网站公告</span>
@@ -509,7 +518,7 @@ export default class FirstPage extends PureComponent {
                             cover={
                               <img
                                 alt="cover"
-                                src={httpAddress + item.imagesrc}
+                                src={item.imagesrc}
                                 onClick={() => this.showDetailInfo(item.createid, '5')}
                               />
                             }
@@ -553,7 +562,7 @@ export default class FirstPage extends PureComponent {
                             cover={
                               <img
                                 alt="cover"
-                                src={httpAddress + item.imagesrc}
+                                src={item.imagesrc}
                                 onClick={() => this.showDetailInfo(item.createid, '3')}
                               />
                             }
