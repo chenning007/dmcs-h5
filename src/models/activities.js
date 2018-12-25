@@ -1,4 +1,4 @@
-import { queryActivities, query_Activities } from '../services/api';
+import { queryActivities } from '../services/api';
 
 export default {
   namespace: 'activities',
@@ -20,8 +20,8 @@ export default {
       const response = yield call(queryActivities);
       yield put({
         type: 'save',
-        payload: { 
-          list: Array.isArray(response.list) ? response.list : [] ,
+        payload: {
+          list: Array.isArray(response.list) ? response.list : [],
           list_activities: Array.isArray(response.list_activities) ? response.list_activities : [],
           list_people: Array.isArray(response.list_people) ? response.list_people : [],
         },
@@ -31,9 +31,8 @@ export default {
         payload: false,
       });
     },
-    
   },
-  
+
   reducers: {
     save(state, { payload }) {
       return {
@@ -58,7 +57,7 @@ export default {
       return {
         ...state,
         loading1: action.payload,
-      }
+      };
     },
   },
 };
