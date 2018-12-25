@@ -26,7 +26,7 @@ export default {
       const response = yield call(GetFirstPage);
 
       yield put({
-        type: 'changePageList',
+        type: 'changeFirstPageList',
         payload: response,
       });
 
@@ -138,6 +138,17 @@ export default {
           ...payload,
         },
         pagelist: payload.status === 'ok' ? (payload.data === undefined ? [] : payload.data) : [],
+      };
+    },
+    changeFirstPageList(state, { payload }) {
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          ...payload,
+        },
+        firstpagelist:
+          payload.status === 'ok' ? (payload.data === undefined ? [] : payload.data) : [],
       };
     },
     changeCreateId(state, action) {
