@@ -67,7 +67,10 @@ export default class Pageinfo extends PureComponent {
 
   getRowByKey() {
     const { pagelist, createid, firstpagelist } = this.props;
-    return (firstpagelist || pagelist).filter(item => item.createid === createid)[0];
+    return (
+      firstpagelist.filter(item => item.createid === createid)[0] ||
+      pagelist.filter(item => item.createid === createid)[0]
+    );
   }
 
   MenuKey = e => {
