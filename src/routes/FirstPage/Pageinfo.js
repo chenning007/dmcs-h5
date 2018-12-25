@@ -28,6 +28,7 @@ function SetHeight() {
 @connect(state => ({
   currentUser: state.login.currentUser,
   pagelist: state.firstpage.pagelist,
+  firstpagelist: state.firstpage.firstpagelist,
   createid: state.firstpage.temCreateId,
   // pagelistloading: state.firstpage.pagelistloading,
   moduleid: state.firstpage.moduleid,
@@ -65,8 +66,8 @@ export default class Pageinfo extends PureComponent {
   }
 
   getRowByKey() {
-    const { pagelist, createid } = this.props;
-    return pagelist.filter(item => item.createid === createid)[0];
+    const { pagelist, createid, firstpagelist } = this.props;
+    return (firstpagelist || pagelist).filter(item => item.createid === createid)[0];
   }
 
   MenuKey = e => {
