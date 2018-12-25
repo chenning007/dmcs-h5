@@ -16,7 +16,7 @@ const Search = Input.Search;
   webShowInfos: state.system.webShowInfos,
   currentUser: state.login.currentUser,
   pagelistloading: state.firstpage.pagelistloading,
-  pagelist: state.firstpage.pagelist,
+  firstpagelist: state.firstpage.firstpagelist,
 }))
 export default class FirstPage extends PureComponent {
   state = { isMobile: false };
@@ -30,6 +30,12 @@ export default class FirstPage extends PureComponent {
     const { dispatch } = this.props;
     dispatch({
       type: 'firstpage/getFirstPageList',
+    });
+    dispatch({
+      type: 'firstpage/getPageList',
+      payload: {
+        valueSelect: 'b',
+      },
     });
   }
 
@@ -46,7 +52,7 @@ export default class FirstPage extends PureComponent {
       case '2': {
         dispatch(
           routerRedux.push({
-            pathname: 'pageinfo',
+            pathname: 'pageinfoextend',
             state: {
               key: '2',
             },
@@ -209,9 +215,9 @@ export default class FirstPage extends PureComponent {
   }
 
   FilterData(module) {
-    const { pagelist } = this.props;
+    const { firstpagelist } = this.props;
 
-    return pagelist.filter(item => item.moduleid === ModuleToModuleid(module));
+    return firstpagelist.filter(item => item.moduleid === ModuleToModuleid(module));
   }
 
   changeRouterLogin() {
