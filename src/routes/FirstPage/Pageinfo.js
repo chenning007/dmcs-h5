@@ -29,7 +29,7 @@ function SetHeight() {
   currentUser: state.login.currentUser,
   pagelist: state.firstpage.pagelist,
   createid: state.firstpage.temCreateId,
-  loading: state.firstpage.loading,
+  // pagelistloading: state.firstpage.pagelistloading,
   moduleid: state.firstpage.moduleid,
 }))
 export default class Pageinfo extends PureComponent {
@@ -79,6 +79,17 @@ export default class Pageinfo extends PureComponent {
             pathname: 'firstpage',
             state: {
               key: '1',
+            },
+          })
+        );
+        break;
+      }
+      case '2': {
+        dispatch(
+          routerRedux.push({
+            pathname: 'pageinfoextend',
+            state: {
+              key: '2',
             },
           })
         );
