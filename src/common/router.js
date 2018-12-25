@@ -224,6 +224,11 @@ export const getRouterData = app => {
     '/user/pageinfo': {
       component: dynamicWrapper(app, ['firstpage'], () => import('../routes/FirstPage/Pageinfo')),
     },
+    '/user/pageinfoextend': {
+      component: dynamicWrapper(app, ['firstpage'], () =>
+        import('../routes/FirstPage/PageinfoExtend')
+      ),
+    },
     '/user/pagelist': {
       component: dynamicWrapper(app, ['login', 'firstpage'], () =>
         import('../routes/FirstPage/PageList')
