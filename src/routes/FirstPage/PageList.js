@@ -65,10 +65,9 @@ export default class PageList extends PureComponent {
       case '2': {
         dispatch(
           routerRedux.push({
-            pathname: 'pageinfo',
+            pathname: 'pageinfoextend',
             state: {
               key: '2',
-              id: 1,
             },
           })
         );
