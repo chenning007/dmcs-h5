@@ -13,14 +13,15 @@ import styles from './Device.less';
 }))
 export default class Device extends PureComponent {
   componentDidMount() {
-    const { dispatch, currentUser } = this.props;
+    const { currentUser } = this.props;
     if (currentUser !== undefined && currentUser !== {}) {
-      dispatch({
+      /* dispatch({
         type: 'device/fetch',
         payload: {
           count: currentUser.userNumber,
         },
-      });
+      }); */
+      // 这部分尚未实现，故先注释掉
     }
   }
 
