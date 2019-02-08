@@ -190,7 +190,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../routes/Profile/FinanceProfile')),
     },
     '/profile/basic-profile': {
-      component: dynamicWrapper(app, ['login'], () => import('../routes/Profile/Basic_profile')),
+      component: dynamicWrapper(app, ['login'], () => import('../routes/Profile/BasicProfiles')),
     },
     '/profile/set_up': {
       component: dynamicWrapper(app, ['user', 'form'], () => import('../routes/Profile/Set_up')),
