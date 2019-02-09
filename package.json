@@ -42,6 +42,7 @@
     "rc-drawer-menu": "^1.1.0",
     "react": "^16.5.2",
     "react-container-query": "^0.11.0",
+    "react-cropper": "^1.0.1",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.5.2",
     "react-fittext": "^1.0.0",
