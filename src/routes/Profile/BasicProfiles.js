@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { Form, Button, Card, Icon, Row, Col, Upload, message } from 'antd';
+import { Form, Button, Card, Icon, Row, Col, Upload, message, Modal } from 'antd';
 import reqwest from 'reqwest';
+import Cropper from 'react-cropper';
 import FooterToolbar from '../../components/FooterToolbar';
 
 const FormItem = Form.Item;
@@ -28,6 +29,7 @@ export default class BasicProfiles extends PureComponent {
     fileList: [],
     uploading: false,
     currentuser: {},
+    visible: true,
   };
 
   onChangestate = () => {
@@ -77,6 +79,14 @@ export default class BasicProfiles extends PureComponent {
       },
     });
   };
+
+  oKfunc() {
+    this.setState({ visible: false });
+  }
+
+  Cancelfunc() {
+    this.setState({ visible: false });
+  }
 
   renderInfo() {
     const { currentUser } = this.props;
@@ -136,10 +146,20 @@ export default class BasicProfiles extends PureComponent {
 
   render() {
     const currentUser = this.getCurrentUser();
-    const { uploading, fileList } = this.state;
+    const { uploading, fileList, visible } = this.state;
     const props = {
       action: '/api/v1/user/image',
       accept: 'image/*',
+      onRemove: file => {
+        this.setState(() => {
+          const index = fileList.indexOf(file);
+          const newFileList = fileList.slice();
+          newFileList.splice(index, 1);
+          return {
+            fileList: newFileList,
+          };
+        });
+      },
       beforeUpload: file => {
         this.setState(() => ({
           fileList: [...fileList, file],
@@ -195,6 +215,19 @@ export default class BasicProfiles extends PureComponent {
                   </Button>
                 </div>
               </Card>
+              <Modal
+                visible={fileList.length !== 0 && visible}
+                onOk={() => this.oKfunc()}
+                onCancel={() => this.Cancelfunc()}
+              >
+                <Cropper
+                  // ref="cropper"
+                  src="/image/ZiESqWwCXBRQoaPONSJe.png"
+                  style={{ height: 800, width: '100%' }}
+                  aspectRatio={16 / 9}
+                  guides={false}
+                />
+              </Modal>
             </Col>
             <Col span={12}>
               <Card style={{ marginTop: -10 }} bordered={false}>
