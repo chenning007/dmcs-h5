@@ -21,6 +21,7 @@ export default class ManageFile extends PureComponent {
   state = {
     filesList: [],
     imagesList: [],
+    shortImageList: [],
     uploading: false,
     buAble1: false, // 是否禁止上传图片
     buAble2: false, // 是否禁止上传文件
@@ -84,6 +85,7 @@ export default class ManageFile extends PureComponent {
 
   handleUpload = type => {
     const { filesList, imagesList } = this.state;
+    const { shortImageList } = this.state;
     const { form } = this.props;
     let title = null;
     let description = null;
@@ -120,12 +122,17 @@ export default class ManageFile extends PureComponent {
       });
     }
 
+    // 对于图片大小的限制
+
     if (type === 'fileimage') {
       filesList.forEach(file => {
         formData.append('file', file);
       });
       imagesList.forEach(file => {
         formData.append('image', file);
+      });
+      shortImageList.forEach(file => {
+        formData.append('shortimage', file);
       });
     }
 
@@ -143,6 +150,7 @@ export default class ManageFile extends PureComponent {
         this.setState({
           filesList: [],
           imagesList: [],
+          shortImageList: [],
           uploading: false,
           buAble1: false,
           buAble2: false,
@@ -218,7 +226,7 @@ export default class ManageFile extends PureComponent {
   }
 
   render() {
-    const { imagesList, filesList, buAble2, buAble1, contentType } = this.state;
+    const { imagesList, filesList, shortImageList, buAble2, buAble1, contentType } = this.state;
 
     const { files, images, fileloading, imageloading, fileImages, loading } = this.props;
     const menu = (
@@ -433,6 +441,29 @@ export default class ManageFile extends PureComponent {
       },
       fileList: filesList,
     };
+
+    const props3 = {
+      action: '/api/v1/file/addFile',
+      accept: 'image/*',
+      onRemove: file => {
+        this.setState(() => {
+          const index = shortImageList.indexOf(file);
+          const newFileList = shortImageList.slice();
+          newFileList.splice(index, 1);
+          return {
+            shortImageList: newFileList,
+          };
+        });
+      },
+      beforeUpload: file => {
+        this.setState({
+          shortImageList: [...shortImageList, file],
+        });
+        return false;
+      },
+      fileList: shortImageList,
+    };
+
     const { form } = this.props;
     const { getFieldDecorator } = form;
     const { uploading, showType } = this.state;
@@ -552,6 +583,12 @@ export default class ManageFile extends PureComponent {
                 <Button disabled={buAble2}>
                   <Icon type="upload" />
                   上传文件
+                </Button>
+              </Upload>
+              <Upload {...props3}>
+                <Button disabled={!buAble2 || buAble1}>
+                  <Icon type="upload" />
+                  文件附加图片
                 </Button>
               </Upload>
               <Upload {...props1}>
