@@ -459,7 +459,7 @@ export default class Pageinfo extends PureComponent {
           return (
             //  <iframe src={fileWindow.filesrc} style ={{width: '100%', overflow: 'visible'}}/>
             <div>
-              <Document file="../../../public/DMCS20170716.pdf" onLoadSuccess={this.getPages}>
+              <Document file={fileWindow.filesrc} onLoadSuccess={this.getPages}>
                 {pageNumber.map(item => {
                   return (
                     <Page
