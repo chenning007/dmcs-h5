@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Row, Col, Icon, Divider, Menu, Button, Input, Layout } from 'antd';
 import { enquireScreen } from 'enquire-js';
 import { routerRedux, Link } from 'dva/router';
+import { Document, Page } from 'react-pdf/dist/entry.webpack';
 import { KeytoName } from '../../utils/KeyToName';
 // import { httpAddress } from '../../../public/constant';
 
@@ -405,20 +406,39 @@ export default class Pageinfo extends PureComponent {
         </div>
       );
     else {
-      return (
-        <iframe
-          style={{ width: '100%', overflow: 'visible' }}
-          // src="../../../public/Technique_3.html"
-          src={fileWindow.filesrc}
-          // src={httpAddress + fileWindow.filesrc}
-          id="frame"
-          title="frame"
-          height="100px"
-          scrolling="no"
-          frameBorder="0"
-          onLoad={SetHeight()} // 这是为了进行简单的测试
-        />
-      );
+      const fileName = fileWindow.filename;
+      const extension = fileName.split('.').pop();
+
+      if (extension === undefined || extension === null)
+        return (
+          <div style={{ textAlign: 'center', marginTop: 40 }}>
+            <Icon style={{ fontSize: '40px' }} type="loading" />
+          </div>
+        );
+      if (extension === 'html')
+        return (
+          <iframe
+            style={{ width: '100%', overflow: 'visible' }}
+            // src="../../../public/Technique_3.html"
+            src={fileWindow.filesrc}
+            // src={httpAddress + fileWindow.filesrc}
+            id="frame"
+            title="frame"
+            height="100px"
+            scrolling="no"
+            frameBorder="0"
+            onLoad={SetHeight()} // 这是为了进行简单的测试
+          />
+        );
+      if (extension === 'pdf')
+        return (
+          //  <iframe src={fileWindow.filesrc} style ={{width: '100%', overflow: 'visible'}}/>
+          <div>
+            <Document file={fileWindow.filesrc}>
+              <Page pageNumber={1} style={{ width: '100%' }} />
+            </Document>
+          </div>
+        );
     }
   }
 
