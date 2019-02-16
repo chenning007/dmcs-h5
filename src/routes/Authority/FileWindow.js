@@ -4,7 +4,7 @@ import { Card, Button, Icon, Radio, Menu, Dropdown, Table, Avatar, Tooltip, mess
 import { routerRedux } from 'dva/router';
 import { getAuthority } from '../../utils/authority';
 import { ShowTitle } from '../../utils/ShowTitle';
-import { httpAddress } from '../../../public/constant';
+// import { httpAddress } from '../../../public/constant';
 
 function checkValueExist(value) {
   switch (value) {
@@ -176,7 +176,7 @@ export default class FileWindow extends PureComponent {
       {
         key: 'avatar',
         dataIndex: 'imagesrc',
-        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
+        render: text => <Avatar src={text} shape="square" size="large" />,
       },
       {
         title: '简介',
@@ -188,7 +188,7 @@ export default class FileWindow extends PureComponent {
         key: 'filename',
         dataIndex: 'filename',
         render: (text, record) => (
-          <a href={httpAddress + record.filesrc} target="_blank" rel="noopener noreferrer">
+          <a href={record.filesrc} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         ),
@@ -198,7 +198,7 @@ export default class FileWindow extends PureComponent {
         key: 'imagename',
         dataIndex: 'imagename',
         render: (text, record) => (
-          <a href={httpAddress + record.imagesrc} target="_blank" rel="noopener noreferrer">
+          <a href={record.imagesrc} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         ),
@@ -220,7 +220,7 @@ export default class FileWindow extends PureComponent {
       {
         key: 'avatar',
         dataIndex: 'imagesrc',
-        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
+        render: text => <Avatar src={text} shape="square" size="large" />,
       },
       {
         title: '简介',
@@ -232,7 +232,7 @@ export default class FileWindow extends PureComponent {
         key: 'filename',
         dataIndex: 'filename',
         render: (text, record) => (
-          <a href={httpAddress + record.filesrc} target="_blank" rel="noopener noreferrer">
+          <a href={record.filesrc} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         ),
@@ -242,7 +242,7 @@ export default class FileWindow extends PureComponent {
         key: 'imagename',
         dataIndex: 'imagename',
         render: (text, record) => (
-          <a href={httpAddress + record.imagesrc} target="_blank" rel="noopener noreferrer">
+          <a href={record.imagesrc} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         ),

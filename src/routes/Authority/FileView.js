@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Table, Avatar, Button, Icon, Tooltip, Switch } from 'antd';
 
-import { httpAddress } from '../../../public/constant';
+// import { httpAddress } from '../../../public/constant';
 
 export default class FileView extends PureComponent {
   constructor(props) {
@@ -87,7 +87,7 @@ export default class FileView extends PureComponent {
         key: 'avatar',
         dataIndex: 'imagesrc',
         width: '10%',
-        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
+        render: text => <Avatar src={text} shape="square" size="large" />,
       },
       {
         title: '简介',
@@ -101,7 +101,7 @@ export default class FileView extends PureComponent {
         width: '15%',
         dataIndex: 'filename',
         render: (text, record) => (
-          <a href={httpAddress + record.filesrc} target="_blank" rel="noopener noreferrer">
+          <a href={record.filesrc} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         ),
@@ -112,7 +112,7 @@ export default class FileView extends PureComponent {
         width: '15%',
         dataIndex: 'imagename',
         render: (text, record) => (
-          <a href={httpAddress + record.imagesrc} target="_blank" rel="noopener noreferrer">
+          <a href={record.imagesrc} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         ),
