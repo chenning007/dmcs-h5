@@ -37,6 +37,8 @@ function SetHeight() {
 export default class Pageinfo extends PureComponent {
   state = {
     screenMobile: false,
+    refDom: null,
+    pageNumber: [],
     // height: 0,
   };
 
@@ -73,6 +75,25 @@ export default class Pageinfo extends PureComponent {
       pagelist.filter(item => item.createid === createid)[0]
     );
   }
+
+  saveWidth = ref => {
+    this.setState({ refDom: ref });
+  };
+
+  getPages = pdf => {
+    // this.setState({ pageNumber: pdf.numPages});
+
+    const temAarry = [];
+    let i = 0;
+    for (; i < pdf.numPages; i += 1) {
+      temAarry.push({
+        num: i + 1,
+      });
+    }
+    this.setState({ pageNumber: [...temAarry] });
+
+    // alert('Loaded a file with ' + pdf.numPages + ' pages!');
+  };
 
   MenuKey = e => {
     const { dispatch } = this.props;
@@ -399,6 +420,7 @@ export default class Pageinfo extends PureComponent {
 
   ContentData() {
     const fileWindow = this.getRowByKey();
+    const { refDom } = this.state;
     if (fileWindow === undefined || fileWindow === null || fileWindow.filesrc === undefined)
       return (
         <div style={{ textAlign: 'center', marginTop: 40 }}>
@@ -430,15 +452,34 @@ export default class Pageinfo extends PureComponent {
             onLoad={SetHeight()} // 这是为了进行简单的测试
           />
         );
-      if (extension === 'pdf')
-        return (
-          //  <iframe src={fileWindow.filesrc} style ={{width: '100%', overflow: 'visible'}}/>
-          <div>
-            <Document file={fileWindow.filesrc}>
-              <Page pageNumber={1} style={{ width: '100%' }} />
-            </Document>
-          </div>
-        );
+      if (extension === 'pdf') {
+        if (refDom !== undefined && refDom !== null) {
+          const { pageNumber } = this.state;
+          const { clientWidth } = refDom;
+          return (
+            //  <iframe src={fileWindow.filesrc} style ={{width: '100%', overflow: 'visible'}}/>
+            <div>
+              <Document file="../../../public/DMCS20170716.pdf" onLoadSuccess={this.getPages}>
+                {pageNumber.map(item => {
+                  return (
+                    <Page
+                      key={item.num}
+                      pageNumber={item.num}
+                      width={clientWidth === undefined ? 300 : clientWidth}
+                    />
+                  );
+                })}
+              </Document>
+            </div>
+          );
+        } else
+          return (
+            <div style={{ textAlign: 'center', marginTop: 40 }}>
+              文档丢失
+              <Icon style={{ fontSize: '40px' }} type="loading" />
+            </div>
+          );
+      }
     }
   }
 
@@ -495,7 +536,7 @@ export default class Pageinfo extends PureComponent {
                   alt="背景图片"
                 />
                 {this.Position()}
-                <div>{this.ContentData()}</div>
+                <div ref={this.saveWidth}>{this.ContentData()}</div>
               </Col>
               <Col xl={2} lg={12} md={12} sm={24} xs={24} />
             </Row>
