@@ -6,7 +6,7 @@ import reqwest from 'reqwest';
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
 import { getSmpFormatDateByLong } from '../../utils/getFormDate';
-import { httpAddress } from '../../../public/constant';
+// import { httpAddress } from '../../../public/constant';
 
 @connect(state => ({
   loding: state.document.loading,
@@ -279,7 +279,7 @@ export default class ManageFile extends PureComponent {
         key: 'filesrc',
         dataIndex: 'filesrc',
         render: text => (
-          <a href={httpAddress + text} target="_blank" rel="noopener noreferrer">
+          <a href={text} target="_blank" rel="noopener noreferrer">
             点击查看
           </a>
         ),
@@ -300,7 +300,7 @@ export default class ManageFile extends PureComponent {
       {
         key: 'avatar',
         dataIndex: 'filesrc',
-        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
+        render: text => <Avatar src={text} shape="square" size="large" />,
       },
       {
         title: '图片名称',
@@ -335,7 +335,7 @@ export default class ManageFile extends PureComponent {
         key: 'filesrc',
         dataIndex: 'filesrc',
         render: text => (
-          <a href={httpAddress + text} target="_blank" rel="noopener noreferrer">
+          <a href={text} target="_blank" rel="noopener noreferrer">
             点击查看
           </a>
         ),
@@ -356,7 +356,7 @@ export default class ManageFile extends PureComponent {
       {
         key: 'avatar',
         dataIndex: 'imagesrc',
-        render: text => <Avatar src={httpAddress + text} shape="square" size="large" />,
+        render: text => <Avatar src={text} shape="square" size="large" />,
       },
       {
         title: '简介',
@@ -368,7 +368,7 @@ export default class ManageFile extends PureComponent {
         key: 'filename',
         dataIndex: 'filename',
         render: (text, record) => (
-          <a href={httpAddress + record.filesrc} target="_blank" rel="noopener noreferrer">
+          <a href={record.filesrc} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         ),
@@ -378,7 +378,7 @@ export default class ManageFile extends PureComponent {
         key: 'imagename',
         dataIndex: 'imagename',
         render: (text, record) => (
-          <a href={httpAddress + record.imagesrc} target="_blank" rel="noopener noreferrer">
+          <a href={record.imagesrc} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         ),
