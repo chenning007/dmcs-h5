@@ -4,6 +4,9 @@ import { routerRedux } from 'dva/router';
 import { Form, Button, Card, Icon, Row, Col, Upload, message, Modal } from 'antd';
 import reqwest from 'reqwest';
 import Cropper from 'react-cropper';
+
+import '../../../node_modules/cropperjs/dist/cropper.css';
+
 import FooterToolbar from '../../components/FooterToolbar';
 
 const FormItem = Form.Item;
@@ -26,10 +29,13 @@ function engCN(sex) {
 }))
 export default class BasicProfiles extends PureComponent {
   state = {
-    fileList: [],
+    fileList: [], // 用于存储原图片
+    tempfileList: [], // 用于存储裁剪后的图片
     uploading: false,
     currentuser: {},
-    visible: true,
+    visible: false, // 用于控制modal是否可见
+    cropResult: null, // 用于显示
+    fileName: null, // 用于存储文件名
   };
 
   onChangestate = () => {
@@ -46,11 +52,21 @@ export default class BasicProfiles extends PureComponent {
   }
 
   handleUpload = () => {
-    const { fileList } = this.state;
+    const { tempfileList } = this.state;
     const formData = new FormData();
-    fileList.forEach(file => {
+
+    tempfileList.forEach(file => {
       formData.append('file', file);
     });
+
+    // if (typeof this.cropper.getCroppedCanvas() === 'undefined') {
+    //   return message.error('信息丢失!!!');
+    // }
+
+    //  this.cropper.getCroppedCanvas().toBlob( blob => {
+    //   blob.name=fileName
+    //   formData.append('file',blob,blob.name);
+    //  })
 
     this.setState({
       uploading: true,
@@ -80,8 +96,22 @@ export default class BasicProfiles extends PureComponent {
     });
   };
 
-  oKfunc() {
-    this.setState({ visible: false });
+  cropImage() {
+    const { fileName } = this.state;
+
+    if (typeof this.cropper.getCroppedCanvas() === 'undefined') {
+      return;
+    }
+    this.setState({
+      cropResult: this.cropper.getCroppedCanvas().toDataURL(),
+      visible: false,
+    });
+
+    this.cropper.getCroppedCanvas().toBlob(blob => {
+      const temblob = blob;
+      temblob.name = fileName;
+      this.setState({ tempfileList: [temblob] });
+    });
   }
 
   Cancelfunc() {
@@ -146,28 +176,32 @@ export default class BasicProfiles extends PureComponent {
 
   render() {
     const currentUser = this.getCurrentUser();
-    const { uploading, fileList, visible } = this.state;
+    const { uploading, fileList, visible, cropResult } = this.state;
+
     const props = {
       action: '/api/v1/user/image',
       accept: 'image/*',
-      onRemove: file => {
-        this.setState(() => {
-          const index = fileList.indexOf(file);
-          const newFileList = fileList.slice();
-          newFileList.splice(index, 1);
-          return {
-            fileList: newFileList,
-          };
-        });
-      },
       beforeUpload: file => {
-        this.setState(() => ({
-          fileList: [...fileList, file],
-        }));
+        const isLt10M = file.size / 1024 / 1024 < 2;
+        if (!isLt10M) {
+          // 添加文件限制
+          message.error('文件大小不能超过2M');
+          return false;
+        }
+        const reader = new FileReader();
+        reader.readAsDataURL(file); // 读取文件
+
+        reader.onload = e => {
+          this.setState({
+            fileList: [e.target.result],
+            fileName: file.name,
+            visible: true,
+          });
+        };
         return false;
       },
-      fileList,
     };
+
     return (
       <div>
         <Card
@@ -190,16 +224,16 @@ export default class BasicProfiles extends PureComponent {
                 <div className="image">
                   <img
                     src={
-                      currentUser.avatar
-                        ? currentUser.avatar
-                        : 'http://39.104.208.4:80/image/ZiESqWwCXBRQoaPONSJe.png'
+                      cropResult ||
+                      (currentUser.avatar ||
+                        'http://39.104.208.4:80/image/ZiESqWwCXBRQoaPONSJe.png')
                     }
                     alt="图像"
                     width="80%"
                   />
                 </div>
                 <div className="headimage" style={{ marginTop: 16 }}>
-                  <Upload {...props}>
+                  <Upload {...props} showUploadList={false}>
                     <Button>
                       <Icon type="upload" />
                       更改头像
@@ -217,15 +251,18 @@ export default class BasicProfiles extends PureComponent {
               </Card>
               <Modal
                 visible={fileList.length !== 0 && visible}
-                onOk={() => this.oKfunc()}
+                onOk={() => this.cropImage()}
                 onCancel={() => this.Cancelfunc()}
               >
                 <Cropper
-                  // ref="cropper"
-                  src="/image/ZiESqWwCXBRQoaPONSJe.png"
-                  style={{ height: 800, width: '100%' }}
-                  aspectRatio={16 / 9}
+                  src={fileList[0]}
+                  style={{ height: 400, width: '100%' }}
+                  preview=".img-preview"
+                  aspectRatio={1 / 1}
                   guides={false}
+                  ref={cropper => {
+                    this.cropper = cropper;
+                  }}
                 />
               </Modal>
             </Col>
