@@ -108,9 +108,8 @@ export default class BasicProfiles extends PureComponent {
     });
 
     this.cropper.getCroppedCanvas().toBlob(blob => {
-      const temblob = blob;
-      temblob.name = fileName;
-      this.setState({ tempfileList: [temblob] });
+      const temfile = new File([blob], fileName);
+      this.setState({ tempfileList: [temfile] });
     });
   }
 
@@ -182,10 +181,10 @@ export default class BasicProfiles extends PureComponent {
       action: '/api/v1/user/image',
       accept: 'image/*',
       beforeUpload: file => {
-        const isLt10M = file.size / 1024 / 1024 < 2;
+        const isLt10M = file.size / 1024 / 1024 < 1;
         if (!isLt10M) {
           // 添加文件限制
-          message.error('文件大小不能超过2M');
+          message.error('图片大小不能超过1M');
           return false;
         }
         const reader = new FileReader();

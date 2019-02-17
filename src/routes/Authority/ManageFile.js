@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Upload, message, Icon, Form, Button, Input, Menu, Table, Avatar } from 'antd';
+import { Card, Upload, message, Icon, Form, Button, Input, Menu, Table, Avatar, Modal } from 'antd';
 import { routerRedux } from 'dva/router';
 import reqwest from 'reqwest';
+import Cropper from 'react-cropper';
+import '../../../node_modules/cropperjs/dist/cropper.css';
+
 import { getAuthority } from '../../utils/authority';
 import { cookieToJson } from '../../utils/cookieToJson';
 import { getSmpFormatDateByLong } from '../../utils/getFormDate';
@@ -26,7 +29,11 @@ export default class ManageFile extends PureComponent {
     buAble1: false, // 是否禁止上传图片
     buAble2: false, // 是否禁止上传文件
     contentType: 'file',
-    showType: 'nofile',
+    showType: 'nofile', // 针对下面的显示内容而言
+
+    visible: false, // 用于modal的可视判断
+    cropResult: [], // 用于fileimage模式下的图片的存储
+    fileName: null, // 记录文件名
   };
 
   componentWillMount() {
@@ -81,12 +88,17 @@ export default class ManageFile extends PureComponent {
         type: 'document/getCommonFileImage',
       });
     }
+    this.setState({
+      filesList: [],
+      imagesList: [],
+      shortImageList: [],
+    }); // 全部清空
   };
 
   handleUpload = type => {
-    const { filesList, imagesList } = this.state;
-    const { shortImageList } = this.state;
+    const { filesList, imagesList, shortImageList, cropResult } = this.state;
     const { form } = this.props;
+
     let title = null;
     let description = null;
 
@@ -128,7 +140,7 @@ export default class ManageFile extends PureComponent {
       filesList.forEach(file => {
         formData.append('file', file);
       });
-      imagesList.forEach(file => {
+      cropResult.forEach(file => {
         formData.append('image', file);
       });
       shortImageList.forEach(file => {
@@ -225,8 +237,36 @@ export default class ManageFile extends PureComponent {
     }
   }
 
+  cropImage() {
+    const { fileName } = this.state;
+
+    if (typeof this.cropper.getCroppedCanvas() === 'undefined') {
+      return;
+    }
+    this.setState({
+      visible: false,
+    });
+
+    this.cropper.getCroppedCanvas().toBlob(blob => {
+      const temfile = new File([blob], fileName);
+      this.setState({ cropResult: [temfile] });
+    });
+  }
+
+  Cancelfunc() {
+    this.setState({ visible: false });
+  }
+
   render() {
-    const { imagesList, filesList, shortImageList, buAble2, buAble1, contentType } = this.state;
+    const {
+      imagesList,
+      filesList,
+      shortImageList,
+      buAble2,
+      buAble1,
+      contentType,
+      visible,
+    } = this.state;
 
     const { files, images, fileloading, imageloading, fileImages, loading } = this.props;
     const menu = (
@@ -410,14 +450,57 @@ export default class ManageFile extends PureComponent {
         });
       },
       beforeUpload: file => {
+        const isLt10M = file.size / 1024 / 1024 < 1;
+        if (!isLt10M) {
+          // 添加文件限制
+          message.error('图片大小不能超过1M');
+          return false;
+        }
         this.setState({ buAble1: true });
-        this.setState({
-          imagesList: [...imagesList, file],
-        });
+        if (contentType === 'fileimage') {
+          const reader = new FileReader();
+          reader.readAsDataURL(file); // 读取文件
+          reader.onload = e => {
+            this.setState({
+              imagesList: [e.target.result],
+              fileName: file.name,
+              visible: true,
+            });
+          };
+        } else {
+          this.setState({ imagesList: [...imagesList, file] });
+        }
+
         return false;
       },
       fileList: imagesList,
     };
+
+    // 针对第三种情况特别设定的属性特征
+    const props11 = {
+      action: '/api/v1/file/addFile',
+      accept: 'image/*',
+      beforeUpload: file => {
+        const isLt10M = file.size / 1024 / 1024 < 1;
+        if (!isLt10M) {
+          // 添加文件限制
+          message.error('图片大小不能超过1M');
+          return false;
+        }
+        this.setState({ buAble1: true });
+        const reader = new FileReader();
+        reader.readAsDataURL(file); // 读取文件
+        reader.onload = e => {
+          this.setState({
+            imagesList: [e.target.result],
+            fileName: file.name,
+            visible: true,
+          });
+        };
+        return false;
+      },
+    };
+
     const props2 = {
       action: '/api/v1/file/addFile',
       accept: 'text/html, .pdf',
@@ -433,6 +516,12 @@ export default class ManageFile extends PureComponent {
         });
       },
       beforeUpload: file => {
+        const isLt10M = file.size / 1024 / 1024 < 10;
+        if (!isLt10M) {
+          // 添加文件限制
+          message.error('文件大小不能超过10M');
+          return false;
+        }
         this.setState({ buAble2: true });
         this.setState({
           filesList: [...filesList, file],
@@ -456,6 +545,12 @@ export default class ManageFile extends PureComponent {
         });
       },
       beforeUpload: file => {
+        const isLt10M = file.size / 1024 / 1024 < 1;
+        if (!isLt10M) {
+          // 添加文件限制
+          message.error('图片大小不能超过1M');
+          return false;
+        }
         this.setState({
           shortImageList: [...shortImageList, file],
         });
@@ -591,12 +686,28 @@ export default class ManageFile extends PureComponent {
                   文件附加图片
                 </Button>
               </Upload>
-              <Upload {...props1}>
+              <Upload {...props11} showUploadList={false}>
                 <Button disabled={buAble1}>
                   <Icon type="upload" />
                   上传图片
                 </Button>
               </Upload>
+              <Modal
+                visible={imagesList.length !== 0 && visible}
+                onOk={() => this.cropImage()}
+                onCancel={() => this.Cancelfunc()}
+              >
+                <Cropper
+                  src={imagesList[0]}
+                  style={{ height: 400, width: '100%' }}
+                  preview=".img-preview"
+                  aspectRatio={16 / 9}
+                  guides={false}
+                  ref={cropper => {
+                    this.cropper = cropper;
+                  }}
+                />
+              </Modal>
               <Form>
                 <Form.Item
                   colon={false}
